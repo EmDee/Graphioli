@@ -1,3 +1,4 @@
+# ignore all pdflatex output and such
 *.aux
 *.bbl
 *.blg
@@ -16,6 +17,7 @@
 *.nav
 *.nlo
 *.out
+*.pdf
 *.pdfsync
 *.ps
 *.snm
@@ -25,3 +27,6 @@
 *.maf
 *.mtc
 *.mtc0
+
+# miscellaneous
+*.un~
