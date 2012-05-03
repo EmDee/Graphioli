@@ -17,7 +17,6 @@
 *.nav
 *.nlo
 *.out
-*.pdf
 *.pdfsync
 *.ps
 *.snm
@@ -27,6 +26,9 @@
 *.maf
 *.mtc
 *.mtc0
+
+# pdfs
+pflichtenheft.pdf
 
 # miscellaneous
 *.un~
