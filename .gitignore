@@ -27,6 +27,11 @@
 *.mtc
 *.mtc0
 
+# system
+.DS_Store
+.Trashes
+.com.apple.timemachine.supported
+
 # pdfs
 pflichtenheft.pdf
 
