@@ -7,6 +7,17 @@
 \usepackage{nameref}
 \usepackage{comment} % for block commenting
 
+%Glossaries
+\usepackage[
+xindy,
+nonumberlist, % No page numbers
+acronym,      % Type: acronym
+toc,          % Entry in TOC
+section]      % Level in TOC: section
+{glossaries}
+\makeglossaries
+\include{glossary-entries}
+
 \author{Graphioli}
 
 \begin{document}
