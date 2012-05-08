@@ -3,7 +3,18 @@
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage{ae}
-\usepackage[bookmarks,bookmarksnumbered]{hyperref}
+\usepackage{hyperref}
+
+%Glossaries
+\usepackage[
+xindy,
+nonumberlist, % No page numbers
+acronym,      % Type: acronym
+toc,          % Entry in TOC
+section]      % Level in TOC: section
+{glossaries}
+\makeglossaries
+\include{glossary-entries}
 
 \author{Graphioli}
 
