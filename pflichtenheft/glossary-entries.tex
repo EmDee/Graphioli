@@ -21,7 +21,7 @@ description={Node in a \gls{graph}. Can but must not be connected with other \gl
 description={A \emph{planar} \gls{graph} is a graph that can be structure-preservingly redrawn in a way that no \glspl{edge} intersect.}}
 
 \newglossaryentry{planarity}{name=planarity,
-description={see{planar}}}
+description={see \emph{\gls{planar}}}}
 
 \newglossaryentry{api}{name=application programming interface (API),
 description={Set of routines and tools providing \gls{program} blocks, which are put together by a third-party programmer to ensure consistency with an existing program or \gls{framework}.}}
@@ -30,25 +30,28 @@ description={Set of routines and tools providing \gls{program} blocks, which are
 description={\Gls{program} interface that uses a computer's graphical capabilities to provide easy access and handling for the program. It replaces the command-line based access.}}
 
 \newglossaryentry{framework}{name=framework,
-description={DESCRIPTION}}
+description={A layered structure indicating what kind of applications can or should be built and how they would interrelate. It specifies interfaces and reusable \glspl{program} that form the basis for such an application.}}
 
 \newglossaryentry{java}{name=Java,
 description={Java is a widely spread programming language originally developed by Sun Microsystems and released in 1995. Applications developed with Java are compiled into bytecode that runs on basically every system that has a Java Virtual Machine installed.}}
 
 \newglossaryentry{jvm}{name=Java Virtual Machine (JVM),
-description={DESCRIPTION}}
+description={A virtual machine that can execute \Gls{java} byte code. Thus, the execution component of the Java platform.}}
 
-\newglossaryentry{javadoc}{name=JavaDoc,
-description={DESCRIPTION}}
+\newglossaryentry{jre}{name=Java Runtime Environment,
+description={see \emph{\gls{jvm}}}}
+
+\newglossaryentry{javadoc}{name=Javadoc,
+description={Javadoc is a tool for generating API documentation in HTML format from doc comments in source code. [Oracle]}}
 
 \newglossaryentry{customer}{name=customer,
 description={A party that receives a copy of the created \gls{software} in order to use it for own implementations.}}
 
-\newglossaryentry{computergame}{name=computer game,
-description={DESCRIPTION}}
+\newglossaryentry{computer-game}{name=computer game,
+description={An electronic game that requires a human \gls{player}['s] interaction to influence its course of events. Such a game usually bases on graphical feedback.}}
 
 \newglossaryentry{game}{name=game,
-description={DESCRIPTION}}
+description={see \emph{\gls{computer-game}}}}
 
 \newglossaryentry{network}{name=network,
 description={A group of connected computers that are able to communicate and share data, e.g. for synchronizing \gls{game} statuses.}}
@@ -57,25 +60,28 @@ description={A group of connected computers that are able to communicate and sha
 description={Instructional document that provides step by step information about a specific topic or \gls{workflow}, e.g. the usage and initialization of a \gls{program}.}}
 
 \newglossaryentry{editor}{name=editor,
-description={DESCRIPTION}}
+description={see \emph{\gls{level-editor}}}}
 
-\newglossaryentry{leveleditor}{name=level editor,
-description={DESCRIPTION}}
+\newglossaryentry{level-editor}{name=level editor,
+description={An interface that lightens a \gls{game-developer}['s] workload at creating new levels.}}
 
 \newglossaryentry{level}{name=level,
-description={DESCRIPTION}}
+description={A stage of the current \gls{game}.}}
 
 \newglossaryentry{player}{name=player,
-description={DESCRIPTION}}
+description={One who plays a \gls{computer-game}.}}
 
 \newglossaryentry{developer}{name=developer,
-description={DESCRIPTION}}
+description={One who programs computers or designs software according the given requirements.}}
+
+\newglossaryentry{game-developer}{name=game developer,
+description={A software \gls{developer} who designs and implements \glspl{computer-game}.}}
 
 \newglossaryentry{undo}{name=undo,
-description={DESCRIPTION}}
+description={To restore a previous condition, e.g. a savegame or the previous step in the \gls{level-editor}.}}
 
 \newglossaryentry{program}{name=program,
-description={see{computer-program}}}
+description={see \emph{\gls{computer-program}}}}
 
 \newglossaryentry{computer-program}{name=computer program,
 description={A sequence of instructions that a computer can interpret and execute.}}
@@ -84,7 +90,7 @@ description={A sequence of instructions that a computer can interpret and execut
 description={An organized collection of data and instructions for computers, that is used to accomplish specific tasks.\\A piece of software can consists of a single \gls{program} or a package of programs closely working together. Usually software is bundled with associated documentation.}}
 
 \newglossaryentry{workflow}{name=workflow,
-description={DESCRIPTION}}
+description={The sequence of administrative, technical, or other processes through which a \gls{software} project passes from initiation to completion.}}
 
 \newglossaryentry{consistency}{name=consistency,
 description={Those attributes of the \gls{software} that provide uniform design and implementation techniques and notations.  [McCall, Richards and Walters, RADC, 1977]}}
@@ -93,37 +99,40 @@ description={Those attributes of the \gls{software} that provide uniform design 
 description={The degree of effort required to correct \gls{software} defects and to cope with \gls{user} complaints.  [Fenton \& Pfleeger, 1997]}}
 
 \newglossaryentry{user}{name=user,
-description={DESCRIPTION}}
+description={The \emph{user} of a \gls{software} is everybody how starts the \gls{program} in order to fulfill specified tasks.\\The user of this framework is the \gls{game-developer}, whereas the user of the final \gls{game} is the \gls{player}.}}
 
 \newglossaryentry{stability}{name=stability,
-description={DESCRIPTION}}
+description={The benchmark of resistancy towards change of runtime environment, critical user interactions, workload and attacks.}}
 
 \newglossaryentry{usability}{name=usability,
-description={DESCRIPTION}}
+description={The ease of use of a piece of \gls{software}.}}
 
 \newglossaryentry{performance}{name=performance,
-description={DESCRIPTION}}
+description={The amount of useful work accomplished by a piece of \gls{software} compared to the time and resources used.}}
 
 \newglossaryentry{git}{name=Git,
 description={A distributed revision control and source code management system developed by \emph{Linus Torvalds}. Every Git working directory is a full-fledged repository with complete history and full revision tracking capabilities, not dependent on network access or a central server.  [Wikipedia: Git (software), 08/05/2012]}}
 
 \newglossaryentry{eclipse}{name=Eclipse,
-description={DESCRIPTION}}
+description={An open development platform comprised of extensible frameworks, tools and runtimes for building, deploying and managing software across the lifecycle.  [Eclipse project]}}
 
 \newglossaryentry{artificial-intelligence}{name=artificial intelligence (AI),
-description={DESCRIPTION}}
+description={An intelligent system that perceives its environment and takes actions that maximize its chances of success.  [Russell \& Norvig, 2003]\\An algorithm that tries to defeat its human counter-\glspl{player} in a \glspl{computer-game} could be referred to as \emph{artificial intelligence}.}}
 
 \newglossaryentry{depth-first-search}{name=depth-first search (DFS),
-description={DESCRIPTION}}
+description={An \gls{algorithm} for traversing or searching a \gls{graph}, starting at a selected root \gls{vertice} and exploring as far as possible along each branch before backtracking.  [Wikipedia]}}
 
 \newglossaryentry{breadth-first-search}{name=breadth-first search (BFS),
-description={DESCRIPTION}}
+description={An \gls{algorithm} for traversing or searching a \gls{graph}, starting at a selected root \gls{vertice} and inspecting all its neighboring vertices.}}
 
 \newglossaryentry{path}{name=path,
-description={DESCRIPTION}}
+description={A sequence of \glspl{vertice} of a \gls{graph}.}}
 
 \newglossaryentry{algorithm}{name=algorithm,
 description={Procedure or set of (mathematical) rules for solving a problem in a finite number of steps, especially by a computer.}}
+
+\newglossaryentry{library}{name=library,
+description={A collection of resources used to develop \gls{software}. These may include pre-written code and subroutines, classes, values or type specifications.}}
 
 %
 % Acronyms
