@@ -26,6 +26,11 @@
 *.maf
 *.mtc
 *.mtc0
+*.acn
+*.acr
+*.alg
+*.syg
+*.xdy
 
 # system
 .DS_Store
