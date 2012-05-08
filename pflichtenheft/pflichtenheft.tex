@@ -8,15 +8,9 @@
 \usepackage{comment} % for block commenting
 \usepackage{graphicx}
 \usepackage[export]{adjustbox}
+\usepackage[xindy,nonumberlist,acronym,toc,section]{glossaries} % must be the last package to include
 
-%Glossaries
-\usepackage[
-xindy,
-nonumberlist, % No page numbers
-acronym,      % Type: acronym
-toc,          % Entry in TOC
-section]      % Level in TOC: section
-{glossaries}
+% glossary
 \makeglossaries
 \include{glossary-entries}
 
