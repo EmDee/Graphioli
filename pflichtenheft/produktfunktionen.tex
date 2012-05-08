@@ -1,1 +1,119 @@
+\begin{comment}
+	some hack found on the internet (http://tex.stackexchange.com/questions/1230/reference-name-of-description-list-item-in-latex) so that referencing works for description items as well
+ 
+\end{comment}
+
+\makeatletter
+\let\orgdescriptionlabel\descriptionlabel
+\renewcommand*{\descriptionlabel}[1]{%
+  \let\orglabel\label
+  \let\label\@gobble
+  \phantomsection
+  \edef\@currentlabel{#1}%
+  %\edef\@currentlabelname{#1}%
+  \let\label\orglabel
+  \orgdescriptionlabel{#1}%
+}
+\makeatother
+
 \section{Product functionalities}
+\subsection{Functional requirement}
+\subsubsection{Framework}
+\begin{tabular}{{c}{l}}
+    \hline
+    {\bf Functions} & {\bf Description} \\ \hline
+	\ref{FR:FW010} & Print planar graphs \\
+	\ref{FR:FW020} & Check for planarity \\
+	\ref{FR:FW030} & A graphical user interface (GUI) to display games \\
+	\ref{FR:FW040} & Single and multiplayer mode \\
+	\ref{FR:FW050} & Add/Remove/Move nodes/vertices \\ \hline
+	\begin{comment}
+		Just in case that we'll need more later.
+		\ref{FR:FW060} & a \\
+		\ref{FR:FW070} & Blabla \\
+		\ref{FR:FW080} & Blabla \\
+		\ref{FR:FW090} & Blabla \\
+		\ref{FR:FW100} & Blabla \\
+		\ref{FR:FW110} & Blabla \\
+		\ref{FR:FW120} & Blabla \\
+		\ref{FR:FW130} & Blabla \\
+		\ref{FR:FW140} & Blabla \\
+		\ref{FR:FW150} & Blabla \\ \hline
+	\end{comment}
+\end{tabular}
+
+\vspace{1cm}
+
+\begin{description}
+  	\item[/FW010/\label{FR:FW010}] {\bf Print planar graphs}  \hfill \\
+  	The framework has to ability to print out a planar graph with a given set of nodes and vertices.
+ 	\item[/FW020/\label{FR:FW020}] {\bf Check for planarity}  \\
+ 	In addition to \ref{FR:FW010} it is also possible to verify, if an edge between two given nodes exists, so that the resulting graph is still planar.
+	\item[/FW030/\label{FR:FW030}] {\bf A graphical user interface (GUI) to display games}  \\
+  	
+	\item[/FW040/\label{FR:FW040}] {\bf Bla}  \\
+	...
+	\item[/FW050/\label{FR:FW050}] {\bf Bla}  \\
+	...
+	\begin{comment}
+	\item[/FW060/\label{FR:FW060}] {\bf Bla}  \\
+	...
+	\item[/FW070/\label{FR:FW070}] {\bf Bla}  \\
+	...
+	\item[/FW080/\label{FR:FW080}] {\bf Bla}  \\
+	...
+	\item[/FW090/\label{FR:FW090}] {\bf Bla}  \\
+	...
+	\item[/FW100/\label{FR:FW100}] {\bf Bla}  \\
+	...
+	\item[/FW110/\label{FR:FW110}] {\bf Bla}  \\
+	...
+	\item[/FW120/\label{FR:FW120}] {\bf Bla}  \\
+	...
+	\item[/FW130/\label{FR:FW130}] {\bf Bla}  \\
+	...
+	\item[/FW140/\label{FR:FW140}] {\bf Bla}  \\
+	...
+	\item[/FW150/\label{FR:FW150}] {\bf Bla}  \hfill \\
+	...
+	\end{comment}
+\end{description}
+
+\subsubsection{GUI: Game-Explorer}
+\begin{tabular}{{c}{l}}
+    \hline
+    {\bf Functions} & {\bf Description} \\ \hline
+	\ref{FR:GE010} & Manage games \\
+	\ref{FR:GE020} & Has a \'Start\' button \\
+	\ref{FR:GE030} & Has a \'Help\' button \\
+	\ref{FR:GE040} & Should display a description of a given game \\
+	\ref{FR:GE050} & Add/Remove/Move nodes/vertices \\
+	\begin{comment}
+		Just in case that we'll need more later.
+		\ref{FR:GE060} & a \\
+		\ref{FR:GE070} & Blabla \\
+		\ref{FR:GE080} & Blabla \\
+		\ref{FR:GE090} & Blabla \\
+		\ref{FR:GE100} & Blabla \\
+		\ref{FR:GE110} & Blabla \\
+		\ref{FR:GE120} & Blabla \\
+		\ref{FR:GE130} & Blabla \\
+		\ref{FR:GE140} & Blabla \\
+		\ref{FR:GE150} & Blabla \\ \hline
+	\end{comment}
+\end{tabular}
+
+\vspace{1cm}
+
+\begin{description}
+  	\item[/FR010/\label{FR:E010}] {\bf Print planar graphs}  \hfill \\
+  	The framework has to ability to print out a planar graph with a given set of nodes and vertices.
+ 	\item[/FR020/\label{FR:E020}] {\bf Calculate if a new drawn graph is still planar}  \\
+ 	In addition to \ref{FR:E010} it is also possible to calculate, if there exists an edge between two given nodes, so that the resulting graph is still planar.
+	\item[/FR030/\label{FR:E030}] {\bf A graphical user interface (GUI) to display games}  \\
+  	The third etc
+	\item[/FR040/\label{FR:E040}] {\bf Bla}  \\
+	...
+\end{description}
+
+\subsection{Non-functional requirement}
