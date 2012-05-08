@@ -1,22 +1,126 @@
+% Remove trailing dot
+\renewcommand*{\glspostdescription}{}
+
 %
 % Glossary entries
 %
 
+\newglossaryentry{graphioli}{name=Graphioli,
+description={A fancy name that combines \glspl{graph} with filled pasta.}}
+
 \newglossaryentry{graph}{name=graph,
-description={Abstract representation of a set of edges where some pairs of the edges are connected by vertices}}
+description={Abstract representation of a set of edges where some pairs of the \glspl{vertice} are connected by \glspl{edge}.}}
 
 \newglossaryentry{edge}{name=edge,
-description={DESCRIPTION}}
+description={Line that connects a pair of \glspl{vertice} in a \gls{graph}.}}
 
 \newglossaryentry{vertice}{name=vertice,
+description={Node in a \gls{graph}. Can but must not be connected with other \glspl{vertice} by an \gls{edge}.}}
+
+\newglossaryentry{planar}{name=planar,
 description={DESCRIPTION}}
 
-\newglossaryentry{api}{name=API,
+\newglossaryentry{planarity}{name=planarity,
 description={DESCRIPTION}}
 
-\newglossaryentry{gui}{name=GUI,
+\newglossaryentry{api}{name=application programming interface (API),
+description={Set of routines and tools providing \gls{program} blocks, which are put together by a third-party programmer to ensure consistency with an existing program or \gls{framework}.}}
+
+\newglossaryentry{gui}{name=graphical user interface (GUI),
+description={\Gls{program} interface that uses a computer's graphical capabilities to provide easy access and handling for the program. It replaces the command-line based access.}}
+
+\newglossaryentry{framework}{name=framework,
 description={DESCRIPTION}}
 
+\newglossaryentry{java}{name=Java,
+description={Java is a widely spread programming language originally developed by Sun Microsystems and released in 1995. Applications developed with Java are compiled into bytecode that runs on basically every system that has a Java Virtual Machine installed.}}
+
+\newglossaryentry{jvm}{name=Java Virtual Machine (JVM),
+description={DESCRIPTION}}
+
+\newglossaryentry{javadoc}{name=JavaDoc,
+description={DESCRIPTION}}
+
+\newglossaryentry{customer}{name=customer,
+description={A party that receives a copy of the created \gls{software} in order to use it for own implementations.}}
+
+\newglossaryentry{computergame}{name=computer game,
+description={DESCRIPTION}}
+
+\newglossaryentry{game}{name=game,
+description={DESCRIPTION}}
+
+\newglossaryentry{network}{name=network,
+description={A group of connected computers that are able to communicate and share data, e.g. for synchronizing \gls{game} statuses.}}
+
+\newglossaryentry{tutorial}{name=tutorial,
+description={Instructional document that provides step by step information about a specific topic or \gls{workflow}, e.g. the usage and initialization of a \gls{program}.}}
+
+\newglossaryentry{editor}{name=editor,
+description={DESCRIPTION}}
+
+\newglossaryentry{leveleditor}{name=level editor,
+description={DESCRIPTION}}
+
+\newglossaryentry{level}{name=level,
+description={DESCRIPTION}}
+
+\newglossaryentry{player}{name=player,
+description={DESCRIPTION}}
+
+\newglossaryentry{developer}{name=developer,
+description={DESCRIPTION}}
+
+\newglossaryentry{undo}{name=undo,
+description={DESCRIPTION}}
+
+\newglossaryentry{program}{name=program,
+description={DESCRIPTION}}
+
+\newglossaryentry{software}{name=software,
+description={DESCRIPTION}}
+
+\newglossaryentry{workflow}{name=workflow,
+description={DESCRIPTION}}
+
+\newglossaryentry{consistency}{name=consistency,
+description={Those attributes of the \gls{software} that provide uniform design and implementation techniques and notations.  [McCall, Richards and Walters, RADC, 1977]}}
+
+\newglossaryentry{correctability}{name=correctability,
+description={The degree of effort required to correct \gls{software} defects and to cope with \gls{user} complaints.  [Fenton \& Pfleeger, 1997]}}
+
+\newglossaryentry{user}{name=user,
+description={DESCRIPTION}}
+
+\newglossaryentry{stability}{name=stability,
+description={DESCRIPTION}}
+
+\newglossaryentry{usability}{name=usability,
+description={DESCRIPTION}}
+
+\newglossaryentry{performance}{name=performance,
+description={DESCRIPTION}}
+
+\newglossaryentry{git}{name=Git,
+description={A distributed revision control and source code management system developed by \emph{Linus Torvalds}. Every Git working directory is a full-fledged repository with complete history and full revision tracking capabilities, not dependent on network access or a central server.  [Wikipedia: Git (software), 08/05/2012]}}
+
+\newglossaryentry{eclipse}{name=Eclipse,
+description={DESCRIPTION}}
+
+\newglossaryentry{artificial-intelligence}{name=artificial intelligence (AI),
+description={DESCRIPTION}}
+
+\newglossaryentry{depth-first-search}{name=depth-first search (DFS),
+description={DESCRIPTION}}
+
+\newglossaryentry{breadth-first-search}{name=breadth-first search (BFS),
+description={DESCRIPTION}}
+
+\newglossaryentry{path}{name=path,
+description={DESCRIPTION}}
+
+\newglossaryentry{algorithm}{name=algorithm,
+description={Procedure or set of (mathematical) rules for solving a problem in a finite number of steps, especially by a computer.}}
 
 %
 % Acronyms
@@ -25,3 +129,11 @@ description={DESCRIPTION}}
 \newacronym{GUI}{GUI}{Graphical user interface\protect\glsadd{gui}}
 
 \newacronym{API}{API}{Application programming interface\protect\glsadd{api}}
+
+\newacronym{JVM}{JVM}{Java Virtual Machine\protect\glsadd{jvm}}
+
+\newacronym{AI}{AI}{Artificial intelligence\protect\glsadd{artificial-intelligence}}
+
+\newacronym{DFS}{DFS}{Depth-first search\protect\glsadd{depth-first-search}}
+
+\newacronym{BFS}{BFS}{Breadth-first search\protect\glsadd{breadth-first-search}}
