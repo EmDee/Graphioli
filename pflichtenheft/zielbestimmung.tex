@@ -1,86 +1,25 @@
 \section{Objectives}
 \subsection{Mandatory criteria}
 \subsubsection{Framework}
-\begin{tabular}{{c}{l}}
-    \hline
-    {\bf Criteria} & {\bf Description} \\ \hline
-	\ref{MC:FW010} & Creating graphs \\
-	\ref{MC:FW020} & Displaying graphs \\
-	\ref{MC:FW030} & Manipulating graphs \\
-	\ref{MC:FW040} & Edges are equipped with parameters \\
-	\ref{MC:FW050} & Vertices are equipped with parameters \\
-	\ref{MC:FW060} & Basic graph algorithms \\
-	\ref{MC:FW070} & Local multiplayer mode \\
-	\ref{MC:FW080} & In-depth documentation \\
-	\ref{MC:FW090} & Savegames \\ \hline
-\end{tabular}
+The framework provides rudimental functions that either all or the most games need. Such as creating new graphs from specifications and visualizing and manipulating existing graphs.\par
+These graphs consist of \glspl{edge} and \glspl{vertice} that themselves are equipped with parameters. Parameters for edges are at least style (background color, border color, background image, size), coordinates, weight, sorting, \Gls{id}. Parameters that are related to vertices are at least weight, length and direction.\par
+Furthermore the framework lightens a \gls{developer}['s] workload by providing access to reoccuring basic graph algorithms. These include path recognition (depth-first search, breadth-first search) and Dijkstra.\par
+\emph{Graphioli} will offer interfaces for creating multiplayer modes so that two \glspl{player} are able to play against each other on the same computer sharing the same peripherals.\par
+Games can be saved and restored by their user at a later time without losing \gls{level} stats.\par
+In order to facilitate easy implementations, \emph{Graphioli} comes with elaborate \Gls{Javadoc} documentation for the viewpoint of the developer using the framework.\par
 
-\vspace{1cm}
-
-\begin{description}
-  	\item[/FW010/\label{MC:FW010}] {\bf Creating graphs}  \hfill \\
-  	Specific graphs can be created.
- 	\item[/FW020/\label{MC:FW020}] {\bf Displaying graphs}  \\
- 	Existing graphs can be visualized.
-	\item[/FW030/\label{MC:FW030}] {\bf Manipulating graphs}  \\
-  	Existing graphs can be modified (e.g. adding, removing or moving of vertices or edges)
-	\item[/FW040/\label{MC:FW040}] {\bf Edges are equipped with parameters}  \\
-	These parameters are at least style (background color, border color, background image, size), coordinates, weight, sorting, ID
-	\item[/FW050/\label{MC:FW050}] {\bf Vertices are equipped with parameters}  \\
-	These parameters are at least weight, length, direction
-	\item[/FW060/\label{MC:FW060}] {\bf Basic graph algorithms}  \\
-	These algorithms are at least path recognition (depth-first search, breadth-first search), Dijkstra.
-	\item[/FW070/\label{MC:FW070}] {\bf Local multiplayer mode}  \\
-	Two players are able to play against each other on the same computer sharing the same peripherals.
-	\item[/FW080/\label{MC:FW080}] {\bf In-depth documentation}  \\
-	Elaborate Javadoc documentation for the viewpoint of the developer using the framework.
-	\item[/FW090/\label{MC:FW090}] {\bf Savegames}  \\
-	Games can be saved and restored at a later time without losing level stats.
-\end{description}
 
 \subsubsection{GUI: Game-Explorer}
-\begin{tabular}{{c}{l}}
-    \hline
-    {\bf Criteria} & {\bf Description} \\ \hline
-	\ref{FR:GE010} & Load games \\
-	\ref{FR:GE020} & List available games \\
-	\ref{FR:GE030} & Displays description and screenshot to every game \\
-	\ref{FR:GE040} & Start new or restart saved games \\
-	\ref{FR:GE050} & Has a \'START\' button \\
-\end{tabular}
-
-\vspace{1cm}
-
-\begin{description}
-  	\item[/FR010/\label{FR:GE010}] {\bf Load games}  \hfill \\
-  	Available games will be read dynamically from a subfolder.
- 	\item[/FR020/\label{FR:GE020}] {\bf List available games}  \\
- 	...
-	\item[/FR030/\label{FR:GE030}] {\bf Displays description and screenshot to every game}  \\
-  	...
-	\item[/FR040/\label{FR:GE040}] {\bf Start new or restart saved games}  \\
-	...
-	\item[/FR050/\label{FR:GE050}] {\bf Has a \'START\' button}  \\
-	...
-\end{description}
+The Game-Explorer is a graphical interface that builds the main contact point with the framework for a player. Without knowledge about the background of framework and implemented game logic, the player is still able to start and restart games from a list of available or previously saved games.\par
+For that reason, the Game-Explorer displays information to every game, such as title, description and a static screenshot. It comes with a \emph{START} button and a \emph{HELP} button for details about the rules and operability of the specific game.\par
+The list of available games is dynamically created when the Game-Explorer starts. It reads a subfolder for legally specified games that are represented by a class that inherits from the frameworks game scaffold.
 
 \subsubsection{Games}
-\begin{tabular}{{c}{l}}
-    \hline
-    {\bf Game} & {\bf Name} \\ \hline
-	\ref{FR:GA010} & Graph coloring \\
-	\ref{FR:GA020} & TwixT \\
-\end{tabular}
+\subsubsection{Graph coloring}
+tbc.\par
 
-\vspace{1cm}
-
-\begin{description}
-  	\item[/GA010/\label{FR:GA010}] {\bf Graph coloring}  \hfill \\
-  	...
- 	\item[/GA020/\label{FR:GA020}] {\bf TwixT}  \\
- 	...
-\end{description}
-
+\subsubsection{TwixT}
+tbc.\par
 
 \subsection{Facultative criteria}
 \subsubsection{Framework}
