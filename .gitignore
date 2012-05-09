@@ -36,9 +36,10 @@
 .DS_Store
 .Trashes
 .com.apple.timemachine.supported
+*.swp
 
 # pdfs
-pflichtenheft.pdf
+pflichtenheft/*.pdf
 
 # miscellaneous
 *.un~
