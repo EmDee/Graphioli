@@ -24,6 +24,24 @@
 \tableofcontents
 \clearpage
 
+\begin{comment}
+	some hack found on the internet (http://tex.stackexchange.com/questions/1230/reference-name-of-description-list-item-in-latex) so that referencing works for description items as well
+ 
+\end{comment}
+
+\makeatletter
+\let\orgdescriptionlabel\descriptionlabel
+\renewcommand*{\descriptionlabel}[1]{%
+  \let\orglabel\label
+  \let\label\@gobble
+  \phantomsection
+  \edef\@currentlabel{#1}%
+  %\edef\@currentlabelname{#1}%
+  \let\label\orglabel
+  \orgdescriptionlabel{#1}%
+}
+\makeatother
+
 \include{einleitung}
 \include{zielbestimmung}
 \include{musskriterien}

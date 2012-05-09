@@ -1,36 +1,21 @@
-\begin{comment}
-	some hack found on the internet (http://tex.stackexchange.com/questions/1230/reference-name-of-description-list-item-in-latex) so that referencing works for description items as well
- 
-\end{comment}
-
-\makeatletter
-\let\orgdescriptionlabel\descriptionlabel
-\renewcommand*{\descriptionlabel}[1]{%
-  \let\orglabel\label
-  \let\label\@gobble
-  \phantomsection
-  \edef\@currentlabel{#1}%
-  %\edef\@currentlabelname{#1}%
-  \let\label\orglabel
-  \orgdescriptionlabel{#1}%
-}
-\makeatother
-
 \section{Product functionalities}
 \subsection{Functional requirement}
-\subsubsection{Framework}
+
+%%%%%%%%%%% Framework %%%%%%%%%%%
+
+\subsubsection{Graphioli Framework}
 \begin{tabular}{{c}{l}}
     \hline
     {\bf Functions} & {\bf Description} \\ \hline
-	\ref{FR:FW010} & Print planar graphs \\
-	\ref{FR:FW020} & Check for planarity \\
-	\ref{FR:FW030} & A graphical user interface (GUI) to display games \\
-	\ref{FR:FW040} & Single and multiplayer mode \\
-	\ref{FR:FW050} & Add/Remove/Move nodes/vertices \\ \hline
+	\ref{FR:FW010} & Add/Remove/Move nodes/vertices \\ 
+	\ref{FR:FW020} & Nodes/Edges have attributes \\ 
+	\ref{FR:FW030} & Search algorithms \\
+	\ref{FR:FW040} & Check for planarity \\
+	\ref{FR:FW050} & A graphical user interface (GUI) to display games \\
+	\ref{FR:FW060} & Print planar graphs \\
+	\ref{FR:FW070} & Single and multiplayer mode \\ \hline
 	\begin{comment}
 		Just in case that we'll need more later.
-		\ref{FR:FW060} & a \\
-		\ref{FR:FW070} & Blabla \\
 		\ref{FR:FW080} & Blabla \\
 		\ref{FR:FW090} & Blabla \\
 		\ref{FR:FW100} & Blabla \\
@@ -42,44 +27,47 @@
 	\end{comment}
 \end{tabular}
 
-\vspace{1cm}
+\vspace{.5cm}
 
 \begin{description}
-  	\item[/FW010/\label{FR:FW010}] {\bf Print planar graphs}  \hfill \\
-  	The framework has to ability to print out a planar graph with a given set of nodes and vertices.
- 	\item[/FW020/\label{FR:FW020}] {\bf Check for planarity}  \\
- 	In addition to \ref{FR:FW010} it is also possible to verify, if an edge between two given nodes exists, so that the resulting graph is still planar.
-	\item[/FW030/\label{FR:FW030}] {\bf A graphical user interface (GUI) to display games}  \\
-  	
-	\item[/FW040/\label{FR:FW040}] {\bf Bla}  \\
-	...
-	\item[/FW050/\label{FR:FW050}] {\bf Bla}  \\
-	...
+  	\item[/FW010/\label{FR:FW010}] {\bf Add/Remove/Move nodes/edges}  \hfill \\
+	With the Graphioli frameworks the developer can do all basic graph operations. Nodes can be added to either a given graph or to initiate a new graph. Nodes can be removed and moved; in either case the edges will be removed or moved accordingly. In addition to adding, removing and moving nodes, the developer can also connect two given nodes with each other, and remove edges between nodes.
+	\item[/FW020/\label{FR:FW020}] {\bf Nodes/Edges have attributes}  \\
+	Each and every node and edge will have a set of attributes. The developer can completely change the appearance of a node by replacing the default icon with any graphic or by changing its color, stroke, or size. Additionally each node will have its own coordinates, its own weight, and an unique identification as attributes. Edges have attributes of their own, which the developer can set. An edge can have a weight, a length, and a direction.
+	\item[/FW030/\label{FR:FW030}] {\bf Search algorithms}  \\
+	The Graphioli framework implements 
+	\item[/FW040/\label{FR:FW040}] {\bf  Check for planarity}  \\
+	For a given graph, it is possible to verify, if an edge between two given unconnected nodes exists, so that the resulting graph is planar.
+ 	\item[/FW050/\label{FR:FW050}] {\bf A graphical user interface (GUI) to display games}  \\
+ 	The graphical user interface \nameref{FR:game-explorer} can display all graph games, which where implemented using the Graphioli Framework.
+	\item[/FW060/\label{FR:FW060}] {\bf Print planar graphs}  \\
+  	With \ref{FR:FW010} and \ref{FR:FW020} the developer is able to draw a two-dimensional graph with a set of given nodes and edges.
+	\item[/FW070/\label{FR:FW070}] {\bf Single and multiplayer mode}  \\
+	The Graphioli frameworks enables the developer to easily implement both single and multiplayer modes.
+	
 	\begin{comment}
-	\item[/FW060/\label{FR:FW060}] {\bf Bla}  \\
-	...
-	\item[/FW070/\label{FR:FW070}] {\bf Bla}  \\
-	...
-	\item[/FW080/\label{FR:FW080}] {\bf Bla}  \\
-	...
-	\item[/FW090/\label{FR:FW090}] {\bf Bla}  \\
-	...
-	\item[/FW100/\label{FR:FW100}] {\bf Bla}  \\
-	...
-	\item[/FW110/\label{FR:FW110}] {\bf Bla}  \\
-	...
-	\item[/FW120/\label{FR:FW120}] {\bf Bla}  \\
-	...
-	\item[/FW130/\label{FR:FW130}] {\bf Bla}  \\
-	...
-	\item[/FW140/\label{FR:FW140}] {\bf Bla}  \\
-	...
-	\item[/FW150/\label{FR:FW150}] {\bf Bla}  \hfill \\
-	...
+		\item[/FW080/\label{FR:FW080}] {\bf Bla}  \\
+		...
+		\item[/FW090/\label{FR:FW090}] {\bf Bla}  \\
+		...
+		\item[/FW100/\label{FR:FW100}] {\bf Bla}  \\
+		...
+		\item[/FW110/\label{FR:FW110}] {\bf Bla}  \\
+		...
+		\item[/FW120/\label{FR:FW120}] {\bf Bla}  \\
+		...
+		\item[/FW130/\label{FR:FW130}] {\bf Bla}  \\
+		...
+		\item[/FW140/\label{FR:FW140}] {\bf Bla}  \\
+		...
+		\item[/FW150/\label{FR:FW150}] {\bf Bla}  \hfill \\
+		...
 	\end{comment}
 \end{description}
 
-\subsubsection{GUI: Game-Explorer}
+%%%%%%%%%%% Explorer %%%%%%%%%%%
+
+\subsubsection{Game-Explorer}\label{FR:game-explorer}
 \begin{tabular}{{c}{l}}
     \hline
     {\bf Functions} & {\bf Description} \\ \hline
@@ -103,7 +91,7 @@
 	\end{comment}
 \end{tabular}
 
-\vspace{1cm}
+\vspace{.5cm}
 
 \begin{description}
   	\item[/FR010/\label{FR:E010}] {\bf Print planar graphs}  \hfill \\
@@ -114,6 +102,69 @@
   	The third etc
 	\item[/FR040/\label{FR:E040}] {\bf Bla}  \\
 	...
+\end{description}
+
+%%%%%%%%%%% GAMES %%%%%%%%%%%
+
+\subsubsection{Implemented Games}
+\begin{tabular}{{c}{l}}
+    \hline
+    {\bf Functions} & {\bf Description} \\ \hline
+	\ref{FR:FW010} & Print planar graphs \\
+	\ref{FR:FW020} & Check for planarity \\
+	\ref{FR:FW030} & A graphical user interface (GUI) to display games \\
+	\ref{FR:FW040} & Single and multiplayer mode \\
+	\ref{FR:FW050} & Add/Remove/Move nodes/vertices \\ \hline
+	\begin{comment}
+		Just in case that we'll need more later.
+		\ref{FR:FW060} & a \\
+		\ref{FR:FW070} & Blabla \\
+		\ref{FR:FW080} & Blabla \\
+		\ref{FR:FW090} & Blabla \\
+		\ref{FR:FW100} & Blabla \\
+		\ref{FR:FW110} & Blabla \\
+		\ref{FR:FW120} & Blabla \\
+		\ref{FR:FW130} & Blabla \\
+		\ref{FR:FW140} & Blabla \\
+		\ref{FR:FW150} & Blabla \\ \hline
+	\end{comment}
+\end{tabular}
+
+\vspace{.5cm}
+
+\begin{description}
+  	\item[/FW010/\label{FR:FW010}] {\bf Check for planarity}  \hfill \\
+  	For a given graph, it is possible to verify, if an edge between two given unconnected nodes exists, so that the resulting graph is planar.
+ 	\item[/FW020/\label{FR:FW020}] {\bf A graphical user interface (GUI) to display games}  \\
+ 	The graphical user interface \nameref{FR:game-explorer} can display all graph games, which where implemented using the Graphioli Framework.
+	\item[/FW030/\label{FR:FW030}] {\bf Print planar graphs}  \\
+  	With \ref{FR:FW010} and \ref{FR:FW020} the developer is able to draw a two-dimensional graph with a set of given nodes and edges.
+	\item[/FW040/\label{FR:FW040}] {\bf Single and multiplayer mode}  \\
+	
+	\item[/FW050/\label{FR:FW050}] {\bf Add/Remove/Move nodes/vertices}  \\
+	...
+	\begin{comment}
+		\item[/FW060/\label{FR:FW060}] {\bf Bla}  \\
+		...
+		\item[/FW070/\label{FR:FW070}] {\bf Bla}  \\
+		...
+		\item[/FW080/\label{FR:FW080}] {\bf Bla}  \\
+		...
+		\item[/FW090/\label{FR:FW090}] {\bf Bla}  \\
+		...
+		\item[/FW100/\label{FR:FW100}] {\bf Bla}  \\
+		...
+		\item[/FW110/\label{FR:FW110}] {\bf Bla}  \\
+		...
+		\item[/FW120/\label{FR:FW120}] {\bf Bla}  \\
+		...
+		\item[/FW130/\label{FR:FW130}] {\bf Bla}  \\
+		...
+		\item[/FW140/\label{FR:FW140}] {\bf Bla}  \\
+		...
+		\item[/FW150/\label{FR:FW150}] {\bf Bla}  \hfill \\
+		...
+	\end{comment}
 \end{description}
 
 \subsection{Non-functional requirement}
