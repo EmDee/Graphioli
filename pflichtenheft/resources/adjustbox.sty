@@ -1,0 +1,1163 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Copyright (C) 2011 by Martin Scharrer <martin@scharrer.me>
+%% ------------------------------------------------------------------
+%% This work may be distributed and/or modified under the
+%% conditions of the LaTeX Project Public License, either version 1.3
+%% of this license or (at your option) any later version.
+%% The latest version of this license is in
+%%   http://www.latex-project.org/lppl.txt
+%% and version 1.3 or later is part of all distributions of LaTeX
+%% version 2005/12/01 or later.
+%%
+%% This work has the LPPL maintenance status `maintained'.
+%%
+%% The Current Maintainer of this work is Martin Scharrer.
+%%
+%% This work consists of the files adjustbox.dtx, adjustbox.ins
+%% and the derived file adjustbox.sty.
+%%
+\ProvidesPackage{adjustbox}[%
+    2011/11/14
+    v0.8
+    Adjusting TeX boxes (trim, clip, ...)]
+\RequirePackage{xkeyval}
+\def\adjbox@defaultunit{bp}
+\DeclareOptionX<adjbox>{defaultunit}{%
+    \def\adjbox@defaultunit{#1}%
+    \begingroup
+    \def\@tempa{none}%
+    \expandafter\endgroup
+    \ifx\@tempa\adjbox@defaultunit
+        \def\adjbox@default{\adjsetlength}%
+    \fi
+}
+\def\adjbox@fam{adjbox}
+\DeclareOptionX<adjbox>{export}{\def\adjbox@fam{Gin}}
+\DeclareOptionX<adjbox>{Export}{\AtEndOfPackage{\let\includegraphics\adjincludegraphics}}
+\DeclareOptionX<adjbox>{patch}{\AtEndOfPackage{\RequirePackage{adjgrfx}}}
+\DeclareOptionX<adjbox>{minimal}{\let\adjbox@maybeend\endinput}
+\def\adjbox@driver{adj\Gin@driver}
+\DeclareOptionX<adjbox>{pgf}{\def\adjbox@driver{adjpgf.def}}
+\DeclareOptionX<adjbox>{PGF}{\def\adjbox@driver{adjpgf.def}\adjcalc@pgfmath}
+\DeclareOptionX<adjbox>*{\PassOptionsToPackage\CurrentOption{graphicx}}
+\let\adjbox@maybeend\relax
+\input{adjcalc.sty}
+\disable@keys{adjbox}{patch,export,PGF,minimal}
+\RequirePackage{graphicx}[1999/02/16]
+\RequirePackage{collectbox}[2011/08/22]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand*\adjustboxset{%
+    \@ifstar
+        {\adjbox@addkeysafter}%
+        {\adjbox@addkeysbefore}%
+}
+\def\adjbox@addkeysbefore#1{%
+    \ifx\@nnil#1\@nnil
+        \let\adjbox@keysbefore\@empty
+    \else
+        \expandafter\def\expandafter\adjbox@keysbefore\expandafter{\adjbox@keysbefore,#1}%
+        \let\adjbox@setkeys\adjbox@setkeys@ba
+    \fi
+}
+\let\adjbox@keysbefore\@empty
+\def\adjbox@addkeysafter#1{%
+    \begingroup
+    \def\@tempa{#1}%
+    \ifx\@tempa\@empty
+        \endgroup
+        \let\adjbox@keysafter\@empty
+    \else
+        \expandafter\expandafter
+        \expandafter\endgroup
+        \expandafter\expandafter
+        \expandafter\def
+        \expandafter\expandafter
+        \expandafter\adjbox@keysafter
+        \expandafter\expandafter
+        \expandafter{\expandafter\@tempa\expandafter,\adjbox@keysafter}%
+        \let\adjbox@setkeys\adjbox@setkeys@ba
+    \fi
+}
+\let\adjbox@keysafter\@empty
+\define@key{adjbox}{viewport}{%
+    \def\adjustbox@content{%
+        \adjbox@parse@v{#1}%
+        \adjbox@@viewport
+        \adjustbox@@@trimclip
+    }%
+}
+\define@key{adjbox}{trim}{%
+    \def\adjustbox@content{%
+        \adjbox@parse@v{#1}%
+        \adjustbox@@@trimclip
+    }%
+}
+\def\adjustbox@@@trimclip{%
+    \ifGin@clip
+        \expandafter\@clipbox
+    \else
+        \expandafter\@trimbox
+    \fi
+        \adjbox@tllx
+        \adjbox@tlly
+        \adjbox@turx
+        \adjbox@tury
+        \collectedbox
+    \usebox\collectedbox
+}
+\def\adjbox@parse@v#1{%
+    \adjbox@parse@@v#1 {} {} {} \\%
+}
+\def\adjbox@parse@@v#1 #2 #3 #4 #5\\{%
+  \adjbox@default\adjbox@tllx{#1}%
+  \ifx\@nnil#2\@nnil
+    \adjbox@tlly\adjbox@tllx
+    \adjbox@turx\adjbox@tllx
+    \adjbox@tury\adjbox@tlly
+  \else
+    \adjbox@default\adjbox@tlly{#2}%
+    \ifx\@nnil#3\@nnil
+      \adjbox@turx\adjbox@tllx
+      \adjbox@tury\adjbox@tlly
+    \else
+      \adjbox@default\adjbox@turx{#3}%
+      \adjbox@default\adjbox@tury{#4}%
+    \fi
+  \fi
+}%
+%%\newdimen\adjbox@llx
+%%\newdimen\adjbox@lly
+%%\newdimen\adjbox@urx
+%%\newdimen\adjbox@ury
+\newdimen\adjbox@tllx
+\newdimen\adjbox@tlly
+\newdimen\adjbox@turx
+\newdimen\adjbox@tury
+\def\adjbox@@viewport{%
+    %\advance\adjbox@tllx by -\z@
+    \advance\adjbox@tlly by  \dp\collectedbox
+    \advance\adjbox@turx by -\wd\collectedbox
+    \advance\adjbox@tury by -\ht\collectedbox
+    \adjbox@turx=-\adjbox@turx
+    \adjbox@tury=-\adjbox@tury
+}
+\newcommand\trimbox{%
+    \collectboxcheckenv{trimbox}%
+    \@ifstar
+        \trimbox@s
+        \trimbox@
+}
+\def\trimbox@#1{%
+    \collectbox{\trimbox@@\@trimbox{#1}}%
+}
+\def\trimbox@s#1{%
+    \collectbox{\trimbox@@{\adjbox@@viewport\@trimbox}{#1}}%
+}
+\def\trimbox@@#1#2{%
+    \adjbox@parse@v{#2}%
+    #1%
+        \adjbox@tllx
+        \adjbox@tlly
+        \adjbox@turx
+        \adjbox@tury
+        \collectedbox
+    \usebox\collectedbox
+}
+\expandafter\newcommand\expandafter*\csname trimbox*\endcsname{%
+    \@collectboxisenv{trimbox*}%
+    \trimbox@s
+}
+\newcommand\clipbox{%
+    \collectboxcheckenv{clipbox}%
+    \@ifstar
+        \clipbox@s
+        \clipbox@
+}
+\def\clipbox@#1{%
+    \collectbox{\trimbox@@\@clipbox{#1}}%
+}
+\def\clipbox@s#1{%
+    \collectbox{\trimbox@@{\adjbox@@viewport\@clipbox}{#1}}%
+}
+\expandafter\newcommand\expandafter*\csname clipbox*\endcsname{%
+    \@collectboxisenv{clipbox*}%
+    \clipbox@s
+}
+\newcommand\adjustbox[1]{%
+    \collectboxcheckenv{adjustbox}%
+    \begingroup
+    \adjbox@setkeys{#1}%
+    \expandafter\expandafter\expandafter
+    \endgroup
+    \expandafter
+    \adjbox@collectbox\expandafter{\expandafter\adjustbox@\expandafter{\XKV@rm}}%
+}
+\def\adjbox@collectbox{\@collectbox}
+\def\adjbox@setkeys@ba{%
+    \expandafter\expandafter
+    \expandafter\adjbox@@setkeys@ba
+    \expandafter\expandafter
+    \expandafter{\expandafter\adjbox@keysbefore\expandafter}%
+    \expandafter{\adjbox@keysafter}%
+}
+\def\adjbox@@setkeys@ba#1#2#3{%
+    \setkeys*{ADJBOX}{#1,#3,#2}%
+}
+\def\adjbox@setkeys{%
+    \setkeys*{ADJBOX}%
+}
+\def\adjustbox@#1{%
+    \adjbox@Width\width
+    \adjbox@Height\height
+    \adjbox@Depth\depth
+    \adjbox@Totalheight\totalheight
+    \let\Width\adjbox@Width
+    \let\Height\adjbox@Height
+    \let\Depth\adjbox@Depth
+    \let\Totalheight\adjbox@Totalheight
+    \let\Gin@esetsize\adjbox@esetsize
+    \@tempswatrue
+    \toks@{{\adjustbox@content}}%
+    \def\setlength{\adjsetlength}%
+    \setkeys{adjbox,Gin}{#1}%
+    \adjbox@esetsize
+    \the\toks@
+}
+\def\adjustbox@content{%
+    \usebox\collectedbox
+}
+\newdimen\adjbox@Width
+\newdimen\adjbox@Height
+\newdimen\adjbox@Depth
+\newdimen\adjbox@Totalheight
+\def\adjbox@esetsize{%
+  \ifcase0%
+    \ifx\Gin@ewidth\Gin@exclamation\else 1\fi
+    \ifx\Gin@eheight\Gin@exclamation\else 1\fi
+  \relax
+  \else
+    \edef\@tempa{\toks@{\noexpand
+                \Gscale@@box\noexpand\Gin@eresize
+                {\Gin@ewidth}{\Gin@eheight}{\the\toks@}}}%
+    \@tempa
+    \let\Gin@ewidth\Gin@exclamation
+    \let\Gin@eheight\Gin@exclamation
+  \fi
+}
+\newcommand*\adjustimage[2]{%
+    \adjustbox{#1}{\Gin@clipfalse\Gin@i{#2}}%
+}
+\newcommand*\adjincludegraphics[2][]{%
+    \adjustbox{#1}{\Gin@clipfalse\Gin@i{#2}}%
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\def\@trimbox#1#2#3#4#5{%
+    \setbox#5=\hbox{%
+        \adjsetlength\@tempdima{#1}%
+        \hskip-\@tempdima
+        \adjsetlength\@tempdima{\dp#5 - (#2)}%
+        \adjsetlength\@tempdimb{\wd#5 - (#3)}%
+        \adjsetlength\@tempdimc{\ht#5 - (#4)}%
+        \dp#5=\@tempdima
+        \wd#5=\@tempdimb
+        \ht#5=\@tempdimc
+        \ifdim\dp#5<\z@
+            \raise\dp#5%
+        \else
+        \ifdim\ht#5<\z@
+            \lower\ht#5%
+        \fi\fi
+        \box#5%
+    }%
+    \ifdim\dp#5<\z@ \dp#5=\z@ \fi
+    \ifdim\wd#5<\z@ \wd#5=\z@ \fi
+    \ifdim\ht#5<\z@ \ht#5=\z@ \fi
+}
+\def\@clipbox#1#2#3#4#5{%
+    \@trimbox{#1}{#2}{#3}{#4}{#5}%
+    \@cliptoboxdim{#5}%
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\InputIfFileExists{\adjbox@driver}{%
+    \PackageInfo{adjustbox}{Using driver '\adjbox@driver'.}%
+}{%
+    \input{adjpgf.def}%
+    \PackageInfo{adjustbox}{Using fall-back PGF driver.}
+}
+\adjbox@maybeend
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand*\phantombox[3]{%
+    \begingroup
+    \adjsetlength\@tempdima{#1}%
+    \adjsetlength\@tempdimb{#2}%
+    \adjsetlength\@tempdimc{#3}%
+    \setbox\collectedbox\hbox{}%
+    \wd\collectedbox\@tempdima
+    \ht\collectedbox\@tempdimb
+    \dp\collectedbox\@tempdimc
+    \leavevmode
+    \box\collectedbox
+    \endgroup
+}
+\newcommand*\minsizebox{%
+    \collectboxcheckenv{minsizebox}%
+    \@ifstar{\@minsizebox\totalheight}{\@minsizebox\height}%
+}
+\expandafter\newcommand\expandafter*\csname minsizebox*\endcsname{%
+    \@collectboxisenv{minsizebox*}%
+    \@minsizebox\totalheight
+}
+\newcommand*\@minsizebox[3]{%
+    \@collectbox{\@minmaxsizebox>#1{#2}{#3}}%
+}
+\newcommand*\maxsizebox{%
+    \collectboxcheckenv{maxsizebox}%
+    \@ifstar{\@maxsizebox\totalheight}{\@maxsizebox\height}%
+}
+\expandafter\newcommand\expandafter*\csname maxsizebox*\endcsname{%
+    \@collectboxisenv{maxsizebox*}%
+    \@maxsizebox\totalheight
+}
+\newcommand*\@maxsizebox[3]{%
+    \@collectbox{\@minmaxsizebox<#1{#2}{#3}}%
+}
+\newcommand*\@minmaxsizebox[4]{%
+    \edef\@tempa{#3}%
+    \edef\@tempb{#4}%
+    \ifcase0%
+    \ifx\@tempa\Gin@exclamation
+        \ifx\@tempb\Gin@exclamation
+        \else
+            \ifdim\@tempb#1#2%
+                1%
+            \fi
+        \fi
+    \else
+        \ifx\@tempb\Gin@exclamation
+            \ifdim\@tempa#1\width
+                2%
+            \fi
+        \else
+            \ifdim\@tempa#1\width
+                \ifdim\@tempb#1#2%
+                    3%
+                \else
+                    2%
+                \fi
+            \else
+                \ifdim\@tempb#1#2%
+                    1%
+                \fi
+            \fi
+        \fi
+    \fi
+    \relax% 0
+        \BOXCONTENT
+    \or
+        \adjsetlength\@tempdima\@tempb
+        \Gscale@div\@tempa\@tempdima#2%
+        \Gscale@box\@tempa[\@tempa]\BOXCONTENT
+    \or
+        \adjsetlength\@tempdima\@tempa
+        \Gscale@div\@tempa\@tempdima\width
+        \Gscale@box\@tempa[\@tempa]\BOXCONTENT
+    \or
+        \adjsetlength\@tempdima\@tempa
+        \Gscale@div\@tempa\@tempdima\width
+        \adjsetlength\@tempdima\@tempb
+        \Gscale@div\@tempb\@tempdima#2%
+        \ifdim\@tempa\p@#1\@tempb\p@
+            \let\@tempb\@tempa
+        \else
+            \let\@tempa\@tempb
+        \fi
+        \Gscale@box\@tempa[\@tempb]\BOXCONTENT
+    \fi
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\define@key\adjbox@fam{Trim}{%
+    \adjbox@Gin@Add{\trimbox@{#1}}%
+}
+\define@key\adjbox@fam{Viewport}{%
+    \adjbox@Gin@Add{\trimbox@s{#1}}%
+}
+\define@key\adjbox@fam{Clip}{%
+    \adjbox@Gin@Add{\clipbox@{#1}}%
+}
+\define@key\adjbox@fam{Clip*}{%
+    \adjbox@Gin@Add{\clipbox@s{#1}}%
+}
+\define@key\adjbox@fam{frame}[{{\fboxrule}}]{%
+    \adjbox@frame{\fboxsep\z@}#1 {} {} \relax\relax\@nnil
+}
+\define@key\adjbox@fam{fbox}[{{\fboxrule}}]{%
+    \adjbox@frame{}#1 {} {} {} \relax\relax\@nnil
+}
+\def\adjbox@frame#1#2 #3 #4 #5\relax{%
+    \adjbox@Gin@Add{%
+        \@collectbox{#1\adjbox@@frame{}{#2}{#3}{#4}}%
+    }%
+    \remove@to@nnil
+}
+\define@key\adjbox@fam{cframe}{%
+    \adjbox@checkcolor
+    \adjbox@cframe{\fboxsep\z@}#1 {} {} {} \relax\relax\@nnil
+}
+\define@key\adjbox@fam{cfbox}{%
+    \adjbox@checkcolor
+    \adjbox@cframe{}#1 {} {} {} \relax\relax\@nnil
+}
+\def\adjbox@cframe#1#2 #3 #4 #5 #6\relax{%
+    \adjbox@Gin@Add{%
+        \@collectbox{#1\adjbox@@frame{\color{#2}}{#3}{#4}{#5}}%
+    }%
+    \remove@to@nnil
+}
+\def\adjbox@checkcolor{%
+    \ifcase0%
+        \expandafter\ifx\csname ver@xcolor.sty\endcsname\relax
+        \expandafter\ifx\csname ver@color.sty\endcsname\relax
+        \expandafter\ifx\csname ver@xxcolor.sty\endcsname\relax 1\fi\fi\fi
+    \relax
+        \global\let\adjbox@checkcolor\relax
+    \else
+        \PackageError{adjustbox}{Using a macro, envrionment or key with color\MessageBreak requires a color package to be loaded manually.\MessageBreak Recommended is 'xcolor' but 'color' is ok, too}{}.
+    \fi
+}
+\def\adjbox@@frame#1#2#3#4{%
+    \ifx\@nnil#2\@nnil\else
+        \adjsetlength\fboxrule{#2}%
+    \fi
+    \ifx\@nnil#3\@nnil\else
+        \adjsetlength\fboxsep{#3}%
+    \fi
+    \adjsetlength\adjbox@tllx{\fboxrule + \fboxsep}%
+    \@marginbox
+        \adjbox@tllx
+        \adjbox@tllx
+        \adjbox@tllx
+        \adjbox@tllx
+        \collectedbox
+    \ifx\@nnil#4\@nnil\else
+      \setbox\collectedbox
+    \fi
+      \hbox\bgroup\color@setgroup
+        \BOXCONTENT
+        \hskip-\width
+        #1%
+        \adjbox@boxframe\width\height\depth
+      \color@endgroup\egroup
+    \ifx\@nnil#4\@nnil\else
+      \adjsetlength\adjbox@tllx{#4}%
+      \@marginbox
+        \adjbox@tllx
+        \adjbox@tllx
+        \adjbox@tllx
+        \adjbox@tllx
+        \collectedbox
+      \BOXCONTENT
+    \fi
+}
+\let\adjbox@boxframe\boxframe
+\providecommand\adjbox@boxframe[3]{%
+    \hbox{%
+        \dimen@ #2%
+        \advance \dimen@ #3\relax
+        \lower #3\vbox {%
+            \hrule \@height \fboxrule
+            \@tempdima -0.5\fboxrule
+            \ifodd\fboxrule
+                \advance \@tempdima \m@ne sp
+            \fi
+            \kern \@tempdima
+            \hbox {%
+                \advance \dimen@ -\fboxrule
+                \vrule \@width \fboxrule \@height \dimen@ \@depth \z@
+                \@tempdima #1%
+                \advance \@tempdima -\tw@ \fboxrule
+                \kern \@tempdima
+                \vrule \@width \fboxrule \@height \dimen@ \@depth \z@
+            }%
+            \kern -0.5\fboxrule
+            \hrule \@height \fboxrule
+        }%
+    }%
+}
+\define@key\adjbox@fam{scale}{%
+    \@ifnextchar\bgroup{%
+        \adjbox@scale@xy
+    }{%
+        \adjbox@scale@x
+    }#1\@nnil
+}
+\def\adjbox@scale@x#1\@nnil{%
+    \adjbox@scale@xy{#1}{#1}\@nnil%
+}
+\def\adjbox@scale@xy#1#2\@nnil{%
+  \if@tempswa
+    \adjbox@Gin@add{\Gscale@box{#1}[{#2}]}%
+  \else
+    \def\Gin@req@sizes{%
+      \def\Gin@scalex{#1}\def\Gin@scaley{#2}%
+      \Gin@req@height\Gin@scaley\Gin@nat@height
+      \Gin@req@width\Gin@scalex\Gin@nat@width}%
+  \fi
+  \@tempswatrue
+}
+\define@key\adjbox@fam{reflect}[]{%
+    \adjbox@scale@xy{-1}{1}\@nnil
+}
+\expandafter\let\csname KV@\adjbox@fam @rotate\endcsname\KV@Gin@angle
+\define@key\adjbox@fam{lap}{%
+    \@ifnextchar\bgroup{%
+        \adjbox@lapbox
+    }{%
+        \adjbox@lapbox{#1}{}%
+    }#1{}{}\@nnil
+}
+\def\adjbox@lapbox#1#2#3\@nnil{%
+    \ifx\@nnil#2\@nnil
+        \adjbox@Gin@Add{\lapbox{#1}}%
+    \else
+        \adjbox@Gin@Add{\lapbox[{#1}]{#2}}%
+    \fi
+}
+\define@key\adjbox@fam{rlap}[]{%
+    \adjbox@Gin@Add{\lapbox{\width}}%
+}
+\define@key\adjbox@fam{llap}[]{%
+    \adjbox@Gin@Add{\lapbox{-\width}}%
+}
+\define@key\adjbox@fam{margin}{%
+    \adjbox@Gin@Add{\marginbox@{#1}}%
+}
+\define@key\adjbox@fam{margin*}{%
+    \adjbox@Gin@Add{\marginbox@s{#1}}%
+}
+\define@key\adjbox@fam{dpi}{%
+    \adjsetlength\pdfpxdimen{1in/(#1)}%
+}
+\define@key\adjbox@fam{pxdim}{%
+    \adjsetlength\pdfpxdimen{#1}%
+}
+\define@key\adjbox@fam{execute}{%
+    #1%
+}
+\define@key\adjbox@fam{@debug}[]{%
+    \showthe\toks@
+}
+\define@key{ADJBOX}{Execute}{%
+    #1%
+}
+\define@key\adjbox@fam{raise}{%
+    \@ifnextchar\bgroup{%
+        \adjbox@raise
+    }{%
+        \adjbox@raise{#1}{}{}%
+    }#1{}{}{}\@nnil
+}
+\def\adjbox@raise#1#2#3#4\@nnil{%
+    \adjbox@Gin@Add{\adjbox@raisebox{#1}{#2}{#3}}%
+}
+\define@key\adjbox@fam{valign}{%
+    \csname adjbox@valign@#1\endcsname
+}
+\def\adjbox@raisebox#1#2#3{%
+    \collectbox{\adjbox@@raisebox{#1}{#2}{#3}}%
+}
+\def\adjbox@@raisebox#1#2#3{%
+    \ifx\@nnil#1\@nnil
+        \setbox\@tempboxa\box\collectedbox
+    \else
+        \adjsetlength\@tempdima{#1}%
+        \sbox\@tempboxa{\raise\@tempdima\box\collectedbox}%
+    \fi
+    \ifx\@nnil#2\@nnil\else
+        \adjsetlength\@tempdima{#2}%
+        \ht\@tempboxa\@tempdima
+    \fi
+    \ifx\@nnil#3\@nnil\else
+        \adjsetlength\@tempdima{#3}%
+        \dp\@tempboxa\@tempdima
+    \fi
+    \box\@tempboxa
+}
+\def\adjboxvtop{\ht\strutbox}
+\def\adjboxvcenter{1ex}
+\def\adjboxvbottom{-\dp\strutbox}
+\def\adjbox@valign@t{%
+    \adjbox@Gin@Add{\adjbox@raisebox{-\height+\adjboxvtop}{}{}}%
+}
+\def\adjbox@valign@T{%
+    \adjbox@Gin@Add{\adjbox@raisebox{-\height}{}{}}%
+}
+\def\adjbox@valign@M{%
+    \adjbox@Gin@Add{\adjbox@raisebox{.5\depth-.5\height}{}{}}%
+}
+\def\adjbox@valign@m{%
+    \adjbox@Gin@Add{\adjbox@raisebox{.5\depth-.5\height+\adjboxvcenter}{}{}}%
+}
+\def\adjbox@valign@c{%
+    \adjbox@Gin@Add{\@collectbox\adjbox@vcenter}%
+}
+\def\adjbox@vcenter{%
+    \leavevmode
+    \hbox{%
+        $\vcenter{\hbox{\BOXCONTENT}}\m@th$
+    }%
+}
+\def\adjbox@valign@b{%
+    \adjbox@Gin@Add{\adjbox@raisebox{\depth+\adjboxvbottom}{}{}}%
+}
+\def\adjbox@valign@B{%
+    \adjbox@Gin@Add{\adjbox@raisebox{\depth}{}{}}%
+}
+\define@key\adjbox@fam{bgcolor}{%
+    \adjbox@checkcolor
+    \@ifnextchar\bgroup{%
+        \adjbox@bgcolor
+    }{%
+        \adjbox@bgcolor{}{#1}%
+    }#1\@nnil
+}
+\def\adjbox@bgcolor#1#2#3\@nnil{%
+    \ifx\@nnil#1\@nnil
+        \adjbox@Gin@add{\@collectbox{\adjbox@@bgcolor{\color{#2}}}}%
+    \else
+        \adjbox@Gin@add{\@collectbox{\adjbox@@bgcolor{\color[#1]{#2}}}}%
+    \fi
+}
+\define@key\adjbox@fam{bgcolor*}{%
+    \adjbox@checkcolor
+    \adjbox@Gin@add{\@collectbox{\adjbox@@bgcolor{#1}}}%
+}
+\def\adjbox@@bgcolor#1{%
+    \mbox{%
+        \hbox{%
+            #1%
+            \vrule\@width\width\@height\height\@depth\depth%
+        }%
+        \hskip-\width
+        \BOXCONTENT
+    }%
+}%
+\define@key\adjbox@fam{set height}{%
+    \adjbox@Gin@Add{\adjbox@raisebox{}{#1}{}}%
+}
+\define@key\adjbox@fam{set depth}{%
+    \adjbox@Gin@Add{\adjbox@raisebox{}{}{#1}}%
+}
+\define@key\adjbox@fam{set vsize}{%
+    \adjbox@Gin@Add{\adjbox@raisebox{}#1}%
+}
+\def\adjbox@Gin@add#1{%
+    \def\@tempa{#1}%
+    \toks@\expandafter\expandafter\expandafter{\expandafter\@tempa\expandafter{\the\toks@}}%
+}
+\def\adjbox@Gin@Add{%
+    \Gin@esetsize
+    \@tempswatrue
+    \adjbox@Gin@add
+}
+\def\adjbox@Gin@sizeadd#1#2#3\relax{%
+    \ifx\@nnil#3\@nnil
+        \adjbox@Gin@add{#1{#2}{#2}}%
+    \else
+        \adjbox@Gin@add{#1{#2}{#3}}%
+    \fi
+}
+\def\adjbox@halign#1#2#3{%
+    \Gin@esetsize
+    \@tempswatrue
+    \adjsetlength\@tempdima{#1}%
+    \edef\@tempa{\hb@xt@\the\@tempdima}%
+    \toks@\expandafter\expandafter\expandafter{\expandafter\@tempa\expandafter{\expandafter#2\the\toks@#3}}%
+}
+\define@key\adjbox@fam{center}[\linewidth]{%
+    \adjbox@halign{#1}\hss\hss
+}
+\define@key\adjbox@fam{left}[\linewidth]{%
+    \adjbox@halign{#1}\relax\hss
+}
+\define@key\adjbox@fam{right}[\linewidth]{%
+    \adjbox@halign{#1}\hss\relax
+}
+\define@key\adjbox@fam{outer}[\linewidth]{%
+    \def\@tempa{\adjbox@halign{#1}}%
+    \if@twoside
+      \adjbox@ifoddpage
+        {\@tempa\hss\relax}%
+        {\@tempa\relax\hss}%
+    \else
+        \@tempa\hss\hss
+    \fi
+}
+\define@key\adjbox@fam{inner}[\linewidth]{%
+    \def\@tempa{\adjbox@halign{#1}}%
+    \if@twoside
+      \adjbox@ifoddpage
+        {\@tempa\relax\hss}%
+        {\@tempa\hss\relax}%
+    \else
+        \@tempa\hss\hss
+    \fi
+}
+\def\adjbox@ifoddpage{%
+    \begingroup
+    \adjbox@checkoddpage
+    \expandafter\endgroup
+    \ifoddpage
+        \expandafter\@firstoftwo
+    \else
+        \expandafter\@secondoftwo
+    \fi
+}
+\def\adjbox@checkoddpage{%
+    \ifodd\c@page
+        \oddpagetrue
+    \else
+        \oddpagefalse
+    \fi
+}%
+\newif\ifoddpage
+\AtBeginDocument{%
+    \@ifpackageloaded{changepage}{\let\adjbox@checkoddpage\checkoddpage}%
+     {\@ifpackageloaded{chngpage}{\let\adjbox@checkoddpage\checkoddpage}{}}%
+}%
+\define@key\adjbox@fam{min width}{%
+    \adjbox@Gin@Add{\@minsizebox\height{#1}!}%
+}
+\define@key\adjbox@fam{max width}{%
+    \adjbox@Gin@Add{\@maxsizebox\height{#1}!}%
+}
+\define@key\adjbox@fam{min height}{%
+    \adjbox@Gin@Add{\@minsizebox\height!{#1}}%
+}
+\define@key\adjbox@fam{max height}{%
+    \adjbox@Gin@Add{\@maxsizebox\height!{#1}}%
+}
+\define@key\adjbox@fam{min totalheight}{%
+    \adjbox@Gin@Add{\@minsizebox\totalheight!{#1}}%
+}
+\define@key\adjbox@fam{max totalheight}{%
+    \adjbox@Gin@Add{\@maxsizebox\totalheight!{#1}}%
+}
+\define@key\adjbox@fam{min size}{%
+    \adjbox@Gin@sizeadd{\@minsizebox\height}#1\relax
+}
+\define@key\adjbox@fam{max size}{%
+    \adjbox@Gin@sizeadd{\@maxsizebox\height}#1\relax
+}
+\define@key\adjbox@fam{min totalsize}{%
+    \adjbox@Gin@sizeadd{\@minsizebox\totalheight}#1\relax
+}
+\define@key\adjbox@fam{max totalsize}{%
+    \adjbox@Gin@sizeadd{\@maxsizebox\totalheight}#1\relax
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand*\lapbox[2][\width-\@tempdimb]{%
+    \collectboxcheckenv{lapbox}%
+    \@collectbox{\@lapbox{#1}{#2}}%
+}
+\def\@lapbox#1#2{%
+    \adjsetlength\@tempdima{#2}%
+    \ifdim\@tempdima<\z@
+        \@tempdimb=-\@tempdima
+    \else
+        \@tempdimb=\@tempdima
+    \fi
+    \adjsetlength\@tempdimc{#1}%
+    \ifdim\@tempdimc<\z@
+        \@tempdimc=\z@
+    \fi
+    \leavevmode
+    \ifdim\@tempdima<\z@
+        \hb@xt@\@tempdimc{\hss\hb@xt@\@tempdimb{\usebox\collectedbox\hss}\hskip\@tempdimc}%
+    \else
+        \hb@xt@\@tempdimc{\hskip\@tempdimc\hb@xt@\@tempdimb{\hss\usebox\collectedbox}\hss}%
+    \fi
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand\marginbox{%
+    \collectboxcheckenv{marginbox}%
+    \@ifstar
+        \marginbox@s
+        \marginbox@
+}
+\def\marginbox@#1{%
+    \@collectbox{\marginbox@@{#1}}%
+}
+\def\marginbox@s#1{%
+    \@collectbox{\marginbox@@s{#1}}%
+}
+\expandafter\newcommand\expandafter*\csname marginbox*\endcsname{%
+    \@collectboxisenv{marginbox*}%
+    \marginbox@s
+}
+\def\marginbox@@#1{%
+    \adjbox@parse@v{#1}%
+    \@marginbox
+        \adjbox@tllx
+        \adjbox@tlly
+        \adjbox@turx
+        \adjbox@tury
+        \collectedbox
+    \usebox\collectedbox
+}
+\def\marginbox@@s#1{%
+    \adjbox@parse@v{#1}%
+    \@marginbox
+        \adjbox@tllx
+        \adjbox@tlly
+        \adjbox@turx
+        \adjbox@tury
+        \collectedbox
+    \raise\adjbox@tlly\copy\collectedbox
+}
+\def\@marginbox#1#2#3#4#5{%
+    \setbox#5=\hbox{%
+        \adjsetlength\@tempdima{#1}%
+        \hskip\@tempdima
+        \adjsetlength\@tempdima{\dp#5 + #2}%
+        \adjsetlength\@tempdimb{\wd#5 + #3}%
+        \adjsetlength\@tempdimc{\ht#5 + #4}%
+        \dp#5=\@tempdima
+        \wd#5=\@tempdimb
+        \ht#5=\@tempdimc
+        \box#5%
+    }%
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\define@key{ADJBOX}{minipage}{%
+    \adjbox@page{minipage}{#1}%
+}
+\define@key{ADJBOX}{varwidth}{%
+    \adjbox@page{varwidth}{#1}%
+}
+\def\adjbox@page#1#2{%
+    \@ifnextchar[{%
+        \adjbox@@page{#1}%
+    }{%
+        \@ifnextchar\bgroup{%
+            \adjbox@@page{#1}%
+        }{%
+            \adjbox@@page{#1}{{#2}}\@nnil%
+            \remove@to@nnil
+        }%
+    }#2\@nnil
+}
+\def\adjbox@@page#1#2\@nnil{%
+    \def\adjbox@collectbox##1{\collectbox@{\adjbox@set\begin{#1}#2\adjbox@reset}{##1}{\end{#1}}}%
+}
+\def\adjbox@set{%
+    \let\adjbox@origsetlength\setlength
+    \def\setlength{\adjsetlength}%
+}
+\def\adjbox@reset{%
+    \let\setlength\adjbox@origsetlength
+}
+\newcommand*\stackbox[1][c]{%
+   \collectboxcheckenv{stackbox}%
+   \@testopt{\@stackbox{#1}}{b}%
+}
+\def\@stackbox#1[#2]{%
+    \collectbox@
+        {\begin{varwidth}[#2]{\linewidth}\csname adjbox@halign@#1\endcsname}
+        \BOXCONTENT
+        {\end{varwidth}}%
+}
+\define@key{ADJBOX}{stack}[{}{}]{%
+    \adjbox@stack#1{}{}\@nnil
+}
+\def\adjbox@stack#1#2#3\@nnil{%
+    \ifx\@nnil#1\@nnil
+        \adjbox@@stack{c}{b}%
+    \else
+    \ifx\@nnil#2\@nnil
+        \adjbox@@stack{#1}{b}%
+    \else
+        \adjbox@@stack{#1}{#2}%
+    \fi\fi
+}
+\def\adjbox@@stack#1#2{%
+    \def\adjbox@collectbox##1{\collectbox@{\begin{varwidth}[#2]{\linewidth}\csname adjbox@halign@#1\endcsname}{##1}{\end{varwidth}}}%
+}
+\def\adjbox@halign@c{\centering}
+\def\adjbox@halign@l{\raggedright}
+\def\adjbox@halign@r{\raggedleft}
+\def\adjbox@halign@j{\let\\\newline}
+\IfFileExists{varwidth.sty}
+    {\RequirePackage{varwidth}}{%
+    \define@key{ADJBOX}{varwidth}{%
+        \PackageError{adjustbox}{The 'varwidth' key requires the 'varwidth' package, which is not installed}{}%
+    }
+    \define@key{ADJBOX}{stack}{%
+        \PackageError{adjustbox}{The 'stack' key requires the 'varwidth' package, which is not installed}{}%
+    }
+}%
+\define@key{ADJBOX}{tabular}{%
+    \@ifnextchar[{%
+        \adjbox@tabular{tabular}%
+    }{%
+        \adjbox@tabular{tabular}{{#1}}\@nnil%
+        \remove@to@nnil
+    }#1\@nnil
+}
+\def\adjbox@tabular#1#2\@nnil{%
+    \ifcollectboxenv
+        \adjbox@innerenv{#1}{#2}\@nnil
+    \else
+        \def\adjbox@collectbox##1{\collectbox@tab{#1}{#2}{}{##1}{}}%
+    \fi
+}
+\define@key{ADJBOX}{tabular*}{%
+    \adjbox@tabular{tabular*}#1\@nnil
+}
+\define@key{ADJBOX}{array}{%
+    \@ifnextchar[{%
+        \adjbox@array%
+    }{%
+        \adjbox@array{{#1}}\@nnil%
+        \remove@to@nnil
+    }#1\@nnil
+}
+\def\adjbox@array#1\@nnil{%
+    \ifcollectboxenv
+        \adjbox@innercode{\(\begin{array}#1}{\end{array}\)}%
+    \else
+        \def\adjbox@collectbox##1{\collectbox@tab{array}{#1}{\(}{##1}{\)}}%
+    \fi
+}
+\define@key{ADJBOX}{innerenv}{%
+    \@ifnextchar\bgroup{%
+        \adjbox@@innerenv
+    }{%
+        \adjbox@innerenv{#1}\@nnil%
+        \remove@to@nnil
+    }#1\@nnil
+}
+\def\adjbox@innerenv#1#2\@nnil{%
+    \def\adjbox@collectbox##1{\collectbox@{\begin{#1}#2}{##1}{\end{#1}}}%
+}%
+\def\adjbox@@innerenv#1{%
+    \adjbox@@@innerenv{#1}{}%
+}%
+\def\adjbox@@@innerenv#1#2\@nnil{%
+    \expandafter\adjbox@@@@innerenv\expandafter{\@gobble#2}{#1}%
+}%
+\def\adjbox@@@@innerenv#1#2{%
+    \adjbox@innerenv{#2}{#1}\@nnil
+}%
+\define@key{ADJBOX}{innercode}{%
+    \adjbox@innercode#1{}{}%
+}
+\def\adjbox@innercode#1#2{%
+    \def\adjbox@collectbox##1{\collectbox@{#1}{##1}{#2}}%
+}%
+\define@key{ADJBOX}{env}{%
+    \@ifnextchar\bgroup{%
+        \adjbox@addenv
+    }{%
+        \adjbox@addenv{#1}\@nnil%
+        \remove@to@nnil
+    }#1\@nnil
+}
+\def\adjbox@addenv#1#2\@nnil{%
+    \def\@tempa{\begin{#1}#2}%
+    \toks@\expandafter\expandafter\expandafter{\expandafter\@tempa\the\toks@\end{#1}}%
+}%
+\define@key{adjbox}{Addcode}{%
+    \adjust@@addcode#1{}\@nnil%
+}
+\define@key{adjbox}{addcode}{%
+    \Gin@esetsize
+    \@tempswatrue
+    \adjust@@addcode#1{}\@nnil%
+}
+\def\adjust@@addcode#1#2#3\@nnil{%
+    \ifx\@nnil#3\@nnil
+        \adjust@addcode{#1}{#2}%
+    \else
+        \PackageError{adjustbox}{Incorrect input for key 'addcode={<code before>}{<code afterwards>}'!}%
+    \fi
+}
+\define@key{adjbox}{precode}{%
+    \Gin@esetsize
+    \@tempswatrue
+    \adjust@addcode{#1}{}%
+}
+\define@key{adjbox}{Precode}{%
+    \adjust@addcode{#1}{}%
+}
+\define@key{adjbox}{appcode}{%
+    \toks@\expandafter{\the\toks@#1}%
+}
+\def\adjust@addcode#1#2{%
+    \def\@tempa{#1}%
+    \toks@\expandafter\expandafter\expandafter{\expandafter\@tempa\expandafter{\the\toks@}#2}%
+}%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand*\bgimagebox[2][]{%
+    \collectboxcheckenv{bgimagebox}%
+    \@collectbox{\@bgimagebox{#1}{#2}}%
+}
+\def\@bgimagebox#1#2{%
+    \mbox{%
+        \lower\depth\hbox{%
+            \edef\@tempa{\noexpand\adjustimage
+                {#1,width=\the\width,totalheight=\the\totalheight}%
+                {#2}%
+            }%
+            \@tempa
+        }%
+        \hskip-\width%
+        \BOXCONTENT
+    }%
+}
+\define@key{adjbox}{bgimage}{%
+    \@ifnextchar\bgroup{%
+        \adjbox@bgimage
+    }{%
+        \adjbox@bgimage{}{#1}%
+    }#1\@nnil
+}
+\def\adjbox@bgimage#1#2#3\@nnil{%
+    \adjbox@Gin@add{\@collectbox{\@bgimagebox{#1}{#2}}}%
+}
+%%\RequirePackage{storebox}
+\newcommand\splitbox[2]{%
+    \collectboxcheckenv{splitbox}%
+    \@collectbox{\@splitbox{#1}{#2}}%
+}
+\define@key\adjbox@fam{split}{%
+    \adjbox@Gin@Add{\@collectbox{\@splitbox#1}}%
+}
+\def\@splitbox#1#2{%
+    \ifstorebox
+        \storebox\splittedbox{\BOXCONTENT}%
+        \setbox\collectedbox\hbox{\usestorebox\splittedbox}%
+    \fi
+    \xdef\@tempa{#1}%
+    \xdef\@tempb{#2}%
+    \ifx\@tempa\Gin@exclamation
+        \@tempdima\maxdimen
+    \else
+        \adjsetlength\@tempdima\@tempa
+    \fi
+    \ifx\@tempb\Gin@exclamation
+        \Gin@nat@height\maxdimen
+    \else
+        \adjsetlength\Gin@nat@height\@tempb
+    \fi
+    \ifdim\@tempdima>\width
+        \@tempdima\width
+    \fi
+    \ifdim\Gin@nat@height>\totalheight
+        \Gin@nat@height\totalheight
+    \fi
+    \adjbox@tllx\z@
+    \adjbox@tlly\totalheight
+    \adjbox@turx\width
+    \adjbox@tury\z@
+    \advance\adjbox@tlly-\Gin@nat@height
+    \@@splitbox
+}
+\def\@@splitbox{%
+    \advance\adjbox@turx-\@tempdima
+    \@@@splitbox
+    \ifdim\adjbox@turx>\z@
+        \advance\adjbox@tllx+\@tempdima
+        \expandafter\@@splitbox
+    \else
+        \ifdim\adjbox@tlly<\splitbox@epsilon
+            \splitboxlastnewline
+        \else
+            \splitboxnewline
+            \adjbox@tllx\z@
+            \adjbox@turx\width
+            \advance\adjbox@tlly-\Gin@nat@height
+            \advance\adjbox@tury+\Gin@nat@height
+            \expandafter\expandafter
+            \expandafter\@@splitbox
+        \fi
+    \fi
+}
+\def\@@@splitbox{%
+    \begingroup
+    \setbox\collectedbox=\copy\collectedbox
+    \@clipbox\adjbox@tllx\adjbox@tlly\adjbox@turx\adjbox@tury\collectedbox
+    \splitboxcmd{\usebox\collectedbox}%
+    \endgroup
+}
+\def\@@@splitbox{%
+    \begingroup
+    \setbox\collectedbox=\copy\collectedbox
+    \@clipbox\adjbox@tllx\adjbox@tlly\adjbox@turx\adjbox@tury\collectedbox
+    \splitboxcmd{\usebox\collectedbox}%
+    \endgroup
+}
+\let\splitboxcmd\empty
+\newcommand\splitboxnewline{\\}
+\newcommand\splitboxlastnewline{\splitboxnewline}
+\def\splitbox@epsilon{100sp}
+\newcommand\pagebreakbox{%
+    \par\noindent
+    \collectboxcheckenv{pagebreakbox}%
+    \@collectbox{\@pagebreakbox}%
+}
+\define@key\adjbox@fam{pagebreak}[]{%
+    \adjbox@Gin@Add{\@collectbox{\@pagebreakbox}}%
+}
+\def\@pagebreakbox{%
+    \sbox\collectedbox{\raise\dp\collectedbox\hbox{\BOXCONTENT}}%
+    \ifstorebox
+        \storebox\splittedbox{\BOXCONTENT}%
+        \setbox\collectedbox\hbox{\usestorebox\splittedbox}%
+    \fi
+    \adjsetlength\adjbox@tlly
+        {\totalheight-\pagegoal+\pagetotal+\pagebreakboxoffset}%
+    \ifdim\adjbox@tlly>\z@
+        \begingroup
+        \setbox\collectedbox=\copy\collectedbox
+        \@clipbox\z@\adjbox@tlly\z@\z@\collectedbox
+        \BOXCONTENT
+        \endgroup
+        \par\noindent
+        \adjsetlength\adjbox@tury{\totalheight-\adjbox@tlly}%
+        \ifdim\adjbox@tlly>\textheight
+            \loop
+                \advance\adjbox@tlly-\textheight
+                \begingroup
+                \setbox\collectedbox=\copy\collectedbox
+                \@clipbox\z@\adjbox@tlly\z@\adjbox@tury\collectedbox
+                \BOXCONTENT
+                \endgroup
+                \advance\adjbox@tury\textheight
+                \par\noindent
+                \ifdim\adjbox@tlly>\textheight
+            \repeat
+            \@clipbox\z@\z@\z@\adjbox@tury\collectedbox
+            \BOXCONTENT
+        \else
+            \@clipbox\z@\z@\z@\adjbox@tury\collectedbox
+            \par\noindent
+            \BOXCONTENT
+        \fi
+    \else
+        \BOXCONTENT%
+    \fi
+    \par
+}
+\newcommand*\pagebreakboxoffset{\ht\strutbox}
+\endinput
+%%
+%% End of file `adjustbox.sty'.
