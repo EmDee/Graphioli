@@ -13,10 +13,11 @@ plural={Graphioli}}
 description={Abstract representation of a set of edges where some pairs of the \glspl{vertice} are connected by \glspl{edge}.}}
 
 \newglossaryentry{edge}{name=edge,
-description={Line that connects a pair of \glspl{vertice} in a \gls{graph}.}}
+description={Line that connects a pair of \glspl{vertex} in a \gls{graph}.}}
 
-\newglossaryentry{vertice}{name=vertice,
-description={Node in a \gls{graph}. Can but must not be connected with other \glspl{vertice} by an \gls{edge}.}}
+\newglossaryentry{vertex}{name=vertex,
+description={Node in a \gls{graph}. Can but must not be connected with other vertices by an \gls{edge}.},
+plural={vertice}}
 
 \newglossaryentry{planar}{name=planar,
 description={A \emph{planar} \gls{graph} is a graph that can be structure-preservingly redrawn in a way that no \glspl{edge} intersect.},
@@ -37,14 +38,15 @@ plural={graphical user interfaces (GUI)}}
 description={A layered structure indicating what kind of applications can or should be built and how they would interrelate. It specifies interfaces and reusable \glspl{program} that form the basis for such an application.}}
 
 \newglossaryentry{java}{name=Java,
-description={Java is a widely spread programming language originally developed by Sun Microsystems and released in 1995. Applications developed with Java are compiled into bytecode that runs on basically every system that has a Java Virtual Machine installed.}}
+description={Java is a widely spread programming language originally developed by Sun Microsystems and released in 1995. Applications developed with Java are compiled into bytecode that runs on basically every system that has a Java Virtual Machine installed.},
+plural={Java}}
 
 \newglossaryentry{jvm}{name=Java Virtual Machine (JVM),
 description={A virtual machine that can execute \Gls{java} byte code. Thus, the execution component of the Java platform.},
 plural={Java Virtual Machines (JVM)}}
 
 \newglossaryentry{jdk}{name=Java Development Kit (JDK),
-description={A collection of programming tools for \Gls{java} \glspl{developer}.},
+description={A collection of programming tools for \Gls{java} developers.},
 plural={Java Development Kit (JDK)}}
 
 \newglossaryentry{jre}{name=Java Runtime Environment,
@@ -55,43 +57,43 @@ description={Javadoc is a tool for generating API documentation in HTML format f
 plural={Javadoc}}
 
 \newglossaryentry{customer}{name=customer,
-description={A party that receives a copy of the created \gls{software} in order to use it for own implementations.}}
+description={A party that receives a copy of the created \gls{software} in order to use it for own implementations. The customer of this \gls{framework} will be the \gls{developer}.}}
 
 \newglossaryentry{computer-game}{name=computer game,
-description={An electronic game that requires a human \gls{player}['s] interaction to influence its course of events. Such a game usually bases on graphical feedback.}}
+description={An electronic game that requires the \gls{player}['s] interaction to influence its course of events. Such a game usually bases on graphical feedback.}}
 
 \newglossaryentry{game}{name=game,
-description={see \emph{\gls{computer-game}}}}
+description={The implementation of a \gls{computer-game} that requires the usage of this \gls{framework}.}}
 
 \newglossaryentry{network}{name=network,
 description={A group of connected computers that are able to communicate and share data, e.g. for synchronizing \gls{game} statuses.}}
 
 \newglossaryentry{tutorial}{name=tutorial,
-description={Instructional document that provides step by step information about a specific topic or \gls{workflow}, e.g. the usage and initialization of a \gls{program}.}}
+description={Instructional document that provides step by step information about a specific topic or \gls{workflow}, e.g. how to start implementing your own \gls{game} using this \gls{framework}.}}
 
 \newglossaryentry{editor}{name=editor,
 description={see \emph{\gls{level-editor}}}}
 
 \newglossaryentry{level-editor}{name=level editor,
-description={An interface that lightens a \gls{game-developer}['s] workload at creating new levels.}}
+description={An interface that lightens the \gls{developer}['s] workload at creating new levels.}}
 
 \newglossaryentry{level}{name=level,
 description={A stage of the current \gls{game}.}}
 
 \newglossaryentry{player}{name=player,
-description={One who plays a \gls{computer-game}.}}
+description={One who plays one of the \glspl{game} developed by a \gls{developer} using this \gls{framework}.}}
 
 \newglossaryentry{developer}{name=developer,
-description={One who programs computers or designs software according the given requirements.}}
-
-\newglossaryentry{game-developer}{name=game developer,
-description={A software \gls{developer} who designs and implements \glspl{computer-game}.}}
+description={Someone who designs and implements \glspl{game} using the \textsc{Graphioli} framework.}}
 
 \newglossaryentry{undo}{name=undo,
-description={To restore a previous condition, e.g. a savegame or the previous step in the \gls{level-editor}.}}
+description={To restore a previous condition, e.g. a \gls{savegame} or the previous step in the \gls{level-editor}.}}
 
 \newglossaryentry{program}{name=program,
 description={see \emph{\gls{computer-program}}}}
+
+\newglossaryentry{program}{name=savegame,
+description={A data file that contains information about a current \gls{game} state and is created when saving a game. It allows the \gls{player} to jump to a previously reached level.}}
 
 \newglossaryentry{computer-program}{name=computer program,
 description={A sequence of instructions that a computer can interpret and execute.}}
@@ -111,7 +113,7 @@ description={The degree of effort required to correct \gls{software} defects and
 plural={correctabilities}}
 
 \newglossaryentry{user}{name=user,
-description={The \emph{user} of a \gls{software} is everybody how starts the \gls{program} in order to fulfill specified tasks.\\The user of this framework is the \gls{game-developer}, whereas the user of the final \gls{game} is the \gls{player}.}}
+description={The \emph{user} of a \gls{software} is everybody how starts the \gls{program} in order to fulfill specified tasks.\\The user of this framework is the \gls{developer}, whereas the user of the final \gls{game} is the \gls{player}.}}
 
 \newglossaryentry{stability}{name=stability,
 description={The benchmark of resistancy towards change of runtime environment, critical user interactions, workload and attacks.},
