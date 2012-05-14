@@ -1,119 +1,148 @@
-\begin{comment}
-	some hack found on the internet (http://tex.stackexchange.com/questions/1230/reference-name-of-description-list-item-in-latex) so that referencing works for description items as well
- 
-\end{comment}
-
-\makeatletter
-\let\orgdescriptionlabel\descriptionlabel
-\renewcommand*{\descriptionlabel}[1]{%
-  \let\orglabel\label
-  \let\label\@gobble
-  \phantomsection
-  \edef\@currentlabel{#1}%
-  %\edef\@currentlabelname{#1}%
-  \let\label\orglabel
-  \orgdescriptionlabel{#1}%
-}
-\makeatother
-
 \section{Product functionalities}
-\subsection{Functional requirement}
-\subsubsection{Framework}
-\begin{tabular}{{c}{l}}
+\subsection{Functional requirements}
+
+%%%%%%%%%%% Framework %%%%%%%%%%%
+
+\subsubsection{Graphioli Framework}
+\begin{tabular}{{c}{l}{c}}
     \hline
-    {\bf Functions} & {\bf Description} \\ \hline
-	\ref{FR:FW010} & Print planar graphs \\
-	\ref{FR:FW020} & Check for planarity \\
-	\ref{FR:FW030} & A graphical user interface (GUI) to display games \\
-	\ref{FR:FW040} & Single and multiplayer mode \\
-	\ref{FR:FW050} & Add/Remove/Move nodes/vertices \\ \hline
-	\begin{comment}
-		Just in case that we'll need more later.
-		\ref{FR:FW060} & a \\
-		\ref{FR:FW070} & Blabla \\
-		\ref{FR:FW080} & Blabla \\
-		\ref{FR:FW090} & Blabla \\
-		\ref{FR:FW100} & Blabla \\
-		\ref{FR:FW110} & Blabla \\
-		\ref{FR:FW120} & Blabla \\
-		\ref{FR:FW130} & Blabla \\
-		\ref{FR:FW140} & Blabla \\
-		\ref{FR:FW150} & Blabla \\ \hline
-	\end{comment}
+    \textbf{Functions} & \textbf{Description} & \textbf{Optional} \\ \hline
+	\ref{FR:000} & \ref{FR:T000} & {}  \\
+	\ref{FR:010} & \ref{FR:T010} & {}  \\ 
+	\ref{FR:020} & \ref{FR:T020} & {}  \\ 
+	\ref{FR:030} & \ref{FR:T030} & {}  \\
+	\ref{FR:040} & \ref{FR:T040} & {}  \\
+	\ref{FR:050} & \ref{FR:T050} & {}  \\
+	\ref{FR:060} & \ref{FR:T060} & {}  \\
+	\ref{FR:070} & \ref{FR:T070} & {}  \\ 
+	\ref{FR:080} & \ref{FR:T080} & {}  \\ \hline
 \end{tabular}
 
-\vspace{1cm}
-
+\vspace{.5cm}
+\todo{grid can be displayed}
 \begin{description}
-  	\item[/FW010/\label{FR:FW010}] {\bf Print planar graphs}  \hfill \\
-  	The framework has to ability to print out a planar graph with a given set of nodes and vertices.
- 	\item[/FW020/\label{FR:FW020}] {\bf Check for planarity}  \\
- 	In addition to \ref{FR:FW010} it is also possible to verify, if an edge between two given nodes exists, so that the resulting graph is still planar.
-	\item[/FW030/\label{FR:FW030}] {\bf A graphical user interface (GUI) to display games}  \\
-  	
-	\item[/FW040/\label{FR:FW040}] {\bf Bla}  \\
-	...
-	\item[/FW050/\label{FR:FW050}] {\bf Bla}  \\
-	...
-	\begin{comment}
-	\item[/FW060/\label{FR:FW060}] {\bf Bla}  \\
-	...
-	\item[/FW070/\label{FR:FW070}] {\bf Bla}  \\
-	...
-	\item[/FW080/\label{FR:FW080}] {\bf Bla}  \\
-	...
-	\item[/FW090/\label{FR:FW090}] {\bf Bla}  \\
-	...
-	\item[/FW100/\label{FR:FW100}] {\bf Bla}  \\
-	...
-	\item[/FW110/\label{FR:FW110}] {\bf Bla}  \\
-	...
-	\item[/FW120/\label{FR:FW120}] {\bf Bla}  \\
-	...
-	\item[/FW130/\label{FR:FW130}] {\bf Bla}  \\
-	...
-	\item[/FW140/\label{FR:FW140}] {\bf Bla}  \\
-	...
-	\item[/FW150/\label{FR:FW150}] {\bf Bla}  \hfill \\
-	...
-	\end{comment}
+	\item[\textlabel{/FR000/}{FR:000}] \textbf{\textlabel{Event listeners}{FR:T000}} \\
+	The {\graphioli}  already implements event listeners for user interactions. Mouse clicks as well as keyboard strokes can be used to interact with the game, but can also be disabled, if wanted to.
+  	\item[\textlabel{/FR010/}{FR:010}] \textbf{\textlabel{Add/Remove/Move vertices/edges}{FR:T010}} \todo{Select edges is optional; move is optional}  \\
+	With the {\graphioli} the developer can do all basic graph operations. Vertices can be added to either a given graph or to initiate a new graph. Vertices can be removed and moved; in either case the edges will be removed or moved accordingly. In addition to adding, removing and moving vertices, the developer can also connect two given vertices with each other, and remove edges between vertices. Each operation is naturally dependent on the game that is being implemented, thus allowing the developer to use the operation or disabling it.
+	\item[\textlabel{/FR020/}{FR:020}] \textbf{\textlabel{Vertices/Edges have attributes}{FR:T020}}  \\
+	Each and every vertex and edge will have a set of default attributes. The developer can completely change the appearance of a vertex by replacing the default icon with any graphic or by changing its color, stroke, or size. Additionally each vertex will have its own coordinates, its own weight, and an unique identification as attributes. Edges have attributes of their own as well, which the developer can set. An edge can have a weight, a length, and a direction.
+	\item[\textlabel{/FR030/}{FR:030}] \textbf{\textlabel{Find path}{FR:T030}}  \\
+	The {\graphioli} implements algorithms to find a path between given vertices.
+	\item[\textlabel{/FR040/}{FR:040}] \textbf{ \textlabel{Check for planarity}{FR:T040}}  \\
+	For a given graph, it is possible to verify, if an edge between two given unconnected vertices exists, so that the resulting graph is planar. \todo{we display planar graphs}
+ 	\item[\textlabel{/FR050/}{FR:050}] \textbf{\textlabel{Display games with graphical user interface}{FR:T050}}  \\
+ 	The \nameref{FR:game-explorer} \todo{change game-explorer to gui}displays all graph games, which where implemented using the {\graphioli}.
+	\item[\textlabel{/FR060/}{FR:060}] \textbf{\textlabel{Print planar graphs}{FR:T060}}  \\
+  	With \ref{FR:010} and \ref{FR:020} the developer is able to draw a two-dimensional graph with a set of given vertices and edges.
+	\item[\textlabel{/FR070/}{FR:070}] \textbf{\textlabel{Play as single player or against another player}{FR:T070}}  \\
+	The Graphioli frameworks enables the developer to easily implement both single and multiplayer modes.
+	\item[\textlabel{/FR080/}{FR:080}] \textbf{\textlabel{Timer}{FR:T080}} \\
+	A timer function exists, which the developer can implement within his games.
 \end{description}
 
-\subsubsection{GUI: Game-Explorer}
+%%%%%%%%%%% Explorer %%%%%%%%%%%
+
+\subsubsection{Game-Explorer}\label{FR:game-explorer}
 \begin{tabular}{{c}{l}}
     \hline
-    {\bf Functions} & {\bf Description} \\ \hline
-	\ref{FR:GE010} & Manage games \\
-	\ref{FR:GE020} & Has a \'Start\' button \\
-	\ref{FR:GE030} & Has a \'Help\' button \\
-	\ref{FR:GE040} & Should display a description of a given game \\
-	\ref{FR:GE050} & Add/Remove/Move nodes/vertices \\
-	\begin{comment}
-		Just in case that we'll need more later.
-		\ref{FR:GE060} & a \\
-		\ref{FR:GE070} & Blabla \\
-		\ref{FR:GE080} & Blabla \\
-		\ref{FR:GE090} & Blabla \\
-		\ref{FR:GE100} & Blabla \\
-		\ref{FR:GE110} & Blabla \\
-		\ref{FR:GE120} & Blabla \\
-		\ref{FR:GE130} & Blabla \\
-		\ref{FR:GE140} & Blabla \\
-		\ref{FR:GE150} & Blabla \\ \hline
-	\end{comment}
+    \textbf{Functions} & \textbf{Description} \\ \hline
+	\ref{FR:090} & \ref{FR:T090} \\
+	\ref{FR:100} & \ref{FR:T100} \\
+	\ref{FR:110} & \ref{FR:T110} \\
+	\ref{FR:120} & \ref{FR:T120} \\
+	\ref{FR:130} & \ref{FR:T130} \\ \hline
 \end{tabular}
 
-\vspace{1cm}
+\vspace{.5cm}
 
 \begin{description}
-  	\item[/FR010/\label{FR:E010}] {\bf Print planar graphs}  \hfill \\
-  	The framework has to ability to print out a planar graph with a given set of nodes and vertices.
- 	\item[/FR020/\label{FR:E020}] {\bf Calculate if a new drawn graph is still planar}  \\
- 	In addition to \ref{FR:E010} it is also possible to calculate, if there exists an edge between two given nodes, so that the resulting graph is still planar.
-	\item[/FR030/\label{FR:E030}] {\bf A graphical user interface (GUI) to display games}  \\
-  	The third etc
-	\item[/FR040/\label{FR:E040}] {\bf Bla}  \\
-	...
+  	\item[\textlabel{/FR090/}{FR:090}] \textbf{\textlabel{Manage Games}{FR:T090}} \\
+  	Managing games, which where implemented using the {\graphioli} is an easy task with the {\gameexplorer}. The {\gameexplorer} is the centerpiece for all games. It combines the games within one window and lets the player select a game to play. Every game is saved in a subfolder within the {\gameexplorer} directory.
+ 	\item[\textlabel{/FR100/}{FR:100}] \textbf{\textlabel{Start games}{FR:T100}}  \\
+ 	Once a game is selecting in the menu, the player can start a game by pressing the `Start' button.
+	\item[\textlabel{/FR110/}{FR:110}] \textbf{\textlabel{See game instructions}{FR:T110}}  \\
+  	A tutorial or instruction file for each game (provided by the developer), can be viewed by clicking the `Help' button, which opens up a new window with the instruction/tutorial.
+	\item[\textlabel{/FR120/}{FR:120}] \textbf{\textlabel{Display description}{FR:T120}}  \\
+	When a game is selected the {\gameexplorer} will display an image and a description of the game, which both are provided by the developer.
+	\item[\textlabel{/FR130/}{FR:130}] \textbf{\textlabel{Load new games}{FR:T130}} \\
+	The {\gameexplorer} can be extended with new games. Therefore a `Load' button exists, where the player can choose from a list of games. Once a game is added, a new menu entry will be displayed within his `Game-Explorer' list of games. Which then can be selected to be played. Games that are already in the `Game' folder will be automatically loaded into the game list.
 \end{description}
 
-\subsection{Non-functional requirement}
+%%%%%%%%%%% GAMES %%%%%%%%%%%
+
+\subsubsection{Implemented Games}
+\begin{tabular}{{c}{l}}
+    \hline
+    \textbf{Functions} & \textbf{Description} \\ \hline
+	\ref{FR:140} & \ref{FR:T140} \\
+	\ref{FR:150} & \ref{FR:T150} \\
+	\ref{FR:160} & \ref{FR:T160} \\
+	\ref{FR:170} & \ref{FR:T170} \\
+	\ref{FR:180} & \ref{FR:T180} \\
+	\ref{FR:190} & \ref{FR:T190} \\
+	\ref{FR:200} & \ref{FR:T200} \\ \hline
+\end{tabular}
+
+\vspace{.5cm}
+
+\begin{description}
+  	\item[\textlabel{/FR140/}{FR:140}] \textbf{\textlabel{Save games}{FR:T140}}  \\
+  	A started and running game can be saved by clicking the `Menu' button in the navigation bar and selecting `Save'.
+ 	\item[\textlabel{/FR150/}{FR:150}] \textbf{\textlabel{Load games}{FR:T150}}  \\
+ 	A saved game can easily be resumed by starting the game and, depending on the implementation of the developer, either a window pops up, which offers the option to load a saved game, or by clicking the `Menu' button and selecting `Load'.
+	\item[\textlabel{/FR160/}{FR:160}] \textbf{\textlabel{Pause games}{FR:T160}}  \\
+	While playing in single mode, a game can be paused anytime. In multiplayer mode a game can only be paused, if both parties agree to halt the game. A game can be paused by going into the `Menu' and selecting `Game' then `Take Screen'.
+	\item[\textlabel{/FR170/}{FR:170}] \textbf{\textlabel{Restart game}{FR:T170}}  \\
+	A game can be restarted anytime during a single mode game. Like \ref{FR:150} a game can only be restarted in multiplayer mode, if both parties agree upon it. Restarting can be accomplished by clicking `Restart' in the navigation bar under `Game'.
+	\item[\textlabel{/FR180/}{FR:180}] \textbf{\textlabel{Undo move}{FR:T180}}  \\
+	Depending on the implementation of the developer, a player can either undo infinite amount of recent moves or a limited amount of moves. A move can be reverted like all the other game operations, by clicking the `Menu' item in the navigation bar and selecting `Undo'.
+	\item[\textlabel{/FR190/}{FR:190}] \textbf{\textlabel{Redo move}{FR:T190}} \\
+	If a player accidentally hit the `Undo' button or decides that the undo was not a wise choice, he can redo all `undoes' again by clicking the `Menu' item and selecting `Redo'.
+	\item[\textlabel{/FR200/}{FR:200}] \textbf{\textlabel{Take screenshots}{FR:T200}} \\
+	A player can take a screenshot of his current game anytime during a running game. To take a screenshot, the player will have to go into the game menu and select `Take Screen'. All screenshots will be saved in a subfolder within the game folder.
+\end{description}
+
+% Non-functional requirements %
+
+\subsection{Non-functional requirements}
+
+%%%%%%%%%%% Framework %%%%%%%%%%%
+
+\subsubsection{Graphioli Framework}
+\begin{tabular}{{c}{l}}
+    \hline
+    \textbf{Functions} & \textbf{Description} \\ \hline
+	\ref{NFR:010} & \ref{NFR:T010} \\
+	\ref{NFR:020} & \ref{NFR:T020} \\ \hline
+\end{tabular}
+
+\vspace{.5cm}
+
+\begin{description}
+  	\item[\textlabel{/NFR010/}{NFR:010}] \textbf{\textlabel{Simple usage}{NFR:T010}}  \\
+	The {\graphioli} can be easily understood by the developer after a short period of induction. The induction should not take longer than one day for the developer to fully be able to work with the {\graphioli}. \\
+	\item[\textlabel{/NFR020/}{NFR:020}] \textbf{\textlabel{Documentation in detail}{NFR:T020}} \\
+	The {\graphioli} has an simple to understand and easy accessible documentation. Each class, method will be described in detail with all attributes, parameters, and usage.
+\end{description}
+
+%%%%%%%%%%% GAMES %%%%%%%%%%%
+\subsubsection{Graphioli Framework}
+\begin{tabular}{{c}{l}}
+    \hline
+    \textbf{Functions} & \textbf{Description} \\ \hline
+	\ref{NFR:030} & \ref{NFR:T030} \\
+	\ref{NFR:040} & \ref{NFR:T040} \\ 
+	\ref{NFR:050} & \ref{NFR:T050} \\ \hline
+\end{tabular}
+
+\vspace{.5cm}
+
+\begin{description}
+	\item[\textlabel{/NFR030/}{NFR:030}] \textbf{\textlabel{Crashes}{NFR:T030}}  \\
+	Games implemented with the {\graphioli} will not crash more often than once per 10.000 uses. \\
+	\item[\textlabel{/NFR040/}{NFR:040}] \textbf{\textlabel{Short loading time}{NFR:T040}} \\
+	The loading time of the implemented games will be shorter than 5 seconds. \\
+	\item[\textlabel{/NFR050/}{NFR:050}] \textbf{\textlabel{Security}{NFR:T050}} \\
+	All the games implemented with the {\graphioli} will have none security vulnerability.
+\end{description}

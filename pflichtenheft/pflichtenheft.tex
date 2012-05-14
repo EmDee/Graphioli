@@ -7,16 +7,13 @@
 \usepackage{nameref}
 \usepackage{comment} % for block commenting
 \usepackage{graphicx}
-\usepackage[export]{adjustbox}
+% \usepackage[export]{resources/adjustbox}
+\usepackage{float}
+\graphicspath{{./images/}}
+\usepackage{todonotes} % use temporary for todo notes
+\usepackage[nonumberlist,acronym,toc,section]{glossaries} % must be the last package to include
 
-%Glossaries
-\usepackage[
-xindy,
-nonumberlist, % No page numbers
-acronym,      % Type: acronym
-toc,          % Entry in TOC
-section]      % Level in TOC: section
-{glossaries}
+% glossary
 \makeglossaries
 \include{glossary-entries}
 
@@ -28,11 +25,20 @@ section]      % Level in TOC: section
 \tableofcontents
 \clearpage
 
+\makeatletter
+    \newcommand*{\textlabel}[2]{%
+        \edef\@currentlabel{#1}% Set target label
+        \phantomsection% Correct hyper reference link
+        #1\label{#2}% Print and store label
+    }
+\makeatother
+
+%%% proper nouns
+\newcommand{\graphioli}{\textsc{Graphioli}}
+\newcommand{\gameexplorer}{\textsc {Game-Explorer}}
+
 \include{einleitung}
 \include{zielbestimmung}
-\include{musskriterien}
-\include{wunschkriterien}
-\include{abgrenzungskriterien}
 \include{produkteinsatz}
 \include{produktumgebung}
 \include{produktfunktionen}

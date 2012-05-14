@@ -6,7 +6,8 @@
 %
 
 \newglossaryentry{graphioli}{name=Graphioli,
-description={A fancy name that combines \glspl{graph} with filled pasta.}}
+description={A fancy name that combines \glspl{graph} with filled pasta.},
+plural={Graphioli}}
 
 \newglossaryentry{graph}{name=graph,
 description={Abstract representation of a set of edges where some pairs of the \glspl{vertice} are connected by \glspl{edge}.}}
@@ -18,16 +19,19 @@ description={Line that connects a pair of \glspl{vertice} in a \gls{graph}.}}
 description={Node in a \gls{graph}. Can but must not be connected with other \glspl{vertice} by an \gls{edge}.}}
 
 \newglossaryentry{planar}{name=planar,
-description={A \emph{planar} \gls{graph} is a graph that can be structure-preservingly redrawn in a way that no \glspl{edge} intersect.}}
+description={A \emph{planar} \gls{graph} is a graph that can be structure-preservingly redrawn in a way that no \glspl{edge} intersect.},
+plural={planar}}
 
 \newglossaryentry{planarity}{name=planarity,
-description={see \emph{\gls{planar}}}}
+description={see \emph{\gls{planar}}},
+plural={planarities}}
 
 \newglossaryentry{api}{name=application programming interface (API),
 description={Set of routines and tools providing \gls{program} blocks, which are put together by a third-party programmer to ensure consistency with an existing program or \gls{framework}.}}
 
 \newglossaryentry{gui}{name=graphical user interface (GUI),
-description={\Gls{program} interface that uses a computer's graphical capabilities to provide easy access and handling for the program. It replaces the command-line based access.}}
+description={\Gls{program} interface that uses a computer's graphical capabilities to provide easy access and handling for the program. It replaces the command-line based access.},
+plural={graphical user interfaces (GUI)}}
 
 \newglossaryentry{framework}{name=framework,
 description={A layered structure indicating what kind of applications can or should be built and how they would interrelate. It specifies interfaces and reusable \glspl{program} that form the basis for such an application.}}
@@ -36,13 +40,19 @@ description={A layered structure indicating what kind of applications can or sho
 description={Java is a widely spread programming language originally developed by Sun Microsystems and released in 1995. Applications developed with Java are compiled into bytecode that runs on basically every system that has a Java Virtual Machine installed.}}
 
 \newglossaryentry{jvm}{name=Java Virtual Machine (JVM),
-description={A virtual machine that can execute \Gls{java} byte code. Thus, the execution component of the Java platform.}}
+description={A virtual machine that can execute \Gls{java} byte code. Thus, the execution component of the Java platform.},
+plural={Java Virtual Machines (JVM)}}
+
+\newglossaryentry{jdk}{name=Java Development Kit (JDK),
+description={A collection of programming tools for \Gls{java} \glspl{developer}.},
+plural={Java Development Kit (JDK)}}
 
 \newglossaryentry{jre}{name=Java Runtime Environment,
 description={see \emph{\gls{jvm}}}}
 
 \newglossaryentry{javadoc}{name=Javadoc,
-description={Javadoc is a tool for generating API documentation in HTML format from doc comments in source code. [Oracle]}}
+description={Javadoc is a tool for generating API documentation in HTML format from doc comments in source code. [Oracle]},
+plural={Javadoc}}
 
 \newglossaryentry{customer}{name=customer,
 description={A party that receives a copy of the created \gls{software} in order to use it for own implementations.}}
@@ -93,43 +103,55 @@ description={An organized collection of data and instructions for computers, tha
 description={The sequence of administrative, technical, or other processes through which a \gls{software} project passes from initiation to completion.}}
 
 \newglossaryentry{consistency}{name=consistency,
-description={Those attributes of the \gls{software} that provide uniform design and implementation techniques and notations.  [McCall, Richards and Walters, RADC, 1977]}}
+description={Those attributes of the \gls{software} that provide uniform design and implementation techniques and notations.  [McCall, Richards and Walters, RADC, 1977]},
+plural={consistencies}}
 
 \newglossaryentry{correctability}{name=correctability,
-description={The degree of effort required to correct \gls{software} defects and to cope with \gls{user} complaints.  [Fenton \& Pfleeger, 1997]}}
+description={The degree of effort required to correct \gls{software} defects and to cope with \gls{user} complaints.  [Fenton \& Pfleeger, 1997]},
+plural={correctabilities}}
 
 \newglossaryentry{user}{name=user,
 description={The \emph{user} of a \gls{software} is everybody how starts the \gls{program} in order to fulfill specified tasks.\\The user of this framework is the \gls{game-developer}, whereas the user of the final \gls{game} is the \gls{player}.}}
 
 \newglossaryentry{stability}{name=stability,
-description={The benchmark of resistancy towards change of runtime environment, critical user interactions, workload and attacks.}}
+description={The benchmark of resistancy towards change of runtime environment, critical user interactions, workload and attacks.},
+plural={stabilities}}
 
 \newglossaryentry{usability}{name=usability,
-description={The ease of use of a piece of \gls{software}.}}
+description={The ease of use of a piece of \gls{software}.},
+plural={usabilities}}
 
 \newglossaryentry{performance}{name=performance,
 description={The amount of useful work accomplished by a piece of \gls{software} compared to the time and resources used.}}
 
 \newglossaryentry{git}{name=Git,
-description={A distributed revision control and source code management system developed by \emph{Linus Torvalds}. Every Git working directory is a full-fledged repository with complete history and full revision tracking capabilities, not dependent on network access or a central server.  [Wikipedia: Git (software), 08/05/2012]}}
+description={A distributed revision control and source code management system developed by \emph{Linus Torvalds}. Every Git working directory is a full-fledged repository with complete history and full revision tracking capabilities, not dependent on network access or a central server.  [Wikipedia: Git (software), 08/05/2012]},
+plural={Git}}
 
 \newglossaryentry{eclipse}{name=Eclipse,
-description={An open development platform comprised of extensible frameworks, tools and runtimes for building, deploying and managing software across the lifecycle.  [Eclipse project]}}
+description={An open development platform comprised of extensible frameworks, tools and runtimes for building, deploying and managing software across the lifecycle.  [Eclipse project]},
+plural={Eclipse}}
 
 \newglossaryentry{artificial-intelligence}{name=artificial intelligence (AI),
 description={An intelligent system that perceives its environment and takes actions that maximize its chances of success.  [Russell \& Norvig, 2003]\\An algorithm that tries to defeat its human counter-\glspl{player} in a \glspl{computer-game} could be referred to as \emph{artificial intelligence}.}}
 
 \newglossaryentry{depth-first-search}{name=depth-first search (DFS),
-description={An \gls{algorithm} for traversing or searching a \gls{graph}, starting at a selected root \gls{vertice} and exploring as far as possible along each branch before backtracking.  [Wikipedia]}}
+description={An \gls{algorithm} for traversing or searching a \gls{graph}, starting at a selected root \gls{vertice} and exploring as far as possible along each branch before backtracking.  [Wikipedia]},
+plural={depth-first searches (DFS)}}
 
 \newglossaryentry{breadth-first-search}{name=breadth-first search (BFS),
-description={An \gls{algorithm} for traversing or searching a \gls{graph}, starting at a selected root \gls{vertice} and inspecting all its neighboring vertices.}}
+description={An \gls{algorithm} for traversing or searching a \gls{graph}, starting at a selected root \gls{vertice} and inspecting all its neighboring vertices.},
+plural={breadth-first searches (BFS)}}
 
 \newglossaryentry{path}{name=path,
 description={A sequence of \glspl{vertice} of a \gls{graph}.}}
 
 \newglossaryentry{algorithm}{name=algorithm,
 description={Procedure or set of (mathematical) rules for solving a problem in a finite number of steps, especially by a computer.}}
+
+\newglossaryentry{library}{name=library,
+description={A collection of resources used to develop \gls{software}. These may include pre-written code and subroutines, classes, values or type specifications.},
+plural={libraries}}
 
 %
 % Acronyms
@@ -141,8 +163,12 @@ description={Procedure or set of (mathematical) rules for solving a problem in a
 
 \newacronym{JVM}{JVM}{Java Virtual Machine\protect\glsadd{jvm}}
 
+\newacronym{JDK}{JDK}{Java Development Kit\protect\glsadd{jdk}}
+
 \newacronym{AI}{AI}{Artificial intelligence\protect\glsadd{artificial-intelligence}}
 
 \newacronym{DFS}{DFS}{Depth-first search\protect\glsadd{depth-first-search}}
 
 \newacronym{BFS}{BFS}{Breadth-first search\protect\glsadd{breadth-first-search}}
+
+\newacronym{ID}{ID}{Identification}
