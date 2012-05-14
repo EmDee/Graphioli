@@ -1,49 +1,54 @@
 \section{Product performance}
+
+%%%%%%%%%%% Framework %%%%%%%%%%%
+
 \subsection{Framework}
-
 \begin{tabular}{{c}{l}}
     \hline
     {\bf Functions} & {\bf Description} \\ \hline
-	\ref{PP:FW010} & Maximum vertex/edge count \\
-	\ref{PP:FW020} & Algorithm efficiency \\
-	\ref{PP:FW030} & Maximum player count \\
-	\ref{PP:FW040} & Development effort \\
-	\ref{PP:FW050} & Model-View-Controller \\ \hline
+	\ref{PP:FW010} & \ref{PP:FWT010} \\
+	\ref{PP:FW020} & \ref{PP:FWT020} \\
+	\ref{PP:FW030} & \ref{PP:FWT030} \\ \hline
 \end{tabular}
 
+\vspace{.5cm}
 
 \begin{description}
-	\item[{/PP010/}\label{PP:FW010}] The framework must be able to handle at least 100 vertices and 300 edges in a single instance of a game.
-	\item[{/PP020/}\label{PP:FW020}] The framework's graph algorithms have to be implemented in an efficient version.
-	\item[{/PP030/}\label{PP:FW030}] Up to four players should be able to participate at a game.
-	\item[{/PP040/}\label{PP:FW040}] An experienced developer has to be able to implement a simple graph game within less than half an hour.
-	\item[{/PP050/}\label{PP:FW050}] The framework hast to be strictly consitent with the MVC design pattern.
+	\item[\textlabel{/PP010/}{PP:FW010}] \textbf{\textlabel{Maximum vertex/edge count}{PP:FWT010}} \\
+	The framework must be able to handle at least 100 vertices and 300 edges in a single instance of a game.
+	\item[\textlabel{/PP020/}{PP:FW020}] \textbf{\textlabel{Maximum player count}{PP:FWT020}} \\
+	Up to four players should be able to participate in a game.
+	\item[\textlabel{/PP030/}{PP:FW030}] \textbf{\textlabel{Model-View-Controller}{PP:FWT030}} \\
+	The framework has to be strictly consitent with the MVC design pattern.
 \end{description}
 
-\subsection{GUI: Game-Explorer}
+%%%%%%%%%%% Game-Explorer %%%%%%%%%%%
 
+\subsection{Game-Explorer}
 \begin{tabular}{{c}{l}}
     \hline
     {\bf Functions} & {\bf Description} \\ \hline
-	\ref{PP:GE060} & UI Stability \\
-	\ref{PP:GE070} & Termination  \\
-	\ref{PP:GE080} & UI response time \\ \hline
+	\ref{PP:GE010} & \ref{PP:GET010} \\ \hline
 \end{tabular}
 
+\vspace{.5cm}
+
 \begin{description}
-	\item[{/PP060/}\label{PP:GE060}] The user interface has to remain functional, even if the implemented game is faulty.
-	\item[{/PP070/}\label{PP:GE070}] Terminating a running game has to be possible under every circumstance. 
-	\item[{/PP080/}\label{PP:GE080}] The graphical user interface has to respond to user input within 0.3 seconds.
+	\item[\textlabel{/PP040/}{PP:GE010}] \textbf{\textlabel{UI response time}{PP:GET010}} \\
+	The graphical user interface has to respond to user input within 0.3 seconds.
 \end{description}
+
+%%%%%%%%%%% Games %%%%%%%%%%%
 
 \subsection{Implemented Games}
 
 \begin{tabular}{{c}{l}}
     \hline
     {\bf Functions} & {\bf Description} \\ \hline
-	\ref{PP:IG090} & Validation\\ \hline
+	\ref{PP:IG010} & \ref{PP:IGT010} \\ \hline
 \end{tabular}
 
 \begin{description}
-	\item[{/PP090/}\label{PP:IG090}] The games "TwixT" and "Graph-Coloring" must not accept any invalid move by the player.
+	\item[\textlabel{/PP090/}{PP:IG010}] \textbf{\textlabel{Validation}{PP:IGT010}} \\
+	The games \twixt and \graphcoloring must not accept any invalid move by the player.
 \end{description}
