@@ -1,39 +1,54 @@
 \section{Test cases}
 
-\subsection{Framework}
+\subsection{Game-Explorer}
 
-/T010/ Build a graph \\
+\begin{tabular}{cll}
 
-/T020/ Add/delete vertices/edges with different parameters \\
+\hline
+{\bf Test} & {\bf Description} & {\bf Tested Functionalities} \\
+\hline
+/T010/ & Select a game & \ref{FR:090}, \ref{FR:120} \\
+/T020/ & Start a game & \ref{FR:100} \\
+/T030/ & Use the help function & \ref{FR:110} \\
+/T040/ & Add new game & \ref{FR:090}, \ref{FR:130} \\
+\hline
 
-/T030/ Execute the algorithms \\
-
-/T040/ Display a graph \\
-
-/T050/ Manipulate graph in the GUI \\
+\end{tabular}
 
 \subsection{Games}
 
 \subsubsection{Graph coloring}
 
-/T110/ Save/load a game \\
+\begin{tabular}{cll}
 
-/T120/ Color an uncolored vertex \\
+\hline
+{\bf Test} & {\bf Description} & {\bf Tested Functionalities} \\
+\hline
+/T110/ & Save/load a game & \ref{FR:140}, \ref{FR:150}\\
+/T120/ & Color an uncolored vertex & \ref{FR:000}, \ref{FR:020}\\
+/T130/ & Color a colored vertex & \\
+/T140/ & Color a vertex next to a colored one in the same color & \\
+/T150/ & Win/Lose a game & \\
+\hline
 
-/T130/ Color a vertex next to a colored one in the same color \\
-
-/T140/ Win a game
+\end{tabular}
 
 \subsubsection{TwixT}
 
-/T210/ Save/load a game \\
+\begin{tabular}{cll}
 
-/T220/ Place bridges/towers \\
+\hline
+{\bf Test} & {\bf Description} & {\bf Tested Functionalities} \\
+\hline
+/T210/ & Save/load a game & \ref{FR:140}, \ref{FR:150} \\
+/T220/ & Place edges/vertices & \ref{FR:010} \\
+/T230/ & Place an edge across an opponent's one & \ref{FR:040} \\
+/T240/ & Place an edge where no vertices are & \\
+/T250/ & Win/Lose a game & \ref{FR:030}\\
+\hline
 
-/T230/ Place a bridge across an opponent's one \\
+\end{tabular}
 
-/T240/ Place a bridge where no towers are \\
-
-/T250/ Win a game \\
+\subsection{Test scenarios}
 
 
