@@ -19,20 +19,20 @@
 \end{tabular}
 
 \vspace{.5cm}
-
+\todo{grid can be displayed}
 \begin{description}
 	\item[\textlabel{/FR000/}{FR:000}] \textbf{\textlabel{Event listeners}{FR:T000}} \\
 	The {\graphioli}  already implements event listeners for user interactions. Mouse clicks as well as keyboard strokes can be used to interact with the game, but can also be disabled, if wanted to.
-  	\item[\textlabel{/FR010/}{FR:010}] \textbf{\textlabel{Add/Remove/Move vertices/edges}{FR:T010}}  \\
+  	\item[\textlabel{/FR010/}{FR:010}] \textbf{\textlabel{Add/Remove/Move vertices/edges}{FR:T010}} \todo{Select edges is optional; move is optional}  \\
 	With the {\graphioli} the developer can do all basic graph operations. Vertices can be added to either a given graph or to initiate a new graph. Vertices can be removed and moved; in either case the edges will be removed or moved accordingly. In addition to adding, removing and moving vertices, the developer can also connect two given vertices with each other, and remove edges between vertices. Each operation is naturally dependent on the game that is being implemented, thus allowing the developer to use the operation or disabling it.
 	\item[\textlabel{/FR020/}{FR:020}] \textbf{\textlabel{Vertices/Edges have attributes}{FR:T020}}  \\
 	Each and every vertex and edge will have a set of default attributes. The developer can completely change the appearance of a vertex by replacing the default icon with any graphic or by changing its color, stroke, or size. Additionally each vertex will have its own coordinates, its own weight, and an unique identification as attributes. Edges have attributes of their own as well, which the developer can set. An edge can have a weight, a length, and a direction.
 	\item[\textlabel{/FR030/}{FR:030}] \textbf{\textlabel{Find path}{FR:T030}}  \\
 	The {\graphioli} implements algorithms to find a path between given vertices.
 	\item[\textlabel{/FR040/}{FR:040}] \textbf{ \textlabel{Check for planarity}{FR:T040}}  \\
-	For a given graph, it is possible to verify, if an edge between two given unconnected vertices exists, so that the resulting graph is planar. \todo{Here was a question concerning the term `planar'}
+	For a given graph, it is possible to verify, if an edge between two given unconnected vertices exists, so that the resulting graph is planar. \todo{we display planar graphs}
  	\item[\textlabel{/FR050/}{FR:050}] \textbf{\textlabel{Display games with graphical user interface}{FR:T050}}  \\
- 	The \nameref{FR:game-explorer} displays all graph games, which where implemented using the {\graphioli}.
+ 	The \nameref{FR:game-explorer} \todo{change game-explorer to gui}displays all graph games, which where implemented using the {\graphioli}.
 	\item[\textlabel{/FR060/}{FR:060}] \textbf{\textlabel{Print planar graphs}{FR:T060}}  \\
   	With \ref{FR:010} and \ref{FR:020} the developer is able to draw a two-dimensional graph with a set of given vertices and edges.
 	\item[\textlabel{/FR070/}{FR:070}] \textbf{\textlabel{Play as single player or against another player}{FR:T070}}  \\
