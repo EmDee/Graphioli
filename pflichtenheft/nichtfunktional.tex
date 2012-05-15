@@ -5,58 +5,75 @@
 %%%%%%%%%%% Framework %%%%%%%%%%%
 
 \subsubsection{Framework}
+\paragraph{Code}
+\paragraph*{}
 \begin{tabular}{{c}{l}}
     \hline
     \textbf{Functions} & \textbf{Description} \\ \hline
-	\ref{NFR:010} & \ref{NFR:T010} \\
-	\ref{PP:FW020} & Algorithm efficiency \\
-	\ref{PP:FW040} & Development effort \\
-	\ref{NFR:020} & \ref{NFR:T020} \\ \hline
+	\ref{NFR:F010} & \ref{NFR:FT010} \\
+	\ref{NFR:F020} & \ref{NFR:FT020} \\
+	\ref{NFR:F030} & \ref{NFR:FT030} \\
+	\ref{NFR:F040} & \ref{NFR:FT040} \\ \hline
 \end{tabular}
 
 \vspace{.5cm}
 
 \begin{description}
-	\item[{/PP020/}\label{PP:FW020}] The framework's graph algorithms have to be implemented in an efficient version.
-	\item[{/PP040/}\label{PP:FW040}] An experienced developer has to be able to implement a simple graph game within less than half an hour.
-	
-  	\item[\textlabel{/NFR010/}{NFR:010}] \textbf{\textlabel{Simple usage}{NFR:T010}}  \\
-	The {\graphioli} can be easily understood by the developer after a short period of induction. The induction should not take longer than one day for the developer to fully be able to work with the {\graphioli}. \\
-	\item[\textlabel{/NFR020/}{NFR:020}] \textbf{\textlabel{Documentation in detail}{NFR:T020}} \\
+  	\item[\textlabel{/NFR010/}{NFR:F010}] \textbf{\textlabel{Simple usage}{NFR:FT010}}  \\
+	The {\graphioli} can be easily understood by the developer after a short period of induction. The induction should not take longer than one day for the developer to fully be able to work with the {\graphioli}.
+	\item[\textlabel{/NFR020/}{NFR:F020}] \textbf{\textlabel{Algorithm efficiency}{NFR:FT020}}  \\ 
+	The framework's graph algorithms have to be implemented in an efficient version.
+	\item[\textlabel{/NFR030/}{NFR:F030}] \textbf{\textlabel{Development effort}{NFR:FT030}}  \\ 
+	An experienced developer has to be able to implement a simple graph game within less than half an hour.
+	\item[\textlabel{/NFR040/}{NFR:F040}] \textbf{\textlabel{Documentation in detail}{NFR:FT040}} \\
 	The {\graphioli} has an simple to understand and easy accessible documentation. Each class, method will be described in detail with all attributes, parameters, and usage.
 \end{description}
 
-%%%%%%%%%%% GAME-EXPLORER %%%%%%%%%
+%%%%%%%%%%% GUI %%%%%%%%%
 
-\subsubsection{Games}
+\paragraph{GUI}
+\paragraph*{}
 \begin{tabular}{{c}{l}}
     \hline
     \textbf{Functions} & \textbf{Description} \\ \hline
-	\ref{PP:GE060} & UI Stability \\
-	\ref{PP:GE070} & Termination  \\ \hline
+	\ref{NFR:GU010} & \ref{NFR:GUT010} \\ \hline
 \end{tabular}
 
 \vspace{.5cm}
 
 \begin{description}
-	\item[{/PP060/}\label{PP:GE060}] The user interface has to remain functional, even if the implemented game is faulty.
-	\item[{/PP070/}\label{PP:GE070}] Terminating a running game has to be possible under every circumstance. 
+  	\item[\textlabel{/NFR050/}{NFR:GU010}] \textbf{\textlabel{UI Stability}{NFR:GUT010}}  \\
+	The user interface has to remain functional, even if the implemented game is faulty.
+\end{description}
+
+%%%%%%%%%%% Explorer %%%%%%%%%
+
+\paragraph{GUI}
+\paragraph*{}
+\begin{tabular}{{c}{l}}
+    \hline
+    \textbf{Functions} & \textbf{Description} \\ \hline
+
+\end{tabular}
+
+\vspace{.5cm}
+
+\begin{description}
+  	
 \end{description}
 
 %%%%%%%%%%% GAMES %%%%%%%%%%%
+
 \subsubsection{Games}
 \begin{tabular}{{c}{l}}
     \hline
     \textbf{Functions} & \textbf{Description} \\ \hline
-	\ref{NFR:030} & \ref{NFR:T030} \\
-	\ref{NFR:040} & \ref{NFR:T040} \\ \hline
+	\ref{NFR:G010} & \ref{NFR:GT010} \\ \hline
 \end{tabular}
 
 \vspace{.5cm}
 
 \begin{description}
-	\item[\textlabel{/NFR030/}{NFR:030}] \textbf{\textlabel{Crashes}{NFR:T030}}  \\
-	Games implemented with the {\graphioli} will not crash more often than once per 10.000 uses. \\
-	\item[\textlabel{/NFR040/}{NFR:040}] \textbf{\textlabel{Security}{NFR:T040}} \\
-	All the games implemented with the {\graphioli} will have none security vulnerability.
+	\item[\textlabel{/NFR060/}{NFR:G010}] \textbf{\textlabel{Termination}{NFR:GT010}}  \\
+	Terminating a running game has to be possible under every circumstance. 
 \end{description}
