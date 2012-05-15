@@ -3,43 +3,52 @@
 
 %%%%%%%%%%% Framework %%%%%%%%%%%
 
-\subsubsection{Graphioli Framework}
+\subsubsection{Framework}
 \begin{tabular}{{c}{l}{c}}
     \hline
     \textbf{Functions} & \textbf{Description} & \textbf{Optional} \\ \hline
-	\ref{FR:000} & \ref{FR:T000} & {}  \\
-	\ref{FR:010} & \ref{FR:T010} & {}  \\ 
-	\ref{FR:020} & \ref{FR:T020} & {}  \\ 
-	\ref{FR:030} & \ref{FR:T030} & {}  \\
-	\ref{FR:040} & \ref{FR:T040} & {}  \\
-	\ref{FR:050} & \ref{FR:T050} & {}  \\
-	\ref{FR:060} & \ref{FR:T060} & {}  \\
-	\ref{FR:070} & \ref{FR:T070} & {}  \\ 
-	\ref{FR:080} & \ref{FR:T080} & {}  \\ \hline
+	\ref{FR:F000} & \ref{FR:T000} & {}  \\
+	\ref{FR:F010} & \ref{FR:T010} & {}  \\ 
+	\ref{FR:F020} & \ref{FR:T020} & {}  \\ 
+	\ref{FR:F030} & \ref{FR:T030} & {}  \\
+	\ref{FR:F040} & \ref{FR:T040} & {}  \\
+	\ref{FR:F050} & \ref{FR:T050} & {}  \\
+	\ref{FR:F060} & \ref{FR:T060} & {}  \\
+	\ref{FR:F070} & \ref{FR:T070} & {}  \\ 
+	\ref{FR:F080} & \ref{FR:T080} & {*} \\ \hline
 \end{tabular}
 
 \vspace{.5cm}
 \todo{grid can be displayed}
 \begin{description}
-	\item[\textlabel{/FR000/}{FR:000}] \textbf{\textlabel{Event listeners}{FR:T000}} \\
-	The {\graphioli}  already implements event listeners for user interactions. Mouse clicks as well as keyboard strokes can be used to interact with the game, but can also be disabled, if wanted to.
-  	\item[\textlabel{/FR010/}{FR:010}] \textbf{\textlabel{Add/Remove/Move vertices/edges}{FR:T010}} \todo{Select edges is optional; move is optional}  \\
-	With the {\graphioli} the developer can do all basic graph operations. Vertices can be added to either a given graph or to initiate a new graph. Vertices can be removed and moved; in either case the edges will be removed or moved accordingly. In addition to adding, removing and moving vertices, the developer can also connect two given vertices with each other, and remove edges between vertices. Each operation is naturally dependent on the game that is being implemented, thus allowing the developer to use the operation or disabling it.
-	\item[\textlabel{/FR020/}{FR:020}] \textbf{\textlabel{Vertices/Edges have attributes}{FR:T020}}  \\
+	\item[\textlabel{/FR000/}{FR:F000}] \textbf{\textlabel{Grid}{FR:FT000}} \\
+	Vertices are positioned using a grid system that the framework provides. The size of the grid can be freely set by the developer depending on the game that is being implemented. The grid system can either be visible in the \nameref{framework-gui} or invisible, again, depending on the needs of the developer.
+	\item[\textlabel{/FR010/}{FR:F010}] \textbf{\textlabel{Event listeners}{FR:FT010}} \\
+	The framework already implements event listeners for user interactions. Mouse clicks as well as keyboard strokes can be used to interact with the game, but can also be disabled, if wanted to.
+  	\item[\textlabel{/FR020/}{FR:F020}] \textbf{\textlabel{Add/Remove/Move vertices/edges}{FR:FT020}} \todo{Select edges is optional; move is optional}  \\
+	With the framework the developer can do all basic graph operations. Vertices can be added to either a given graph or to initiate a new graph. Vertices can be removed and moved; in either case the edges will be removed or moved accordingly. In addition to adding, removing and moving vertices, the developer can also connect two given vertices with each other, and remove edges between vertices. Each operation is naturally dependent on the game that is being implemented, thus allowing the developer to use the operation or disabling it.
+	\item[\textlabel{/FR030/}{FR:F030}] \textbf{\textlabel{Vertices/Edges have attributes}{FR:FT030}}  \\
 	Each and every vertex and edge will have a set of default attributes. The developer can completely change the appearance of a vertex by replacing the default icon with any graphic or by changing its color, stroke, or size. Additionally each vertex will have its own coordinates, its own weight, and an unique identification as attributes. Edges have attributes of their own as well, which the developer can set. An edge can have a weight, a length, and a direction.
-	\item[\textlabel{/FR030/}{FR:030}] \textbf{\textlabel{Find path}{FR:T030}}  \\
-	The {\graphioli} implements algorithms to find a path between given vertices.
-	\item[\textlabel{/FR040/}{FR:040}] \textbf{ \textlabel{Check for planarity}{FR:T040}}  \\
+	\item[\textlabel{/FR040/}{FR:F040}] \textbf{\textlabel{Find path}{FR:FT040}}  \\
+	The framework implements algorithms to find a path between given vertices.
+ 	\item[\textlabel{/FR050/}{FR:F050}] \textbf{\textlabel{Graphical output}{FR:FT050}}  \\
+ 	A \gls{GUI} is provided to display graphs and games that were developed with the framework. 
+	\item[\textlabel{/FR060/}{FR:F060}] \textbf{\textlabel{Check for planarity in displayed graph}{FR:FT060}} \\
 	For a given graph, it is possible to verify, if an edge between two given unconnected vertices exists, so that the resulting graph is planar. \todo{we display planar graphs}
- 	\item[\textlabel{/FR050/}{FR:050}] \textbf{\textlabel{Display games with graphical user interface}{FR:T050}}  \\
- 	The \nameref{FR:game-explorer} \todo{change game-explorer to gui}displays all graph games, which where implemented using the {\graphioli}.
-	\item[\textlabel{/FR060/}{FR:060}] \textbf{\textlabel{Print planar graphs}{FR:T060}}  \\
-  	With \ref{FR:010} and \ref{FR:020} the developer is able to draw a two-dimensional graph with a set of given vertices and edges.
-	\item[\textlabel{/FR070/}{FR:070}] \textbf{\textlabel{Play as single player or against another player}{FR:T070}}  \\
-	The Graphioli frameworks enables the developer to easily implement both single and multiplayer modes.
-	\item[\textlabel{/FR080/}{FR:080}] \textbf{\textlabel{Timer}{FR:T080}} \\
-	A timer function exists, which the developer can implement within his games.
+	\item[\textlabel{/FR070/}{FR:F070}] \textbf{\textlabel{Timer}{FR:FT070}} \\
+	A timer function exists, which the developer can implement within his games. The timer keeps track of the current play time.
 \end{description}
+
+%%%%%%%%%%% GUI %%%%%%%%%%%
+
+\subsubsection{GUI}
+\begin{tabular}{{c}{l}{c}}
+	\hline
+	\textbf{Functions} & \textbf{Description} & \textbf{Optional} \\ \hline
+	Output
+	Input
+	Status
+\end{tabular}
 
 %%%%%%%%%%% Explorer %%%%%%%%%%%
 
@@ -47,41 +56,41 @@
 \begin{tabular}{{c}{l}}
     \hline
     \textbf{Functions} & \textbf{Description} \\ \hline
-	\ref{FR:090} & \ref{FR:T090} \\
-	\ref{FR:100} & \ref{FR:T100} \\
-	\ref{FR:110} & \ref{FR:T110} \\
-	\ref{FR:120} & \ref{FR:T120} \\
-	\ref{FR:130} & \ref{FR:T130} \\ \hline
+	\ref{FR:E010} & \ref{FR:ET010} \\
+	\ref{FR:E020} & \ref{FR:ET020} \\
+	\ref{FR:E030} & \ref{FR:ET030} \\
+	\ref{FR:E040} & \ref{FR:ET040} \\
+	\ref{FR:E050} & \ref{FR:ET050} \\ \hline
 \end{tabular}
 
 \vspace{.5cm}
 
 \begin{description}
   	\item[\textlabel{/FR090/}{FR:090}] \textbf{\textlabel{Manage Games}{FR:T090}} \\
-  	Managing games, which where implemented using the {\graphioli} is an easy task with the {\gameexplorer}. The {\gameexplorer} is the centerpiece for all games. It combines the games within one window and lets the player select a game to play. Every game is saved in a subfolder within the {\gameexplorer} directory.
+  	Managing games, which where implemented using the {\graphioli} is an easy task with the Game-Explorer. The Game-Explorer is the centerpiece for all games. It combines the games within one window and lets the player select a game to play. Every game is saved in a subfolder within the Game-Explorer directory.
  	\item[\textlabel{/FR100/}{FR:100}] \textbf{\textlabel{Start games}{FR:T100}}  \\
  	Once a game is selecting in the menu, the player can start a game by pressing the `Start' button.
 	\item[\textlabel{/FR110/}{FR:110}] \textbf{\textlabel{See game instructions}{FR:T110}}  \\
   	A tutorial or instruction file for each game (provided by the developer), can be viewed by clicking the `Help' button, which opens up a new window with the instruction/tutorial.
 	\item[\textlabel{/FR120/}{FR:120}] \textbf{\textlabel{Display description}{FR:T120}}  \\
-	When a game is selected the {\gameexplorer} will display an image and a description of the game, which both are provided by the developer.
+	When a game is selected the Game-Explorer will display an image and a description of the game, which both are provided by the developer.
 	\item[\textlabel{/FR130/}{FR:130}] \textbf{\textlabel{Load new games}{FR:T130}} \\
-	The {\gameexplorer} can be extended with new games. Therefore a `Load' button exists, where the player can choose from a list of games. Once a game is added, a new menu entry will be displayed within his `Game-Explorer' list of games. Which then can be selected to be played. Games that are already in the `Game' folder will be automatically loaded into the game list.
+	The Game-Explorer can be extended with new games. Therefore a `Load' button exists, where the player can choose from a list of games. Once a game is added, a new menu entry will be displayed within his `Game-Explorer' list of games. Which then can be selected to be played. Games that are already in the `Game' folder will be automatically loaded into the game list.
 \end{description}
 
 %%%%%%%%%%% GAMES %%%%%%%%%%%
 
-\subsubsection{Implemented Games}
-\begin{tabular}{{c}{l}}
+\subsubsection{Games}
+\begin{tabular}{{c}{l}{c}}
     \hline
-    \textbf{Functions} & \textbf{Description} \\ \hline
-	\ref{FR:140} & \ref{FR:T140} \\
-	\ref{FR:150} & \ref{FR:T150} \\
-	\ref{FR:160} & \ref{FR:T160} \\
-	\ref{FR:170} & \ref{FR:T170} \\
-	\ref{FR:180} & \ref{FR:T180} \\
-	\ref{FR:190} & \ref{FR:T190} \\
-	\ref{FR:200} & \ref{FR:T200} \\ \hline
+    \textbf{Functions} & \textbf{Description} \textbf{Optional}\\ \hline
+	\ref{FR:140} & \ref{FR:T140} & {} \\
+	\ref{FR:150} & \ref{FR:T150} & {} \\
+	\ref{FR:160} & \ref{FR:T160} & {} \\
+	\ref{FR:170} & \ref{FR:T170} & {} \\
+	\ref{FR:180} & \ref{FR:T180} & {} \\
+	\ref{FR:190} & \ref{FR:T190} & {} \\
+	\ref{FR:200} & \ref{FR:T200} & {} \\ \hline
 \end{tabular}
 
 \vspace{.5cm}
@@ -109,25 +118,47 @@
 
 %%%%%%%%%%% Framework %%%%%%%%%%%
 
-\subsubsection{Graphioli Framework}
+\subsubsection{Framework}
 \begin{tabular}{{c}{l}}
     \hline
     \textbf{Functions} & \textbf{Description} \\ \hline
 	\ref{NFR:010} & \ref{NFR:T010} \\
+	\ref{PP:FW020} & Algorithm efficiency \\
+	\ref{PP:FW040} & Development effort \\
 	\ref{NFR:020} & \ref{NFR:T020} \\ \hline
 \end{tabular}
 
 \vspace{.5cm}
 
 \begin{description}
+	\item[{/PP020/}\label{PP:FW020}] The framework's graph algorithms have to be implemented in an efficient version.
+	\item[{/PP040/}\label{PP:FW040}] An experienced developer has to be able to implement a simple graph game within less than half an hour.
+	
   	\item[\textlabel{/NFR010/}{NFR:010}] \textbf{\textlabel{Simple usage}{NFR:T010}}  \\
 	The {\graphioli} can be easily understood by the developer after a short period of induction. The induction should not take longer than one day for the developer to fully be able to work with the {\graphioli}. \\
 	\item[\textlabel{/NFR020/}{NFR:020}] \textbf{\textlabel{Documentation in detail}{NFR:T020}} \\
 	The {\graphioli} has an simple to understand and easy accessible documentation. Each class, method will be described in detail with all attributes, parameters, and usage.
 \end{description}
 
+%%%%%%%%%%% GAME-EXPLORER %%%%%%%%%
+
+\subsubsection{Games}
+\begin{tabular}{{c}{l}}
+    \hline
+    \textbf{Functions} & \textbf{Description} \\ \hline
+	\ref{PP:GE060} & UI Stability \\
+	\ref{PP:GE070} & Termination  \\ \hline
+\end{tabular}
+
+\vspace{.5cm}
+
+\begin{description}
+	\item[{/PP060/}\label{PP:GE060}] The user interface has to remain functional, even if the implemented game is faulty.
+	\item[{/PP070/}\label{PP:GE070}] Terminating a running game has to be possible under every circumstance. 
+\end{description}
+
 %%%%%%%%%%% GAMES %%%%%%%%%%%
-\subsubsection{Graphioli Framework}
+\subsubsection{Games}
 \begin{tabular}{{c}{l}}
     \hline
     \textbf{Functions} & \textbf{Description} \\ \hline
