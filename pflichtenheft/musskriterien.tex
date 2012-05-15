@@ -2,7 +2,7 @@
 \label{mandatory-criteria}
 \subsubsection{Framework}
 The framework provides rudimental functions that either all or the most \glspl{game} need. Such as creating new \glspl{graph} from specifications and visualizing and manipulating existing graphs.\par
-These graphs consist of \glspl{edge} and \glspl{vertex} that themselves are equipped with parameters, such as style or weight. Parameters that are related to vertices are for example weight, length or direction.\par
+These graphs consist of \glspl{edge} and \glspl{vertex} that themselves are equipped with parameters, such as style or weight. Parameters that are related to edges are for example weight, length or direction.\par
 Thus, a \gls{developer} using {\graphioli} does not need to implement a \gls{GUI} for his or her game.\par
 Furthermore the framework lightens the developer's workload by providing access to reoccuring basic graph and \gls{path} finding algorithms.\par
 {\graphioli} will offer interfaces for creating multiplayer modes so that two \glspl{player} are able to play against each other on the same computer sharing the same peripherals.\par
@@ -11,11 +11,13 @@ In order to facilitate easy implementations, {\graphioli} comes with elaborate \
 
 \subsubsection{Game-Explorer}
 \todo{revise subsection}
-The Game-Explorer is a graphical interface that builds the main contact point with the framework for a player. Without knowledge about the background of framework and implemented game logic, the player is still able to start and restart games from a list of available or previously saved games.\par
-For that reason, the Game-Explorer can display information to every game, such as title, description and a static screenshot. It comes with a \emph{START} button \todo{No `buttons` in text} and a \emph{HELP} button for details about the rules and operability of the specific game.\par
+The \textbf{Game-Explorer} is a graphical interface that builds the main contact point with the framework for a \gls{player}. Without knowledge about the background of framework and implemented \gls{game} logic, the player is still able to start and restart games from a list of available or previously saved games, switch between single and multiplayer mode (if provided in the selected game) and so on.\par
+For that reason, the Game-Explorer can display information to every game, such as title, description and a static screenshot.\par
 
 \subsubsection{Games}
-{\graphioli} comes with two implemented games.\par
-The two-player strategy board game \textbf{TwixT} is one of most popular graph grames. Invented by board game designer \emph{Alexander Randolph} in the early 60s, it has since been awarded several prizes, including nomination for \emph{Spiel des Jahres} in 1979.\par
-\todo{details for TwixT}
-\todo{graph-coloring}\par
+{\graphioli} comes with two already implemented games.\par
+The two-player strategy board game \textbf{\textsc{TwixT}} is one of most popular graph games. The two players have different colors that they use to color the vertices by turns in a 24x24 grid. Each player owns one of the two pairs of opposite border rows. Their contrary objective is to build a continuous \gls{path} of linked vertices connecting their border rows and try to interfere each other in accomplishing this objective.\par
+Invented by board game designer \emph{Alexander Randolph} in the early 60s, \textsc{TwixT} has since been awarded several prizes, including nomination for \emph{Spiel des Jahres} in 1979\footnote{For more information see official page of \emph{Spiel des Jahres}: \url{http://www.spiel-des-jahres.com/cms/front_content.php?idcatart=474&id=370} (German)}.\par
+The second game is a game variant of \textbf{\textsc{Graph coloring}} in which the player (or players) tries to colorize the vertices of a graph in such a way that two \gls{adjacent} \glspl{vertex} never get the same color. The player is, depending on the level, restricted in the number of different colors that can be used and the number of \gls{undo} steps that he or she can perform.\par
+In multiplayer mode, one players tries to block the other from achieving a fully colored graph.\par
+A popular use case of the theory behind graph coloring is the smallest set of colors needed to colorize a map of neighboring countries (which is indeed a set containing a maximum of four colors, see \emph{\gls{four-colors-theorem}}).\par

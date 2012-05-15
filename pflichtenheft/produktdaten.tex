@@ -5,16 +5,19 @@
     \ref{PD:010} & \ref{PD:T010} \\
     \ref{PD:020} & \ref{PD:T020} \\
     \ref{PD:030} & \ref{PD:T030} \\
-    \ref{PD:040} & \ref{PD:T040} \\ \hline
+    \ref{PD:040} & \ref{PD:T040} \\
+    \ref{PD:050} & \ref{PD:T050} \\ \hline
 \end{tabular}
 
 \begin{description}
 	\item[\textlabel{/PD010/}{PD:010}] {\bf \textlabel{Game-Explorer}{PD:T010}} \\
 	In the Game-Explorer there is a short description and screenshot of each game possible, given by the developer.
 	\item[\textlabel{/PD020/}{PD:020}] {\bf \textlabel{Help}{PD:T020}} \\
-	The developers provide an explanation and/or tutorial of their implemented graph games which can be accessed through the help function of the Game-Explorer and game.
+	The developers provide an explanation and/or tutorial of their implemented graph games which can be accessed through the help function of the Game-Explorer and game (\ref{FR:110}).
 	\item[\textlabel{/PD030/}{PD:030}] {\bf \textlabel{Default designed levels (graphs)}{PD:T030}} \\
 	Some games require different graphs each time they are played. The developer creates possible graphs to play his game which are then loaded as different levels.
 	\item[\textlabel{/PD040/}{PD:040}] {\bf \textlabel{Savegames}{PD:T040}} \\
-	Players are able to, if implemented by the developer, save their current state of the game. The data is saved in form of a text file in the folder of the respective game. \todo{Aufbau, wo ist die save file, screenshot, help-function-file, description???}
+	Players are able to, if implemented by the developer, save their current state of the game (\ref{FR:140}). The data is saved in form of a text file in the folder of the respective game. Those files can then be loaded by the player (\ref{FR:150}).
+	\item[\textlabel{/PF050/}{PD:050}] {\bf \textlabel{Screenshots}{PD:T050}} \\
+	Players may be able to take a screenshot of his current game that will be saved in the respective game's folder (\ref{FR:200}).
 \end{description}
