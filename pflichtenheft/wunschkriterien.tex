@@ -1,28 +1,18 @@
 \subsection{Facultative criteria}
 \label{facultative-criteria}
-There are some functions we may implement later on. After implementing the the mandatory part it is possible for us to add some more functions to extend our framework.
+Some functions we wanted to add, but may not have enough time to, will be introduced here. During the implementation there is still the possibility to add them.
 
 \subsubsection{Framework}
-There are functions we can add eventually: 
-\begin{itemize}
-\item Advanced graph algorithms (...)
-\item Provides Interface to implement a \ref{AI} \todo{correct reference}
-\item Multiplayer over network
-\item Generate random (planar) graphs (with given parameters)
-\item Level editor
-\item Developer documentation (müssen wir nich ne dokumentation is)
-\item Undo function
-\item Moving/Dragging of vertexes (in GUI)
-\item free drawing of lines (e.g. in game Sprouts)
-\item bent/curved edges
-\end{itemize}
-
-\todo{Write continuous text instead of bullet points}
+Many \glspl{game} need additional (advanced) \gls{graph} \glspl{algorithm} (e.g. Dijksra, ...)	while the \gls{framework} still only supports few algorithms. \par
+To be able to play multiplayer games alone the framework may provide an interface to implement an \gls{AI} and/or the possibility to play over network with friends. \par
+While playing some time, single and even multiplayer games get monotonous when using the same graph all the time. There should be many different \glspl{level} to avoid this. A \gls{level-editor} could provide \glspl{developer} with the possibility to easily create several levels for their game. Another way is for the framework to generate random (\gls{planar}) graphs.
+Within a game you may want to \gls{undo} (or redo) your last draw.
+While it is possible to set or delete vertices the framework isn't able to pick and drag them.
 
 \subsubsection{Game-Explorer}
-?????
+The preferences of a game can be changed and saved. When restarting the game through the Game-Explorer it is possible to automatically load the preferences. \\
+????
 
 \subsubsection{Games}
-\begin{itemize}
-\item other games we may want to implement
-\end{itemize}
+other games we may want to implement \\
+?????
