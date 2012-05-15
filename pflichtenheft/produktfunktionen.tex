@@ -7,41 +7,40 @@
 \begin{tabular}{{c}{l}{c}}
     \hline
     \textbf{Functions} & \textbf{Description} & \textbf{Optional} \\ \hline
-	\ref{FR:F000} & \ref{FR:T000} & {}  \\
-	\ref{FR:F010} & \ref{FR:T010} & {}  \\ 
-	\ref{FR:F020} & \ref{FR:T020} & {}  \\ 
-	\ref{FR:F030} & \ref{FR:T030} & {}  \\
-	\ref{FR:F040} & \ref{FR:T040} & {}  \\
-	\ref{FR:F050} & \ref{FR:T050} & {}  \\
-	\ref{FR:F060} & \ref{FR:T060} & {}  \\
-	\ref{FR:F070} & \ref{FR:T070} & {}  \\ 
-	\ref{FR:F080} & \ref{FR:T080} & {*} \\ \hline
+	\ref{FR:F010} & \ref{FR:FT010} & {}  \\ 
+	\ref{FR:F020} & \ref{FR:FT020} & {}  \\ 
+	\ref{FR:F030} & \ref{FR:FT030} & {}  \\
+	\ref{FR:F040} & \ref{FR:FT040} & {}  \\
+	\ref{FR:F050} & \ref{FR:FT050} & {}  \\
+	\ref{FR:F060} & \ref{FR:FT060} & {}  \\
+	\ref{FR:F070} & \ref{FR:FT070} & {}  \\ 
+	\ref{FR:F080} & \ref{FR:FT080} & {X}  \\ \hline
 \end{tabular}
 
 \vspace{.5cm}
-\todo{grid can be displayed}
+
 \begin{description}
-	\item[\textlabel{/FR000/}{FR:F000}] \textbf{\textlabel{Grid}{FR:FT000}} \\
-	Vertices are positioned using a grid system that the framework provides. The size of the grid can be freely set by the developer depending on the game that is being implemented. The grid system can either be visible in the \nameref{framework-gui} or invisible, again, depending on the needs of the developer.
-	\item[\textlabel{/FR010/}{FR:F010}] \textbf{\textlabel{Event listeners}{FR:FT010}} \\
+	\item[\textlabel{/FR010/}{FR:F010}] \textbf{\textlabel{Grid}{FR:FT010}} \\
+	Vertices are positioned using a grid system that the \gls{framework} provides. The size of the grid can be freely set by the developer depending on the game that is being implemented. The grid system can either be visible in the \gls{GUI} or invisible, again, depending on the needs of the developer.
+	\item[\textlabel{/FR020/}{FR:F020}] \textbf{\textlabel{Event listeners}{FR:FT020}} \\
 	The framework already implements event listeners for user interactions. Mouse clicks as well as keyboard strokes can be used to interact with the game, but can also be disabled, if wanted to.
-  	\item[\textlabel{/FR020/}{FR:F020}] \textbf{\textlabel{Add/Remove/Move vertices/edges}{FR:FT020}} \todo{Select edges is optional; move is optional}  \\
-	With the framework the developer can do all basic graph operations. Vertices can be added to either a given graph or to initiate a new graph. Vertices can be removed and moved; in either case the edges will be removed or moved accordingly. In addition to adding, removing and moving vertices, the developer can also connect two given vertices with each other, and remove edges between vertices. Each operation is naturally dependent on the game that is being implemented, thus allowing the developer to use the operation or disabling it.
-	\item[\textlabel{/FR030/}{FR:F030}] \textbf{\textlabel{Vertices/Edges have attributes}{FR:FT030}}  \\
-	Each and every vertex and edge will have a set of default attributes. The developer can completely change the appearance of a vertex by replacing the default icon with any graphic or by changing its color, stroke, or size. Additionally each vertex will have its own coordinates, its own weight, and an unique identification as attributes. Edges have attributes of their own as well, which the developer can set. An edge can have a weight, a length, and a direction.
-	\item[\textlabel{/FR040/}{FR:F040}] \textbf{\textlabel{Find path}{FR:FT040}}  \\
+  	\item[\textlabel{/FR030/}{FR:F030}] \textbf{\textlabel{Add/Remove vertices/edges}{FR:FT030}} \\
+	With the framework the developer can do all basic graph operations. Vertices can be added to either a given graph or to initiate a new graph. In addition to adding, vertices can also be removed. Edges without at least one vertex at each end will be removed automatically. Furthermore the developer can also connect two given vertices with each other and remove edges between vertices. Naturally, each operation is dependent on the game that is being implemented, thus allowing the developer to use the operation or disabling it. Notice that these operations only concern the developer and not the user interacting with the game. Game interactions are further described in section \nameref{FR:GUI}.
+	\item[\textlabel{/FR040/}{FR:F040}] \textbf{\textlabel{Vertices/Edges have attributes}{FR:FT040}} \\
+	Each and every vertex and edge has a set of default attributes. The developer can completely change the appearance of a vertex by replacing the default icon with any graphic or by changing its color, stroke, or size. Additionally each vertex will have its own coordinates, its own weight, and an unique identification as attributes. Edges have attributes of their own as well, which the developer can set. An edge can have a weight, a length, and a direction.
+	\item[\textlabel{/FR050/}{FR:F050}] \textbf{\textlabel{Find path}{FR:FT050}} \\
 	The framework implements algorithms to find a path between given vertices.
- 	\item[\textlabel{/FR050/}{FR:F050}] \textbf{\textlabel{Graphical output}{FR:FT050}}  \\
+ 	\item[\textlabel{/FR060/}{FR:F060}] \textbf{\textlabel{Graphical output}{FR:FT060}} \\
  	A \gls{GUI} is provided to display graphs and games that were developed with the framework. 
-	\item[\textlabel{/FR060/}{FR:F060}] \textbf{\textlabel{Check for planarity in displayed graph}{FR:FT060}} \\
-	For a given graph, it is possible to verify, if an edge between two given unconnected vertices exists, so that the resulting graph is planar. \todo{we display planar graphs}
-	\item[\textlabel{/FR070/}{FR:F070}] \textbf{\textlabel{Timer}{FR:FT070}} \\
-	A timer function exists, which the developer can implement within his games. The timer keeps track of the current play time.
+	\item[\textlabel{/FR070/}{FR:F070}] \textbf{\textlabel{Planarity}{FR:FT070}} \\
+	For a given displayed graph, it is possible to verify, if an edge between two given unconnected vertices exists, so that the resulting graph is still planar in terms of no intersection of edges in the displayed graph.
+	\item[\textlabel{/FR080/}{FR:F080}] \textbf{\textlabel{Timer}{FR:FT080}} \\
+	A timer function exists, which the developer can implement within his games. The timer keeps track of the current play time and will be used in the naming of \glspl{savegame}.
 \end{description}
 
 %%%%%%%%%%% GUI %%%%%%%%%%%
 
-\subsubsection{GUI}
+\subsubsection{GUI}\label{FR:GUI}
 \begin{tabular}{{c}{l}{c}}
 	\hline
 	\textbf{Functions} & \textbf{Description} & \textbf{Optional} \\ \hline
@@ -163,8 +162,7 @@
     \hline
     \textbf{Functions} & \textbf{Description} \\ \hline
 	\ref{NFR:030} & \ref{NFR:T030} \\
-	\ref{NFR:040} & \ref{NFR:T040} \\ 
-	\ref{NFR:050} & \ref{NFR:T050} \\ \hline
+	\ref{NFR:040} & \ref{NFR:T040} \\ \hline
 \end{tabular}
 
 \vspace{.5cm}
@@ -172,8 +170,6 @@
 \begin{description}
 	\item[\textlabel{/NFR030/}{NFR:030}] \textbf{\textlabel{Crashes}{NFR:T030}}  \\
 	Games implemented with the {\graphioli} will not crash more often than once per 10.000 uses. \\
-	\item[\textlabel{/NFR040/}{NFR:040}] \textbf{\textlabel{Short loading time}{NFR:T040}} \\
-	The loading time of the implemented games will be shorter than 5 seconds. \\
-	\item[\textlabel{/NFR050/}{NFR:050}] \textbf{\textlabel{Security}{NFR:T050}} \\
+	\item[\textlabel{/NFR040/}{NFR:040}] \textbf{\textlabel{Security}{NFR:T040}} \\
 	All the games implemented with the {\graphioli} will have none security vulnerability.
 \end{description}
