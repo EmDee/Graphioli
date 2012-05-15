@@ -1,17 +1,21 @@
 \subsection{Mandatory criteria}
 \label{mandatory-criteria}
 \subsubsection{Framework}
-The framework provides rudimental functions that either all or the most games need. Such as creating new graphs from specifications and visualizing and manipulating existing graphs.\par
-These graphs consist of \glspl{edge} and \glspl{vertex} that themselves are equipped with parameters. Parameters for edges are at least style (background color, border color, background image, size), coordinates, weight, sorting, \gls{ID}. Parameters that are related to vertices are at least weight, length and direction.\par
-Furthermore the framework lightens a \gls{developer}['s]\todo{Only use `developer` instead of `game developer`. Game developer needs to be deleted from glossary} workload by providing access to reoccuring basic graph algorithms. These include path recognition (depth-first search, breadth-first search) and Dijkstra.\par \todo{Remove details like depth-first search, breadth-first search and Dijkstra}
-\graphioli will offer interfaces for creating multiplayer modes so that two \glspl{player} are able to play against each other on the same computer sharing the same peripherals.\par
-Games can be saved and restored by their user at a later time without losing \gls{level} stats.\par
-In order to facilitate easy implementations, \graphioli comes with elaborate \Gls{javadoc} documentation for the viewpoint of the developer using the framework.\par \todo{Make clear that developer doesn't need to implement a GUI}
+The framework provides rudimental functions that either all or the most \glspl{game} need. Such as creating new \glspl{graph} from specifications and visualizing and manipulating existing graphs.\par
+These graphs consist of \glspl{edge} and \glspl{vertex} that themselves are equipped with parameters, such as style or weight. Parameters that are related to vertices are for example weight, length or direction.\par
+Thus, a \gls{developer} using {\graphioli} does not need to implement a \gls{GUI} for his or her game.\par
+Furthermore the framework lightens the developer's workload by providing access to reoccuring basic graph and \gls{path} finding algorithms.\par
+{\graphioli} will offer interfaces for creating multiplayer modes so that two \glspl{player} are able to play against each other on the same computer sharing the same peripherals.\par
+Games can be saved and reloaded by their player at a later time without losing \gls{level} stats.\par
+In order to facilitate easy implementations, {\graphioli} comes with elaborate \Gls{javadoc} documentation from the viewpoint of the developer using the framework.\par
 
 \subsubsection{Game-Explorer}
+\todo{revise subsection}
 The Game-Explorer is a graphical interface that builds the main contact point with the framework for a player. Without knowledge about the background of framework and implemented game logic, the player is still able to start and restart games from a list of available or previously saved games.\par
 For that reason, the Game-Explorer can display information to every game, such as title, description and a static screenshot. It comes with a \emph{START} button \todo{No `buttons` in text} and a \emph{HELP} button for details about the rules and operability of the specific game.\par
-The list of available games is dynamically created when the Game-Explorer starts. It reads a subfolder for legally specified games that are represented by a class that inherits from the frameworks game scaffold \todo{last sentence belongs to functional requirements}.
 
 \subsubsection{Games}
-\todo{Save, Load}
+{\graphioli} comes with two implemented games.\par
+The two-player strategy board game \textbf{TwixT} is one of most popular graph grames. Invented by board game designer \emph{Alexander Randolph} in the early 60s, it has since been awarded several prizes, including nomination for \emph{Spiel des Jahres} in 1979.\par
+\todo{details for TwixT}
+\todo{graph-coloring}\par
