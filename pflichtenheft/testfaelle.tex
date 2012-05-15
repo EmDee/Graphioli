@@ -17,7 +17,7 @@
 
 \subsection{Games}
 
-\subsubsection{Graph coloring}
+\subsubsection{Graph-Coloring}
 
 \begin{tabular}{cll}
 
@@ -42,11 +42,11 @@
 \textbf{Test} & \textbf{Description} & \textbf{Tested Functionalities} \\
 \hline
 /T210/ & Start the game & \ref{FR:F010}, \ref{FR:F060} \\
-/T210/ & Save/load a game & \ref{FR:140}, \ref{FR:150} \\
-/T220/ & Place edges/vertices & \ref{FR:F020}, \ref{FR:F030} \\
-/T230/ & Place an edge across an opponent's one & \ref{FR:F070} \\
-/T240/ & Place an edge where no vertices are & \\
-/T250/ & Win/Lose a game & \ref{FR:F050}\\
+/T220/ & Save/load a game & \ref{FR:140}, \ref{FR:150} \\
+/T230/ & Place edges/vertices & \ref{FR:F020}, \ref{FR:F030} \\
+/T240/ & Place an edge across an opponent's one & \ref{FR:F070} \\
+/T250/ & Place an edge where no vertices are & \\
+/T260/ & Win/Lose a game & \ref{FR:F050} \\
 \hline
 
 \end{tabular}
@@ -57,10 +57,10 @@
 
 Alice starts the Game-Explorer and adds a new game by using the 'Add'-function. Then Alice selects the game in the list in order to look at the screenshot and the desription of the game. Still not convinced, Alice uses the help function to gain an insight in how the game works. Then Alice starts the game.
 
-\subsubsection{Play Graph-Coloring}
+\subsubsection{Play \graphcoloring}
 
-Bob starts Graph-Coloring with the Game-Explorer. Bob colors the vertices until it is not possible anymore or the graph is fully colored. Then Bob closes the game.
+Bob starts {\graphcoloring} with the Game-Explorer. Bob colors a few vertices and decides to save the game in order to continue later on. Later Bob loads his savegame and colors more vertices until it is not possible anymore or the graph is fully colored. Then Bob closes the game.
 
-\subsubsection{Play TwixT}
+\subsubsection{Play \twixt}
 
-Carol and Dave start TwixT with the Game-Explorer. They take turns placing vertices or edges until one of them has build a path from one to the other side. Then they close the game.
+Carol and Dave start {\twixt} with the Game-Explorer. They take turns placing vertices or edges until one of them has build a path from one to the other side. Then they close the game.
