@@ -5,9 +5,10 @@
 \subsection{Framework}
 \begin{tabular}{{c}{l}}
     \hline
-    {\bf Functions} & {\bf Description} \\ \hline
+    {\bf  Performance} & {\bf Description} \\ \hline
 	\ref{PP:FW010} & \ref{PP:FWT010} \\
-	\ref{PP:FW020} & \ref{PP:FWT020} \\ \hline
+	\ref{PP:FW020} & \ref{PP:FWT020} \\
+	\ref{PP:FW030} & \ref{PP:FWT030} \\	\hline
 \end{tabular}
 
 \vspace{.5cm}
@@ -17,22 +18,9 @@
 	The framework must be able to handle at least 100 vertices and 300 edges in a single instance of a game.
 	\item[\textlabel{/PP020/}{PP:FW020}] \textbf{\textlabel{Maximum player count}{PP:FWT020}} \\
 	Up to four players should be able to participate in a game.
-\end{description}
-
-%%%%%%%%%%% Game-Explorer %%%%%%%%%%%
-
-\subsection{Game-Explorer}
-\begin{tabular}{{c}{l}}
-    \hline
-    {\bf Functions} & {\bf Description} \\ \hline
-	\ref{PP:GE010} & \ref{PP:GET010} \\ \hline
-\end{tabular}
-
-\vspace{.5cm}
-
-\begin{description}
-	\item[\textlabel{/PP040/}{PP:GE010}] \textbf{\textlabel{UI response time}{PP:GET010}} \\
+	\item[\textlabel{/PP030/}{PP:FW030}] \textbf{\textlabel{UI response time}{PP:FWT030}} \\
 	The graphical user interface has to respond to user input within 0.3 seconds.
+	
 \end{description}
 
 %%%%%%%%%%% Games %%%%%%%%%%%
@@ -42,12 +30,15 @@
 \begin{tabular}{{c}{l}}
     \hline
     {\bf Functions} & {\bf Description} \\ \hline
-	\ref{PP:IG010} & \ref{PP:IGT010} \\ \hline
+	\ref{PP:IG010} & \ref{PP:IGT010} \\ 
+	\ref{PP:IG020} & \ref{PP:IGT020} \\ \hline
 \end{tabular}
 
-\begin{description}
-	\item[\textlabel{/PP090/}{PP:IG010}] \textbf{\textlabel{Validation}{PP:IGT010}} \\
-	The games \twixt and \graphcoloring must not accept any invalid move by the player.
-\end{description}
+\vspace{.5cm}
 
-\todo{MOAR!}
+\begin{description}
+	\item[\textlabel{/PP040/}{PP:IG010}] \textbf{\textlabel{Validation}{PP:IGT010}} \\
+	The games \twixt and \graphcoloring must not accept any invalid move by the player.
+	\item[\textlabel{/PP050/}{PP:IG020}] \textbf{\textlabel{Short loading time}{PP:IGT020}} \\
+	The loading time of the implemented games will be shorter than 5 seconds. \\
+\end{description}
