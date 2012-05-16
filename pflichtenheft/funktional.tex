@@ -23,16 +23,16 @@
 \item[\textlabel{/FR010/}{FR:F010}] \textbf{\textlabel{Grid}{FR:FT010}} \\
 \Glspl{vertex} are positioned using a grid system that the \gls{framework} provides. The size of the grid can be freely set by the \gls{developer} depending on the game that is being implemented. The grid system can either be displayed in the \gls{GUI} or not, again, depending on the needs of the developer.
    \item[\textlabel{/FR020/}{FR:F020}] \textbf{\textlabel{Add/Remove vertices/edges}{FR:FT020}} \\
-With the framework the developer can do all basic graph operations. \Glspl{vertex} can be added to either a given \gls{graph} or to initiate a new graph. In addition to adding, vertices can also be removed. \Glspl{edge} without at least one vertex at each end will be removed automatically. Furthermore the developer can also connect two given vertices with each other and remove edges between vertices. Naturally, each operation is dependent on the game that is being implemented, thus allowing the developer to use the operation or disabling it. Notice that these operations only concern the developer and not the user interacting with the game. Game interactions are further described in section \nameref{FR:GUI}.
+With the framework the developer can do all basic graph operations. \Glspl{vertex} can be added to either a given \gls{graph} or to initiate a new graph. In addition to adding, vertices can also be removed. \Glspl{edge} without at least one vertex at each end will be removed automatically. Furthermore the developer can also connect two given vertices with each other and remove edges between vertices. Naturally, each operation is dependent on the game that is being implemented, thus allowing the developer to use the operation or disabling it. Notice that these operations only concern the developer and not the user interacting with the game. Game interactions are further described in section \ref{FR:GUI}.
 \item[\textlabel{/FR030/}{FR:F030}] \textbf{\textlabel{Vertices/Edges have attributes}{FR:FT030}} \\
 Each and every vertex and edge has a set of default attributes. The developer can completely change the appearance of a vertex by replacing the default icon with any graphic or by changing its color, stroke, or size. \\
-Additionally each vertex will have its own coordinates, its own weight, and an unique identification as attributes. Edges have attributes of their own as well, which the developer can set. An edge can have a weight, a length, and a direction.
+Additionally each vertex will have its own coordinates, its own weight, and a unique \gls{ID} as attributes. Edges have attributes of their own as well, which the developer can set. An edge can have a weight, a length, and a direction.
 \item[\textlabel{/FR040/}{FR:F040}] \textbf{\textlabel{Find path}{FR:FT040}} \\
-The framework implements algorithms to find a path between given vertices.
+The framework implements algorithms to find a \gls{path} between given vertices.
   \item[\textlabel{/FR050/}{FR:F050}] \textbf{\textlabel{Graphical output}{FR:FT050}} \\
   A \gls{GUI} is provided to display graphs and games that were developed with the framework.
 \item[\textlabel{/FR060/}{FR:F060}] \textbf{\textlabel{Planarity}{FR:FT060}} \\
-For a given displayed graph, it is possible to verify, if an edge between two given unconnected vertices exists, so that the resulting graph is still planar in terms of no intersection of edges in the displayed graph.
+For a given displayed graph, it is possible to verify, if an edge between two given unconnected vertices exists, so that the resulting graph is still \gls{planar} in terms of no intersection of edges in the displayed graph.
 \item[\textlabel{/FR070/}{FR:F070}] \textbf{\textlabel{Timer}{FR:FT070}} \\
 A timer function exists, which the developer can implement within his games. The timer keeps track of the current play time and will be used in the naming of \glspl{savegame}.
 \end{description}
