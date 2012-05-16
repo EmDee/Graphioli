@@ -1,23 +1,71 @@
 \subsection{Mandatory criteria}\label{REF:MANDATORY-CRITERIA}
 \subsubsection{Framework}
-The framework provides rudimental functions that either all or the most \glspl{game} need. Such as creating new \glspl{graph} from specifications and visualizing and manipulating existing graphs.\par
-These graphs consist of \glspl{edge} and \glspl{vertex} that themselves are equipped with parameters, such as style or weight. Parameters that are related to edges are for example weight, length or direction.\par
-Thus, a \gls{developer} using {\graphioli} does not need to implement a \gls{GUI} for his or her game.\par
-Furthermore the framework lightens the developer's workload by providing access to reoccuring basic graph and \gls{path} finding algorithms.\par
-{\graphioli} will offer interfaces for creating multiplayer modes so that two or more \glspl{player} are able to play against each other on the same computer sharing the same peripherals.\par
-Games can be saved and reloaded by their player at a later time without losing \gls{level} stats.\par
-In order to facilitate easy implementations, {\graphioli} comes with elaborate \Gls{javadoc} documentation from the viewpoint of the developer using the framework.\par
+\begin{itemize}
 
-\subsubsection{Game-Explorer}
-The \textbf{Game-Explorer} is a graphical interface that builds the main contact point with the framework for a \gls{player}. Without knowledge about the background of framework and implemented \gls{game} logic, the player is still able to start and restart games from a list of available or previously saved games, switch between single and multiplayer mode (if provided in the selected game) and so on.\par
-For that reason, the Game-Explorer can display information to every game, such as title, description and a static screenshot.\par
+	\item The framework provides rudimental functions that either all or the most \glspl{game} need:
+	\begin{itemize}
+		\item Creation of new \glspl{graph} from specifications,
+		\item manipulation of existing graphs (removing or adding edges or vertices, changing style) and 
+		\item visualization of these graphs.
+	\end{itemize}
+
+	\item These graphs consist of \glspl{edge} and \glspl{vertex} that themselves are equipped with attributes. For vertices these are
+	\begin{itemize}
+		\item background icon,
+		\item background color,
+		\item stroke weight,
+		\item stroke color,
+		\item size,
+		\item coordinates and
+		\item a unique \gls{ID}.
+	\end{itemize}
+	Parameters that are related to edges are
+	\begin{itemize}
+		\item weight,
+		\item color,
+		\item width and
+		\item direction.
+	\end{itemize}
+	These parameters can change during the course of the game (due to user action or game logic).
+
+	\item The framework comes with default parameters for edges and vertices. The developer can define own default sets of parameters. E.g considering the subsequently explained {\twixt}, a developer would define a default set A for edges and vertices of the first player and a default set B for the second player.
+
+	\item A \gls{developer} using {\graphioli} does not need to implement a \gls{GUI} for his or her game, because the framework provides all necessary utilities to listen for events, interact, print out statuses and display the graph.
+
+	\item The graph is placed in a predefined grid system. The developer specifies the size, respectively the granularity of the grid.
+
+	\item The framework lightens the developer's workload by providing access to the reoccuring basic graph and \gls{path} finding algorithms:
+	\begin{itemize}
+		\item \gls{BFS},
+		\item \gls{DFS},
+		\item an algorithm for finding direct or indirect connections between vertices,
+		\item an algorithm for verifying \gls{planarity} and
+		\item the functionality to check for crossing edges\todo{List all algorithms here}.
+	\end{itemize}
+
+	\item {\graphioli} will offer interfaces for creating multiplayer modes so that two or more \glspl{player} are able to play against each other on the same computer sharing the same peripherals.
+
+	\item Games can be saved and reloaded by their player at a later time without losing \gls{level} stats.
+
+	\item In order to facilitate easy implementations, {\graphioli} comes with elaborate \Gls{javadoc} documentation from the viewpoint of the developer using the framework.
+
+\end{itemize}
+
+\subsubsection{GUI}
+\paragraph*{Game window}
+When a game is selected for playing, the game window opens. It shows a canvas containing the graph (or an empty area), the menu bar and the status bar.
+\paragraph*{Game-Explorer}
+The Game-Explorer is a graphical interface that builds the main contact point with the framework for a \gls{player}. Without knowledge about the background of framework and implemented \gls{game} logic, the player is still able to start and restart games from a list of available or previously saved games and switch between singleplayer and multiplayer mode (if provided in the selected game).\par
+For that reason, the Game-Explorer can display information to every game: the title, a description, a static screenshot and a detailed help file.\par
 
 \subsubsection{Games}
 {\graphioli} comes with two already implemented games.\par
 \paragraph*{\twixt}
-The two-player strategy board game {\twixt} is one of most popular graph games. Both players have their own color that they use to colorize the vertices by turns in a 24x24 grid. Each player owns one of the two pairs of opposite border rows. Their contrary objective is to build a continuous \gls{path} of linked vertices connecting their border rows and try to interfere each other in accomplishing this objective.\par
+The two-player strategy board game {\twixt} is one of the most popular graph games. Both players have their own color that they use to colorize the vertices by turns in a 24x24 grid. Each player owns one of the two pairs of opposite border rows. Their contrary objective is to build a continuous \gls{path} of linked vertices connecting their border rows.\par
+Two vertices can be linked by an edge, if they share a knight's move distance to each other. Since edges are not allowed to cross, a player can try to interfere the other in accomplishing this objective by blocking his or her way.\par
+If both sides cannot achieve such a path, the game is a draw.\par
 Invented by board game designer \emph{Alexander Randolph} in the early 60s, {\twixt} has since been awarded several prizes, including nomination for \emph{Spiel des Jahres} in 1979\footnote{For more information see official page of \emph{Spiel des Jahres}: \url{http://www.spiel-des-jahres.com/cms/front_content.php?idcatart=474&id=370} (in German)}.\par
 \paragraph*{\graphcoloring}
 The second game is a game variant of {\graphcoloring} in which the player (or players) tries to colorize the vertices of a graph in such a way that two \gls{adjacent} vertices never get the same color. The player is, depending on the level, restricted in the number of different colors that can be used and the number of \gls{undo} steps that he or she can perform.\par
-In multiplayer mode, one players tries to block the other from achieving a fully colored graph.\par
-A popular use case of the theory behind {\graphcoloring} is the smallest set of colors needed to colorize a map of neighboring countries (which is indeed a set containing a maximum of four colors, see \emph{\gls{four-color-theorem}}).\par
+In multiplayer mode, one players tries to block the other from achieving a fully colored graph. The player who performs the last legal draw wins.\par
+A popular use case of the theory behind {\graphcoloring} is the smallest set of colors needed to colorize a map of neighboring countries (which is indeed a set containing a maximum of four colors, see \emph{\gls{four-color-theorem}}).\todo{Was ist hier falsch? Es geht ja nur um Länder auf Karten (euklidische Ebene).}\par
