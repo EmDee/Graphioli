@@ -23,7 +23,7 @@
 \item[\textlabel{/FR010/}{FR:F010}] \textbf{\textlabel{Grid}{FR:FT010}} \\
 \Glspl{vertex} are positioned using a grid system that the \gls{framework} provides. The size of the grid can be freely set by the \gls{developer} depending on the game that is being implemented. The grid system can either be displayed in the \gls{GUI} or not, again, depending on the needs of the developer.
    \item[\textlabel{/FR020/}{FR:F020}] \textbf{\textlabel{Add/Remove vertices/edges}{FR:FT020}} \\
-With the framework the developer can do all basic graph operations. \Glspl{vertex} can be added to either a given \gls{graph} or to initiate a new graph. In addition to adding, vertices can also be removed. \Glspl{edge} without at least one vertex at each end will be removed automatically. Furthermore the developer can also connect two given vertices with each other and remove edges between vertices. Naturally, each operation is dependent on the game that is being implemented, thus allowing the developer to use the operation or disabling it. Notice that these operations only concern the developer and not the user interacting with the game. Game interactions are further described in section \ref{FR:GUI}.
+With the framework the developer can do all basic graph operations. \Glspl{vertex} can be added to either a given \gls{graph} or to initiate a new graph. In addition to adding, vertices can also be removed. \Glspl{edge} without at least one vertex at each end will be removed automatically. Furthermore the developer can also connect two given vertices with each other and remove edges between vertices. Naturally, each operation is dependent on the game that is being implemented, thus allowing the developer to use the operation or disabling it. Notice that these operations only concern the developer and not the user interacting with the game. Game interactions are further described in Section \ref{FR:GUI}.
 \item[\textlabel{/FR030/}{FR:F030}] \textbf{\textlabel{Vertices/Edges have attributes}{FR:FT030}} \\
 Each and every vertex and edge has a set of default attributes. The developer can completely change the appearance of a vertex by replacing the default icon with any graphic or by changing its color, stroke, or size. \\
 Additionally each vertex will have its own coordinates, its own weight, and a unique \gls{ID} as attributes. Edges have attributes of their own as well, which the developer can set. An edge can have a weight, a length, and a direction.
@@ -55,13 +55,13 @@ A timer function exists, which the developer can use within his games. The timer
 
 \begin{description}
    \item[\textlabel{/FR080/}{FR:GU010}] \textbf{\textlabel{Output}{FR:GUT010}} \\
-   The \gls{GUI} is responsible for displaying the graph that was developed using the \gls{framework}. A possible output can be seen in section \ref{REF:GUI_GAME}.
+   The \gls{GUI} is responsible for displaying the graph that was developed using the \gls{framework}. A possible output can be seen in Section \ref{REF:GUI_GAME}.
   \item[\textlabel{/FR090/}{FR:GU020}] \textbf{\textlabel{Input}{FR:GUT020}} \\
 Event listeners are integrated to capture \gls{user} interactions within the \gls{GUI}. Selecting or adding a vertex with a mouse click or saving the current state of a game with a keyboard shortcut can easily be implemented by the developer. Interactions with the mouse are restricted and only allowed within the boundaries of the grid described in \ref{FR:FT010}.
 \item[\textlabel{/FR100/}{FR:GU030}] \textbf{\textlabel{Select edges}{FR:GUT030}} \\
 The \gls{user} can remove an edge by clicking on one with the mouse.
 \item[\textlabel{/FR110/}{FR:GU040}] \textbf{\textlabel{Status}{FR:GUT040}} \\
-A status message with information about the current game can be displayed in the window bar. See section \ref{REF:GUI_GAME} for further information.
+A status message with information about the current game can be displayed in the window bar. See Section \ref{REF:GUI_GAME} for further information.
 \item[\textlabel{/FR120/}{FR:GU050}] \textbf{\textlabel{Menu entry}{FR:GUT050}} \\
 A set of menu commands are always avaiable to the user. However, the developer has the option to add new menu entries into the \emph{Menu}, if needed.
 \end{description}
