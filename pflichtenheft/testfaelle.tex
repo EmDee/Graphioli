@@ -17,16 +17,18 @@
 
 \subsection{Games}
 
-\subsubsection{Graph-Coloring}
+\subsubsection{\graphcoloring}
 
 \begin{tabular}{cll}
 
 \hline
 \textbf{Test} & \textbf{Description} & \textbf{Tested Functionalities} \\
 \hline
-/T110/ & Start the game & \ref{FR:F010}, \ref{FR:F060} \\
+/T110/ & Start the game & \ref{FR:F010}, \ref{FR:F060},\\
+ & & \ref{FR:GU010} \\
 /T120/ & Save/load a game & \ref{FR:G010}, \ref{FR:G020}\\
-/T130/ & Color an uncolored vertex & \ref{FR:F020}, \ref{FR:F040}\\
+/T130/ & Color an uncolored vertex & \ref{FR:F020}, \ref{FR:F040}, \\
+ & & \ref{FR:GU020}, \ref{FR:GU040}\\
 /T140/ & Color a colored vertex & \\
 /T150/ & Color a vertex next to a colored one in the same color & \\
 /T160/ & Win/Lose a game & \\
@@ -34,16 +36,17 @@
 
 \end{tabular}
 
-\subsubsection{TwixT}
+\subsubsection{\twixt}
 
 \begin{tabular}{cll}
 
 \hline
 \textbf{Test} & \textbf{Description} & \textbf{Tested Functionalities} \\
 \hline
-/T210/ & Start the game & \ref{FR:F010}, \ref{FR:F060} \\
+/T210/ & Start the game & \ref{FR:F010}, \ref{FR:F060},\ref{FR:GU010} \\
 /T220/ & Save/load a game & \ref{FR:G010}, \ref{FR:G020} \\
-/T230/ & Place edges/vertices & \ref{FR:F020}, \ref{FR:F030} \\
+/T230/ & Place edges/vertices & \ref{FR:F020}, \ref{FR:F030}, \ref{FR:GU020}, \\ 
+& & \ref{FR:GU040} \\
 /T240/ & Place an edge across an opponent's one & \ref{FR:F070} \\
 /T250/ & Place an edge where no vertices are & \\
 /T260/ & Win/Lose a game & \ref{FR:F050} \\
