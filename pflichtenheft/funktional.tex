@@ -3,38 +3,46 @@
 %%%%%%%%%%% Framework %%%%%%%%%%%
 
 \subsubsection{Framework}
-\paragraph{Library}
+\paragraph{Library}\label{FR:LIBRARY}
 \paragraph*{}
 \begin{tabular}{{c}{l}{c}}
-    \hline
-    \textbf{Function} & \textbf{Description} & \textbf{Optional} \\ \hline
-\ref{FR:F010} & \ref{FR:FT010} & {} \\
-\ref{FR:F020} & \ref{FR:FT020} & {} \\
-\ref{FR:F030} & \ref{FR:FT030} & {} \\
-\ref{FR:F040} & \ref{FR:FT040} & {} \\
-\ref{FR:F050} & \ref{FR:FT050} & {} \\
-\ref{FR:F060} & \ref{FR:FT060} & {} \\
-\ref{FR:F070} & \ref{FR:FT070} & {$\times$} \\ \hline
+	\hline
+	\textbf{Function} & \textbf{Description} & \textbf{Optional} \\ \hline
+	\ref{FR:L010} & \ref{FR:L010T} & {} \\
+	\ref{FR:L020} & \ref{FR:L020T} & {} \\
+	\ref{FR:L030} & \ref{FR:L030T} & {} \\
+	\ref{FR:L040} & \ref{FR:L040T} & {} \\
+	\ref{FR:L050} & \ref{FR:L050T} & {} \\
+	\ref{FR:L060} & \ref{FR:L060T} & {} \\
+	\ref{FR:L070} & \ref{FR:L070T} & {} \\
+	\ref{FR:L080} & \ref{FR:L080T} & {} \\
+	\ref{FR:L090} & \ref{FR:L090T} & {$\times$} \\
+	\ref{FR:L100} & \ref{FR:L100T} & {} \\ \hline
 \end{tabular}
 
 \vspace{.5cm}
 
 \begin{description}
-	\item[\textlabel{/FR010/}{FR:F010}] \textbf{\textlabel{Grid}{FR:FT010}} \\
-	\Glspl{vertex} are positioned using a grid system that the \gls{framework} provides. The size of the grid can be freely set by the \gls{developer} depending on the game that is being implemented. The grid system can either be displayed in the \gls{GUI} or not, again, depending on the needs of the developer.
-   \item[\textlabel{/FR020/}{FR:F020}] \textbf{\textlabel{Add/Remove vertices/edges}{FR:FT020}} \\
-	With the framework the developer can do all basic graph operations. \Glspl{vertex} can be added to either a given \gls{graph} or to initiate a new graph. In addition to adding, vertices can also be removed. \Glspl{edge} without at least one vertex at each end will be removed automatically. Furthermore the developer can also connect two given vertices with each other and remove edges between vertices. Naturally, each operation is dependent on the game that is being implemented, thus allowing the developer to use the operation or disabling it. Notice that these operations only concern the developer and not the user interacting with the game. Game interactions are further described in Section \ref{FR:GUI}.
-	\item[\textlabel{/FR030/}{FR:F030}] \textbf{\textlabel{Vertices/Edges have attributes}{FR:FT030}} \\
-	Each and every vertex and edge has a set of default attributes. The developer can completely change the appearance of a vertex by replacing the default icon with any graphic or by changing its color, stroke, or size. \\
-Additionally each vertex will have its own coordinates, its own weight, and a unique \gls{ID} as attributes. Edges have attributes of their own as well, which the developer can set. An edge can have a weight, a length, and a direction.
-	\item[\textlabel{/FR040/}{FR:F040}] \textbf{\textlabel{Find path}{FR:FT040}} \\
-The framework implements algorithms to find a \gls{path} between given vertices.
-	\item[\textlabel{/FR050/}{FR:F050}] \textbf{\textlabel{Graphical output}{FR:FT050}} \\
-	A \gls{GUI} is provided to display graphs and games that were developed with the framework.
-	\item[\textlabel{/FR060/}{FR:F060}] \textbf{\textlabel{Planarity}{FR:FT060}} \\
-	For a given displayed graph, it is possible to verify, if an edge between two given unconnected vertices exists, so that the resulting graph is still \gls{planar} in terms of no intersection of edges in the displayed graph.
-	\item[\textlabel{/FR070/}{FR:F070}] \textbf{\textlabel{Timer}{FR:FT070}} \\
-	A timer function exists, which the developer can use within his games. The timer keeps track of the current play time and will be used in the naming of \glspl{savegame}.
+	\item[\textlabel{/FR010/}{FR:L010}] \textbf{\textlabel{Set grid size}{FR:L010T}} \\
+	Create the grid according to the size, set by the developer.
+	\item[\textlabel{/FR020/}{FR:L020}] \textbf{\textlabel{Initialize graph}{FR:L020T}} \\
+	Initialize empty graph structure.
+	\item[\textlabel{/FR030/}{FR:L030}] \textbf{\textlabel{Add/Remove vertices/edges}{FR:L030T}} \\
+	Add or remove \Glspl{vertex} to or from graph. \Glspl{edge} without at least one vertex at each end will be removed automatically. Furthermore the developer adds an edge connecting given vertices end remove edges between vertices.
+	\item[\textlabel{/FR040/}{FR:L040}] \textbf{\textlabel{Interprete user input}{FR:L040T}} \\
+	Interprete user input provided by \ref{FR:GU030}.
+	\item[\textlabel{/FR050/}{FR:L050}] \textbf{\textlabel{Set attributes of vertices/edges}{FR:L050T}} \\
+	Set the attributes of a vertex/edge. Vertices and edges have default attributes, if not set otherwise by the developer.
+	\item[\textlabel{/FR060/}{FR:L060}] \textbf{\textlabel{Find path}{FR:L060T}} \\
+	The framework implements algorithms to find a \gls{path} between given vertices and returns true, if path exists.
+	\item[\textlabel{/FR070/}{FR:L070}] \textbf{\textlabel{Perform \gls{BFS}}{FR:L070T}} \\
+	Return a list of reachable vertices within a set range from a given vertex.
+	\item[\textlabel{/FR080/}{FR:L080}] \textbf{\textlabel{Check for intersecting edges}{FR:L080T}} \\
+	Check if an edge between two given unconnected vertices exists, so that the resulting graph is still planarly drawn.
+	\item[\textlabel{/FR090/}{FR:L090}] \textbf{\textlabel{Start/Stop timer}{FR:L090T}} \\
+	Starts/Stops the timer.
+	\item[\textlabel{/FR100/}{FR:L100}] \textbf{\textlabel{Set status}{FR:L100T}} \\
+	Sets the status message with information about the current game.
 \end{description}
 
 %%%%%%%%%%% GUI %%%%%%%%%%%
@@ -42,28 +50,65 @@ The framework implements algorithms to find a \gls{path} between given vertices.
 \paragraph{GUI}\label{FR:GUI}
 \paragraph*{}
 \begin{tabular}{{c}{l}{c}}
-\hline
-\textbf{Function} & \textbf{Description} & \textbf{Optional} \\ \hline
-\ref{FR:GU010} & \ref{FR:GUT010} & {} \\
-\ref{FR:GU020} & \ref{FR:GUT020} & {} \\
-\ref{FR:GU030} & \ref{FR:GUT030} & {$\times$} \\
-\ref{FR:GU040} & \ref{FR:GUT040} & {} \\
-\ref{FR:GU050} & \ref{FR:GUT050} & {$\times$} \\ \hline
+	\hline
+	\textbf{Function} & \textbf{Description} & \textbf{Optional} \\ \hline
+	\ref{FR:GU010} & \ref{FR:GU010T} & {} \\
+	\ref{FR:GU020} & \ref{FR:GU020T} & {} \\
+	\ref{FR:GU030} & \ref{FR:GU030T} & {} \\
+	\ref{FR:GU040} & \ref{FR:GU040T} & {$\times$} \\
+	\ref{FR:GU050} & \ref{FR:GU050T} & {$\times$} \\ \hline
 \end{tabular}
 
 \vspace{.5cm}
 
 \begin{description}
-	\item[\textlabel{/FR080/}{FR:GU010}] \textbf{\textlabel{Output}{FR:GUT010}} \\
-	The \gls{GUI} is responsible for displaying the graph that was developed using the \gls{framework}. A possible output can be seen in Section \ref{REF:GUI_GAME}.
-	\item[\textlabel{/FR090/}{FR:GU020}] \textbf{\textlabel{Input}{FR:GUT020}} \\
-	Event listeners are integrated to capture \gls{user} interactions within the \gls{GUI}. Selecting or adding a vertex with a mouse click or saving the current state of a game with a keyboard shortcut can easily be implemented by the developer. Interactions with the mouse are restricted and only allowed within the boundaries of the grid described in \ref{FR:FT010}.
-	\item[\textlabel{/FR100/}{FR:GU030}] \textbf{\textlabel{Select edges}{FR:GUT030}} \\
-	The \gls{user} can remove an edge by clicking on one with the mouse.
-	\item[\textlabel{/FR110/}{FR:GU040}] \textbf{\textlabel{Status}{FR:GUT040}} \\
-	A status message with information about the current game can be displayed in the window bar. See Section \ref{REF:GUI_GAME} for further information.
-	\item[\textlabel{/FR120/}{FR:GU050}] \textbf{\textlabel{Menu entry}{FR:GUT050}} \\
-	A set of menu commands are always avaiable to the user. However, the developer has the option to add new menu entries into the \emph{Menu}, if needed.
+	\item[\textlabel{/FR110/}{FR:GU010}] \textbf{\textlabel{Display grid}{FR:GU010T}} \\
+	Display or hide grid layer.
+	\item[\textlabel{/FR120/}{FR:GU020}] \textbf{\textlabel{Display graph}{FR:GU020T}} \\
+	Display graph on top of grid system.
+	\item[\textlabel{/FR130/}{FR:GU030}] \textbf{\textlabel{Capture user input}{FR:GU030T}} \\
+	Capture mouse and keyboard input and forward it to the \nameref{FR:LIBRARY} for further processing. 
+	\item[\textlabel{/FR140/}{FR:GU040}] \textbf{\textlabel{Display status}{FR:GU040T}} \\
+	Display the message set in \ref{FR:L090} in the window bar. See Section \ref{REF:GUI_GAME} for further information.
+	\item[\textlabel{/FR150/}{FR:GU050}] \textbf{\textlabel{Display timer}{FR:GU050T}} \\
+	Display timer in the window bar, if activated by developer.
+	\item[\textlabel{/FR160/}{FR:GU060}] \textbf{\textlabel{Add menu entry}{FR:GU060T}} \\
+	Add additional menu entry to game options. See Section \ref{REF:GUI_GAME}.
+\end{description}
+
+%%%%%%%%%%% GAMES %%%%%%%%%%%
+
+\paragraph{Games}
+\paragraph*{}
+\begin{tabular}{{c}{l}{c}}
+    \hline
+    \textbf{Function} & \textbf{Description} & \textbf{Optional} \\ \hline
+	\ref{FR:G010} & \ref{FR:G010T} & {} \\
+	\ref{FR:G020} & \ref{FR:G020T} & {} \\
+	\ref{FR:G030} & \ref{FR:G030T} & {$\times$} \\
+	\ref{FR:G040} & \ref{FR:G040T} & {$\times$} \\
+	\ref{FR:G050} & \ref{FR:G050T} & {$\times$} \\
+	\ref{FR:G060} & \ref{FR:G060T} & {$\times$} \\
+	\ref{FR:G070} & \ref{FR:G070T} & {$\times$} \\ \hline
+\end{tabular}
+
+\vspace{.5cm}
+
+\begin{description}
+	\item[\textlabel{/FR170/}{FR:G010}] \textbf{\textlabel{Save games}{FR:G010T}} \\
+   	A started and running game can be saved by clicking the \emph{File} button in the menu bar and selecting \emph{Save}. The save function creates a \gls{savegame} file with the game's name and current system time as file name.
+   	\item[\textlabel{/FR180/}{FR:G020}] \textbf{\textlabel{Load games}{FR:G020T}} \\
+   	A saved game can be resumed by starting the game and selecting the \emph{File} button then \emph{Load}.
+   	\item[\textlabel{/FR190/}{FR:G030}] \textbf{\textlabel{Pause games}{FR:G030T}} \\
+   	While playing in single-player/multiplayer(local) mode, a game can be paused anytime. In multiplayer network mode a game can only be paused, if both parties agree to halt the game. A game can be paused by going into the \emph{Game} and selecting \emph{Pause}.
+	\item[\textlabel{/FR200/}{FR:G040}] \textbf{\textlabel{Restart game}{FR:G040T}} \\
+	A game can be restarted anytime during a single-player/multiplayer(local) mode game. Like \ref{FR:G030} a game can only be restarted in multiplayer network mode, if both parties agree upon it. Restarting can be accomplished by clicking \emph{Restart} in the menu bar under \emph{Game}.
+	\item[\textlabel{/FR210/}{FR:G050}] \textbf{\textlabel{Undo move}{FR:G050T}} \\
+	A move can be reverted like all the other game operations, by clicking the \emph{Game} entry in the menu bar and selecting \emph{Undo}. The \graphioli framework saves the game after every move. An undo move is basically a \emph{load} function as described in \ref{FR:G020}.
+	\item[\textlabel{/FR220/}{FR:G060}] \textbf{\textlabel{Redo move}{FR:G060T}} \\
+	Selecting \emph{Game} then \emph{Redo} loads the savegame before the last undo move.
+	\item[\textlabel{/FR230/}{FR:G070}] \textbf{\textlabel{Take screenshots}{FR:G070T}} \\
+	A player can take a screenshot of his current displayed game anytime during a running game. To take a screenshot, the player will have to go into the \emph{Game} menu entry and select \emph{Take Screen}. All screenshots will be saved in a subfolder within the game folder.
 \end{description}
 
 %%%%%%%%%%% Explorer %%%%%%%%%%%
@@ -72,59 +117,24 @@ The framework implements algorithms to find a \gls{path} between given vertices.
 \begin{tabular}{{c}{l}{c}}
 \hline
 \textbf{Function} & \textbf{Description} & \textbf{Optional} \\ \hline
-\ref{FR:GE010} & \ref{FR:GET010} & {}  \\
-\ref{FR:GE020} & \ref{FR:GET020} & {}  \\
-\ref{FR:GE030} & \ref{FR:GET030} & {}  \\
-\ref{FR:GE040} & \ref{FR:GET040} & {}  \\
-\ref{FR:GE050} & \ref{FR:GET050} & {$\times$} \\ \hline
+\ref{FR:GE010} & \ref{FR:GE010T} & {}  \\
+\ref{FR:GE020} & \ref{FR:GE020T} & {}  \\
+\ref{FR:GE030} & \ref{FR:GE030T} & {}  \\
+\ref{FR:GE040} & \ref{FR:GE040T} & {}  \\
+\ref{FR:GE050} & \ref{FR:GE050T} & {} \\ \hline
 \end{tabular}
 
 \vspace{.5cm}
 
 \begin{description}
-   	\item[\textlabel{/FR130/}{FR:GE010}] \textbf{\textlabel{Manage Games}{FR:GET010}} \\
-	Managing games that were implemented using the {\graphioli} framework is an easy task with the Game-Explorer. The Game-Explorer is the centerpiece for all games. It combines the games within one window and lets the player select a game to play. Every game is saved in a subfolder within the \emph{Game-Explorer} directory.
-  	\item[\textlabel{/FR140/}{FR:GE020}] \textbf{\textlabel{Start games}{FR:GET020}} \\
-	Once a game is selected in the menu, the player can start a game by pressing the \emph{Start} button. See \ref{REF:GAME-EXPLORER}.
-  	\item[\textlabel{/FR150/}{FR:GE030}] \textbf{\textlabel{Help page}{FR:GET030}} \\
+	\item[\textlabel{/FR240/}{FR:GE010}] \textbf{\textlabel{Scan game folder}{FR:GE010T}} \\
+	Scan game folder for games and generate a file containing a listing of the scanned games.
+   	\item[\textlabel{/FR250/}{FR:GE020}] \textbf{\textlabel{Show list of games}{FR:GE020T}} \\
+	Using the file generated with \ref{FR:GE010} and show them in the \emph{Game-Explorer}.
+  	\item[\textlabel{/FR260/}{FR:GE030}] \textbf{\textlabel{Start games}{FR:GE030T}} \\
+	Once a game is selected in the menu, the player starts a game by pressing the \emph{Start} button. See Section \ref{REF:GAME-EXPLORER}.
+  	\item[\textlabel{/FR270/}{FR:GE040}] \textbf{\textlabel{Display help page}{FR:GE040T}} \\
 	A tutorial or instruction file for each game (provided by the developer), can be viewed by clicking the \emph{Help} button, which opens up a new window with the instruction/tutorial.
-	\item[\textlabel{/FR160/}{FR:GE040}] \textbf{\textlabel{Display description}{FR:GET040}} \\
+	\item[\textlabel{/FR280/}{FR:GE050}] \textbf{\textlabel{Display description}{FR:GE050T}} \\
 	When a game is selected, the \emph{Game-Explorer} will display an image and a description of the game, which both are provided by the developer.
-	\item[\textlabel{/FR170/}{FR:GE050}] \textbf{\textlabel{Add new games}{FR:GET050}} \\
-	New games can be added to the \emph{Game-Explorer}. Once a game is added with the \emph{Add} button, a new menu entry will be displayed within the \emph{Game-Explorer} list of games.
-\end{description}
-
-
-%%%%%%%%%%% GAMES %%%%%%%%%%%
-
-\subsubsection{Games}
-\begin{tabular}{{c}{l}{c}}
-    \hline
-    \textbf{Function} & \textbf{Description} & \textbf{Optional} \\ \hline
-\ref{FR:G010} & \ref{FR:GT010} & {} \\
-\ref{FR:G020} & \ref{FR:GT020} & {} \\
-\ref{FR:G030} & \ref{FR:GT030} & {$\times$} \\
-\ref{FR:G040} & \ref{FR:GT040} & {$\times$} \\
-\ref{FR:G050} & \ref{FR:GT050} & {$\times$} \\
-\ref{FR:G060} & \ref{FR:GT060} & {$\times$} \\
-\ref{FR:G070} & \ref{FR:GT070} & {$\times$} \\ \hline
-\end{tabular}
-
-\vspace{.5cm}
-
-\begin{description}
-	\item[\textlabel{/FR180/}{FR:G010}] \textbf{\textlabel{Save games}{FR:GT010}} \\
-   A started and running game can be saved by clicking the \emph{File} button in the menu bar and selecting \emph{Save}.
-   \item[\textlabel{/FR190/}{FR:G020}] \textbf{\textlabel{Load games}{FR:GT020}} \\
-   A saved game can easily be resumed by starting the game and selecting the \emph{File} button then \emph{Load}.
-   \item[\textlabel{/FR200/}{FR:G030}] \textbf{\textlabel{Pause games}{FR:GT030}} \\
-   While playing in single-player mode, a game can be paused anytime. In multiplayer network mode a game can only be paused, if both parties agree to halt the game. A game can be paused by going into the \emph{Game} and selecting \emph{Pause}.
-   \item[\textlabel{/FR210/}{FR:G040}] \textbf{\textlabel{Restart game}{FR:GT040}} \\
-   A game can be restarted anytime during a single-player mode game. Like \ref{FR:G030} a game can only be restarted in multiplayer network mode, if both parties agree upon it. Restarting can be accomplished by clicking \emph{Restart} in the menu bar under \emph{Game}.
-   \item[\textlabel{/FR220/}{FR:G050}] \textbf{\textlabel{Undo move}{FR:GT050}} \\
-   Dependent on the developer's implementation, a \gls{player} can undo a set amount of moves. A move can be reverted like all the other game operations, by clicking the \emph{Game} entry in the menu bar and selecting \emph{Undo}.
-   \item[\textlabel{/FR230/}{FR:G060}] \textbf{\textlabel{Redo move}{FR:GT060}} \\
-   If a player accidentally hit the \emph{Undo} button or decides that the undo was not a wise choice, he can, again depending on the developer's implementation, redo a set amount of undoes by selecting \emph{Game} then \emph{Redo}.
-   \item[\textlabel{/FR240/}{FR:G070}] \textbf{\textlabel{Take screenshots}{FR:GT070}} \\
-   A player can take a screenshot of his current displayed game anytime during a running game. To take a screenshot, the player will have to go into the \emph{Game} menu entry and select \emph{Take Screen}. All screenshots will be saved in a subfolder within the game folder.
 \end{description}
