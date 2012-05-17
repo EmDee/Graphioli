@@ -6,22 +6,29 @@ Some functions we wanted to add, but may not have enough time to, will be introd
 
 	\item Many \glspl{game} need additional (advanced) \gls{graph} \glspl{algorithm}:
 	\begin{itemize}
-		\item Dijkstra\todo{Add further algorithms}.
+		\item Dijkstra
+		\item an algorithm to check if two graphs are isomorphic
+		\todo{Add further algorithms}.
 	\end{itemize}
 
+	\item The framework provides an interface to enable the developer to add further parameters for edges and vertices.
 	\item To extend the possibilities of multiplayer games {\graphioli} may provide an interface to implement an \gls{AI}.
 
 	\item {\graphioli} could feature network functionalities to support multiplayer games on more than one computer.
 
-	\item While playing over the network there needs to be an option for players to communicate. A \gls{chat} could provide such a communication.
+	\item While playing over the network there needs to be an option for players to communicate. An \gls{chat} could provide such a communication.
 
-	\item Some games get tedious when using the same graph all the time. There should be many different \glspl{level} to avoid this. A \gls{level-editor} could provide \glspl{developer} with the possibility to easily create several levels for their game.
+	\item A \gls{level-editor} could provide \glspl{developer} with the possibility to easily create several levels for their game.
 
-	\item The framework could generate random graphs instead of predefined ones.
+	\item The framework could generate random graphs instead of predefined ones. The developer could define requirements for the graph:
+	\begin{itemize}
+		\item number and parameters of vertices and edges
+		\item planarity of the graph
+	\end{itemize}
 
-	\item Within a game you may want to \gls{undo} (or \gls{redo}) your last draw.
+	\item Within a game the player may wants to \gls{undo} (or \gls{redo}) your last draw.
 
-	\item A timer could be provided to support games that reward a player's quickness\todo{'quickness' might be not the best choice.}.
+	\item A timer could be provided to support games that reward a player's quickness.
 
 	\item The framework could offer possibilities to define additional menu entries for the game window.
 
@@ -30,11 +37,12 @@ Some functions we wanted to add, but may not have enough time to, will be introd
 \subsubsection{Game-Explorer}
 \begin{itemize}
 
-	\item The preferences of a game can be changed and saved. When restarting the game through the Game-Explorer it is possible to automatically load the preferences.
-
-	\item The player could add new games to the explorer by naming the path to a game file.
+	\item The player could add new games to the explorer from any location on his or her computer and from a central internet server.
 
 \end{itemize}
 
-%\subsubsection{Games}
-\todo{Add further descriptions about other games we may want to implement.}
+\subsubsection{Games}
+\begin{itemize}
+	\item {\twixt} could be extended by adding the possibility to change the defined length of the edges and define all gridpoints as vertices from the start. Thus \textsc{Bridj-It} could be implemented.
+	\item The \textsc{Shannon Switching Game} would be implemented by altering {\twixt} in another way: The players start with a graph with two special vertices. One player needs to connect these vertices with a path of colored edges and the other player tries to prevent that by removing uncolored edges.\footnote{For more information see \url{http://en.wikipedia.org/wiki/Shannon_switching_game}}
+\end{itemize}
