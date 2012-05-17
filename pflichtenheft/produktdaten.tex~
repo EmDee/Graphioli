@@ -13,7 +13,7 @@
 	\item[\textlabel{/PD010/}{PD:010}] {\bf \textlabel{Game-Explorer}{PD:T010}} \\
 	The Game-Explorer displays a short description and screenshot of each \gls{game}, prepared by the \gls{developer}.
 	\item[\textlabel{/PD020/}{PD:020}] {\bf \textlabel{Help}{PD:T020}} \\
-	The developers provide an explanation or \gls{tutorial} of their implemented graph games which can be accessed through the help function of the Game-Explorer and within the game \ref{FR:GE040}.
+	The developers provide an explanation or \gls{tutorial} of their implemented graph games which can be accessed through the help function of the Game-Explorer and within the game \ref{FR:GE030}.
 	\item[\textlabel{/PD030/}{PD:030}] {\bf \textlabel{Default designed levels (graphs)}{PD:T030}} \\
 	Some games require different graphs each time they are played. The developer creates possible graphs to play his game which are then loaded as different \glspl{level}.
 	\item[\textlabel{/PD040/}{PD:040}] {\bf \textlabel{Savegames}{PD:T040}} \\
