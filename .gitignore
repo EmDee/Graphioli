@@ -32,6 +32,7 @@
 *.syg
 *.xdy
 *.tex.swp
+*.tex~
 
 # system
 .DS_Store
