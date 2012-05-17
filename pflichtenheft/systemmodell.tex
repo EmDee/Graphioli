@@ -16,3 +16,11 @@
 \item[Library] The library acts as an interface between the game and the remaining parts of the framework. It preprocesses the user input and notifies the game logic, by calling it's respective event listener. Furthermore it provides methods, which can be called by the game logic, that are used to access and modify the \gls{graph} stored in the model.
 \item[Game Logic] The Game Logic is the component created by the \gls{developer}. It decides how the user input is handled and what modifications have to be applied to the \gls{graph}. 
 \end{description}
+
+\subsubsection{Communication example}
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=1\textwidth]{sequence.pdf}
+	\caption{Example showing the communication between the software components, when a user clicks a vertex to change it's color.}
+	\label{img:SEQ}
+\end{figure}
