@@ -5,24 +5,24 @@
 \subsection{Framework}
 \begin{tabular}{{c}{l}}
     \hline
-    {\bf  Performance} & {\bf Description} \\ \hline
-	\ref{PP:FW010} & \ref{PP:FWT010} \\
-	\ref{PP:FW020} & \ref{PP:FWT020} \\
-	\ref{PP:FW030} & \ref{PP:FWT030} \\
-	\ref{PP:FW040} & \ref{PP:FWT040} \\ \hline
+    {\bf Performance} & {\bf Description} \\ \hline
+	\ref{PP:FW010} & \ref{PP:FW010T} \\
+	\ref{PP:FW020} & \ref{PP:FW020T} \\
+	\ref{PP:FW030} & \ref{PP:FW030T} \\
+	\ref{PP:FW040} & \ref{PP:FW040T} \\ \hline
 \end{tabular}
 
 \vspace{.5cm}
 
 \begin{description}
-	\item[\textlabel{/PP010/}{PP:FW010}] \textbf{\textlabel{Maximum vertex/edge count}{PP:FWT010}} \\
+	\item[\textlabel{/PP010/}{PP:FW010}] \textbf{\textlabel{Maximum vertex/edge count}{PP:FW010T}} \\
 	The framework must be able to handle at least 100 \glspl{vertex} and 300 \glspl{edge} in a single instance of a game.
-	\item[\textlabel{/PP020/}{PP:FW020}] \textbf{\textlabel{Maximum player count}{PP:FWT020}} \\
+	\item[\textlabel{/PP020/}{PP:FW020}] \textbf{\textlabel{Maximum player count}{PP:FW020T}} \\
 	Up to four \glspl{player} should be able to participate in a game.
-	\item[\textlabel{/PP030/}{PP:FW030}] \textbf{\textlabel{UI response time}{PP:FWT030}} \\
-	The \gls{GUI} has to respond to user input within 0.3 seconds.\todo{Can we guarantee that?}
-	\item[\textlabel{/PP040/}{PP:FW040}] \textbf{\textlabel{Save/Load}{PP:FWT040}} \\
-	Saving/loading a \gls{savegame} will not last longer than 3 seconds.
+	\item[\textlabel{/PP030/}{PP:FW030}] \textbf{\textlabel{UI response time}{PP:FW030T}} \\
+	The \gls{GUI} has to respond to user input within 0.3 seconds.
+	\item[\textlabel{/PP040/}{PP:FW040}] \textbf{\textlabel{Save/Load}{PP:FW040T}} \\
+	Saving/loading a \gls{savegame} will not take longer than 3 seconds.
 \end{description}
 
 %%%%%%%%%%% Games %%%%%%%%%%%
@@ -32,15 +32,15 @@
 \begin{tabular}{{c}{l}}
     \hline
     {\bf Functions} & {\bf Description} \\ \hline
-	\ref{PP:IG010} & \ref{PP:IGT010} \\ 
-	\ref{PP:IG020} & \ref{PP:IGT020} \\ \hline
+	\ref{PP:IG010} & \ref{PP:IG010T} \\ 
+	\ref{PP:IG020} & \ref{PP:IG020T} \\ \hline
 \end{tabular}
 
 \vspace{.5cm}
 
 \begin{description}
-	\item[\textlabel{/PP050/}{PP:IG010}] \textbf{\textlabel{Validation}{PP:IGT010}} \\
+	\item[\textlabel{/PP050/}{PP:IG010}] \textbf{\textlabel{Validation}{PP:IG010T}} \\
 	The games \twixt and \graphcoloring must not accept any invalid move by the \gls{player}.
-	\item[\textlabel{/PP060/}{PP:IG020}] \textbf{\textlabel{Short loading time}{PP:IGT020}} \\
+	\item[\textlabel{/PP060/}{PP:IG020}] \textbf{\textlabel{Short loading time}{PP:IG020T}} \\
 	The loading time of the implemented games will be shorter than 5 seconds. \\
 \end{description}
