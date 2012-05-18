@@ -45,10 +45,11 @@
 	\ref{T:090} & \ref{T:090T} & \ref{FR:L040}, \ref{FR:L050}, \ref{FR:L100}, \\
 	 & & \ref{FR:GU030}, \ref{FR:GU040}\\
 	\ref{T:100} & \ref{T:100T} & \ref{FR:L100}, \ref{FR:GU040} \\
+	\ref{T:110} & \ref{T:110T} & \ref{FR:L100}, \ref{FR:GU040} \\
 	\hline
 \end{tabular}
 
-\todo{add testcase for multiplayer}
+
 
 \begin{description}
 	\item[\textlabel{/T050/}{T:050}] \textbf{\textlabel{Start the game}{T:050T}} \\
@@ -71,9 +72,14 @@
 	\textbf{Input:} The tester selects a color and clicks on an uncolored vertex that is adjacent to one in the same color. \\
 	\textbf{Exp. Output:} The vertex does not change. An error message is displayed.
 	
-	\item[\textlabel{/T100/}{T:100}] \textbf{\textlabel{Win/Lose a game}{T:100T}} \\
+	\item[\textlabel{/T100/}{T:100}] \textbf{\textlabel{Win/Lose a single-player game}{T:100T}} \\
 	\textbf{Input:} The tester plays until he won/lost the game. \\
 	\textbf{Exp. Output:} A win/lose message is displayed and the next/same level is loaded.
+
+	\item[\textlabel{/T110/}{T:110}] \textbf{\textlabel{Win/Lose a multiplayer game}{T:110T}} \\
+	\textbf{Input:} The tester plays for both players until one won the game. \\
+	\textbf{Exp. Output:} A win message for the winning player is displayed.
+	
 \end{description}
 
 \subsubsection\twixt
@@ -83,42 +89,46 @@
 \hline
 	\textbf{Test} & \textbf{Description} & \textbf{Tested Functionalities} \\
 	\hline
-	\ref{T:110} & \ref{T:110T} & \ref{FR:L010}, \ref{FR:L020},\ref{FR:GU010} \\
-	\ref{T:120} & \ref{T:120T} & \ref{FR:G010}, \ref{FR:G020} \\
-	\ref{T:130} & \ref{T:130T} & \ref{FR:L030}, \ref{FR:L040}, \ref{FR:L100}, \\
+	\ref{T:120} & \ref{T:120T} & \ref{FR:L010}, \ref{FR:L020},\ref{FR:GU010} \\
+	\ref{T:130} & \ref{T:130T} & \ref{FR:G010}, \ref{FR:G020} \\
+	\ref{T:140} & \ref{T:140T} & \ref{FR:L030}, \ref{FR:L040}, \ref{FR:L100}, \\
 	 & & \ref{FR:GU040} \\
-	\ref{T:140} & \ref{T:140T} & \ref{FR:L030}, \ref{FR:L040}, \ref{FR:L050}, \\
+	\ref{T:150} & \ref{T:150T} & \ref{FR:L030}, \ref{FR:L040}, \ref{FR:L080}, \\
 	 & & \ref{FR:L100},  \ref{FR:GU040} \\
-	\ref{T:150} & \ref{T:150T} & \ref{FR:L030}, \ref{FR:L040} \\
-	\ref{T:160} & \ref{T:160T} & \ref{FR:L060}, \ref{FR:L070} , \ref{FR:L100}, \\
+	\ref{T:160} & \ref{T:160T} & \ref{FR:L030}, \ref{FR:L040}, \ref{FR:L100}, \\
+	 & & \ref{FR:GU040} \\
+	\ref{T:170} & \ref{T:170T} & \ref{FR:L030}, \ref{FR:L040} \\
+	\ref{T:180} & \ref{T:180T} & \ref{FR:L060}, \ref{FR:L070} , \ref{FR:L100}, \\
 	& & \ref{FR:GU040} \\
 	\hline
 \end{tabular}
 
-\todo{add test case "connecting vertices of wrong distance"}
-
 \begin{description}
-	\item[\textlabel{/T110/}{T:110}] \textbf{\textlabel{Start the game}{T:110T}} \\
+	\item[\textlabel{/T120/}{T:120}] \textbf{\textlabel{Start the game}{T:120T}} \\
 	\textbf{Input:} \twixt has been selected and the tester clicks on the start button. \\
 	\textbf{Exp. Output:} The game window opens and the empty grid is displayed.
 	
-	\item[\textlabel{/T120/}{T:120}] \textbf{\textlabel{Save and load a game}{T:120T}} \\
+	\item[\textlabel{/T130/}{T:130}] \textbf{\textlabel{Save and load a game}{T:130T}} \\
 	\textbf{Input:} Some vertices have been placed. The tester saves the current state, closes and reopens \twixt and loads the savegame. \\
 	\textbf{Exp. Output:} The state is saved in a file and when the file is loaded, the saved state is restored.
 	
-	\item[\textlabel{/T130/}{T:130}] \textbf{\textlabel{Place edges and vertices}{T:130T}} \\
+	\item[\textlabel{/T140/}{T:140}] \textbf{\textlabel{Place edges and vertices}{T:140T}} \\
 	\textbf{Input:} The tester places vertices and connects them with edges for both players without intersection. \\
 	\textbf{Exp. Output:} The placed vertices and edges are displayed. Each turn the status displays which player's turn it is.
 	
-	\item[\textlabel{/T140/}{T:140}] \textbf{\textlabel{Place an edge across another one}{T:140T}} \\
+	\item[\textlabel{/T150/}{T:150}] \textbf{\textlabel{Place an edge across another one}{T:150T}} \\
 	\textbf{Input:} Two vertices have been connected by an edge. The tester clicks on two other vertices on either side of the edge. \\
 	\textbf{Exp. Output:} The vertices do not get connected. An error message is displayed.
 	
-	\item[\textlabel{/T150/}{T:150}] \textbf{\textlabel{Place a vertex on an already occupied field}{T:150T}} \\
+	\item[\textlabel{/T160/}{T:160}] \textbf{\textlabel{Connect vertices of wrong distance}{T:160T}} \\
+	\textbf{Input:} Two vertices have been placed that are not in a knight's move distance. The tester clicks them both. \\
+	\textbf{Exp. Output:} The vertices do not get connected. An error message is displayed.
+	
+	\item[\textlabel{/T170/}{T:170}] \textbf{\textlabel{Place a vertex on an already occupied field}{T:170T}} \\
 	\textbf{Input:} A vertex has been placed. The tester clicks the vertex again. \\
 	\textbf{Exp. Output:} Nothing changes.
 	
-	\item[\textlabel{/T160/}{T:160}] \textbf{\textlabel{Win/Lose a game}{T:160T}} \\
+	\item[\textlabel{/T180/}{T:180}] \textbf{\textlabel{Win/Lose a game}{T:180T}} \\
 	\textbf{Input:} The tester plays for both players until one won the game. \\
 	\textbf{Exp. Output:} A win message for the winning player is displayed.
 \end{description}
