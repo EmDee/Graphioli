@@ -28,11 +28,11 @@
 	\item[\textlabel{/FR020/}{FR:L020}] \textbf{\textlabel{Initialize graph}{FR:L020T}} \\
 	Initialize empty graph structure.
 	\item[\textlabel{/FR030/}{FR:L030}] \textbf{\textlabel{Add/Remove vertices/edges}{FR:L030T}} \\
-	Add or remove \Glspl{vertex} to or from graph. \Glspl{edge} without one vertex at each end will be removed automatically. Furthermore the developer adds an edge connecting given vertices and removes edges between vertices.
+	Add or remove \glspl{vertex} to or from graph using the default parameters. \Glspl{edge} without one vertex at each end will be removed automatically. Furthermore the developer adds an edge connecting given vertices and removes edges between vertices.
 	\item[\textlabel{/FR040/}{FR:L040}] \textbf{\textlabel{Interprete user input}{FR:L040T}} \\
 	Interprete user input provided by \ref{FR:GU030}.
 	\item[\textlabel{/FR050/}{FR:L050}] \textbf{\textlabel{Set attributes of vertices/edges}{FR:L050T}} \\
-	Set the attributes of a vertex/edge. Vertices and edges have default attributes, if not set otherwise by the developer.
+	Set the attributes of a vertex/edge. Vertices and edges have default attributes, if not set otherwise by the developer (recall that the possible attributes are icon, color, stroke weight, stroke color and size for vertices and weight, color and width for edges).
 	\item[\textlabel{/FR060/}{FR:L060}] \textbf{\textlabel{Find path}{FR:L060T}} \\
 	The framework implements algorithms to find a \gls{path} between given vertices and returns true, if path exists.
 	\item[\textlabel{/FR070/}{FR:L070}] \textbf{\textlabel{Perform \gls{BFS}}{FR:L070T}} \\
@@ -66,7 +66,7 @@
 	\item[\textlabel{/FR110/}{FR:GU010}] \textbf{\textlabel{Display grid}{FR:GU010T}} \\
 	Display or hide grid layer.
 	\item[\textlabel{/FR120/}{FR:GU020}] \textbf{\textlabel{Display graph}{FR:GU020T}} \\
-	Display graph on top of grid system.
+	Display graph on top of grid system using the defined attributes. By default \glspl{vertex} are drawn as black circles and \glspl{edge} as straight black lines.
 	\item[\textlabel{/FR130/}{FR:GU030}] \textbf{\textlabel{Capture user input}{FR:GU030T}} \\
 	Capture mouse and keyboard input and forward it to the \nameref{FR:LIBRARY} for further processing. 
 	\item[\textlabel{/FR140/}{FR:GU040}] \textbf{\textlabel{Display status}{FR:GU040T}} \\
