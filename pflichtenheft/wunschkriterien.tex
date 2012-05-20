@@ -8,7 +8,7 @@ Some functions that we want to add, but may not have enough time to, will be int
 	\item Many \glspl{game} need additional (advanced) \gls{graph} \glspl{algorithm}:
 	\begin{itemize}
 		\item Dijkstra Algorithm
-		\item an algorithm to check if two graphs are isomorphic
+		\item an algorithm to check if two small (eight \glspl{vertex} or less) graphs are isomorphic
 	\end{itemize}
 
 	\item The framework provides an interface to enable the developer to add further parameters for edges and vertices.
@@ -43,6 +43,7 @@ Some functions that we want to add, but may not have enough time to, will be int
 
 \subsubsection{Games}
 \begin{itemize}
-	\item \twixt could be extended by adding the possibility to change the defined length of the edges and define all gridpoints as vertices from the start. Thus \textsc{Bridj-It} could be implemented.
+	\item \twixt could be extended by adding the possibility to change the defined length of the edges.
+	\item The game \textsc{Bridj-It} could also be implemented as a variation of \twixt by defining two different grids for the players, the edge's length to one and all gridpoints as vertices from the start. 
 	\item The \textsc{Shannon Switching Game} would be implemented by altering \twixt in another way: The players start with a graph with two special vertices. One player needs to connect these vertices with a path of colored edges and the other player tries to prevent that by removing uncolored edges.\footnote{For more information see \url{http://en.wikipedia.org/wiki/Shannon_switching_game}}
 \end{itemize}
