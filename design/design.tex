@@ -1,0 +1,59 @@
+\documentclass[a4paper]{scrartcl}
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{ae}
+\usepackage[pdftex,bookmarks=true,bookmarksnumbered,colorlinks=true]{hyperref} % http://ctan.org/pkg/hyperref
+\usepackage{nameref}
+\usepackage{comment} % for block commenting
+\usepackage{graphicx}
+% \usepackage[export]{resources/adjustbox}
+\usepackage{float}
+\graphicspath{{../materials/images/design/}}
+\usepackage[disable]{todonotes} % use temporary for todo notes
+% \usepackage{lineno} % temporary use for correcting
+\usepackage{xspace}
+% \linenumbers
+\usepackage[nonumberlist,acronym,toc,section]{glossaries} % must be the last package to include
+
+\setlength{\parindent}{0in}
+\setlength{\parskip}{8pt}
+
+\widowpenalty=10000 % Prevent single line after pagebreak
+\clubpenalty=10000  % Prevent single line before pagebreak
+
+% glossary
+\makeglossaries
+\include{glossary-entries}
+
+\author{Graphioli}
+\title{Graphioli - Software Design Document}
+
+\begin{document}
+	
+\setcounter{tocdepth}{5}
+\setcounter{secnumdepth}{5}
+
+\include{titlepage}
+\tableofcontents
+\clearpage
+
+\makeatletter
+    \newcommand*{\textlabel}[2]{%
+        \edef\@currentlabel{#1}% Set target label
+        \phantomsection% Correct hyper reference link
+        #1\label{#2}% Print and store label
+    }
+\makeatother
+
+%%% proper nouns
+\newcommand{\graphioli}{\textsc{Graphioli}\xspace}
+
+\include{introduction}
+\include{architecture}
+\include{classdiagram}
+\include{sequencediagram}
+\include{miscellaneous}
+\include{glossar}
+
+\end{document}
