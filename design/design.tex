@@ -6,6 +6,7 @@
 \usepackage[pdftex,bookmarks=true,bookmarksnumbered,colorlinks=true]{hyperref} % http://ctan.org/pkg/hyperref
 \usepackage{nameref}
 \usepackage{comment} % for block commenting
+\usepackage[table]{xcolor} % has to be loaded before tikZ
 %%%%%%% package for sequence diagrams
 \usepackage{tikz}
 \usetikzlibrary{arrows,shadows}
@@ -17,6 +18,7 @@
 % \usepackage{lineno} % temporary use for correcting
 \usepackage{xspace}
 % \linenumbers
+\usepackage{lipsum} % just to generate some text
 \usepackage[nonumberlist,acronym,toc,section]{glossaries} % must be the last package to include
 
 \setlength{\parindent}{0in}
@@ -41,21 +43,13 @@
 \tableofcontents
 \clearpage
 
-\makeatletter
-    \newcommand*{\textlabel}[2]{%
-        \edef\@currentlabel{#1}% Set target label
-        \phantomsection% Correct hyper reference link
-        #1\label{#2}% Print and store label
-    }
-\makeatother
-
-%%% proper nouns
-\newcommand{\graphioli}{\textsc{Graphioli}\xspace}
+\input{../customCommands}
 
 \include{introduction}
 \include{architecture}
-\include{classdiagram}
-\include{sequencediagram}
+\include{classDiagram}
+\include{classDescription}
+\include{sequenceDiagram}
 \include{miscellaneous}
 \include{glossar}
 
