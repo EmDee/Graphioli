@@ -42,7 +42,7 @@
 
 # pdfs
 pflichtenheft/*.pdf
-entwurf/*.pdf
+design/*.pdf
 
 # miscellaneous
 *.un~
