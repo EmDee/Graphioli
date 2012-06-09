@@ -6,8 +6,11 @@
 \usepackage[pdftex,bookmarks=true,bookmarksnumbered,colorlinks=true]{hyperref} % http://ctan.org/pkg/hyperref
 \usepackage{nameref}
 \usepackage{comment} % for block commenting
-\usepackage{graphicx}
-% \usepackage[export]{resources/adjustbox}
+%%%%%%% package for sequence diagrams
+\usepackage{tikz}
+\usetikzlibrary{arrows,shadows}
+\usepackage{../materials/resources/pgf-umlsd}
+%%%%%%%
 \usepackage{float}
 \graphicspath{{../materials/images/design/}}
 \usepackage[disable]{todonotes} % use temporary for todo notes
