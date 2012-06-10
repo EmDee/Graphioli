@@ -1,13 +1,30 @@
 \subsection{Model}
-\paragraph*{\textlabel{VisualVertex}{visualvertex}}
-\paragraph*{}
+\subsubsection*{\textlabel{VisualVertex}{visualvertex}}
 This class represents a \ref{visualvertex}. \\
 Dependencies: \textit{extends \ref{vertex}}
 \paragraph*{Method Summary}
 \paragraph*{}
+\begin{longtable}{Lp{10cm}}
+	\hline
+    \textbf{Modifier and Type} & \textbf{Method and Description} \\ \hline
+	\rowcolor{gray!20}
+	public & \textcolor{NavyBlue}{\textlabel{VisualVertex(gridPoint : GridPoint)}{vv:conctructor}} \\
+	& Creates a new VisualVertex and places it on the specified \ref{gridpoint}. \\
+	protected void & \textcolor{NavyBlue}{\textlabel{draw(Graphics2D)}{vv:draw}} \\
+	& Draws the VisualVertex. \\
+	final void & \textcolor{NavyBlue}{\textlabel{update()}{vv:update}} \\
+	& Updated the VisualVertex. \\ 
+	public GridPoint & \textcolor{NavyBlue}{\textlabel{getGridPoint()}{vv:getgridpoint}}\\
+	& Returns the GridPoint of the VisualVertex. \\ 
+	public boolean & \textcolor{NavyBlue}{\textlabel{setGridPoint(gridPoint : GridPoint)}{vv:setGridPoint(gridPoint : GridPoint)}} \\
+	& Sets the GridPoint of the VisualVertex. \\
+	public BufferedImage & \textcolor{NavyBlue}{\textlabel{getBufferedImage()}{vv:getbufferedimage}} \\
+	& Returns the BufferedImage on the VisualVertex \\ \hline
+\end{longtable}
 
-\paragraph*{\textlabel{GraphicVisualVertex}{graphicvisualvertex}}
-\paragraph*{}
+\vspace{.5cm}
+
+\subsubsection*{\textlabel{GraphicVisualVertex}{graphicvisualvertex}}
 This class represents a \ref{visualvertex} with a cusom icon.\\
 Dependencies: \textit{extends \ref{visualvertex}}
 \paragraph*{Method Summary}
