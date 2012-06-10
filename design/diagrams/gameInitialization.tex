@@ -1,0 +1,60 @@
+\documentclass{article}
+
+\usepackage{tikz}
+\usepackage{pgf-umlsd}
+\usepgflibrary{arrows} % for pgf-umlsd
+\begin{document}
+
+
+
+\begin{sequencediagram}
+	
+	\newthread{gameManager}{:GameManager}
+	\newinst{gameDefinition}{:GameDefinition}
+	\newinst{playerManager}{:PlayerManager}
+	\newthread{gameBoard}{:GameBoard}
+	\newinst{gameBoardGraph}{:Graph}
+	\newinst{gameBoardGrid}{:Grid}
+	\newthread{viewManager}{:ViewManager}
+	\newinst{viewManagerView}[1]{:View}
+	\newinst{game}[1]{:Game}
+	
+	\begin{call}{gameManager}{startGame(gameDefinition)}{gameManager}{true}
+
+		% GameManager gets all the information from GameDefinition
+		\begin{call}{gameManager}{getName()}{gameDefinition}{name : String} \end{call}
+		\begin{call}{gameManager}{getMaxPlayerCount()}{gameDefinition}{maxPlayerCount : int} \end{call}
+		\begin{call}{gameManager}{get[...]()}{gameDefinition}{[...]} \end{call}
+
+		% GameManager creates an instance of PlayerManager
+		\begin{call}{gameManager}{PlayerManager(players)}{playerManager}{true} \end{call}
+
+		% GameManager creates an instance of GameBoard
+		\begin{call}{gameManager}{GameBoard(isDirected)}{gameBoard}{true}
+			\begin{call}{gameBoard}{Graph()}{gameBoardGraph}{true} \end{call}
+			\begin{call}{gameBoard}{Grid(horizontalGridPoints, verticalGridPoints)}{gameBoardGrid}{true} \end{call}
+		\end{call}
+
+		% GameManager creates an instance of ViewManager
+		\begin{call}{gameManager}{ViewManager(this)}{viewManager}{true}
+			\begin{call}{viewManager}{View()}{viewManagerView}{true} \end{call}
+			\begin{call}{viewManager}{registerController(this)}{viewManagerView}{true} \end{call}
+		\end{call}
+
+		% GameManager creates MenuItems
+		\begin{sdblock}{Loop}{For every MenuItem}
+			\begin{call}{gameManager}{addGameMenuItem(MenuItem)}{viewManager}{true} \end{call}
+		\end{sdblock}
+
+		% GameManager creates an instance of Game and notifies it
+		\begin{call}{gameManager}{Game()}{game}{true} \end{call}
+		\begin{call}{gameManager}{onGameInit()}{game}{true} \end{call}
+
+	\end{call}
+	
+
+\end{sequencediagram}
+
+
+
+\end{document}
