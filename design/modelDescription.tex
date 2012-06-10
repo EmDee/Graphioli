@@ -1,23 +1,31 @@
 \subsection{Model}
-\paragraph*{\textlabel{Class Name}{classname}}
+\paragraph*{\textlabel{VisualVertex}{visualvertex}}
 \paragraph*{}
-Dependencies: REFERENCES
+This class represents a \ref{visualvertex}. \\
+Dependencies: \textit{extends \ref{vertex}}
+\paragraph*{Method Summary}
+\paragraph*{}
+
+\paragraph*{\textlabel{GraphicVisualVertex}{graphicvisualvertex}}
+\paragraph*{}
+This class represents a \ref{visualvertex} with a cusom icon.\\
+Dependencies: \textit{extends \ref{visualvertex}}
 \paragraph*{Method Summary}
 \paragraph*{}
 \begin{longtable}{Lp{10cm}}
-    \textbf{Col 1} & \textbf{Col 2} \\ \hline
-	\rowcolor{gray!20}Bla1 & \textlabel{reference1}{reference1} \\
-	& Description1 \\
-	Bla2 & \textlabel{reference2}{reference2} \\    
+	\hline
+    \textbf{Modifier and Type} & \textbf{Method and Description} \\ \hline
+	\rowcolor{gray!20}
+	public & \textcolor{NavyBlue}{\textlabel{GraphicVisualVertex(String fileName)}{gvv:conctructor}} \\
+	& Creates a new GraphicVisualVertex with the specified fileName. \\
+	public & \textcolor{NavyBlue}{\textlabel{GraphicVisualVertex(BufferedImage image)}{reference2}} \\
 	& Description2 \\
-	Bla3 & \textlabel{reference3}{reference3} \\    
+	public boolean & \textcolor{NavyBlue}{\textlabel{setImageResource(File imageResource)}{gvv:setimageresource}} \\
 	& Description3 \\ 
-	Bla4 & reference4 \\    
+	final BufferedImage & \textcolor{NavyBlue}{\textlabel{loadBufferedImage(String fileName)}{gvv:loadbufferedimage}}\\
 	& Description4 \\ 
-	Bla5 & reference5 \\    
-	& Description5 \\ 
-	Bla6 & reference6 \\    
-	& Description6 \\ \hline
+	public BufferedImage & \textcolor{NavyBlue}{\textlabel{getImage()}{gvv:getimage}} \\
+	& Returns the BufferedImage that represents this \ref{graphicvisualvertex}. \\
+	public boolean & \textcolor{NavyBlue}{\textlabel{setImage(BufferedImage image)}{gvv:setimage}} \\
+	& Sets the BufferedImage that represents this \ref{graphicvisualvertex} \\ \hline
 \end{longtable}
-
-\ref{reference1}
