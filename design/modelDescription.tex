@@ -1,48 +1,86 @@
 \subsection{Model}
-\subsubsection*{\textlabel{VisualVertex}{visualvertex}}
+
+% Graph
+\subsubsection*{\textcolor{Blue}{Class \textlabel{Graph}{cls:graph}}}
+%\createindentedlist{string1,string2,string3}
+This class represents the logical graph. \\
+\begin{description}
+	\item[Direct Known Subclasses] \hfill \\
+	\ref{cls:vertex}, \ref{cls:edge}
+\end{description}
+\vspace{.5cm}
+\hrule
+\paragraph*{Method Summary}
+\paragraph*{}
+\begin{longtable}{Lp{10cm}}
+	\hline
+    \rowcolor{white}\textbf{Modifier and Type} & \textbf{Method and Description} \\ \hline
+	\method{public boolean}{addEdge(Vertex vertexA, Vertex vertexB)}{graph:addEdge} \\
+	& Adds an \ref{cls:edge} to this graph. \\
+	\method{public boolean}{addVertex(vertex : Vertex)}{graph:addVertex} \\
+	& Adds a \ref{cls:vertex} to this graph. \\
+	\method{public boolean}{removeVertex(Vertex vertex)}{graph:removevertex} \\
+	& Removes a specified \ref{cls:vertex} from this graph. \\
+	\method{public boolean}{removeEdge(Edge edge)}{graph:removeedge} \\
+	& Removes a specified \ref{cls:edge} from this graph. \\
+	\method{public Iterable<Vertex>}{getVertices()}{graph:iterablevertex} \\
+	& Returns an iterable list of vertices.  \\
+	\method{public Iterable<Edge>}{getEdge()}{graph:iterableedge} \\
+	& Returns an iterable list of vertices. \\
+	\hline
+\end{longtable}
+
+\setcounter{row}{-1}
+
+% Vertex
+\subsubsection*{\textcolor{Blue}{Class \textlabel{Vertex}{cls:vertex}}}
+This class represents the logical vertex. \\
+\begin{description}
+	\item[Direct Known Subclasses] \hfill \\
+	\ref{cls:visualvertex}
+\end{description}
+\vspace{.5cm}
+\hrule
+\paragraph*{Method Summary}
+\paragraph*{}
+\begin{longtable}{Lp{10cm}}
+	\hline
+    \rowcolor{white}\textbf{Modifier and Type} & \textbf{Method and Description} \\ \hline
+	\method{public Iterable<Vertex>}{getAdjacentVertices()}{vertex:getadjacentvertices} \\
+	& Returns all vertices that are connected to this vertex. \\
+	\method{public UUID}{getUID()}{vertex:getuid} \\
+	& Returns the unique identifier for this vertex. \\
+	\method{public Iterable<Edge>}{getInboundEdges()}{vertex:getinboundedges} \\
+	& Returns an iterable list of inbound edges. \\
+	\method{public boolean}{addInboundEdge(Edge edge)}{vertex:addinboundedge} \\
+	& Adds an inbound \ref{cls:edge} to the list of inbound edges. \\
+	\method{public Iterable<Edge>}{getOutboundEdges()}{vertex:getoutboundedges} \\
+	& Returns an iterable list of outbound edges. \\
+	\method{public boolean}{addOutboundEdge(Edge edge)}{vertex:addoutboundedge} \\
+	& Adds an outbound \ref{cls:edge} to the list of outbound edges. \\
+	\method{public boolean}{isAdjacentTo(Vertex vertex)}{vertex:isadjacentto} \\
+	\hline
+\end{longtable}
+
+% VisualVertex
+\subsubsection*{\textcolor{Blue}{Class \textlabel{VisualVertex}{cls:visualvertex}}}
 This class represents a \ref{visualvertex}. \\
 Dependencies: \textit{extends \ref{vertex}}
 \paragraph*{Method Summary}
 \paragraph*{}
 \begin{longtable}{Lp{10cm}}
 	\hline
-    \textbf{Modifier and Type} & \textbf{Method and Description} \\ \hline
-	\rowcolor{gray!20}
-	public & \textcolor{NavyBlue}{\textlabel{VisualVertex(gridPoint : GridPoint)}{vv:conctructor}} \\
+    \rowcolor{white}\textbf{Modifier and Type} & \textbf{Method and Description} \\ \hline
+	public & \textcolor{NavyBlue}{\textlabel{VisualVertex(gridPoint : GridPoint)}{vv:constructor}} \\
 	& Creates a new VisualVertex and places it on the specified \ref{gridpoint}. \\
 	protected void & \textcolor{NavyBlue}{\textlabel{draw(Graphics2D)}{vv:draw}} \\
 	& Draws the VisualVertex. \\
 	final void & \textcolor{NavyBlue}{\textlabel{update()}{vv:update}} \\
 	& Updated the VisualVertex. \\ 
-	public GridPoint & \textcolor{NavyBlue}{\textlabel{getGridPoint()}{vv:getgridpoint}}\\
+	public \ref{gridpoint} & \textcolor{NavyBlue}{\textlabel{getGridPoint()}{vv:getgridpoint}}\\
 	& Returns the GridPoint of the VisualVertex. \\ 
 	public boolean & \textcolor{NavyBlue}{\textlabel{setGridPoint(gridPoint : GridPoint)}{vv:setGridPoint(gridPoint : GridPoint)}} \\
 	& Sets the GridPoint of the VisualVertex. \\
 	public BufferedImage & \textcolor{NavyBlue}{\textlabel{getBufferedImage()}{vv:getbufferedimage}} \\
 	& Returns the BufferedImage on the VisualVertex \\ \hline
-\end{longtable}
-
-\vspace{.5cm}
-
-\subsubsection*{\textlabel{GraphicVisualVertex}{graphicvisualvertex}}
-This class represents a \ref{visualvertex} with a cusom icon.\\
-Dependencies: \textit{extends \ref{visualvertex}}
-\paragraph*{Method Summary}
-\paragraph*{}
-\begin{longtable}{Lp{10cm}}
-	\hline
-    \textbf{Modifier and Type} & \textbf{Method and Description} \\ \hline
-	\rowcolor{gray!20}
-	public & \textcolor{NavyBlue}{\textlabel{GraphicVisualVertex(String fileName)}{gvv:conctructor}} \\
-	& Creates a new GraphicVisualVertex with the specified fileName. \\
-	public & \textcolor{NavyBlue}{\textlabel{GraphicVisualVertex(BufferedImage image)}{reference2}} \\
-	& Description2 \\
-	public boolean & \textcolor{NavyBlue}{\textlabel{setImageResource(File imageResource)}{gvv:setimageresource}} \\
-	& Description3 \\ 
-	final BufferedImage & \textcolor{NavyBlue}{\textlabel{loadBufferedImage(String fileName)}{gvv:loadbufferedimage}}\\
-	& Description4 \\ 
-	public BufferedImage & \textcolor{NavyBlue}{\textlabel{getImage()}{gvv:getimage}} \\
-	& Returns the BufferedImage that represents this \ref{graphicvisualvertex}. \\
-	public boolean & \textcolor{NavyBlue}{\textlabel{setImage(BufferedImage image)}{gvv:setimage}} \\
-	& Sets the BufferedImage that represents this \ref{graphicvisualvertex} \\ \hline
 \end{longtable}
