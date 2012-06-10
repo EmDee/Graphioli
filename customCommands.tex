@@ -1,3 +1,4 @@
+% use this \textlabel command to have a reference within normal text; don't use any other referencing with textlabel enabled
 \makeatletter
     \newcommand*{\textlabel}[2]{%
         \edef\@currentlabel{#1}% Set target label
@@ -6,7 +7,7 @@
     }
 \makeatother
 
-%%% proper nouns
+% proper nouns
 \newcommand{\graphioli}{\textsc{Graphioli}\xspace}
 \newcommand{\twixt}{\textsc {TwixT}\xspace}
 \newcommand{\graphcoloring}{\textsc {Graph-Coloring}\xspace}
