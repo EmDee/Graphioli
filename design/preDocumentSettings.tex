@@ -1,0 +1,50 @@
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{ae}
+\usepackage[pdftex,bookmarks=true,bookmarksnumbered,colorlinks=true]{hyperref} % http://ctan.org/pkg/hyperref
+\usepackage{nameref}
+\usepackage{comment} % for block commenting
+\usepackage{longtable} % longtable breaks longer tables to different pages
+\usepackage[table]{xcolor} % has to be loaded before tikZ
+\usepackage{array}
+\usepackage{etoolbox} % to set table rows to 0
+%%%%%%% package for sequence diagrams
+\usepackage{tikz}
+\usetikzlibrary{arrows,shadows}
+\usepackage{../materials/resources/pgf-umlsd}
+%%%%%%%
+\usepackage{float}
+\graphicspath{{../materials/images/design/}}
+\usepackage[disable]{todonotes} % use temporary for todo notes
+% \usepackage{lineno} % temporary use for correcting
+\usepackage{xspace}
+% \linenumbers
+\usepackage{lipsum} % just to generate some text
+\usepackage[nonumberlist,acronym,toc,section]{glossaries} % must be the last package to include
+
+\setlength{\parindent}{0in}
+\setlength{\parskip}{8pt}
+
+\widowpenalty=10000 % Prevent single line after pagebreak
+\clubpenalty=10000  % Prevent single line before pagebreak
+
+% glossary
+\makeglossaries
+\include{glossary-entries}
+
+% make use of row counter to be able to color "row mod #". In this case two at a time.
+\rowcolors{1}{white}{gray!20}
+
+\newcounter{row}
+\newcolumntype{L}{%
+  >{\stepcounter{row}%
+  \pgfmathtruncatemacro{\j}{int(Mod(\therow,4))}
+  \ifnum\j<2 
+    \global\rownum=1
+  \else
+    \global\rownum=0
+  \fi}%
+l}
+
+\BeforeBeginEnvironment{longtable}{\setcounter{row}{-1}} % set first row in table to -1 for title

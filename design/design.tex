@@ -1,35 +1,5 @@
 \documentclass[a4paper]{scrartcl}
-\usepackage[english]{babel}
-\usepackage[utf8]{inputenc}
-\usepackage[T1]{fontenc}
-\usepackage{ae}
-\usepackage[pdftex,bookmarks=true,bookmarksnumbered,colorlinks=true]{hyperref} % http://ctan.org/pkg/hyperref
-\usepackage{nameref}
-\usepackage{comment} % for block commenting
-\usepackage[table]{xcolor} % has to be loaded before tikZ
-%%%%%%% package for sequence diagrams
-\usepackage{tikz}
-\usetikzlibrary{arrows,shadows}
-\usepackage{../materials/resources/pgf-umlsd}
-%%%%%%%
-\usepackage{float}
-\graphicspath{{../materials/images/design/}}
-\usepackage[disable]{todonotes} % use temporary for todo notes
-% \usepackage{lineno} % temporary use for correcting
-\usepackage{xspace}
-% \linenumbers
-\usepackage{lipsum} % just to generate some text
-\usepackage[nonumberlist,acronym,toc,section]{glossaries} % must be the last package to include
-
-\setlength{\parindent}{0in}
-\setlength{\parskip}{8pt}
-
-\widowpenalty=10000 % Prevent single line after pagebreak
-\clubpenalty=10000  % Prevent single line before pagebreak
-
-% glossary
-\makeglossaries
-\include{glossary-entries}
+\input{preDocumentSettings}
 
 \author{Graphioli}
 \title{Graphioli - Software Design Document}
