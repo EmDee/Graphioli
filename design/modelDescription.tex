@@ -4,12 +4,14 @@
 \subsubsection*{\textcolor{Blue}{Class \textlabel{Graph}{cls:graph}}}
 %\createindentedlist{string1,string2,string3}
 This class represents the logical graph. \\
+
 \begin{description}
 	\item[Direct Known Subclasses] \hfill \\
 	\ref{cls:vertex}, \ref{cls:edge}
 \end{description}
 \vspace{.5cm}
 \hrule
+
 \paragraph*{Method Summary}
 \paragraph*{}
 \begin{longtable}{Lp{10cm}}
@@ -65,22 +67,82 @@ This class represents the logical vertex. \\
 % VisualVertex
 \subsubsection*{\textcolor{Blue}{Class \textlabel{VisualVertex}{cls:visualvertex}}}
 This class represents a \ref{visualvertex}. \\
-Dependencies: \textit{extends \ref{vertex}}
+
+\begin{description}
+	\item[Direct Known Subclasses] \hfill \\
+	\ref{cls:graphicvisualvertex}, \ref{cls:simplevisualvertex}
+\end{description}
+\vspace{.5cm}
+\hrule
+
 \paragraph*{Method Summary}
 \paragraph*{}
 \begin{longtable}{Lp{10cm}}
 	\hline
     \rowcolor{white}\textbf{Modifier and Type} & \textbf{Method and Description} \\ \hline
-	public & \textcolor{NavyBlue}{\textlabel{VisualVertex(gridPoint : GridPoint)}{vv:constructor}} \\
+	\method{public}{VisualVertex(gridPoint : GridPoint)}{vv:constructor} \\
 	& Creates a new VisualVertex and places it on the specified \ref{gridpoint}. \\
-	protected void & \textcolor{NavyBlue}{\textlabel{draw(Graphics2D)}{vv:draw}} \\
+	\method{protected void}{draw(Graphics2D)}{vv:draw} \\
 	& Draws the VisualVertex. \\
-	final void & \textcolor{NavyBlue}{\textlabel{update()}{vv:update}} \\
+	\method{final void}{update()}{vv:update} \\
 	& Updated the VisualVertex. \\ 
-	public \ref{gridpoint} & \textcolor{NavyBlue}{\textlabel{getGridPoint()}{vv:getgridpoint}}\\
+	\method{public \ref{cls:gridpoint}}{getGridPoint()}{vv:getgridpoint} \\
 	& Returns the GridPoint of the VisualVertex. \\ 
-	public boolean & \textcolor{NavyBlue}{\textlabel{setGridPoint(gridPoint : GridPoint)}{vv:setGridPoint(gridPoint : GridPoint)}} \\
+	\method{public boolean}{setGridPoint(gridPoint : GridPoint)}{vv:setGridPoint(gridPoint : GridPoint)} \\
 	& Sets the GridPoint of the VisualVertex. \\
-	public BufferedImage & \textcolor{NavyBlue}{\textlabel{getBufferedImage()}{vv:getbufferedimage}} \\
-	& Returns the BufferedImage on the VisualVertex \\ \hline
+	\method{public BufferedImage}{getBufferedImage()}{vv:getbufferedimage} \\
+	& Returns the BufferedImage on the VisualVertex. \\ 
+	\hline
+\end{longtable}
+
+% GraphicVisualVertex
+\subsubsection*{\textcolor{Blue}{Class \textlabel{GraphicVisualVertex}{cls:graphicvisualvertex}}}
+This class represents a \ref{visualvertex} with a custom icon.\\
+\paragraph*{Method Summary}
+\paragraph*{}
+\begin{longtable}{Lp{10cm}}
+	\hline
+    \rowcolor{white}\textbf{Modifier and Type} & \textbf{Method and Description} \\ \hline
+	\method{public}{GraphicVisualVertex(String fileName)}{gvv:constructor} \\
+	& Creates a new GraphicVisualVertex with the specified url. \\
+	\method{public}{GraphicVisualVertex(BufferedImage image)}{gvv:superconstructor} \\
+	& Creates a new GraphicVisualVertex with the specified BufferedImage. \\
+	\method{public BufferedImage}{loadBufferedImage(String fileName)}{gvv:loadbufferedimage} \\
+	& Loads the image file at specified `fileName' and returns a BufferedImage. \\
+	\method{public BufferedImage}{getImage()}{gvv:getimage} \\
+	& Returns the BufferedImage that represents this \ref{cls:graphicvisualvertex}. \\
+	\method{public boolean}{setImage(BufferedImage image)}{gvv:setimage} \\
+	& Sets the BufferedImage that represents this \ref{cls:graphicvisualvertex}. \\ 
+	\hline
+\end{longtable}
+
+% SimpleVisualVertex
+\subsubsection*{\textcolor{Blue}{Class \textlabel{SimpleVisualVertex}{cls:simplevisualvertex}}}
+This class represents a simple \ref{visualvertex} with predefined attributes.\\
+
+\begin{description}
+	\item[Direct Known Subclasses] \hfill \\
+	\ref{cls:graphcoloringvertex}
+\end{description}
+\vspace{.5cm}
+\hrule
+
+\paragraph*{Method Summary}
+\paragraph*{}
+\begin{longtable}{Lp{10cm}}
+	\hline
+    \rowcolor{white}\textbf{Modifier and Type} & \textbf{Method and Description} \\ \hline
+	\method{public Color}{getColor()}{svv:getcolor} \\
+	& Returns the color of this \ref{cls:simplevisualvertex}. \\
+	\method{public int}{getStrokeWeight()}{svv:getStrokeWeight} \\
+	& Returns the stroke weight of this \ref{cls:simplevisualvertex}. \\
+	\method{public Color}{getStrokeColor()}{svv:getstrokecolor} \\
+	& Returns the stroke color of this \ref{cls:simplevisualvertex}. \\
+	\method{public boolean}{setColor(Color color)}{svv:setcolor} \\
+	& Sets the color of this \ref{cls:simplevisualvertex}. \\
+	\method{public boolean}{setStrokeWeight(int strokeWeight)}{svv:setstrokeweight} \\
+	& Sets the stroke weight of this \ref{cls:simplevisualvertex}. \\
+	\method{public boolean}{setStrokeColor(Color strokeColor)}{svv:setstrokecolor} \\
+	& Sets the stroke color of this \ref{cls:simplevisualvertex}. \\
+	\hline
 \end{longtable}
