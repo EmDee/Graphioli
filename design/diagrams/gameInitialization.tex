@@ -1,16 +1,17 @@
 \documentclass{article}
 
-\usepackage[landscape]{geometry}
+\usepackage[margin=1cm,landscape]{geometry} % switch to landscape, remove margins
 \usepackage{tikz}
 \usepackage{pgf-umlsd}
 \usetikzlibrary{shadows}
 \usepgflibrary{arrows} % for pgf-umlsd
+\pagestyle{empty} % surpress page numbers
+
 \begin{document}
 
-
-
 \begin{sequencediagram}
-	
+
+	\newinst{gameExplorer}{:GameExplorer}
 	\newthread{gameManager}{:GameManager}
 	\newinst{gameDefinition}{:GameDefinition}
 	\newinst{playerManager}{:PlayerManager}
@@ -20,43 +21,49 @@
 	\newinst{viewManager}{:ViewManager}
 	\newinst{viewManagerView}{:View}
 	\newinst{game}{:Game}
-	
-	\begin{call}{gameManager}{startGame(gameDefinition)}{gameManager}{true}
 
-		% GameManager gets all the information from GameDefinition
-		\begin{call}{gameManager}{getName()}{gameDefinition}{name : String} \end{call}
-		\begin{call}{gameManager}{getMaxPlayerCount()}{gameDefinition}{maxPlayerCount : int} \end{call}
-		\begin{call}{gameManager}{get[...]()}{gameDefinition}{[...]} \end{call}
+	\begin{messcall}{gameExplorer}{startGame(gameDefinition)}{gameManager} \end{messcall}
 
-		% GameManager creates an instance of PlayerManager
-		\begin{call}{gameManager}{PlayerManager(players)}{playerManager}{true} \end{call}
+	% GameManager gets all the information from GameDefinition
+	\begin{call}{gameManager}{getParams()}{gameDefinition}{[...]} \end{call}
+	%\begin{call}{gameManager}{getName()}{gameDefinition}{String} \end{call}
+	%\begin{call}{gameManager}{getMaxPlayerCount()}{gameDefinition}{int} \end{call}
+	%\begin{call}{gameManager}{getMinPlayerCount()}{gameDefinition}{int} \end{call}
+	%\begin{call}{gameManager}{getGamePath()}{gameDefinition}{String} \end{call}
+	%\begin{call}{gameManager}{getDescription()}{gameDefinition}{String} \end{call}
+	%\begin{call}{gameManager}{getFullyQualifiedClassName()}{gameDefinition}{String} \end{call}
+	%\begin{call}{gameManager}{getScreenShot()}{gameDefinition}{BufferedImage} \end{call}
+	%\begin{call}{gameManager}{getLocalizedString()}{gameDefinition}{File} \end{call}
+	%\begin{call}{gameManager}{getHelpFile()}{gameDefinition}{URI} \end{call}
+	%\begin{call}{gameManager}{getPlayers()}{gameDefinition}{Iterable<Player>} \end{call}
+	%\begin{call}{gameManager}{getMenu()}{gameDefinition}{Iterable<MenuItem>} \end{call}
+	%\begin{call}{gameManager}{getHorizontalGridPointCount()}{gameDefinition}{int} \end{call}
+	%\begin{call}{gameManager}{getVerticalGridPointCount()}{gameDefinition}{int} \end{call}
 
-		% GameManager creates an instance of GameBoard
-		\begin{call}{gameManager}{GameBoard(isDirected)}{gameBoard}{true}
-			\begin{call}{gameBoard}{Graph()}{gameBoardGraph}{true} \end{call}
-			\begin{call}{gameBoard}{Grid(horizontalGridPoints, verticalGridPoints)}{gameBoardGrid}{true} \end{call}
-		\end{call}
+	% GameManager creates an instance of PlayerManager
+	\begin{messcall}{gameManager}{PlayerManager(players)}{playerManager} \end{messcall}
 
-		% GameManager creates an instance of ViewManager
-		\begin{call}{gameManager}{ViewManager(this)}{viewManager}{true}
-			\begin{call}{viewManager}{View()}{viewManagerView}{true} \end{call}
-			\begin{call}{viewManager}{registerController(this)}{viewManagerView}{true} \end{call}
-		\end{call}
-
-		% GameManager creates MenuItems
-		\begin{sdblock}{Loop}{For every MenuItem}
-			\begin{call}{gameManager}{addGameMenuItem(MenuItem)}{viewManager}{true} \end{call}
-		\end{sdblock}
-
-		% GameManager creates an instance of Game and notifies it
-		\begin{call}{gameManager}{Game()}{game}{true} \end{call}
-		\begin{call}{gameManager}{onGameInit()}{game}{true} \end{call}
-
+	% GameManager creates an instance of GameBoard
+	\begin{call}{gameManager}{GameBoard(isDirected)}{gameBoard}{true}
+		\begin{messcall}{gameBoard}{Graph()}{gameBoardGraph} \end{messcall}
+		\begin{messcall}{gameBoard}{Grid(horizontalGridPoints, verticalGridPoints)}{gameBoardGrid} \end{messcall}
 	\end{call}
-	
+
+	% GameManager creates an instance of ViewManager
+	\begin{call}{gameManager}{ViewManager(this)}{viewManager}{true}
+		\begin{messcall}{viewManager}{View()}{viewManagerView} \end{messcall}
+		\begin{call}{viewManager}{registerController(this)}{viewManagerView}{true} \end{call}
+	\end{call}
+
+	% GameManager creates MenuItems
+	\begin{sdblock}{Loop}{For every MenuItem (facultative)}
+		\begin{call}{gameManager}{addGameMenuItem(MenuItem)}{viewManager}{true} \end{call}
+	\end{sdblock}
+
+	% GameManager creates an instance of Game and notifies it
+	\begin{messcall}{gameManager}{Game()}{game} \end{messcall}
+	\begin{call}{gameManager}{onGameInit()}{game}{true} \end{call}
 
 \end{sequencediagram}
-
-
 
 \end{document}
