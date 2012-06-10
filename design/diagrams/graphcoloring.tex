@@ -1,9 +1,15 @@
 \documentclass{article}
 
+\pagestyle{empty} % surpress page numbers
+
+\usepackage[margin=1cm]{geometry}
+
 \usepackage{tikz}
 \usepackage{pgf-umlsd}
 \usepgflibrary{arrows} % for pgf-umlsd
 \usetikzlibrary{shadows}
+
+
 \begin{document}
 
 
@@ -32,10 +38,13 @@
 	\mess{gm}{drawGraph}{view}
 	\mess{view}{click}{gm}
 	\begin{call}{gm}{getVertexAtGridPoint()}{brd}{Vertex} \end{call}
-	\begin{call}{gm}{onVertecClick{}}{gcg}{finishGame}
+	\begin{call}{gm}{onVertexClick{}}{gcg}{finishGame}
 		\begin{call}{gcg}{setColor()}{vtx}{} \end{call}
 		\begin{call}{gcg}{isGraphColored()}{gcg}{true} \end{call}
 	\end{call}
+	\mess{gm}{drawGraph}{view}
+	\mess{gm}{diplayPopup}{view}
+	\begin{call}{gm}{closeGame()}{gm}{} \end{call}
 	
 
 \end{sequencediagram}
