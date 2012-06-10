@@ -1,5 +1,6 @@
 \documentclass{article}
 
+\usepackage[landscape]{geometry}
 \usepackage{tikz}
 \usepackage{pgf-umlsd}
 \usetikzlibrary{shadows}
@@ -13,12 +14,12 @@
 	\newthread{gameManager}{:GameManager}
 	\newinst{gameDefinition}{:GameDefinition}
 	\newinst{playerManager}{:PlayerManager}
-	\newthread{gameBoard}{:GameBoard}
+	\newinst{gameBoard}{:GameBoard}
 	\newinst{gameBoardGraph}{:Graph}
 	\newinst{gameBoardGrid}{:Grid}
-	\newthread{viewManager}{:ViewManager}
-	\newinst{viewManagerView}[1]{:View}
-	\newinst{game}[1]{:Game}
+	\newinst{viewManager}{:ViewManager}
+	\newinst{viewManagerView}{:View}
+	\newinst{game}{:Game}
 	
 	\begin{call}{gameManager}{startGame(gameDefinition)}{gameManager}{true}
 
