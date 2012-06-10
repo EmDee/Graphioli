@@ -43,6 +43,7 @@
 # pdfs
 pflichtenheft/*.pdf
 design/*.pdf
+design/diagrams/*.pdf
 
 # miscellaneous
 *.un~
