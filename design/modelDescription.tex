@@ -1,22 +1,21 @@
 \subsection{Model}
 
 % Graph
-\subsubsection*{\textcolor{Blue}{Class \textlabel{Graph}{cls:graph}}}
-%\createindentedlist{string1,string2,string3}
+\class{Graph}{graph}
 This class represents the logical graph. \\
 
 \begin{description}
 	\item[Direct Known Subclasses] \hfill \\
 	\ref{cls:vertex}, \ref{cls:edge}
 \end{description}
+
 \vspace{.5cm}
 \hrule
 
 \paragraph*{Method Summary}
 \paragraph*{}
 \begin{longtable}{Lp{10cm}}
-	\hline
-    \rowcolor{white}\textbf{Modifier and Type} & \textbf{Method and Description} \\ \hline
+	\startmethodtable
 	\method{public boolean}{addEdge(Vertex vertexA, Vertex vertexB)}{graph:addEdge} \\
 	& Adds an \ref{cls:edge} to this graph. \\
 	\method{public boolean}{addVertex(vertex : Vertex)}{graph:addVertex} \\
@@ -35,19 +34,21 @@ This class represents the logical graph. \\
 \setcounter{row}{-1}
 
 % Vertex
-\subsubsection*{\textcolor{Blue}{Class \textlabel{Vertex}{cls:vertex}}}
+\class{Vertex}{vertex}
 This class represents the logical vertex. \\
+
 \begin{description}
 	\item[Direct Known Subclasses] \hfill \\
 	\ref{cls:visualvertex}
 \end{description}
+
 \vspace{.5cm}
 \hrule
+
 \paragraph*{Method Summary}
 \paragraph*{}
 \begin{longtable}{Lp{10cm}}
-	\hline
-    \rowcolor{white}\textbf{Modifier and Type} & \textbf{Method and Description} \\ \hline
+	\startmethodtable
 	\method{public Iterable<Vertex>}{getAdjacentVertices()}{vertex:getadjacentvertices} \\
 	& Returns all vertices that are connected to this vertex. \\
 	\method{public UUID}{getUID()}{vertex:getuid} \\
@@ -65,21 +66,21 @@ This class represents the logical vertex. \\
 \end{longtable}
 
 % VisualVertex
-\subsubsection*{\textcolor{Blue}{Class \textlabel{VisualVertex}{cls:visualvertex}}}
+\class{VisualVertex}{visualvertex}
 This class represents a \ref{visualvertex}. \\
 
 \begin{description}
 	\item[Direct Known Subclasses] \hfill \\
 	\ref{cls:graphicvisualvertex}, \ref{cls:simplevisualvertex}
 \end{description}
+
 \vspace{.5cm}
 \hrule
 
 \paragraph*{Method Summary}
 \paragraph*{}
 \begin{longtable}{Lp{10cm}}
-	\hline
-    \rowcolor{white}\textbf{Modifier and Type} & \textbf{Method and Description} \\ \hline
+	\startmethodtable
 	\method{public}{VisualVertex(gridPoint : GridPoint)}{vv:constructor} \\
 	& Creates a new VisualVertex and places it on the specified \ref{gridpoint}. \\
 	\method{protected void}{draw(Graphics2D)}{vv:draw} \\
@@ -95,43 +96,22 @@ This class represents a \ref{visualvertex}. \\
 	\hline
 \end{longtable}
 
-% GraphicVisualVertex
-\subsubsection*{\textcolor{Blue}{Class \textlabel{GraphicVisualVertex}{cls:graphicvisualvertex}}}
-This class represents a \ref{visualvertex} with a custom icon.\\
-\paragraph*{Method Summary}
-\paragraph*{}
-\begin{longtable}{Lp{10cm}}
-	\hline
-    \rowcolor{white}\textbf{Modifier and Type} & \textbf{Method and Description} \\ \hline
-	\method{public}{GraphicVisualVertex(String fileName)}{gvv:constructor} \\
-	& Creates a new GraphicVisualVertex with the specified url. \\
-	\method{public}{GraphicVisualVertex(BufferedImage image)}{gvv:superconstructor} \\
-	& Creates a new GraphicVisualVertex with the specified BufferedImage. \\
-	\method{public BufferedImage}{loadBufferedImage(String fileName)}{gvv:loadbufferedimage} \\
-	& Loads the image file at specified `fileName' and returns a BufferedImage. \\
-	\method{public BufferedImage}{getImage()}{gvv:getimage} \\
-	& Returns the BufferedImage that represents this \ref{cls:graphicvisualvertex}. \\
-	\method{public boolean}{setImage(BufferedImage image)}{gvv:setimage} \\
-	& Sets the BufferedImage that represents this \ref{cls:graphicvisualvertex}. \\ 
-	\hline
-\end{longtable}
-
 % SimpleVisualVertex
-\subsubsection*{\textcolor{Blue}{Class \textlabel{SimpleVisualVertex}{cls:simplevisualvertex}}}
+\class{SimpleVisualVertex}{simplevisualvertex}
 This class represents a simple \ref{visualvertex} with predefined attributes.\\
 
 \begin{description}
 	\item[Direct Known Subclasses] \hfill \\
 	\ref{cls:graphcoloringvertex}
 \end{description}
+
 \vspace{.5cm}
 \hrule
 
 \paragraph*{Method Summary}
 \paragraph*{}
 \begin{longtable}{Lp{10cm}}
-	\hline
-    \rowcolor{white}\textbf{Modifier and Type} & \textbf{Method and Description} \\ \hline
+	\startmethodtable
 	\method{public Color}{getColor()}{svv:getcolor} \\
 	& Returns the color of this \ref{cls:simplevisualvertex}. \\
 	\method{public int}{getStrokeWeight()}{svv:getStrokeWeight} \\
@@ -144,5 +124,46 @@ This class represents a simple \ref{visualvertex} with predefined attributes.\\
 	& Sets the stroke weight of this \ref{cls:simplevisualvertex}. \\
 	\method{public boolean}{setStrokeColor(Color strokeColor)}{svv:setstrokecolor} \\
 	& Sets the stroke color of this \ref{cls:simplevisualvertex}. \\
+	\hline
+\end{longtable}
+
+% GraphColoringVertex
+\class{GraphColoringVertex}{graphcoloringvertex}
+This class represents a GraphColoringVertex. \\
+
+\hrule
+
+\paragraph*{Method Summary}
+\paragraph*{}
+\begin{longtable}{Lp{10cm}}
+	\startmethodtable
+	\method{public boolean}{setColor(Color color)}{svv:setcolor} \\
+	& Sets the color of this \ref{cls:simplevisualvertex}. \\
+	\hline
+\end{longtable}
+
+% GraphicVisualVertex
+\class{GraphicVisualVertex}{graphicvisualvertex}
+This class represents a \ref{visualvertex} with a custom icon. \\
+
+\begin{description}
+	\item[Direct Known Subclasses] \hfill \\
+	\ref{cls:twixtvertex}
+\end{description}
+
+\paragraph*{Method Summary}
+\paragraph*{}
+\begin{longtable}{Lp{10cm}}
+	\startmethodtable
+	\method{public}{GraphicVisualVertex(String fileName)}{gvv:constructor} \\
+	& Creates a new GraphicVisualVertex with the specified url. \\
+	\method{public}{GraphicVisualVertex(BufferedImage image)}{gvv:superconstructor} \\
+	& Creates a new GraphicVisualVertex with the specified BufferedImage. \\
+	\method{public BufferedImage}{loadBufferedImage(String fileName)}{gvv:loadbufferedimage} \\
+	& Loads the image file at specified `fileName' and returns a BufferedImage. \\
+	\method{public BufferedImage}{getImage()}{gvv:getimage} \\
+	& Returns the BufferedImage that represents this \ref{cls:graphicvisualvertex}. \\
+	\method{public boolean}{setImage(BufferedImage image)}{gvv:setimage} \\
+	& Sets the BufferedImage that represents this \ref{cls:graphicvisualvertex}. \\ 
 	\hline
 \end{longtable}
