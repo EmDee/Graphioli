@@ -12,6 +12,23 @@
 \newcommand{\twixt}{\textsc {TwixT}\xspace}
 \newcommand{\graphcoloring}{\textsc {Graph-Coloring}\xspace}
 
+% creates the class name with its reference
 \newcommand{\class}[2]{\subsubsection*{\textcolor{Blue}{Class \textlabel{#1}{cls:#2}}}}
-\newcommand{\method}[3]{#1 & \textcolor{NavyBlue}{\textlabel{#2}{#3}}} % to easily implement methods
+
+% creates a reference for all direct subclasses
+\newcounter{iref}
+\newcommand{\reff}[1]{\def\do##1{\stepcounter{iref}\ifnumgreater{\value{iref}}{1}{, }{}\ref{##1}}\docsvlist{#1}}
+
+\newcommand{\subclasses}[1]{
+	\begin{description}
+		\item[Direct Known Subclasses] \hfill \\
+		\reff{#1}
+	\end{description}
+	\setcounter{iref}{0}
+}
+
+% to easily implement methods
+\newcommand{\method}[3]{#1 & \textcolor{NavyBlue}{\textlabel{#2}{#3}}} 
+
+% creates the beginning of the method description table
 \newcommand{\startmethodtable}{\hline\rowcolor{white}\textbf{Modifier and Type} & \textbf{Method and Description} \\ \hline}

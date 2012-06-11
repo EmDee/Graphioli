@@ -51,3 +51,27 @@
 l}
 
 \BeforeBeginEnvironment{longtable}{\setcounter{row}{-1}} % set first row in table to -1 for title
+
+% generates auto indented lists like in JavaDoc for inheritance hierarchy
+\ExplSyntaxOn
+\NewDocumentCommand{\createindentedlist}{m}
+ {
+  \parbox{\textwidth}{
+    \skip_zero:N \parskip
+    \skip_set:Nn \parindent { 1.5em }
+    \cil_iterate:n { #1 }
+    \medskip
+  }
+ }
+\cs_new_protected:Npn \cil_iterate:n #1
+ {
+  \int_set:Nn \cil_iteration_int { -1 }
+  \clist_map_inline:nn { #1 }
+   {
+    \hspace*{\cil_iteration_int \parindent} \textsf{##1}
+    \int_incr:N \cil_iteration_int
+    \par\nobreak
+   }
+ }
+\int_new:N \cil_iteration_int
+\ExplSyntaxOff
