@@ -45,6 +45,19 @@
 	\setcounter{sref}{0}
 }
 
+% creates a reference for extended classes
+\newcounter{eref}
+\newcommand{\refe}[1]{\def\do##1{\stepcounter{eref}\ifnumgreater{\value{eref}}{1}{, }{}\ref{##1}}\docsvlist{#1}}
+
+\newcommand{\extends}[1]{
+	\begin{description}
+		\item[Extends] \hfill \\
+		{#1}
+	\end{description}
+	\setcounter{eref}{0}
+}
+
+
 % to easily implement methods
 \newcommand{\method}[3]{#1 & \textcolor{NavyBlue}{\textlabel{#2}{#3}}} 
 
