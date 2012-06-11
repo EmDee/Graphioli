@@ -51,16 +51,3 @@
 l}
 
 \BeforeBeginEnvironment{longtable}{\setcounter{row}{-1}} % set first row in table to -1 for title
-
-
-% generates auto indented lists like in JavaDoc for hierarchy
-\NewDocumentCommand{\createindentedlist}{m}
-{
-	\group_begin:
-	\skip_zero:N \parskip
-	\skip_set:Nn \parindent { 1.5em }
-	\par\medskip
-	\cil_iterate:n { #1 }
-  	\medskip
-	\group_end:
-}
