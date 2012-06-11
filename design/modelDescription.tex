@@ -1,13 +1,10 @@
 \subsection{Model}
 
 % Graph
-\class{Graph}{graph}
+\class{Graph}
 This class represents the logical graph. \\
 
-\begin{description}
-	\item[Direct Known Subclasses] \hfill \\
-	\ref{cls:vertex}, \ref{cls:edge}
-\end{description}
+\subclasses{cls:vertex, cls:edge}
 
 \vspace{.5cm}
 \hrule
@@ -37,10 +34,7 @@ This class represents the logical graph. \\
 \class{Vertex}{vertex}
 This class represents the logical vertex. \\
 
-\begin{description}
-	\item[Direct Known Subclasses] \hfill \\
-	\ref{cls:visualvertex}
-\end{description}
+\subclasses{cls:visualvertex}
 
 \vspace{.5cm}
 \hrule
@@ -69,10 +63,7 @@ This class represents the logical vertex. \\
 \class{VisualVertex}{visualvertex}
 This class represents a \ref{visualvertex}. \\
 
-\begin{description}
-	\item[Direct Known Subclasses] \hfill \\
-	\ref{cls:graphicvisualvertex}, \ref{cls:simplevisualvertex}
-\end{description}
+\subclasses{cls:graphicvisualvertex, cls:simplevisualvertex}
 
 \vspace{.5cm}
 \hrule
@@ -100,10 +91,7 @@ This class represents a \ref{visualvertex}. \\
 \class{SimpleVisualVertex}{simplevisualvertex}
 This class represents a simple \ref{visualvertex} with predefined attributes.\\
 
-\begin{description}
-	\item[Direct Known Subclasses] \hfill \\
-	\ref{cls:graphcoloringvertex}
-\end{description}
+\subclasses{cls:graphcoloringvertex}
 
 \vspace{.5cm}
 \hrule
@@ -146,10 +134,7 @@ This class represents a GraphColoringVertex. \\
 \class{GraphicVisualVertex}{graphicvisualvertex}
 This class represents a \ref{visualvertex} with a custom icon. \\
 
-\begin{description}
-	\item[Direct Known Subclasses] \hfill \\
-	\ref{cls:twixtvertex}
-\end{description}
+\subclasses{cls:twixtvertex}
 
 \paragraph*{Method Summary}
 \paragraph*{}
