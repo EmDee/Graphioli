@@ -24,7 +24,7 @@
 	\newinst{gd}{:GameDefinition}
 
 	\begin{call}{gm}{openGameExplorer()}{gm}{}
-		\begin{messcall}{gm}{GameExplorer()}{ge}
+		\begin{messcall}{gm}{GameExplorer(this)}{ge}
 			\begin{call}{ge}{scanGameFolder()}{ge}{games}
 			\end{call}
 			\begin{messcall}{ge}{GEWindow(games)}{gew}
