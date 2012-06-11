@@ -3,16 +3,256 @@
 
 %
 % Glossary entries
-% example: 	\newglossaryentry{graphioli}{name=Graphioli,
-% 			description={A fancy name that combines \glspl{graph} with filled pasta.},
-% 			plural={Graphioli}}
 %
 
-\newglossaryentry{graphioli}{name=Graphioli, description={A fancy name that combines graph with filled pasta.}, plural={Graphioli}}
+\newglossaryentry{graphioli}{name=Graphioli,
+description={A fancy name that combines \glspl{graph} with filled pasta.},
+plural={Graphioli}}
+
+\newglossaryentry{graph}{name=graph,
+description={A (abstract) set of objects provided with binary relations.\\The objects of a graph are called \glspl{vertex} and are represented by nodes in the visualization. The relations are called \glspl{edge} and are represented by (in our case straight) lines between the respective vertices in a visualized graph.}}
+
+\newglossaryentry{edge}{name=edge,
+description={see \emph{\gls{graph}}}}
+
+\newglossaryentry{vertex}{name=vertex,
+description={see \emph{\gls{graph}}},
+plural={vertices}}
+
+\newglossaryentry{planar}{name=planar,
+description={A \emph{planar} \gls{graph} is a graph that can be structure-preservingly redrawn in a way that no \glspl{edge} intersect.},
+plural={planar}}
+
+\newglossaryentry{planarity}{name=planarity,
+description={see \emph{\gls{planar}}},
+plural={planarities}}
+
+\newglossaryentry{api}{name=application programming interface (API),
+description={Set of routines and tools providing \gls{program} blocks, which are put together by a third-party programmer to ensure consistency with an existing program or \gls{framework}.}}
+
+\newglossaryentry{gui}{name=graphical user interface (GUI),
+description={\Gls{program} interface that uses a computer's graphical capabilities to provide easy access and handling for the program. It replaces the command-line based access.},
+plural={graphical user interfaces (GUI)}}
+
+\newglossaryentry{framework}{name=framework,
+description={A layered structure indicating what kind of applications can or should be built and how they would interrelate. It specifies interfaces and reusable \glspl{program} that form the basis for such an application.}}
+
+\newglossaryentry{java}{name=Java,
+description={Java is a widely spread programming language originally developed by Sun Microsystems and released in 1995. Applications developed with Java are compiled into bytecode that runs on basically every system that has a \Gls{jvm} installed.},
+plural={Java}}
+
+\newglossaryentry{jvm}{name=Java Virtual Machine (JVM),
+description={A virtual machine that can execute \Gls{java} byte code. Thus, the execution component of the Java platform.},
+plural={Java Virtual Machines (JVM)}}
+
+\newglossaryentry{jdk}{name=Java Development Kit (JDK),
+description={A collection of programming tools for \Gls{java} developers.},
+plural={Java Development Kit (JDK)}}
+
+\newglossaryentry{jre}{name=Java Runtime Environment,
+description={see \emph{\gls{jvm}}}}
+
+\newglossaryentry{javadoc}{name=Javadoc,
+description={Javadoc is a tool for generating API documentation in HTML format from doc comments in source code.\footnote{From Oracle, self-definition}},
+plural={Javadoc}}
+
+\newglossaryentry{customer}{name=customer,
+description={A party that receives a copy of the created \gls{software} in order to use it for own implementations. The customer of this \gls{framework} will be the \gls{developer}.}}
+
+\newglossaryentry{computer-game}{name=computer game,
+description={An electronic game that requires the \gls{player}['s] interaction to influence its course of events. Such a game usually bases on graphical feedback.}}
+
+\newglossaryentry{game}{name=game,
+description={The implementation of a \gls{computer-game} that requires the usage of this \gls{framework}.}}
+
+\newglossaryentry{network}{name=network,
+description={A group of connected computers that are able to communicate and share data, e.g. for synchronizing \gls{game} statuses.}}
+
+\newglossaryentry{tutorial}{name=tutorial,
+description={Instructional document that provides step by step information about a specific topic or \gls{workflow}, e.g. how to start implementing your own \gls{game} using this \gls{framework}.}}
+
+\newglossaryentry{editor}{name=editor,
+description={see \emph{\gls{level-editor}}}}
+
+\newglossaryentry{level-editor}{name=level editor,
+description={An interface that lightens the \gls{developer}['s] workload at creating new levels.}}
+
+\newglossaryentry{level}{name=level,
+description={A stage of the current \gls{game}.}}
+
+\newglossaryentry{player}{name=player,
+description={One who plays one of the \glspl{game} developed by a \gls{developer} using this \gls{framework}.}}
+
+\newglossaryentry{developer}{name=developer,
+description={Someone who designs and implements \glspl{game} using the \graphioli framework.}}
+
+\newglossaryentry{undo}{name=undo,
+description={To restore a previous condition, e.g. a \gls{savegame} or the previous step in the \gls{level-editor}.}}
+
+\newglossaryentry{redo}{name=redo,
+description={Opposite of \emph{\gls{undo}}.}}
+
+\newglossaryentry{four-color-theorem}{name=four color theorem,
+description={In mathematics, the \emph{four color theorem} states that, given any separation of a plane into contiguous areas, no more than four colors are required to color these areas in a way that no two \gls{adjacent} areas have the same color.},
+plural={four color theorem}}
+
+\newglossaryentry{adjacent}{name=adjacent,
+description={Two \glspl{vertex} connected by an \gls{edge} are called \emph{adjacent}.},
+plural={adjacent}}
+
+\newglossaryentry{program}{name=program,
+description={see \emph{\gls{computer-program}}}}
+
+\newglossaryentry{savegame}{name=savegame,
+description={A data file that contains information about a current \gls{game} state and is created when saving a game. It allows the \gls{player} to jump to a previously reached level.}}
+
+\newglossaryentry{computer-program}{name=computer program,
+description={A sequence of instructions that a computer can interpret and execute.}}
+
+\newglossaryentry{software}{name=software,
+description={An organized collection of data and instructions for computers, that is used to accomplish specific tasks.\\A piece of software can consists of a single \gls{program} or a package of programs closely working together. Usually software is bundled with associated documentation.}}
+
+\newglossaryentry{workflow}{name=workflow,
+description={The sequence of administrative, technical, or other processes through which a \gls{software} project passes from initiation to completion.}}
+
+\newglossaryentry{user}{name=user,
+description={The \emph{user} of a \gls{software} is everybody how starts the \gls{program} in order to fulfill specified tasks.\\The user of this framework is the \gls{developer}, whereas the user of the final \gls{game} is the \gls{player} (see \ref{REF:HOW-TO-READ}).}}
+
+\newglossaryentry{git}{name=Git,
+description={A distributed revision control and source code management system developed by \emph{Linus Torvalds}. Every Git working directory is a full-fledged repository with complete history and full revision tracking capabilities, not dependent on network access or a central server.\footnote{From Wikipedia: Git (software), 08/05/2012}},
+plural={Git}}
+
+\newglossaryentry{eclipse}{name=Eclipse,
+description={An open development platform comprised of extensible frameworks, tools and runtimes for building, deploying and managing software across the lifecycle.\footnote{From Eclipse project, self-definition}},
+plural={Eclipse}}
+
+\newglossaryentry{artificial-intelligence}{name=artificial intelligence (AI),
+description={An intelligent system that perceives its environment and takes actions that maximize its chances of success.\footnote{Russell, Stuart J.; Norvig, Peter: Artificial Intelligence: A Modern Approach (2003, 2nd ed.)}\\An algorithm that tries to defeat its human counter-\glspl{player} in a \glspl{computer-game} could be referred to as \emph{artificial intelligence}.}}
+
+\newglossaryentry{depth-first-search}{name=depth-first search (DFS),
+description={An \gls{algorithm} for traversing or searching a \gls{graph}, starting at a selected root \gls{vertex} and exploring as far as possible along each branch before backtracking.\footnote{From Wikipedia: Breadth-first search, 08/05/2012}},
+plural={depth-first searches (DFS)}}
+
+\newglossaryentry{breadth-first-search}{name=breadth-first search (BFS),
+description={An \gls{algorithm} for traversing or searching a \gls{graph}, starting at a selected root \gls{vertex} and inspecting all its neighboring vertices.},
+plural={breadth-first searches (BFS)}}
+
+\newglossaryentry{path}{name=path,
+description={A sequence of adjacent \glspl{vertex} in a \gls{graph}.}}
+
+\newglossaryentry{algorithm}{name=algorithm,
+description={Procedure or set of (mathematical) rules for solving a problem in a finite number of steps, especially by a computer.}}
+
+\newglossaryentry{library}{name=library,
+description={A collection of resources used to develop \gls{software}. These may include pre-written code and subroutines, classes, values or type specifications.},
+plural={libraries}}
+
+\newglossaryentry{opensuse}{name=openSUSE,
+description={A free and \Gls{linux}-based operating system.\footnote{From openSUSE Project, self-definition}},
+plural={openSUSE}}
+
+\newglossaryentry{linux}{name=Linux,
+description={An alternative and open-source operating system for personal computers and servers.},
+plural={Linuces}}
+
+\newglossaryentry{metalanguage}{name=metalanguage,
+description={Any (technical) language used to describe and define an implementation of a \gls{game} in the \gls{framework}. It substitutes the \Gls{java}-based programming of that implementation and can be parsed by the framework.}}
+
+\newglossaryentry{mvc}{name=Model-View-Controller (MVC),
+description={A design pattern for computer user interfaces describing the structural subdivision into the components `Model', `View' and `Controller'.},
+plural={Model-View-Controllers (MVC)}}
+
+\newglossaryentry{chat}{name=online chat,
+description={A communication system over the internet.}}
+
+\newglossaryentry{visual-vertex}{name=visual vertex,
+description={The graphical representation of the logical component \gls{vertex}.},
+plural={visual vertices}}
+
+\newglossaryentry{visual-edge}{name=visual edge,
+description={The graphical representation of the logical component \gls{edge}.}}
+
+\newglossaryentry{uml}{name=Unified Modeling Language (UML),
+description={A standard visual modeling language intended to be used for modeling [...] design and implementation of \gls{software}[-based] systems.\footnote{From UML, self-definition}},
+plural={Unified Modeling Language (UML)}}
+
+\newglossaryentry{sequence-diagram}{name=sequence diagram,
+description={A sequence diagram in \gls{uml} is a kind of interaction diagram that shows how processes operate with one another and in what order.\footnote{From Wikipedia: Sequence diagram, 10/06/2012}}}
+
+\newglossaryentry{class-diagram}{name=class diagram,
+description={A class diagram in \gls{uml} is a type of static structure diagram that describes the structure of a system by showing the system's \glspl{class}, their \glspl{attribute}, \glspl{method}, and the relationships among the classes.\footnote{From Wikipedia: Class diagram, 10/06/2012}}}
+
+\newglossaryentry{grid}{name=grid,
+description={A two-dimensional structure made up of a series of intersecting vertical and horizontal axes used to structure the \gls{graph} on a board.}}
+
+\newglossaryentry{swing}{name=swing,
+description={An \gls{api} and graphic \gls{library} for \Gls{java} to create \glspl{GUI}.}}
+
+\newglossaryentry{package}{name=package,
+description={Collection of related \glspl{class}.}}
+
+\newglossaryentry{interface}{name=interface,
+description={A kind of \gls{class} that lacks implementation details and defines the communication boundary of two or more \glspl{object}.}}
+
+\newglossaryentry{attribute}{name=attribute,
+description={A property of an \gls{object}.}}
+
+\newglossaryentry{class}{name=class,
+description={A construct that is used as a template to create specific \glspl{object} of that class.},
+plural={classes}}
+
+\newglossaryentry{object}{name=object,
+description={An instance of a \gls{class}.}}
+
+\newglossaryentry{method}{name=method,
+description={A subroutine that is associated either with a class or an object of a \gls{computer-program}.}}
+
+\newglossaryentry{abstract-method}{name=abstract method,
+description={A \gls{method} modifier that refers to a method that is defined by signature, but has no implementation yet.}}
+
+\newglossaryentry{final-method}{name=final method,
+description={A \gls{method} modifier that refers to a method that cannot be overwritten in an inheriting \gls{class}.}}
+
+\newglossaryentry{static-method}{name=static method,
+description={A \gls{method} modifier that refers to a method that is associated with a whole \gls{class}.}}
+
+\newglossaryentry{private-method}{name=private method,
+description={An access modifier that refers to a \gls{method} that can only be accessed by the \gls{object} itself.}}
+
+\newglossaryentry{public-method}{name=public method,
+description={An access modifier that refers to a \gls{method} that can be accessed by any \gls{object}.}}
+
+\newglossaryentry{protected-method}{name=protected method,
+description={An access modifier that refers to a \gls{method} that can be accessed by the \gls{object} of the specific or inheriting \gls{class}.}}
+
+\newglossaryentry{static-attribute}{name=static attribute,
+description={An \gls{attribute} modifier that refers to an attribute that is \gls{class}[-wide] defined.}}
+
+\newglossaryentry{final-attribute}{name=final attribute,
+description={An \gls{attribute} modifier that refers to an attribute that cannot be changed.}}
 
 %
 % Acronyms
-% Example: \newacronym{GUI}{GUI}{graphical user interface\protect\glsadd{gui}}
 %
 
-\newacronym{GUI}{GUI}{graphical user interface}
+\newacronym{GUI}{GUI}{graphical user interface\protect\glsadd{gui}}
+
+\newacronym{API}{API}{application programming interface\protect\glsadd{api}}
+
+\newacronym{JVM}{JVM}{Java Virtual Machine\protect\glsadd{jvm}}
+
+\newacronym{JDK}{JDK}{Java Development Kit\protect\glsadd{jdk}}
+
+\newacronym{AI}{AI}{artificial intelligence\protect\glsadd{artificial-intelligence}}
+
+\newacronym{DFS}{DFS}{depth-first search\protect\glsadd{depth-first-search}}
+
+\newacronym{BFS}{BFS}{breadth-first search\protect\glsadd{breadth-first-search}}
+
+\newacronym{MVC}{MVC}{Model-View-Controller\protect\glsadd{mvc}}
+
+\newacronym{IDE}{IDE}{integrated development environment}
+
+\newacronym{UML}{UML}{Unified Modeling Language\protect\glsadd{uml}}
+
+\newacronym{ID}{ID}{identification}
