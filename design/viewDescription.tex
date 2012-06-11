@@ -1,1 +1,169 @@
 \subsection{View}
+
+\subsubsection*{Interface \textcolor{Blue}{\textlabel{View}{cls:view}}}
+View is an interface for implementation of the (graphical) user interface. \\ \hline
+\paragraph*{Method Summary}
+\paragraph*{}
+\begin{longtable}{Lp{10cm}}
+	\hline
+    \textbf{Modifier and Type} & \textbf{Method and Description} \\ \hline
+	\rowcolor{gray!20}
+	\method{public boolean}{registerController(ViewManager controller)}{view:registercontroller}} \\
+	& Registers the controller for the user interface. \\
+	\method{public boolean}{displayPopUp(String message)}{view:displaypopup}} \\
+	& Displays a PopUp message. \\
+	\method{public boolean}{addCustomMenuItem(MenuItem item)}{view:addcustommenuitem}} \\
+	& Adds a custom menu item to the menu (here: \ref{cls:menubar}). \\ 
+	\method{public boolean}{updatePlayerStatus(Player player)}{view:updateplayerstatus}}\\
+	& Updates the current player shown in the status bar (\ref{cls:statusbar}). \\
+	\method{public boolean}{displayErrorMessage(String message)}{view:displayerrormessage}} \\
+	& Displays a error message in the status bar (\ref{cls:statusbar}). \\
+	\method{public boolean}{redrawGraph()}{view:redrawgraph}} \\
+	& Redraws the graph displayed in the canvas (\ref{cls:graphcanvas}). \\ \hline
+\end{longtable}
+
+\subsubsection*{Class \textlabel{GameWindow}{cls:gamewindow}}
+\begin{description}
+	\item[Extends:] \hfill \\
+		\ref{java.swing.JFrame}
+	\item[All Implemented Interfaces:] \hfill \\
+		\ref{cls:view}
+\end{description}
+This class is the actual game window containing \ref{cls:graphcanvas}, \ref{cls:statusbar} and \ref{cls:menubar}. It handles keyboard inputs with \ref{cls:customkeydispatcher}. \\ \hline
+\paragraph*{Method Summary}
+\paragraph*{}
+\begin{longtable}{Lp{10cm}}
+	\hline
+    \textbf{Modifier and Type} & \textbf{Method and Description} \\ \hline
+	\rowcolor{gray!20}
+	\method{public ViewManager}{getViewManager()}{gw:getviewmanager}} \\
+	& Returns the current controller of the registered in the GameWindow. \\
+	\method{public boolean}{onKeyRelease(int keyCode)}{gw:onkeyrelease}} \\
+	& Forwards the key input to the \ref{cls:viewmanager}. \\ \hline
+\end{longtable}
+
+\subsubsection*{Class \textlabel{CustomKeyDispatcher}{cls:customkeydispatcher}}
+\begin{description}
+	\item[All Implemented Interfaces:] \hfill \\
+		\ref{java.awt.KeyEventDispatcher}
+\end{description}
+This class handles the keyboard input. \\ \hline
+\paragraph*{Method Summary}
+\paragraph*{}
+\begin{longtable}{Lp{10cm}}
+	\hline
+    \textbf{Modifier and Type} & \textbf{Method and Description} \\ \hline
+	\rowcolor{gray!20}
+	\method{public}{CustomKeyDispatcher(GameWindow gamewindow)}{ckd:constructor}} \\
+	& Constructs the CustomKeyDispatcher with its parental \ref{cls:gamewindow}. \\\hline
+\end{longtable}
+
+\subsubsection*{Class \textlabel{GraphCanvas}{cls:graphcanvas}}
+\begin{description}
+	\item[Extends:] \hfill \\
+		\ref{java.swing.JPanel}
+\end{description}
+This class is responsible for displaying the graph and handles mouse clicks with \ref{cls:visualgrid}. \\ \hline
+\paragraph*{Method Summary}
+\paragraph*{}
+\begin{longtable}{Lp{10cm}}
+	\hline
+    \textbf{Modifier and Type} & \textbf{Method and Description} \\ \hline
+	\rowcolor{gray!20}
+	\method{public}{GraphCanvas(GameWindow parent)}{gc:constructor}} \\
+	& Constructs a GraphCanvas and registers its parental \ref{cls:gamewindow}. \\
+	\method{public boolean}{updateCanvas()}{gc:updatecanvas}} \\
+	& Updates and redraws the canvas. \\ \hline
+\end{longtable}
+
+\subsubsection*{Class \textlabel{VisualGrid}{cls:visualgrid}}
+\begin{description}
+	\item[All Implemented Interface:] \hfill \\
+		\ref{java.awt.event.MouseListener}
+\end{description}
+This class handles mouse input and serves as an connector between \ref{cls:grid} and display. \\ \hline
+\paragraph*{Method Summary}
+\paragraph*{}
+\begin{longtable}{Lp{10cm}}
+	\hline
+    \textbf{Modifier and Type} & \textbf{Method and Description} \\ \hline
+	\rowcolor{gray!20}
+	\method{public}{VisualGrid(GameWindow gamewindow)}{vg:constructor}} \\
+	& Constructs a VisualGrid and registers its parental \ref{cls:gamewindow}. \\
+	\method{private GridPoint}{parseCoordinates(xCoord : int, yCoord : int)}{vs:parsecoordinates}} \\
+	& Parses the coordinates of the mouse click to the specific \ref{cls:gridpoint}. \\
+	\method{public boolean}{setVisualVertexSize(int size)}{vs:setvisualvertexsize}} \\
+	& Sets the size of the displayed vertices up to a grid specific maximum value. \\
+	\method{public int}{getVisualVertexSize()}{vs:getvisualvertexsize}} \\
+	& Returns the size of the displayed vertices. \\ \hline
+\end{longtable}
+
+\subsubsection*{Class \textlabel{MenuBar}{cls:menubar}}
+\begin{description}
+	\item[Extends:] \hfill \\
+		\ref{java.swing.JMenuBar}
+\end{description}
+The MenuBar contains the game menu, options menu and help menu, is displayed at the top of the \ref{cls:gamewindow} and starts the standard menu item specific methods. \\ \hline
+\paragraph*{Method Summary}
+\paragraph*{}
+\begin{longtable}{Lp{10cm}}
+	\hline
+    \textbf{Modifier and Type} & \textbf{Method and Description} \\ \hline
+	\rowcolor{gray!20}
+	\method{public}{MenuBar(GameWindow parent)}{mb:constructor}} \\
+	& Constructs the MenuBar and registers its parental \ref{cls:gamewindow}. \\
+	\method{public boolean}{addCustomMenuItem(MenuItem item)}{mb:addcustommenuitem}} \\
+	& Adds a \ref{cls:menuitem} to the options menu. \\ \hline
+\end{longtable}
+
+\subsubsection*{Class \textlabel{CustomMenuItemListener}{cls:custommenuitemlistener}}
+\begin{description}
+	\item[All Implemented Interfaces:] \hfill \\
+		\ref{java.awt.event.ActionsListener}
+\end{description}
+Listens to one specific \ref{cls:menuitem} in the \ref{cls:menubar} and forwards it to the \ref{cls:viewmanager} if it is selected. \\ \hline
+\paragraph*{Method Summary}
+\paragraph*{}
+\begin{longtable}{Lp{10cm}}
+	\hline
+    \textbf{Modifier and Type} & \textbf{Method and Description} \\ \hline
+	\rowcolor{gray!20}
+	\method{public}{CustomMenuItemListener(GameWindow window, MenuItem item)}{cmil:constructor}} \\
+	& Constructs the listener and registers its specific \ref{cls:menuitem} and \ref{cls:gamewindow}. \\ \hline
+\end{longtable}
+
+\subsubsection*{Class \textlabel{CustomMenuItemListener}{cls:custommenuitemlistener}}
+\begin{description}
+	\item[All Implemented Interfaces:] \hfill \\
+		\ref{java.awt.event.ActionsListener}
+\end{description}
+Listens to one specific \ref{cls:menuitem} in the \ref{cls:menubar} and forwards it to the \ref{cls:viewmanager} if it is selected. \\ \hline
+\paragraph*{Method Summary}
+\paragraph*{}
+\begin{longtable}{Lp{10cm}}
+	\hline
+    \textbf{Modifier and Type} & \textbf{Method and Description} \\ \hline
+	\rowcolor{gray!20}
+	\method{public}{CustomMenuItemListener(GameWindow window, MenuItem item)}{cmil:constructor}} \\
+	& Constructs the listener and registers its specific \ref{cls:menuitem} and \ref{cls:gamewindow}. \\ \hline
+\end{longtable}
+
+\subsubsection*{Class \textlabel{StatusBar}{cls:statusbar}}
+\begin{description}
+	\item[Extends:] \hfill \\
+		\ref{java.swing.JPanel}
+\end{description}
+This class represents a status bar at the bottom of the \ref{cls:gamewindow} and displays the current player and short error messages. \\ \hline
+\paragraph*{Method Summary}
+\paragraph*{}
+\begin{longtable}{Lp{10cm}}
+	\hline
+    \textbf{Modifier and Type} & \textbf{Method and Description} \\ \hline
+	\rowcolor{gray!20}
+	\method{public String}{getStatus()}{sb:getstatus}} \\
+	& Returns the currently shown status message. \\
+	\method{public boolean}{updatePlayerStatus(Player player)}{sb:updateplayerstatus}} \\
+	& Updates and displays the current player. \\
+	\method{public boolean}{displayErrorMessage(String message)}{sb:displayerrormessage}} \\
+	& Updates and displays the current player. \\ \hline
+\end{longtable}
