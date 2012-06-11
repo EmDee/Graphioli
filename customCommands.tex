@@ -15,16 +15,34 @@
 % creates the class name with its reference
 \newcommand{\class}[2]{\subsubsection*{\textcolor{Blue}{Class \textlabel{#1}{cls:#2}}}}
 
-% creates a reference for all direct subclasses
+% creates the interface name with its reference
+\newcommand{\interface}[2]{\subsubsection*{\textcolor{Blue}{Interface \textlabel{#1}{cls:#2}}}}
+
+% creates the abstract class name with its reference
+\newcommand{\abstractclass}[2]{\subsubsection*{\textcolor{Blue}{Abstract Class \textlabel{#1}{cls:#2}}}}
+
+% creates a reference for all implemented interfaces
 \newcounter{iref}
-\newcommand{\reff}[1]{\def\do##1{\stepcounter{iref}\ifnumgreater{\value{iref}}{1}{, }{}\ref{##1}}\docsvlist{#1}}
+\newcommand{\refi}[1]{\def\do##1{\stepcounter{iref}\ifnumgreater{\value{iref}}{1}{, }{}\ref{##1}}\docsvlist{#1}}
+
+\newcommand{\interfaces}[1]{
+	\begin{description}
+		\item[All Implemented Interfaces] \hfill \\
+		\refi{#1}
+	\end{description}
+	\setcounter{iref}{0}
+}
+
+% creates a reference for all direct subclasses
+\newcounter{sref}
+\newcommand{\reff}[1]{\def\do##1{\stepcounter{sref}\ifnumgreater{\value{sref}}{1}{, }{}\ref{##1}}\docsvlist{#1}}
 
 \newcommand{\subclasses}[1]{
 	\begin{description}
 		\item[Direct Known Subclasses] \hfill \\
 		\reff{#1}
 	\end{description}
-	\setcounter{iref}{0}
+	\setcounter{sref}{0}
 }
 
 % to easily implement methods
