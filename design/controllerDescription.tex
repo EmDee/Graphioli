@@ -1,1 +1,136 @@
 \subsection{Controller}
+
+
+% Game
+\class{Game}{game}
+This is the abstract class every \graphioli game has to inherit from. It defines the callback functions the game developer needs to implement. \\
+
+\vspace{.5cm}
+\hrule
+
+\paragraph*{Method Summary}
+\paragraph*{}
+\begin{longtable}{Lp{10cm}}
+	\startmethodtable
+	\method{public}{Game(GameManager manager)}{game:game} \\
+	& ... \\
+	\method{protected final GameManager}{getGameManager()}{game:getgamemanager} \\
+	& ... \\
+	\method{protected boolean}{onVertexClick(VisualVertex vertex)}{game:onvertexclick} \\
+	& ... \\
+	\method{protected boolean}{onEmptyGridPointClick(GridPoint gridPoint)}{game:onemptygridpointclick} \\
+	& ... \\
+	\method{protected boolean}{onKeyRelease(int keyCode)}{game:onkeyrelease} \\
+	& ... \\
+	\method{protected boolean}{onGameInit()}{game:ongameinit} \\
+	& ... \\
+	\method{protected boolean}{onGameStart()}{game:ongamestart} \\
+	& ... \\
+	\method{protected boolean}{onMenuItemClick(MenuItem item)}{game:onmenuitemclick} \\
+	& ... \\
+
+\end{longtable}
+
+% GameManager
+\class{GameManager}{gamemanager}
+This is the framework's central class. \todo{Most of it.}  \\
+
+\vspace{.5cm}
+\hrule
+
+\paragraph*{Method Summary}
+\paragraph*{}
+\begin{longtable}{Lp{10cm}}
+	\startmethodtable
+	\method{public static void}{main(args[]: String)}{gamemanager:main} \\
+	& ... \\
+	\method{private boolean}{openGameExplorer()}{gamemanager:opengameexplorer} \\
+	& ... \\
+	\method{private boolean}{kilGame()}{gamemanager:killgame} \\
+	& ... \\
+	\method{public boolean}{startGame(GameDefinition gameDefinition)}{gamemanager:startgame} \\
+	& ... \\
+	\method{public boolean}{loadGame()}{gamemanager:loadgame} \\
+	& ... \\
+	\method{public boolean}{saveGame()}{gamemanager:savegame} \\
+	& ... \\
+	\method{public boolean}{finishGame()}{gamemanager:finishgame} \\
+	& ... \\
+	\method{public boolean}{finishGame(Player winner)}{gamemanager:finishgameWinner} \\
+	& ... \\
+	\method{public boolean}{restartGame()}{gamemanager:restartgame} \\
+	& ... \\
+	\method{public boolean}{closeGame()}{gamemanager:closegame} \\
+	& ... \\
+	\method{public PlayerManager}{getPlayerManager()}{gamemanager:getplayermanager} \\
+	& Returns the \ref{playermanager} associated with this GameManager.\\
+	\method{public ViewManager}{getViewManager()}{gamemanager:getviewmanager} \\
+	& Returns the \ref{viewmanager} associated with this GameManager.\\
+	\method{public GameBoard}{getGameBoard()}{gamemanager:getgameboard} \\
+	& Returns the \ref{GameBoard} associated with this GameManager.\\
+	
+
+	\hline
+\end{longtable}
+
+% ViewManager
+\class{ViewManager}{viewmanager}
+...  \\
+
+\vspace{.5cm}
+\hrule
+
+\paragraph*{Method Summary}
+\paragraph*{}
+\begin{longtable}{Lp{10cm}}
+	\startmethodtable
+	\method{public boolean}{updatePlayerStatus(Player player)}{viewmanager:updateplayerstatus} \\
+	& ... \\
+	\method{public boolean}{onGridPointClick(GridPoint gridpoint)}{viewmanager:ongridpointclick} \\
+	& ... \\
+	\method{public boolean}{onKeyRelease(int keycode)}{viewmanager:onkeyrelease} \\
+	& ... \\
+	\method{public boolean}{displayErrorMessage(String message)}{viewmanager:displayerrormessage} \\
+	& ... \\
+	\method{public boolean}{displayPopUp(String message)}{viewmanager:displaypopup} \\
+	& ... \\
+	\method{public boolean}{addGameMenuItem(MenuItem item}{viewmanager:addgamemenuitem} \\
+	& ... \\
+	\method{public boolean}{onMenuItemClick(MenuItem item)}{viewmanager:onmenuitemclick} \\
+	& ... \\
+	\method{public GameManager}{getGameManager()}{viewmanager:getgamemanager} \\
+	& ... \\
+	\method{public boolean}{setVisualVertex(int size)}{viewmanager:setvisualvertexsize} \\
+	& ... \\
+
+	\hline
+\end{longtable}
+
+
+% PlayerManager
+\class{PlayerManager}{playermanager}
+...  \\
+
+\vspace{.5cm}
+\hrule
+
+\paragraph*{Method Summary}
+\paragraph*{}
+\begin{longtable}{Lp{10cm}}
+	\startmethodtable
+
+	\method{public}{PlayerManager(Iterable<Player> players}{playermanager:playermanager} \\
+	& ... \\
+	\method{private boolean}{initializePlayers()}{playermanager:initializeplayers} \\
+	& ... \\
+	\method{public Iterable<Player> players}{getPlayers()}{playermanager:getplayers} \\
+	& ... \\
+	\method{public Player}{getActivePlayer()}{playermanager:getactiveplayer} \\
+	& ... \\
+	\method{public Player}{nextPlayer()}{playermanager:nextplayer} \\
+	& ... \\
+	
+	
+	\hline
+\end{longtable}
+
