@@ -23,6 +23,7 @@
 \usepackage{xspace}
 % \linenumbers
 \usepackage{lipsum} % just to generate some text
+\usepackage{../materials/resources/dashrule} % for dashed rules
 \usepackage[nonumberlist,acronym,toc,section]{glossaries} % must be the last package to include
 
 \setlength{\parindent}{0cm}
@@ -60,7 +61,7 @@ l}
     \skip_zero:N \parskip
     \skip_set:Nn \parindent { 1.5em }
     \cil_iterate:n { #1 }
-    \medskip
+    \bigskip
   }
  }
 \cs_new_protected:Npn \cil_iterate:n #1
