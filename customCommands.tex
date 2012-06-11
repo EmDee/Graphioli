@@ -15,6 +15,12 @@
 % creates the class name with its reference
 \newcommand{\class}[2]{\subsubsection*{\textcolor{Blue}{Class \textlabel{#1}{cls:#2}}}}
 
+% creates the interface name with its reference
+\newcommand{\interface}[2]{\subsubsection*{\textcolor{Blue}{Interface \textlabel{#1}{cls:#2}}}}
+
+% creates the abstract class name with its reference
+\newcommand{\abstractclass}[2]{\subsubsection*{\textcolor{Blue}{Abstract Class \textlabel{#1}{cls:#2}}}}
+
 % creates a reference for all implemented interfaces
 \newcounter{iref}
 \newcommand{\refi}[1]{\def\do##1{\stepcounter{iref}\ifnumgreater{\value{iref}}{1}{, }{}\ref{##1}}\docsvlist{#1}}
