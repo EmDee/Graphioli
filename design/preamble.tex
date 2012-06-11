@@ -18,11 +18,12 @@
 %%%%%%%
 \usepackage{float}
 \graphicspath{{../materials/images/design/}}
-\usepackage[disable]{todonotes} % use temporary for todo notes
+\usepackage{todonotes} % use temporary for todo notes
 % \usepackage{lineno} % temporary use for correcting
 \usepackage{xspace}
 % \linenumbers
 \usepackage{lipsum} % just to generate some text
+\usepackage{../materials/resources/dashrule} % for dashed rules
 \usepackage[nonumberlist,acronym,toc,section]{glossaries} % must be the last package to include
 
 \setlength{\parindent}{0cm}
@@ -31,6 +32,24 @@
 
 \widowpenalty=10000 % Prevent single line after pagebreak
 \clubpenalty=10000  % Prevent single line before pagebreak
+
+% rewrite long style for acronyms, thus it doesn't get in the way with the table coloring
+% see original code in glossaries.dtx
+\newglossarystyle{altlong}{%
+\rowcolors{1}{}{}
+  \renewenvironment{theglossary}%
+     {\begin{longtable}{lp{\glsdescwidth}}}%
+     {\end{longtable}}%
+  \renewcommand*{\glossaryheader}{}%
+  \renewcommand*{\glsgroupheading}[1]{}%
+  \renewcommand*{\glossaryentryfield}[5]{%
+    \glsentryitem{##1}\glstarget{##1}{##2} & ##3\glspostdescription\space ##5\\}%
+  \renewcommand*{\glossarysubentryfield}[6]{%
+     & 
+     \glssubentryitem{##2}%
+     \glstarget{##2}{\strut}##4\glspostdescription\space ##6\\}%
+  \renewcommand*{\glsgroupskip}{ & \\}%
+}
 
 % glossary
 \makeglossaries
@@ -60,7 +79,7 @@ l}
     \skip_zero:N \parskip
     \skip_set:Nn \parindent { 1.5em }
     \cil_iterate:n { #1 }
-    \medskip
+    \bigskip
   }
  }
 \cs_new_protected:Npn \cil_iterate:n #1
@@ -68,7 +87,7 @@ l}
   \int_set:Nn \cil_iteration_int { -1 }
   \clist_map_inline:nn { #1 }
    {
-    \hspace*{\cil_iteration_int \parindent} \textsf{##1}
+    \hspace*{\cil_iteration_int \parindent} \textcolor{NavyBlue}{\textsf{##1}}
     \int_incr:N \cil_iteration_int
     \par\nobreak
    }

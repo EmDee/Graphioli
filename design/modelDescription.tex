@@ -1,13 +1,64 @@
 \subsection{Model}
 
+% GameBoard
+\class{GameBoard}{gameboard}
+This class represents the game board. \\
+
+\centerdash
+
+\paragraph*{Method Summary}
+\paragraph*{}
+\begin{longtable}{Lp{10cm}}
+	\startmethodtable
+	\method{public}{GameBoard(boolean isDirected)}{gb:gameboard} \\
+	& Creates a new \texttt{GameBoard} with the specified option - if the GameBoard is directed or not. \\
+	\method{public boolean}{addVisualVertex(VisualVertex visualVertex)}{gb:addvisualvertex} \\
+	& Adds a \ref{cls:visualvertex} to this \texttt{GameBoard} and returns \texttt{true} if adding was successful. \\
+	\method{public boolean}{addVisualVertices(VisualVertex[ ] visualVertices)}{gb:addvisualvertices} \\
+	& Adds a list of VisualVertices to this \texttt{GameBoard} and returns \texttt{true} if adding was successful. \\
+	\method{public VisualEdge}{addVisualEdge(VisualVertex vertexA, VisualVertex vertexB)}{gb:addvisualedge} \\
+	& Adds a \texttt{\ref{cls:visualedge}} between two specified \texttt{VisualVertices} \texttt{vertexA} and \texttt{vertexB}, and returns the added \ref{cls:visualvertex}. \\
+	\method{public boolean}{removeVisualVertex(VisualVertex visualVertex)}{gb:removevisualvertex} \\
+	& Returns \texttt{true} if a specified \ref{cls:visualvertex} was removed successfully from this \texttt{GameBoard}. \\
+	\method{public boolean}{removeVisualEdge(VisualEdge visualEdge)}{gb:removevisualedge} \\
+	& Returns \texttt{true} if a specified \ref{cls:visualedge} was removed successfully from this \texttt{GameBoard}. \\
+	\method{public VisualEdge}{getVisualEdge(VisualVertex vexA, VisualVertex vexB)}{gb:getVisualEdge} \\
+	& Returns a \ref{cls:visualedge} between two specified \texttt{VisualVertices} \texttt{vertexA} and \texttt{vertexB}. \\
+	\method{public boolean}{getIsDirectedGraph()}{gb:getisdirectedgraph} \\
+	& Returns true if the \ref{cls:graph} in this \texttt{GameBoard} is directed. \\
+	\method{public Graph}{getGraph()}{gb:getgraph} \\
+	& Returns the \ref{cls:graph} in this \texttt{GameBoard}. \\
+	\method{public Grid}{getGrid()}{gb:getgrid} \\
+	& Returns the \ref{cls:grid} in this \texttt{GameBoard}. \\
+	\hline
+\end{longtable}
+
+% Grid
+\class{Grid}{grid}
+This class represents the \texttt{Grid}, which the \ref{cls:graph} will be located on. \\
+
+\centerdash
+
+\paragraph*{Method Summary}
+\paragraph*{}
+\begin{longtable}{Lp{10cm}}
+	\startmethodtable
+	\method{public}{Grid(int horizontalGridPoints, int verticalGridPoints)}{grid:grid} \\
+	& Creates a new \texttt{Grid} with the specified parameters. \\
+	\method{public boolean}{addVisualVertexToGridPoint(VisualVertex visualVertex)}{grid:addvisualvertextogridpoint} \\
+	& Returns \texttt{true} if a \ref{cls:visualvertex} was added successfully from the specified \ref{cls:gridpoint} on this \texttt{Grid}. \\
+	\method{public boolean}{removeVisualVertexAtGridPoint(GridPoint gridPoint)}{grid:removevisualvertexatgridpoint} \\
+	& Returns \texttt{true} if a \ref{cls:visualvertex} was removed successfully from the specified \ref{cls:gridpoint} on this \texttt{Grid}. \\
+	\method{public VisualVertex}{getVertexAtGridPoint(GridPoint gridPoint)}{grid:getvertexatgridpoint} \\
+	& Returns a \ref{cls:visualvertex} from a specified \ref{cls:gridpoint} on this \texttt{Grid}. \\
+	\hline
+\end{longtable}
+
 % Graph
 \class{Graph}{graph}
 This class represents the logical graph. \\
 
-\subclasses{cls:vertex, cls:edge}
-
-\vspace{.5cm}
-\hrule
+\centerdash
 
 \paragraph*{Method Summary}
 \paragraph*{}
@@ -34,8 +85,7 @@ This class represents the logical vertex. \\
 
 \subclasses{cls:visualvertex}
 
-\vspace{.5cm}
-\hrule
+\centerdash
 
 \paragraph*{Method Summary}
 \paragraph*{}
@@ -63,8 +113,7 @@ This class represents a \ref{visualvertex}. \\
 
 \subclasses{cls:graphicvisualvertex, cls:simplevisualvertex}
 
-\vspace{.5cm}
-\hrule
+\centerdash
 
 \paragraph*{Method Summary}
 \paragraph*{}
@@ -91,8 +140,7 @@ This class represents a simple \ref{visualvertex} with predefined attributes.\\
 
 \subclasses{cls:graphcoloringvertex}
 
-\vspace{.5cm}
-\hrule
+\centerdash
 
 \paragraph*{Method Summary}
 \paragraph*{}
@@ -117,7 +165,7 @@ This class represents a simple \ref{visualvertex} with predefined attributes.\\
 \class{GraphColoringVertex}{graphcoloringvertex}
 This class represents a GraphColoringVertex. \\
 
-\hrule
+\centerdash
 
 \paragraph*{Method Summary}
 \paragraph*{}
@@ -133,6 +181,8 @@ This class represents a GraphColoringVertex. \\
 This class represents a \ref{visualvertex} with a custom icon. \\
 
 \subclasses{cls:twixtvertex}
+
+\centerdash
 
 \paragraph*{Method Summary}
 \paragraph*{}
