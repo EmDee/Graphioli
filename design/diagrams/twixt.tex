@@ -18,45 +18,28 @@
 	\newinst[1]{pla}{:PlanarityCheck}
 	\newinst{pth}{:FindPath}
 	
-	\begin{call}{gm}{onGameInit()}{twx}{true}
-		\begin{call}{twx}{init()}{vtx}{true}
-			\begin{call}{vtx}{loadBufferedImages}{vtx}{BufferedImages} \end{call}
-		\end{call}
-	\end{call}
-	
-		\begin{call}{gm}{onGameStart()}{twx}{true} 
-		\begin{call}{twx}{generateBoard()}{twx}{}
-		\begin{call}{twx}{getBoard()}{gm}{GameBoard} \end{call}
-		\begin{sdblock}{Level Creation Loop}{}
-			\begin{call}{twx}{create}{vtx}{} \end{call}
-			\begin{call}{twx}{addVisualVertex()}{brd}{true} \end{call}
-			\begin{sdblock}{opt}{}
-				\begin{call}{twx}{createVisualEdge()}{brd}{VisualEdge} \end{call}
-			\end{sdblock}
-		\end{sdblock}
-		\end{call}
-	\end{call}
-	\mess{gm}{drawGraph}{view}
+	\begin{sdblock}{Vertex Creation}{}
 	\mess{view}{click}{gm}
 	\begin{call}{gm}{onGridPointClick{()}}{twx}{}
 			\begin{call}{twx}{create}{vtx}{} \end{call}
 			\begin{call}{twx}{addVisualVertex()}{brd}{true} \end{call}
-			\begin{call}{twx}{performAlgorithm()}{pla}{true}\end{call}
-			\begin{call}{twx}{performAlgorithm()}{pth}{false}\end{call}
 			\begin{call}{twx}{nextPlayer()}{pm}{true} \end{call}
-	\end{call}	
+	\end{call}
+	\end{sdblock}
+
+	\begin{sdblock}{Edge Creation}{}
 	\mess{view}{click}{gm}
 	\begin{call}{gm}{getVertexAtGridPoint()}{brd}{Vertex} \end{call}
 	\begin{call}{gm}{onVertexClick{()}}{twx}{}
 			\begin{call}{twx}{createVisualEdge()}{brd}{VisualEdge} \end{call}
+			\begin{call}{twx}{performAlgorithm()}{pla}{true}\end{call}
+			\begin{call}{twx}{performAlgorithm()}{pth}{false}\end{call}
 			\begin{call}{twx}{nextPlayer()}{pm}{true} \end{call}
 	\end{call}
 	\mess{gm}{drawGraph}{view}
+	\end{sdblock}
 	
 
 
 \end{sequencediagram}
-
-
-
 \end{document}

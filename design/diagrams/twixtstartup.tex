@@ -1,0 +1,42 @@
+\documentclass{article}
+\usepackage[margin=1cm]{geometry} % switch to landscape, remove margins
+\usepackage{tikz}
+\usepackage{pgf-umlsd}
+\usetikzlibrary{shadows}
+\usepgflibrary{arrows} % for pgf-umlsd
+\pagestyle{empty} % surpress page numbers
+
+\begin{document}
+\begin{sequencediagram}
+
+	\newthread{view}{:ViewManager}	
+	\newthread{gm}{:GameManager}
+	\newinst[1]{twx}{:TwixT}
+	\newinst[1]{brd}{:GameBoard}
+	\newinst{vtx}{:TwixTVertex}
+	
+		\begin{call}{gm}{onGameInit()}{twx}{true}
+		\begin{call}{twx}{init()}{vtx}{true}
+			\begin{call}{vtx}{loadBufferedImages}{vtx}{BufferedImages} \end{call}
+		\end{call}
+		\begin{call}{twx}{getBoard()}{gm}{GameBoard}\end{call}
+	\end{call}
+	
+		\begin{call}{gm}{onGameStart()}{twx}{true} 
+		\begin{call}{twx}{generateBoard()}{twx}{}
+		
+		\begin{sdblock}{Level Creation Loop}{}
+			\begin{call}{twx}{create}{vtx}{} \end{call}
+			\begin{call}{twx}{addVisualVertex()}{brd}{true} \end{call}
+			\begin{sdblock}{opt}{}
+				\begin{call}{twx}{createVisualEdge()}{brd}{VisualEdge} \end{call}
+			\end{sdblock}
+		\end{sdblock}
+		\end{call}
+	\end{call}
+	\mess{gm}{drawGraph}{view}
+
+
+
+\end{sequencediagram}
+\end{document}
