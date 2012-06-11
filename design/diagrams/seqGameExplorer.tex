@@ -1,0 +1,87 @@
+\documentclass{article}
+
+\pagestyle{empty} % surpress page numbers
+
+\usepackage[margin=1cm, landscape]{geometry}
+
+\usepackage{tikz}
+\usepackage{pgf-umlsd}
+\usepgflibrary{arrows} % for pgf-umlsd
+\usetikzlibrary{shadows}
+
+
+\begin{document}
+
+\begin{sequencediagram}
+	
+	\newthread{gm}{:GameManager}
+	\newinst{ge}{:GameExplorer}
+	\newinst{gew}{:GEWindow}
+	\newinst{gdlm}{:GameDefinitionListModel}
+	\newinst{gegl}{:GEGameList}
+	\newinst{gegi}{:GEGameInformation}
+	\newinst{gebp}{:GEButtonPanel}
+	\newinst{gd}{:GameDefinition}
+
+	\begin{call}{gm}{openGameExplorer()}{gm}{}
+		\begin{messcall}{gm}{GameExplorer()}{ge}
+			\begin{call}{ge}{scanGameFolder()}{ge}{games}
+			\end{call}
+			\begin{messcall}{ge}{GEWindow(games)}{gew}
+				\begin{messcall}{gew}{GameDefinitionListModel(games)}{gdlm}
+				\end{messcall}
+				\begin{messcall}{gew}{GEGameList(model)}{gegl}
+				\end{messcall}
+				\begin{messcall}{gew}{GEGameInformation()}{gegi}
+				\end{messcall}
+				\begin{messcall}{gew}{GEButtonPanel()}{gebp}
+				\end{messcall}
+			\end{messcall}
+			\begin{call}{ge}{registerController(this)}{gew}{true}
+			\end{call}
+		\end{messcall}
+	\end{call}
+	
+	
+\end{sequencediagram}
+
+\begin{sequencediagram}
+	
+	\newthread{gm}{:GameManager}
+	\newinst{ge}{:GameExplorer}
+	\newinst{gew}{:GEWindow}
+	\newinst{gdlm}{:GameDefinitionListModel}
+	\newinst{gegl}{:GEGameList}
+	\newinst{gegi}{:GEGameInformation}
+	\newinst{gebp}{:GEButtonPanel}
+	\newinst{gd}{:GameDefinition}
+
+	\begin{messcall}{gegl}{click}{gew}
+		\begin{call}{gew}{onListSelectionChange()}{gew}{true}
+			\begin{call}{gew}{getSelectedIndex()}{gegl}{index}
+			\end{call}
+			\begin{call}{gew}{getGameDefinitionAtIndex(index}{gdlm}{gameDef}
+			\end{call}
+			\begin{call}{gew}{setSelectedDefinition(gameDef)}{gew}{true}
+			\end{call}
+			\begin{call}{gew}{getDescription()}{gd}{description}
+			\end{call}
+			\begin{call}{gew}{getScreenshot()}{gd}{screenshot}
+			\end{call}
+			\begin{call}{gew}{setDescription(description)}{gegi}{true}
+			\end{call}
+			\begin{call}{gew}{setScreenshot(screenshot)}{gegi}{true}
+			\end{call}
+		\end{call}
+	\end{messcall}
+	
+	\begin{messcall}{gebp}{click}{gew}
+		\begin{messcall}{gew}{selectGame(selectedDefinition)}{ge}
+			\begin{messcall}{ge}{startGame(selectedDefinition)}{gm}
+			\end{messcall}
+		\end{messcall}
+	\end{messcall}
+
+\end{sequencediagram}
+
+\end{document}
