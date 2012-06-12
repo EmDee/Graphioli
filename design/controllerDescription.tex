@@ -27,7 +27,7 @@ This is the abstract class every \graphioli game has to inherit from. It defines
 	\method{protected boolean}{onGameInit()}{game:ongameinit} \\
 	& Called after a game has been instantiated. \\
 	\method{protected boolean}{onGameStart()}{game:ongamestart} \\
-	& Called immediately before a game gets started. \\
+	& Called immediately before a game gets (re)started. \\
 	\method{protected boolean}{onMenuItemClick(MenuItem item)}{game:onmenuitemclick} \\
 	& Called when a player clicks on a self-defined menu item.
 
@@ -115,7 +115,7 @@ This class acts as an interface between the \gls{GUI} and the other parts of the
 
 % PlayerManager
 \class{PlayerManager}{playermanager}
-...  \\
+This class is responible for keeping information about a game's players.  \\
 
 \vspace{.5cm}
 \hrule
@@ -126,15 +126,15 @@ This class acts as an interface between the \gls{GUI} and the other parts of the
 	\startmethodtable
 
 	\method{public}{PlayerManager(Iterable<Player> players)}{playermanager:playermanager} \\
-	& ... \\
+	& Constructs a \texttt{PlayerManager} with the given set of \ref{cls:player}s. \\
 	\method{private boolean}{initializePlayers()}{playermanager:initializeplayers} \\
 	& ... \\
 	\method{public Iterable<Player> players}{getPlayers()}{playermanager:getplayers} \\
-	& ... \\
+	& Returns the list of \ref{cls:player}s managed by this instance. \\
 	\method{public Player}{getActivePlayer()}{playermanager:getactiveplayer} \\
-	& ... \\
+	& Returns the \ref{cls:player}, who is currently active. \\
 	\method{public Player}{nextPlayer()}{playermanager:nextplayer} \\
-	& ... \\
+	& Sets the next \ref{cls:player} in the list ato active. \\
 	
 	
 	\hline
@@ -143,7 +143,7 @@ This class acts as an interface between the \gls{GUI} and the other parts of the
 \subsubsection{Utility classes}
 
 % Validation
-\class{Validation}{validation} \todo{static}
+\static{Validation}{validation}
 ...  \\
 
 \vspace{.5cm}
@@ -185,7 +185,7 @@ This class acts as an interface between the \gls{GUI} and the other parts of the
 \subsubsection{Games}
 
 %Graphcoloring
-\class{GraphColoring}{graphcoloring}
+\static{GraphColoring}{graphcoloring}
 ...  \\
 
 \vspace{.5cm}
