@@ -17,14 +17,14 @@ This class represents the game board. \\
 	\method{public boolean}{addVisualVertices(VisualVertex[ ] visualVertices)}{gb:addvisualvertices} \\
 	& Adds a list of VisualVertices to this \texttt{GameBoard} and returns \texttt{true} if adding was successful. \\
 	\method{public VisualEdge}{addVisualEdge(VisualVertex vertexA, VisualVertex vertexB)}{gb:addvisualedge} \\
-	& Adds a \texttt{\ref{cls:visualedge}} between two specified \texttt{VisualVertices} \texttt{vertexA} and \texttt{vertexB}, and returns the added \ref{cls:visualvertex}. \\
+	& Adds a \ref{cls:visualedge} between two specified \texttt{VisualVertices} \texttt{vertexA} and \texttt{vertexB}, and returns the added \ref{cls:visualvertex}. \\
 	\method{public boolean}{removeVisualVertex(VisualVertex visualVertex)}{gb:removevisualvertex} \\
 	& Returns \texttt{true} if a specified \ref{cls:visualvertex} was removed successfully from this \texttt{GameBoard}. \\
 	\method{public boolean}{removeVisualEdge(VisualEdge visualEdge)}{gb:removevisualedge} \\
 	& Returns \texttt{true} if a specified \ref{cls:visualedge} was removed successfully from this \texttt{GameBoard}. \\
 	\method{public VisualEdge}{getVisualEdge(VisualVertex vexA, VisualVertex vexB)}{gb:getVisualEdge} \\
 	& Returns a \ref{cls:visualedge} between two specified \texttt{VisualVertices} \texttt{vertexA} and \texttt{vertexB}. \\
-	\method{public boolean}{getIsDirectedGraph()}{gb:getisdirectedgraph} \\
+	\method{public boolean}{isGraphDirected()}{gb:isgraphdirected} \\
 	& Returns true if the \ref{cls:graph} in this \texttt{GameBoard} is directed. \\
 	\method{public Graph}{getGraph()}{gb:getgraph} \\
 	& Returns the \ref{cls:graph} in this \texttt{GameBoard}. \\
@@ -45,8 +45,8 @@ This class represents the \texttt{Grid}, which the \ref{cls:graph} will be locat
 	\startmethodtable
 	\method{public}{Grid(int horizontalGridPoints, int verticalGridPoints)}{grid:grid} \\
 	& Creates a new \texttt{Grid} with the specified parameters. \\
-	\method{public boolean}{addVisualVertexToGridPoint(VisualVertex visualVertex)}{grid:addvisualvertextogridpoint} \\
-	& Returns \texttt{true} if a \ref{cls:visualvertex} was added successfully from the specified \ref{cls:gridpoint} on this \texttt{Grid}. \\
+	\method{public boolean}{addVisualVertexToGrid(VisualVertex visualVertex)}{grid:addvisualvertextogridpoint} \\
+	& Returns \texttt{true} if a specified \ref{cls:visualvertex} was added successfully to this \texttt{Grid}. \\
 	\method{public boolean}{removeVisualVertexAtGridPoint(GridPoint gridPoint)}{grid:removevisualvertexatgridpoint} \\
 	& Returns \texttt{true} if a \ref{cls:visualvertex} was removed successfully from the specified \ref{cls:gridpoint} on this \texttt{Grid}. \\
 	\method{public VisualVertex}{getVertexAtGridPoint(GridPoint gridPoint)}{grid:getvertexatgridpoint} \\
@@ -138,8 +138,8 @@ This class represents a VisualVertex. \\
 \paragraph*{}
 \begin{longtable}{Lp{10cm}}
 	\startmethodtable
-	\method{public}{VisualVertex(gridPoint : GridPoint)}{vv:constructor} \\
-	& Creates a new VisualVertex and places it on the specified \ref{gridpoint}. \\
+	\method{public}{VisualVertex(gridPoint : GridPoint)}{vv:visualvertex} \\
+	& Creates a new VisualVertex and places it on the specified \ref{cls:gridpoint}. \\
 	\method{protected void}{draw(Graphics2D)}{vv:draw} \\
 	& Draws the VisualVertex. \\
 	\method{final void}{update()}{vv:update} \\
@@ -155,7 +155,7 @@ This class represents a VisualVertex. \\
 
 % SimpleVisualVertex
 \class{SimpleVisualVertex}{simplevisualvertex}
-This class represents a simple \ref{visualvertex} with predefined attributes.\\
+This class represents a simple \ref{cls:visualvertex} with predefined attributes.\\
 
 \subclasses{cls:graphcoloringvertex}
 
@@ -182,7 +182,7 @@ This class represents a simple \ref{visualvertex} with predefined attributes.\\
 
 % GraphColoringVertex
 \class{GraphColoringVertex}{graphcoloringvertex}
-This class represents a GraphColoringVertex. \\
+This class represents a \texttt{GraphColoringVertex}. \\
 
 \centerdash
 
@@ -190,14 +190,24 @@ This class represents a GraphColoringVertex. \\
 \paragraph*{}
 \begin{longtable}{Lp{10cm}}
 	\startmethodtable
-	\method{public boolean}{setColor(Color color)}{svv:setcolor} \\
-	& Sets the color of this \ref{cls:simplevisualvertex}. \\
+	\method{public int}{getColorID}{gcv:getcolorid} \\
+	& Returns the \texttt{color identification} of this \texttt{GraphColoringVertex}. \\
+	\method{public boolean}{isButton()}{gcv:isbutton} \\
+	& Returns \texttt{true} if this \texttt{GraphColoringVertex} is a button. \\
+	\method{public boolean}{isHighlighted()}{gcv:ishighlighted} \\
+	& Returns \texttt{true} if this \texttt{GraphColoringVertex} is selected. \\
+	\method{public boolean}{setColorID(int id)}{gcv:setcolorid} \\
+	& Returns \texttt{true} if the placement of the specified \texttt{color identification} for this \texttt{GraphColoringVertex} was successful. \\
+	\method{public boolean}{setButton(boolean isButton)}{gcv:setbutton} \\
+	& Sets this \texttt{GraphColoringVertex} as \texttt{button}. \\
+	\method{public boolean}{setHighlighted(boolean isHighlighted)}{gcv:sethighlighted} \\
+	& Sets this \texttt{GraphColoringVertex} as selected. \\
 	\hline
 \end{longtable}
 
 % GraphicVisualVertex
 \class{GraphicVisualVertex}{graphicvisualvertex}
-This class represents a \ref{visualvertex} with a custom icon. \\
+This class represents a \ref{cls:visualvertex} with a custom icon. \\
 
 \subclasses{cls:twixtvertex}
 
@@ -207,15 +217,85 @@ This class represents a \ref{visualvertex} with a custom icon. \\
 \paragraph*{}
 \begin{longtable}{Lp{10cm}}
 	\startmethodtable
-	\method{public}{GraphicVisualVertex(String fileName)}{gvv:constructor} \\
-	& Creates a new GraphicVisualVertex with the specified url. \\
-	\method{public}{GraphicVisualVertex(BufferedImage image)}{gvv:superconstructor} \\
-	& Creates a new GraphicVisualVertex with the specified BufferedImage. \\
+	\method{public}{GraphicVisualVertex(String fileName)}{gvv:graphicvisualvertexfile} \\
+	& Creates a new \texttt{GraphicVisualVertex} with the specified url. \\
+	\method{public}{GraphicVisualVertex(BufferedImage image)}{gvv:graphicvisualverteximage} \\
+	& Creates a new \texttt{GraphicVisualVertex} with the specified BufferedImage. \\
 	\method{public BufferedImage}{loadBufferedImage(String fileName)}{gvv:loadbufferedimage} \\
-	& Loads the image file at specified `fileName' and returns a BufferedImage. \\
+	& Loads the image file at specified \texttt{fileName} and returns a \texttt{BufferedImage}. \\
 	\method{public BufferedImage}{getImage()}{gvv:getimage} \\
 	& Returns the BufferedImage that represents this \ref{cls:graphicvisualvertex}. \\
 	\method{public boolean}{setImage(BufferedImage image)}{gvv:setimage} \\
 	& Sets the BufferedImage that represents this \ref{cls:graphicvisualvertex}. \\ 
+	\hline
+\end{longtable}
+
+% TwixtVertex
+\class{TwixtVertex}{twixtvertex}
+This class represents a \texttt{TwixtVertex}. \\
+
+\centerdash
+
+\paragraph*{Method Summary}
+\paragraph*{}
+\begin{longtable}{Lp{10cm}}
+	\startmethodtable
+	\method{public}{TwixtVertex(int playerID)}{tv:twixtvertex} \\
+	& Creates a new \texttt{TwixtVertex} and associate it with a \texttt{player} with the specified \texttt{playerID}. \\
+	\method{public int}{getPlayerID}{tv:getplayerid} \\
+	& Returns the \texttt{player}'s identification. \\
+	\method{public boolean}{init()}{tv:init} \\
+	& Initializes this \texttt{TwixtVertex}. \\
+	\hline
+\end{longtable}
+
+% Edge
+\class{Edge}{edge}
+This class represents an \texttt{Edge}. \\
+
+\subclasses{cls:visualedge}
+
+\centerdash
+
+\paragraph*{Method Summary}
+\paragraph*{}
+\begin{longtable}{Lp{10cm}}
+	\startmethodtable
+	\method{public}{Edge(Vertex vertexA, Vertex vertexB)}{edge:edge} \\
+	& Creates a new \texttt{Edge} with the specified Vertices \texttt{vertexA} and \texttt{vertexB}. \\
+	\method{public Vertex}{getOriginVertex()}{edge:getoriginvertex} \\
+	& Returns the origin \ref{cls:vertex}. \\
+	\method{public Vertex}{getTargetVertex()}{edge:gettargetvertex} \\
+	& Returns the end \ref{cls:vertex}. \\
+	\method{public int}{getWeight()}{edge:getweight} \\
+	& Returns the weight of this \texttt{edge}. \\
+	\method{public boolean}{setWeight(int weight)}{edge:setweight} \\
+	& Sets the weight of this \texttt{edge}. \\
+	\hline
+\end{longtable}
+
+% VisualEdge
+\abstractclass{VisualEdge}{visualedge}
+
+\subclasses{cls:simplevisualedge}
+
+% SimpleVisualEdge
+\class{SimpleVisualEdge}{simplevisualedge}
+This class represents an \texttt{Edge} with . \\
+
+\centerdash
+
+\paragraph*{Method Summary}
+\paragraph*{}
+\begin{longtable}{Lp{10cm}}
+	\startmethodtable
+	\method{public Color}{getColor()}{sve:getcolor} \\
+	& Returns the \texttt{color} of this \texttt{SimpleVisualEdge}. \\
+	\method{public int}{getStrokeWeight()}{sve:getstrokeweight} \\
+	& Returns the \texttt{stroke weight} of this \texttt{SimpleVisualEdge}. \\
+	\method{public boolean}{setColor(Color color)}{sve:setcolor} \\
+	& Sets the \texttt{color} of this \texttt{SimpleVisualEdge}. \\
+	\method{public int}{setStrokeWeight()}{sve:setstrokeweight} \\
+	& Sets the \texttt{stroke weight} of this \texttt{SimpleVisualEdge}. \\
 	\hline
 \end{longtable}
