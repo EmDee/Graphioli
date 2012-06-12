@@ -1,6 +1,6 @@
 \documentclass{article}
 
-\usepackage[margin=1cm,landscape]{geometry} % switch to landscape, remove margins
+\usepackage[margin=0.5cm,landscape]{geometry} % switch to landscape, remove margins
 \usepackage{tikz}
 \usepackage{pgf-umlsd}
 \usetikzlibrary{shadows}
@@ -19,15 +19,12 @@
 	\newinst{gameCapsule}{gC:GameCapsule}
 	\newinst{fileOutputStream}{fOut:FileOutputStream}
 	\newinst{objectOutputStream}{oOut:ObjectOutputStream}
-	writeObject(e);
-	         out.close();
-	          fileOut.close();
 
 	\begin{messcall}{menuBar}{click}{menuBar} \end{messcall}
 
 	% Escalate click event to GameManager
 	\begin{call}{menuBar}{getParent()}{menuBar}{GameWindow} \end{call}
-	\begin{call}{menuBar}{openSaveDialog()}{gameWindow}{File} \end{call}
+	\begin{call}{menuBar}{saveFileDialog()}{gameWindow}{File} \end{call}
 	\begin{call}{menuBar}{getViewManager()}{gameWindow}{ViewManager} \end{call}
 	\begin{call}{menuBar}{getGameManager()}{viewManager}{GameManager} \end{call}
 
@@ -43,6 +40,44 @@
 		\end{call}
 		\begin{messcall}{gameManager}{close()}{objectOutputStream} \end{messcall}
 		\begin{messcall}{gameManager}{close()}{fileOutputStream} \end{messcall}
+	\end{call}
+
+\end{sequencediagram}
+
+\begin{sequencediagram}
+
+	\newthread{menuBar}{:MenuBar}
+	\newinst{gameWindow}{:GameWindow}
+	\newinst{file}{file:File}
+	\newinst{viewManager}{:ViewManager}
+	\newinst{gameManager}{:GameManager}
+	\newinst{gameCapsule}{gC:GameCapsule}
+	\newinst{fileInputStream}{fIn:FileInputStream}
+	\newinst{objectInputStream}{oIn:ObjectInputStream}
+
+	\begin{messcall}{menuBar}{click}{menuBar} \end{messcall}
+
+	% Escalate click event to GameManager
+	\begin{call}{menuBar}{getParent()}{menuBar}{GameWindow} \end{call}
+	\begin{call}{menuBar}{openFileDialog()}{gameWindow}{File} \end{call}
+	\begin{call}{menuBar}{getViewManager()}{gameWindow}{ViewManager} \end{call}
+	\begin{call}{menuBar}{getGameManager()}{viewManager}{GameManager} \end{call}
+
+	% Trigger save game event
+	\begin{call}{menuBar}{loadGame(file)}{gameManager}{true}
+		\begin{messcall}{gameManager}{FileInputStream(file)}{fileInputStream} \end{messcall}
+		\begin{messcall}{gameManager}{ObjectInputStream(fIn)}{objectInputStream} \end{messcall}
+		\begin{call}{gameManager}{readObject()}{objectInputStream}{gc : GameCapsule}
+			\begin{call}{objectInputStream}{deserialize()}{objectInputStream}{GameCapsule}
+				\begin{messcall}{objectInputStream}{GameCapsule()}{gameCapsule} \end{messcall}
+				% TODO: board etc.
+			\end{call}
+		\end{call}
+		\begin{messcall}{gameManager}{close()}{objectInputStream} \end{messcall}
+		\begin{messcall}{gameManager}{close()}{fileInputStream} \end{messcall}
+		\begin{call}{gameManager}{getBoard()}{gameCapsule}{GameBoard} \end{call}
+		\begin{call}{gameManager}{getPlayers()}{gameCapsule}{Iterable[Player]} \end{call}
+			\begin{call}{gameManager}{getActivePlayer()}{gameCapsule}{Player} \end{call}
 	\end{call}
 
 \end{sequencediagram}
