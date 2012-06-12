@@ -49,7 +49,7 @@ This class is the actual game window containing \ref{cls:graphcanvas}, \ref{cls:
 This class handles the keyboard input. \\ 
 
 \begin{description}
-	\item[All Implemented Interface] \hfill \\
+	\item[All Implemented Interfaces] \hfill \\
 	java.awt.KeyEventDispatcher
 \end{description}
 \centerdash
@@ -59,7 +59,7 @@ This class handles the keyboard input. \\
 \begin{longtable}{Lp{10cm}}
 	\startmethodtable
 	\method{public}{CustomKeyDispatcher(GameWindow gamewindow)}{ckd:customkeydispatcher} \\
-	& Creats a CustomKeyDispatcher and registers its parent \ref{cls:gamewindow}. \\\hline
+	& Creates a CustomKeyDispatcher and registers its parent \ref{cls:gamewindow}. \\\hline
 \end{longtable}
 
 % GraphCanvas
@@ -84,7 +84,7 @@ This class is responsible for displaying the graph and handles mouse clicks with
 
 This class handles mouse input and serves as an connector between \ref{cls:grid} and display. \\ 
 \begin{description}
-	\item[All Implemented Interface] \hfill \\
+	\item[All Implemented Interfaces] \hfill \\
 	java.awt.event.MouseListener
 \end{description}
 \centerdash
@@ -95,7 +95,7 @@ This class handles mouse input and serves as an connector between \ref{cls:grid}
 	\startmethodtable
 	\method{public}{VisualGrid(GameWindow gamewindow)}{vg:visualgrid} \\
 	& Creates a VisualGrid and registers its parent \ref{cls:gamewindow}. \\
-	\method{private GridPoint}{parseCoordinates(xCoord : int, yCoord : int)}{vs:parsecoordinates} \\
+	\method{private GridPoint}{parseCoordinates(int xCoord, int yCoord)}{vs:parsecoordinates} \\
 	& Parses the coordinates of the mouse click to the specific \ref{cls:gridpoint}. \\
 	\method{public boolean}{setVisualVertexSize(int size)}{vs:setvisualvertexsize} \\
 	& Sets the size of the displayed vertices up to a grid specific maximum value. \\
@@ -140,7 +140,7 @@ Listens to one specific \ref{cls:menuitem} in the \ref{cls:menubar} and forwards
 
 % StatusBar
 \class{StatusBar}{statusbar}
-\createindentedlist{java.lang.Object, java.awt.Component, java.awt.Container, javax.swing.JComponent, javax.swing.JPanel, de.graphioli.view.GraphCanvas}
+\createindentedlist{java.lang.Object, java.awt.Component, java.awt.Container, javax.swing.JComponent, javax.swing.JPanel, de.graphioli.view.StatusBar}
 
 This class represents a status bar at the bottom of the \ref{cls:gamewindow} and displays the current player and short error messages. \\
 \centerdash
