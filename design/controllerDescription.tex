@@ -4,7 +4,7 @@
 
 % Game
 \class{Game}{game}
-This is the abstract class every \graphioli game has to inherit from. It defines the callback functions the game developer needs to implement. \\
+This is the abstract class every \graphioli game has to inherit from. It defines the callback functions the game developer needs to implement to provide the game's logic. \\
 
 \subclasses{cls:graphcoloring, cls:twixt}
 
@@ -15,22 +15,22 @@ This is the abstract class every \graphioli game has to inherit from. It defines
 \paragraph*{}
 \begin{longtable}{Lp{10cm}}
 	\startmethodtable
-	\method{public}{Game(GameManager manager)}{game:game} \\
-	& ... \\
+	\method{public final boolean}{registerController(GameManager manager)}{game:registercontroller} \\
+	& Associates this \texttt{Game} with a \ref{cls:gamemanager}. \\
 	\method{protected final GameManager}{getGameManager()}{game:getgamemanager} \\
-	& ... \\
+	& Returns the associated \ref{cls:gamemanager}. \\
 	\method{protected boolean}{onVertexClick(VisualVertex vertex)}{game:onvertexclick} \\
-	& ... \\
+	& Called when a player clicks on a \ref{cls:visualvertex}. \\
 	\method{protected boolean}{onEmptyGridPointClick(GridPoint gridPoint)}{game:onemptygridpointclick} \\
-	& ... \\
+	& Called when a player clicks on a \ref{cls:gridpoint} that has no \ref{cls:visualvertex} on it. \\
 	\method{protected boolean}{onKeyRelease(int keyCode)}{game:onkeyrelease} \\
-	& ... \\
+	& Called when a player releases a keyboard key.\\
 	\method{protected boolean}{onGameInit()}{game:ongameinit} \\
-	& ... \\
+	& Called after a game has been instantiated. \\
 	\method{protected boolean}{onGameStart()}{game:ongamestart} \\
-	& ... \\
+	& Called immediately before a game gets started. \\
 	\method{protected boolean}{onMenuItemClick(MenuItem item)}{game:onmenuitemclick} \\
-	& ... \\
+	& Called when a player clicks on a self-defined menu item.
 
 \end{longtable}
 
