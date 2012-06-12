@@ -1,9 +1,8 @@
 \subsection{Controller}
-\todo{Actual descriptions}
 
 
 % Game
-\class{Game}{game}
+\abstractclass{Game}{game}
 This is the abstract class every \graphioli game has to inherit from. It defines the callback functions the game developer needs to implement to provide the game's logic. \\
 
 \subclasses{cls:graphcoloring, cls:twixt}
@@ -36,7 +35,8 @@ This is the abstract class every \graphioli game has to inherit from. It defines
 
 % GameManager
 \class{GameManager}{gamemanager}
-This is the framework's central class.  \\
+This is the framework's central class.  \\ \todo{Actual descriptions}
+
 
 \vspace{.5cm}
 \hrule
@@ -45,7 +45,7 @@ This is the framework's central class.  \\
 \paragraph*{}
 \begin{longtable}{Lp{10cm}}
 	\startmethodtable
-	\method{public static void}{main(args[]: String)}{gamemanager:main} \\
+	\method{public static void}{main(String... args)}{gamemanager:main} \\
 	& ... \\
 	\method{private boolean}{openGameExplorer()}{gamemanager:opengameexplorer} \\
 	& ... \\
@@ -78,7 +78,7 @@ This is the framework's central class.  \\
 
 % ViewManager
 \class{ViewManager}{viewmanager}
-...  \\
+This class acts as an interface between the \gls{GUI} and the other parts of the \gls{framework}. It pushes update notifications to the view and receives user input from it.  \\
 
 \vspace{.5cm}
 \hrule
@@ -87,27 +87,30 @@ This is the framework's central class.  \\
 \paragraph*{}
 \begin{longtable}{Lp{10cm}}
 	\startmethodtable
+	\method{public}{ViewManager(GameManager gameManager)}{viewmanager:viewmanager} \\
+	& Creates a \texttt{ViewManager} associated with the given \ref{cls:gamemanager}. \\
 	\method{public boolean}{updatePlayerStatus(Player player)}{viewmanager:updateplayerstatus} \\
-	& ... \\
+	& Notifies the \texttt{View} to display the given player as active. \\
 	\method{public boolean}{onGridPointClick(GridPoint gridpoint)}{viewmanager:ongridpointclick} \\
-	& ... \\
+	& Callback function used by the view to notify about a click on a \ref{cls:gridpoint}.  \\
 	\method{public boolean}{onKeyRelease(int keycode)}{viewmanager:onkeyrelease} \\
-	& ... \\
+	& Callback function used by the view to notify about a key release. \\
 	\method{public boolean}{displayErrorMessage(String message)}{viewmanager:displayerrormessage} \\
-	& ... \\
+	& Notifies the \texttt{view} to display the error message. \\
 	\method{public boolean}{displayPopUp(String message)}{viewmanager:displaypopup} \\
-	& ... \\
+	& Notifies the \texttt{view} to display the given message in a popup. \\
 	\method{public boolean}{addGameMenuItem(MenuItem item}{viewmanager:addgamemenuitem} \\
-	& ... \\
+	& Notifies the \texttt{view} to add the given item to the menu. \\
 	\method{public boolean}{onMenuItemClick(MenuItem item)}{viewmanager:onmenuitemclick} \\
-	& ... \\
+	& Callback function used by the view to notify about a click on a previously added menu item.  \\
 	\method{public GameManager}{getGameManager()}{viewmanager:getgamemanager} \\
-	& ... \\
-	\method{public boolean}{setVisualVertex(int size)}{viewmanager:setvisualvertexsize} \\
-	& ... \\
+	& Returns the associated \ref{cls:gamemanager}. \\
+	\method{public boolean}{setVisualVertexSet(int size)}{viewmanager:setvisualvertexsize} \\
+	& Notifies the \texttt{View} to change the size of the VisualVertices to the given values. \\
 
 	\hline
 \end{longtable}
+
 
 
 % PlayerManager
@@ -122,7 +125,7 @@ This is the framework's central class.  \\
 \begin{longtable}{Lp{10cm}}
 	\startmethodtable
 
-	\method{public}{PlayerManager(Iterable<Player> players}{playermanager:playermanager} \\
+	\method{public}{PlayerManager(Iterable<Player> players)}{playermanager:playermanager} \\
 	& ... \\
 	\method{private boolean}{initializePlayers()}{playermanager:initializeplayers} \\
 	& ... \\
@@ -214,5 +217,6 @@ This is the framework's central class.  \\
 	& ... \\		
 	\hline
 \end{longtable}
+
 
 
