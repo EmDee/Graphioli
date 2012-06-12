@@ -242,8 +242,8 @@ This class represents a \texttt{TwixtVertex}. \\
 	\startmethodtable
 	\method{public}{TwixtVertex(int playerID)}{tv:twixtvertex} \\
 	& Creates a new \texttt{TwixtVertex} and associate it with a \texttt{player} with the specified \texttt{playerID}. \\
-	\method{public int}{getPlayerID}{tv:getplayerid} \\
-	& Returns the \texttt{player}'s identification. \\
+	\method{public int}{getPlayerID()}{tv:getplayerid} \\
+	& Returns the \ref{Player}'s identification. \\
 	\method{public boolean}{init()}{tv:init} \\
 	& Initializes this \texttt{TwixtVertex}. \\
 	\hline
@@ -276,12 +276,13 @@ This class represents an \texttt{Edge}. \\
 
 % VisualEdge
 \abstractclass{VisualEdge}{visualedge}
+This class represents a \texttt{VisualEdge}.
 
 \subclasses{cls:simplevisualedge}
 
 % SimpleVisualEdge
 \class{SimpleVisualEdge}{simplevisualedge}
-This class represents an \texttt{Edge} with . \\
+This class represents an \texttt{Edge} with different attributes (color, stroke and stroke weight). \\
 
 \centerdash
 
@@ -299,3 +300,28 @@ This class represents an \texttt{Edge} with . \\
 	& Sets the \texttt{stroke weight} of this \texttt{SimpleVisualEdge}. \\
 	\hline
 \end{longtable}
+
+% Player
+\abstractclass{Player}{player}
+This abtract class represents a \texttt{player}. \\
+
+\subclasses{cls:localplayer}
+
+\centerdash
+
+\paragraph*{Method Summary}
+\paragraph*{}
+\begin{longtable}{Lp{10cm}}
+	\startmethodtable
+	\method{public}{Player(String name)}{player:player} \\
+	& Creates a new \texttt{Player} with the specified \texttt{name}. \\
+	\method{public UUID}{getUID()}{player:getuid} \\
+	& Returns the \texttt{UUID} of this \texttt{Player}. \\
+	\method{public String}{getName()}{player:getname} \\
+	& Returns the \texttt{name} of this \texttt{Player}. \\
+	\hline
+\end{longtable}
+
+% LocalPlayer
+\class{LocalPlayer}{localplayer}
+This class represents a \texttt{LocalPlayer}.
