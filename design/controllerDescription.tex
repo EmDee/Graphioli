@@ -1,9 +1,12 @@
 \subsection{Controller}
+\todo{Actual descriptions}
 
 
 % Game
 \class{Game}{game}
 This is the abstract class every \graphioli game has to inherit from. It defines the callback functions the game developer needs to implement. \\
+
+\subclasses{cls:graphcoloring, cls:twixt}
 
 \vspace{.5cm}
 \hrule
@@ -33,7 +36,7 @@ This is the abstract class every \graphioli game has to inherit from. It defines
 
 % GameManager
 \class{GameManager}{gamemanager}
-This is the framework's central class. \todo{Most of it.}  \\
+This is the framework's central class.  \\
 
 \vspace{.5cm}
 \hrule
@@ -133,4 +136,83 @@ This is the framework's central class. \todo{Most of it.}  \\
 	
 	\hline
 \end{longtable}
+
+\subsubsection{Utility classes}
+
+% Validation
+\class{Validation}{validation} \todo{static}
+...  \\
+
+\vspace{.5cm}
+\hrule
+
+\paragraph*{Method Summary}
+\paragraph*{}
+\begin{longtable}{Lp{10cm}}
+	\startmethodtable
+
+	\method{public boolean}{isValidFile(File file)}{validation:isvalidfile} \\
+	& ... \\
+	\method{public boolean}{isValidPlayerName(String name)}{validation:isvalidplayername} \\
+	& ... \\
+		
+	\hline
+\end{longtable}
+
+% UIDManager
+\class{Validation}{validation} \todo{static}
+...  \\
+
+\vspace{.5cm}
+\hrule
+
+\paragraph*{Method Summary}
+\paragraph*{}
+\begin{longtable}{Lp{10cm}}
+	\startmethodtable
+
+	\method{public UUID}{generateUniqueID()}{validation:generateuniqueid} \\
+	& ... \\
+	\method{private boolean}{isUnique(UUID uuid)}{validation:isunique} \\
+	& ... \\
+		
+	\hline
+\end{longtable}
+
+\subsubsection{Games}
+
+%Graphcoloring
+\class{GraphColoring}{graphcoloring}
+...  \\
+
+\vspace{.5cm}
+\hrule
+
+\paragraph*{Method Summary}
+\paragraph*{}
+\begin{longtable}{Lp{10cm}}
+	\startmethodtable
+
+	\method{private boolean}{generateBoard()}{graphcoloring:generateboard} \\
+	& ... \\		
+	\hline
+\end{longtable}
+
+%TwixT
+\class{TwixT}{twixt}
+...  \\
+
+\vspace{.5cm}
+\hrule
+
+\paragraph*{Method Summary}
+\paragraph*{}
+\begin{longtable}{Lp{10cm}}
+	\startmethodtable
+
+	\method{private boolean}{generateBoard()}{twixt:generateboard} \\
+	& ... \\		
+	\hline
+\end{longtable}
+
 
