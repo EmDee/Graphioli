@@ -10,11 +10,11 @@ description \\
 \begin{longtable}{Lp{10cm}}
 	\startmethodtable
 	\method{public}{GameExplorer(GameManager gameManager)}{ge:gameexplorer} \\
-	& description \\
+	& Creates a new \texttt{Game Explorer}. \\
 	\method{private JSONObject}{parseJSON()}{ge:parsejson} \\
-	& description \\
+	& Parses the property file to a JSON Object. \\
 	\method{private Iterable<GameDefinition>}{scanGameFolder()}{ge:scangamefolder} \\
-	& description \\
+	& Scans the \texttt{Game Folder} and returns the \ref{cls:gamedefinition}s of the games in it. \\
 	\method{public boolean}{selectGame(GameDefinition gameDef)}{ge:selectgame} \\
 	& description \\
 	\method{public boolean}{openHelpFile(GameDefinition gameDef)}{ge:openhelpfile} \\
@@ -32,12 +32,12 @@ description \\
 \begin{longtable}{Lp{10cm}}
 	\startmethodtable
 	\method{public boolean}{registerController(GameExplorer gameExplorer)}{gev:registercontroller} \\
-	& description \\
+	& Registers the controller for the Game Explorer user interface. \\
 	\hline
 \end{longtable}
 
 \class{GEWindow}{gewindow}
-description \\
+This class represents the window of the \ref{cls:gameexplorer}. \\
 
 \centerdash
 
@@ -46,14 +46,14 @@ description \\
 \begin{longtable}{Lp{10cm}}
 	\startmethodtable
 	\method{public}{GEWindow(Iterable<GameDefinition> games)}{gew:gewindow} \\
-	& description \\
+	& Creates a new \texttt{Game Explorer window}. \\
 	\method{public}{onListSelectionChange(GameDefinition gameDef)}{gew:onlistselectionchange} \\
-	& description \\
+	& Updates the window when a game in the list is selected. \\
 	\hline
 \end{longtable}
 
 \class{GameDefinitionListModel}{gamedefinitionlistmodel}
-description \\
+Represents a data model that provides the \ref{cls:gegamelist} with its content. \\
 
 \centerdash
 
@@ -62,14 +62,14 @@ description \\
 \begin{longtable}{Lp{10cm}}
 	\startmethodtable
 	\method{public}{GameDefinitionListModel(Iterable<GameDefinition> definitions)}{gdlm:gamedefinitionlistmodel} \\
-	& description \\
+	& Creates a new game definition list model with the given \ref{cls:gamedefinition}s. \\
 	\method{public GameDefinition}{getGameDefinitionAtIndex(int index)}{gdlm:getgamedefinitionatindex} \\
-	& description \\
+	& Returns the \ref{cls:gamedefinition} at the given index. \\
 	\hline
 \end{longtable}
 
 \class{GEGameInformation}{gegameinformation}
-description \\
+Organizes the output of the screenshot and the description of the game \\
 
 \centerdash
 
@@ -77,9 +77,9 @@ description \\
 \paragraph*{}
 \begin{longtable}{Lp{10cm}}
 	\startmethodtable
-	\method{public boolean}{setDescription(String description}{gegi:setdescription} \\
-	& description \\
+	\method{public boolean}{setDescription(String description)}{gegi:setdescription} \\
+	& Sets the description of the game and updates the display \\
 	\method{public boolean}{setScreenshot(BufferedImage screenshot)}{gegi:setscreenshot} \\
-	& description \\
+	& Sets the screenshot of the game and updates the display \\
 	\hline
 \end{longtable}
