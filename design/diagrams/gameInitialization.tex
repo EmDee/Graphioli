@@ -62,6 +62,7 @@
 
 	% GameManager creates an instance of Game and notifies it
 	\begin{messcall}{gameManager}{Game()}{game} \end{messcall}
+	\begin{call}{gameManager}{registerController(this)}{game}{true} \end{call}
 	\begin{call}{gameManager}{onGameInit()}{game}{true} \end{call}
 
 \end{sequencediagram}
