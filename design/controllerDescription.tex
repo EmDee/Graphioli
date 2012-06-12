@@ -35,8 +35,7 @@ This is the abstract class every \graphioli game has to inherit from. It defines
 
 % GameManager
 \class{GameManager}{gamemanager}
-This is the framework's central class.  \\ \todo{Actual descriptions}
-
+This is the framework's central class connecting the actual game with model and view. ... \todo{some more description!?} \\
 
 \vspace{.5cm}
 \hrule
@@ -45,31 +44,31 @@ This is the framework's central class.  \\ \todo{Actual descriptions}
 \paragraph*{}
 \begin{longtable}{Lp{10cm}}
 	\startmethodtable
-	\method{public static void}{main(String... args)}{gamemanager:main} \\
-	& ... \\
-	\method{private boolean}{openGameExplorer()}{gamemanager:opengameexplorer} \\
-	& ... \\
-	\method{private boolean}{kilGame()}{gamemanager:killgame} \\
-	& ... \\
+	\method{public static void}{main(String... args)}{gm:main} \\
+	& The main method initializes the GameManager to start the whole application. \\
+	\method{private boolean}{openGameExplorer()}{gm:opengameexplorer} \\
+	& Starts the \ref{cls:gameexplorer}. \\
+	\method{private boolean}{killGame()}{gm:killgame} \\
+	& Kills the current running game. \\
 	\method{public boolean}{startGame(GameDefinition gameDefinition)}{gamemanager:startgame} \\
-	& ... \\
-	\method{public boolean}{loadGame()}{gamemanager:loadgame} \\
-	& ... \\
-	\method{public boolean}{saveGame()}{gamemanager:savegame} \\
-	& ... \\
-	\method{public boolean}{finishGame()}{gamemanager:finishgame} \\
-	& ... \\
-	\method{public boolean}{finishGame(Player winner)}{gamemanager:finishgameWinner} \\
-	& ... \\
-	\method{public boolean}{restartGame()}{gamemanager:restartgame} \\
-	& ... \\
-	\method{public boolean}{closeGame()}{gamemanager:closegame} \\
-	& ... \\
-	\method{public PlayerManager}{getPlayerManager()}{gamemanager:getplayermanager} \\
+	& Starts the game specified by the \ref{cls:gamedefinition}. \\
+	\method{public boolean}{loadGame(file savegame)}{gm:loadgame} \\
+	& Creates a \ref{cls:gamecapsule} from the savegame file and loads the informations to start the game in the saved state. \\
+	\method{public boolean}{saveGame(file savegame)}{gm:savegame} \\
+	& Creates a \ref{cls:gamecapsule} and serializes it into a savegame file to save the current state of the game. \\
+	\method{public boolean}{finishGame()}{gm:finishgame} \\
+	& Finishs the game and displays a default Pop Up for single player games. \\
+	\method{public boolean}{finishGame(Player winner)}{gm:finishgameWinner} \\
+	& Finishs the game and displays the winning player in a Pop Up.  \\
+	\method{public boolean}{restartGame()}{gm:restartgame} \\
+	& Restarts the game from the beginning, reseting the \ref{cls:gameboard} and active player to the setting at the beginning. \\
+	\method{public boolean}{closeGame()}{gm:closegame} \\
+	& Closes the game and returns the focus to the Game Explorer. \\
+	\method{public PlayerManager}{getPlayerManager()}{gm:getplayermanager} \\
 	& Returns the \ref{playermanager} associated with this GameManager.\\
-	\method{public ViewManager}{getViewManager()}{gamemanager:getviewmanager} \\
+	\method{public ViewManager}{getViewManager()}{gm:getviewmanager} \\
 	& Returns the \ref{viewmanager} associated with this GameManager.\\
-	\method{public GameBoard}{getGameBoard()}{gamemanager:getgameboard} \\
+	\method{public GameBoard}{getGameBoard()}{gm:getgameboard} \\
 	& Returns the \ref{GameBoard} associated with this GameManager.\\
 	
 
@@ -124,17 +123,16 @@ This class is responible for keeping information about a game's players.  \\
 \paragraph*{}
 \begin{longtable}{Lp{10cm}}
 	\startmethodtable
-
-	\method{public}{PlayerManager(Iterable<Player> players)}{playermanager:playermanager} \\
+	\method{public}{PlayerManager(Iterable<Player> players)}{pm:playermanager} \\
 	& Constructs a \texttt{PlayerManager} with the given set of \ref{cls:player}s. \\
-	\method{private boolean}{initializePlayers()}{playermanager:initializeplayers} \\
-	& ... \\
-	\method{public Iterable<Player> players}{getPlayers()}{playermanager:getplayers} \\
+	\method{private boolean}{initializePlayers()}{pm:initializeplayers} \\
+	& Initializes registered players. \\
+	\method{public Iterable<Player> players}{getPlayers()}{pm:getplayers} \\
 	& Returns the list of \ref{cls:player}s managed by this instance. \\
-	\method{public Player}{getActivePlayer()}{playermanager:getactiveplayer} \\
+	\method{public Player}{getActivePlayer()}{pm:getactiveplayer} \\
 	& Returns the \ref{cls:player}, who is currently active. \\
-	\method{public Player}{nextPlayer()}{playermanager:nextplayer} \\
-	& Sets the next \ref{cls:player} in the list ato active. \\
+	\method{public Player}{nextPlayer()}{pm:nextplayer} \\
+	& Sets the next \ref{cls:player} in the list to active. \\
 	
 	
 	\hline
@@ -146,7 +144,9 @@ This class is responible for keeping information about a game's players.  \\
 
 %Graphcoloring
 \class{GraphColoring}{graphcoloring}
-...  \\
+\createindentedlist{de.graphioli.controller.Game, de.graphioli.controller.GraphColoring}
+
+Our implemented game containing the game's logic of Graph Coloring. \\
 
 \vspace{.5cm}
 \hrule
@@ -156,14 +156,16 @@ This class is responible for keeping information about a game's players.  \\
 \begin{longtable}{Lp{10cm}}
 	\startmethodtable
 
-	\method{private boolean}{generateBoard()}{graphcoloring:generateboard} \\
-	& ... \\		
+	\method{private boolean}{generateBoard()}{gc:generateboard} \\
+	& Generates the \ref{cls:gameboard} used to play the game. \\		
 	\hline
 \end{longtable}
 
 %TwixT
 \class{TwixT}{twixt}
-...  \\
+\createindentedlist{de.graphioli.controller.Game, de.graphioli.controller.TwixT}
+
+Our implemented game containing the game's logic of TwixT. \\
 
 \vspace{.5cm}
 \hrule
@@ -174,7 +176,7 @@ This class is responible for keeping information about a game's players.  \\
 	\startmethodtable
 
 	\method{private boolean}{generateBoard()}{twixt:generateboard} \\
-	& ... \\		
+	& Generates the \ref{cls:gameboard} used to play the game. \\		
 	\hline
 \end{longtable}
 
