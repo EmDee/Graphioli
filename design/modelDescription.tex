@@ -54,6 +54,25 @@ This class represents the \texttt{Grid}, which the \ref{cls:graph} will be locat
 	\hline
 \end{longtable}
 
+% GridPoint
+\class{GridPoint}{gridpoint}
+This class represents a \texttt{GridPoint} on a \texttt{Grid}. \\
+
+\centerdash
+
+\paragraph*{Method Summary}
+\paragraph*{}
+\begin{longtable}{Lp{10cm}}
+	\startmethodtable
+	\method{public}{GridPoint(int positionX, int positionY)}{gp:gridpoint} \\
+	& Creates a new \texttt{GridPoint} with the specified positions \texttt{positionX} and \texttt{positionY}. \\
+	\method{public int}{getPositionX()}{gp:getpositionx} \\
+	& Returns the x coordinates of the \texttt{GridPoint}. \\
+	\method{public int}{getPositionY()}{gp:getpositiony} \\
+	& Returns the y coordinates of the \texttt{GridPoint}. \\
+	\hline
+\end{longtable}
+
 % Graph
 \class{Graph}{graph}
 This class represents the logical graph. \\
@@ -109,7 +128,7 @@ This class represents the logical vertex. \\
 
 % VisualVertex
 \class{VisualVertex}{visualvertex}
-This class represents a \ref{visualvertex}. \\
+This class represents a VisualVertex. \\
 
 \subclasses{cls:graphicvisualvertex, cls:simplevisualvertex}
 
