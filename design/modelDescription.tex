@@ -368,32 +368,32 @@ This class represents the game's definition. All crucial information that is nee
 \begin{longtable}{Lp{10cm}}
 	\startmethodtable
 	\method{public}{GameDefinition({params})}{gd:gamedefinition} \\
-	& . \\
+	& Creates a new \texttt{GameDefinition} with the specified parameters. \\
 	\method{public String}{getName()}{gd:getname} \\
-	& . \\
+	& Returns the \texttt{name} of this \texttt{GameDefinition}, which is the name of the game. \\
 	\method{public int}{getMaxPlayerCount()}{gd:getmaxplayercount} \\
-	& . \\
+	& Returns the maximum number of players for this specific game. \\
 	\method{public int}{getMinPlayerCount()}{gd:getminplayercount} \\
-	& . \\
+	& Returns the minimum number of players for this specific game. \\
 	\method{public String}{getGamePath()}{gd:getgamepath} \\
-	& . \\
+	& Returns the path of this specific game. \\ \todo{brauchen wir getgamepath, wenn wir schon den namen von dem Spiel haben?}
 	\method{public String}{getDescription()}{gd:getdescription} \\
-	& . \\
+	& Returns the description of this specific game. \\
 	\method{public String}{getFullyQualifiedClassName()}{gd:getfullyqualifiedclassname} \\
-	& . \\
+	& Returns the exact file name of this specific game within the \texttt{.jar} file. \\
 	\method{public BufferedImage}{getScreenshot()}{gd:getscreenshot} \\
-	& . \\
+	& Returns a \texttt{BufferedImage} that is this game's screenshot. \\
 	\method{public File}{getLocalizedString()}{gd:getlocalizedstring} \\
-	& . \\
+	& Returns a \texttt{String} telling which language file should be used. \\
 	\method{public URI}{getHelpFile()}{gd:gethelpfile} \\
-	& . \\
+	& Returns the \texttt{URI} that links to the help file of this game. \\
 	\method{public Iterable<Player>}{getPlayers()}{gd:getplayers} \\
-	& . \\
+	& Returns an iterable list of \ref{cls:player}s that will be used to initialize \ref{cls:player}s. \\
 	\method{public Iterable<MenuItem>}{getMenu()}{gd:getmenu} \\
-	& . \\
+	& Returns an iterable list of \texttt{MenuItem}s that will be used to generate the \texttt{MenuBar}. \\
 	\method{public int}{getHorizontalGridPointCount()}{gd:gethorizontalgridpointcount} \\
-	& . \\
+	& Returns the number of horizontal \ref{cls:gridpoint}s for this specific game. \\
 	\method{public int}{getVerticalGridPointCount()}{gd:getverticalgridpointcount} \\
-	& . \\
+	& Returns the number of vertical \ref{cls:gridpoint}s for this specific game. \\
 	\hline
 \end{longtable}
