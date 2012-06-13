@@ -354,3 +354,46 @@ This class represents a \texttt{GameCapsule} that holds all the important data, 
 	& Returns the current active \ref{cls:player} of this \texttt{GameCapsule}. \\
 	\hline
 \end{longtable}
+
+\pagebreak
+
+% GameDefinition
+\class{GameDefinition}{gamedefinition}
+This class represents the game's definition. All crucial information that is needed before a game can be started will be saved in a new instance of this \texttt{GameDefinition}.
+
+\centerdash
+
+\paragraph*{Method Summary}
+\paragraph*{}
+\begin{longtable}{Lp{10cm}}
+	\startmethodtable
+	\method{public}{GameDefinition({params})}{gd:gamedefinition} \\
+	& . \\
+	\method{public String}{getName()}{gd:getname} \\
+	& . \\
+	\method{public int}{getMaxPlayerCount()}{gd:getmaxplayercount} \\
+	& . \\
+	\method{public int}{getMinPlayerCount()}{gd:getminplayercount} \\
+	& . \\
+	\method{public String}{getGamePath()}{gd:getgamepath} \\
+	& . \\
+	\method{public String}{getDescription()}{gd:getdescription} \\
+	& . \\
+	\method{public String}{getFullyQualifiedClassName()}{gd:getfullyqualifiedclassname} \\
+	& . \\
+	\method{public BufferedImage}{getScreenshot()}{gd:getscreenshot} \\
+	& . \\
+	\method{public File}{getLocalizedString()}{gd:getlocalizedstring} \\
+	& . \\
+	\method{public URI}{getHelpFile()}{gd:gethelpfile} \\
+	& . \\
+	\method{public Iterable<Player>}{getPlayers()}{gd:getplayers} \\
+	& . \\
+	\method{public Iterable<MenuItem>}{getMenu()}{gd:getmenu} \\
+	& . \\
+	\method{public int}{getHorizontalGridPointCount()}{gd:gethorizontalgridpointcount} \\
+	& . \\
+	\method{public int}{getVerticalGridPointCount()}{gd:getverticalgridpointcount} \\
+	& . \\
+	\hline
+\end{longtable}
