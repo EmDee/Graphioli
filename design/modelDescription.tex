@@ -128,6 +128,7 @@ This class represents the logical vertex. \\
 
 % VisualVertex
 \class{VisualVertex}{visualvertex}
+\createindentedlist{de.graphioli.model.Vertex, de.graphioli.model.VisualVertex}
 This class represents a VisualVertex. \\
 
 \subclasses{cls:graphicvisualvertex, cls:simplevisualvertex}
@@ -155,6 +156,7 @@ This class represents a VisualVertex. \\
 
 % SimpleVisualVertex
 \class{SimpleVisualVertex}{simplevisualvertex}
+\createindentedlist{de.graphioli.model.Vertex, de.graphioli.model.VisualVertex, de.graphioli.model.SimpleVisualVertex}
 This class represents a simple \ref{cls:visualvertex} with predefined attributes.\\
 
 \subclasses{cls:graphcoloringvertex}
@@ -182,6 +184,7 @@ This class represents a simple \ref{cls:visualvertex} with predefined attributes
 
 % GraphColoringVertex
 \class{GraphColoringVertex}{graphcoloringvertex}
+\createindentedlist{de.graphioli.model.Vertex, de.graphioli.model.VisualVertex, de.graphioli.model.SimpleVisualVertex, de.graphioli.model.GraphColoringVertex}
 This class represents a \texttt{GraphColoringVertex}. \\
 
 \centerdash
@@ -207,6 +210,7 @@ This class represents a \texttt{GraphColoringVertex}. \\
 
 % GraphicVisualVertex
 \class{GraphicVisualVertex}{graphicvisualvertex}
+\createindentedlist{de.graphioli.model.Vertex, de.graphioli.model.VisualVertex, de.graphioli.model.GraphicVisualVertex}
 This class represents a \ref{cls:visualvertex} with a custom icon. \\
 
 \subclasses{cls:twixtvertex}
@@ -232,6 +236,7 @@ This class represents a \ref{cls:visualvertex} with a custom icon. \\
 
 % TwixtVertex
 \class{TwixtVertex}{twixtvertex}
+\createindentedlist{de.graphioli.model.Vertex, de.graphioli.model.VisualVertex, de.graphioli.model.GraphicVisualVertex,  de.graphioli.model.TwixtVertex}
 This class represents a \texttt{TwixtVertex}. \\
 
 \centerdash
@@ -276,12 +281,14 @@ This class represents an \texttt{Edge}. \\
 
 % VisualEdge
 \abstractclass{VisualEdge}{visualedge}
+\createindentedlist{de.graphioli.model.Edge, de.graphioli.model.VisualEdge}
 This class represents a \texttt{VisualEdge}.
 
 \subclasses{cls:simplevisualedge}
 
 % SimpleVisualEdge
 \class{SimpleVisualEdge}{simplevisualedge}
+\createindentedlist{de.graphioli.model.Edge, de.graphioli.model.VisualEdge, de.graphioli.model.SimpleVisualEdge}
 This class represents an \texttt{Edge} with different attributes (color, stroke and stroke weight). \\
 
 \centerdash
@@ -324,4 +331,26 @@ This abtract class represents a \texttt{player}. \\
 
 % LocalPlayer
 \class{LocalPlayer}{localplayer}
+\createindentedlist{de.graphioli.model.Player, de.graphioli.model.LocalPlayer}
 This class represents a \texttt{LocalPlayer}.
+
+% GameCapsule
+\class{GameCapsule}{gamecapsule}
+This class represents a \texttt{GameCapsule} that holds all the important data, which are absolutely neccessary. A \gls{savegame} will be saved in such a \texttt{GameCapsule}, which later on can be loaded to resume a game.
+
+\centerdash
+
+\paragraph*{Method Summary}
+\paragraph*{}
+\begin{longtable}{Lp{10cm}}
+	\startmethodtable
+	\method{public}{GameCapsule(GameBoard board, Iterable<Player> player, Player activePlayer)}{gc:gamecapsule} \\
+	& Creates a new \texttt{GameCapsule} with the specified parameters. \\
+	\method{public GameBoard}{getBoard()}{gc:getboard} \\
+	& Returns the \ref{cls:gameboard} of this \texttt{GameCapsule}. \\
+	\method{public Iterable<Player>}{getPlayers()}{gc:getplayers} \\
+	& Returns an iterable list of \ref{cls:player}s of this \texttt{GameCapsule}. \\
+	\method{public Player}{getActivePlayer}{gc:getActivePlayer} \\
+	& Returns the current active \ref{cls:player} of this \texttt{GameCapsule}. \\
+	\hline
+\end{longtable}
