@@ -7,8 +7,7 @@ This is the abstract class every \graphioli game has to inherit from. It defines
 
 \subclasses{cls:graphcoloring, cls:twixt}
 
-\vspace{.5cm}
-\hrule
+\centerdash
 
 \paragraph*{Method Summary}
 \paragraph*{}
@@ -37,8 +36,7 @@ This is the abstract class every \graphioli game has to inherit from. It defines
 \class{GameManager}{gamemanager}
 This is the framework's central class connecting the actual game with model and view. ... \todo{some more description!?} \\
 
-\vspace{.5cm}
-\hrule
+\centerdash
 
 \paragraph*{Method Summary}
 \paragraph*{}
@@ -49,7 +47,7 @@ This is the framework's central class connecting the actual game with model and 
 	\method{private boolean}{openGameExplorer()}{gm:opengameexplorer} \\
 	& Starts the \ref{cls:gameexplorer}. \\
 	\method{private boolean}{killGame()}{gm:killgame} \\
-	& Kills the current running game. \\
+	& Kills the currently running game. \\
 	\method{public boolean}{startGame(GameDefinition gameDefinition)}{gamemanager:startgame} \\
 	& Starts the game specified by the \ref{cls:gamedefinition}. \\
 	\method{public boolean}{loadGame(file savegame)}{gm:loadgame} \\
@@ -59,9 +57,9 @@ This is the framework's central class connecting the actual game with model and 
 	\method{public boolean}{finishGame()}{gm:finishgame} \\
 	& Finishs the game and displays a default Pop Up for single player games. \\
 	\method{public boolean}{finishGame(Player winner)}{gm:finishgameWinner} \\
-	& Finishs the game and displays the winning player in a Pop Up.  \\
+	& Finishs the game and displays the winning \ref{player} in a Pop Up.  \\
 	\method{public boolean}{restartGame()}{gm:restartgame} \\
-	& Restarts the game from the beginning, reseting the \ref{cls:gameboard} and active player to the setting at the beginning. \\
+	& Restarts the game from the beginning, reseting the \ref{cls:gameboard} and players. \\
 	\method{public boolean}{closeGame()}{gm:closegame} \\
 	& Closes the game and returns the focus to the Game Explorer. \\
 	\method{public PlayerManager}{getPlayerManager()}{gm:getplayermanager} \\
@@ -79,8 +77,7 @@ This is the framework's central class connecting the actual game with model and 
 \class{ViewManager}{viewmanager}
 This class acts as an interface between the \gls{GUI} and the other parts of the \gls{framework}. It pushes update notifications to the view and receives user input from it.  \\
 
-\vspace{.5cm}
-\hrule
+\centerdash
 
 \paragraph*{Method Summary}
 \paragraph*{}
@@ -116,8 +113,7 @@ This class acts as an interface between the \gls{GUI} and the other parts of the
 \class{PlayerManager}{playermanager}
 This class is responible for keeping information about a game's players.  \\
 
-\vspace{.5cm}
-\hrule
+\centerdash
 
 \paragraph*{Method Summary}
 \paragraph*{}
@@ -146,10 +142,9 @@ This class is responible for keeping information about a game's players.  \\
 \class{GraphColoring}{graphcoloring}
 \createindentedlist{de.graphioli.controller.Game, de.graphioli.controller.GraphColoring}
 
-Our implemented game containing the game's logic of Graph Coloring. \\
+Our implemented game containing the game's logic of Graph Coloring in single and multiplayer mode. \\
 
-\vspace{.5cm}
-\hrule
+\centerdash
 
 \paragraph*{Method Summary}
 \paragraph*{}
@@ -167,8 +162,7 @@ Our implemented game containing the game's logic of Graph Coloring. \\
 
 Our implemented game containing the game's logic of TwixT. \\
 
-\vspace{.5cm}
-\hrule
+\centerdash
 
 \paragraph*{Method Summary}
 \paragraph*{}

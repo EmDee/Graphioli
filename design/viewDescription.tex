@@ -11,17 +11,17 @@ View is an interface for implementation of the (graphical) user interface. \\
 \begin{longtable}{Lp{10cm}}
 	\startmethodtable
 	\method{public boolean}{registerController(ViewManager controller)}{view:registercontroller} \\
-	& Registers the controller for the user interface. \\
+	& Registers a \ref{cls:viewmanager} as the controller for the user interface. \\
 	\method{public boolean}{displayPopUp(String message)}{view:displaypopup} \\
-	& Displays a PopUp message. \\
+	& Displays a message in a popup. \\
 	\method{public boolean}{addCustomMenuItem(MenuItem item)}{view:addcustommenuitem} \\
-	& Adds a custom menu item to the menu (here: \ref{cls:menubar}). \\ 
+	& Adds a custom menu item to the menu (in the \ref{cls:menubar}). \\ 
 	\method{public boolean}{updatePlayerStatus(Player player)}{view:updateplayerstatus}\\
-	& Updates the current player shown in the status bar (\ref{cls:statusbar}). \\
+	& Updates the current \ref{cls:player} shown in the \ref{cls:statusbar}. \\
 	\method{public boolean}{displayErrorMessage(String message)}{view:displayerrormessage} \\
-	& Displays a error message in the status bar (\ref{cls:statusbar}). \\
+	& Displays a error message in the \ref{cls:statusbar}. \\
 	\method{public boolean}{redrawGraph()}{view:redrawgraph} \\
-	& Redraws the graph displayed in the canvas (\ref{cls:graphcanvas}). \\ \hline
+	& Redraws the graph displayed in the \ref{cls:graphcanvas}. \\ \hline
 \end{longtable}
 
 % GameWindow
@@ -66,7 +66,7 @@ This class handles the keyboard input. \\
 \class{GraphCanvas}{graphcanvas}
 \createindentedlist{java.lang.Object, java.awt.Component, java.awt.Container, javax.swing.JComponent, javax.swing.JPanel, de.graphioli.view.GraphCanvas}
 
-This class is responsible for displaying the graph and handles mouse clicks with \ref{cls:visualgrid}. \\ 
+This class is responsible for displaying the \ref{cls:graph} and \ref{cls:grid} and handles mouse clicks through the \ref{cls:visualgrid}. \\ 
 \centerdash
 
 \paragraph*{Method Summary}
@@ -82,7 +82,7 @@ This class is responsible for displaying the graph and handles mouse clicks with
 % VisualGrid
 \class{VisualGrid}{visualgrid}
 
-This class handles mouse input and serves as an connector between \ref{cls:grid} and display. \\ 
+This class handles mouse input and serves as an connector between \ref{cls:grid} and display and handles the size of the drawn \ref{cls:visualvertex}. \\ 
 \begin{description}
 	\item[All Implemented Interfaces] \hfill \\
 	java.awt.event.MouseListener
@@ -135,7 +135,7 @@ Listens to one specific \ref{cls:menuitem} in the \ref{cls:menubar} and forwards
 \begin{longtable}{Lp{10cm}}
 	\startmethodtable
 	\method{public}{CustomMenuItemListener(GameWindow window, MenuItem item)}{cmil:custommenuitemlistener} \\
-	& Creates a CustomMenuItemListener and registers its specific \ref{cls:menuitem} and the parent \ref{cls:gamewindow}. \\ \hline
+	& Creates a CustomMenuItemListener and registers its specific MenuItem and the parent \ref{cls:gamewindow}. \\ \hline
 \end{longtable}
 
 % StatusBar
@@ -152,7 +152,7 @@ This class represents a status bar at the bottom of the \ref{cls:gamewindow} and
 	\method{public String}{getStatus()}{sb:getstatus} \\
 	& Returns the currently shown status message. \\
 	\method{public boolean}{updatePlayerStatus(Player player)}{sb:updateplayerstatus} \\
-	& Updates and displays the current player. \\
+	& Updates and displays the current \ref{cls:player}. \\
 	\method{public boolean}{displayErrorMessage(String message)}{sb:displayerrormessage} \\
-	& Updates and displays the current player. \\ \hline
+	& Displays the error message. \\ \hline
 \end{longtable}
