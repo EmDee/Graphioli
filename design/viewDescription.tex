@@ -2,8 +2,8 @@
 
 % Interface View
 \interface{View}{view}
-
 View is an interface for implementation of the (graphical) user interface. \\ 
+
 \centerdash
 
 \paragraph*{Method Summary}
@@ -21,16 +21,16 @@ View is an interface for implementation of the (graphical) user interface. \\
 	\method{public boolean}{displayErrorMessage(String message)}{view:displayerrormessage} \\
 	& Displays a error message in the \ref{cls:statusbar}. \\
 	\method{public boolean}{redrawGraph()}{view:redrawgraph} \\
-	& Redraws the graph displayed in the \ref{cls:graphcanvas}. \\ \hline
+	& Redraws the graph displayed in the \ref{cls:graphcanvas}. \\ 
+	\hline
 \end{longtable}
 
 % GameWindow
 \class{GameWindow}{gamewindow}
 \createindentedlist{java.lang.Object, java.awt.Component, java.awt.Container, java.awt.Window, java.awt.Frame, javax.swing.JFrame, de.graphioli.view.GameWindow}
-
 This class is the actual game window containing \ref{cls:graphcanvas}, \ref{cls:statusbar} and \ref{cls:menubar}. It handles keyboard inputs with \ref{cls:customkeydispatcher}. \\ 
-
 \interfaces{cls:view}
+
 \centerdash
 
 \paragraph*{Method Summary}
@@ -40,18 +40,19 @@ This class is the actual game window containing \ref{cls:graphcanvas}, \ref{cls:
 	\method{public ViewManager}{getViewManager()}{gw:getviewmanager} \\
 	& Returns the  associated \ref{cls:viewmanager}. \\
 	\method{public boolean}{onKeyRelease(int keyCode)}{gw:onkeyrelease} \\
-	& Forwards the key input to the \ref{cls:viewmanager}. \\ \hline
+	& Forwards the key input to the \ref{cls:viewmanager}. \\
+	\hline
 \end{longtable}
 
 % CustomKeyDispatcher
 \class{CustomKeyDispatcher}{customkeydispatcher}
-
 This class handles the keyboard input. \\ 
 
 \begin{description}
 	\item[All Implemented Interfaces] \hfill \\
 	java.awt.KeyEventDispatcher
 \end{description}
+
 \centerdash
 
 \paragraph*{Method Summary}
@@ -59,14 +60,15 @@ This class handles the keyboard input. \\
 \begin{longtable}{Lp{10cm}}
 	\startmethodtable
 	\method{public}{CustomKeyDispatcher(GameWindow gamewindow)}{ckd:customkeydispatcher} \\
-	& Creates a CustomKeyDispatcher and registers its parent \ref{cls:gamewindow}. \\\hline
+	& Creates a \texttt{CustomKeyDispatcher} and registers its parent \ref{cls:gamewindow}. \\
+	\hline
 \end{longtable}
 
 % GraphCanvas
 \class{GraphCanvas}{graphcanvas}
 \createindentedlist{java.lang.Object, java.awt.Component, java.awt.Container, javax.swing.JComponent, javax.swing.JPanel, de.graphioli.view.GraphCanvas}
-
 This class is responsible for displaying the \ref{cls:graph} and \ref{cls:grid} and handles mouse clicks through the \ref{cls:visualgrid}. \\ 
+
 \centerdash
 
 \paragraph*{Method Summary}
@@ -74,14 +76,14 @@ This class is responsible for displaying the \ref{cls:graph} and \ref{cls:grid} 
 \begin{longtable}{Lp{10cm}}
 	\startmethodtable
 	\method{public}{GraphCanvas(GameWindow parent)}{gc:graphcanvas} \\
-	& Creates a GraphCanvas and registers its parent \ref{cls:gamewindow}. \\
+	& Creates a \texttt{GraphCanvas} and registers its parent \ref{cls:gamewindow}. \\
 	\method{public boolean}{updateCanvas()}{gc:updatecanvas} \\
-	& Updates and redraws the canvas. \\ \hline
+	& Updates and redraws the canvas. \\ 
+	\hline
 \end{longtable}
 
 % VisualGrid
 \class{VisualGrid}{visualgrid}
-
 This class handles mouse input and serves as an connector between \ref{cls:grid} and display and handles the size of the drawn \ref{cls:visualvertex}. \\ 
 \begin{description}
 	\item[All Implemented Interfaces] \hfill \\
@@ -94,20 +96,21 @@ This class handles mouse input and serves as an connector between \ref{cls:grid}
 \begin{longtable}{Lp{10cm}}
 	\startmethodtable
 	\method{public}{VisualGrid(GameWindow gamewindow)}{vg:visualgrid} \\
-	& Creates a VisualGrid and registers its parent \ref{cls:gamewindow}. \\
+	& Creates a \texttt{VisualGrid} and registers its parent \ref{cls:gamewindow}. \\
 	\method{private GridPoint}{parseCoordinates(int xCoord, int yCoord)}{vs:parsecoordinates} \\
 	& Parses the coordinates of the mouse click to the specific \ref{cls:gridpoint}. \\
 	\method{public boolean}{setVisualVertexSize(int size)}{vs:setvisualvertexsize} \\
 	& Sets the size of the displayed vertices up to a grid specific maximum value. \\
 	\method{public int}{getVisualVertexSize()}{vs:getvisualvertexsize} \\
-	& Returns the size of the displayed vertices. \\ \hline
+	& Returns the size of the displayed vertices. \\ 
+	\hline
 \end{longtable}
 
 % MenuBar
 \class{MenuBar}{menubar}
 \createindentedlist{java.lang.Object, java.awt.Component, java.awt.Container, javax.swing.JComponent, javax.swing.JMenuBar, de.graphioli.view.MenuBar}
+The \texttt{MenuBar} contains the game menu, options menu and help menu, is displayed at the top of the \ref{cls:gamewindow} and starts the standard menu item specific methods. \\
 
-The MenuBar contains the game menu, options menu and help menu, is displayed at the top of the \ref{cls:gamewindow} and starts the standard menu item specific methods. \\ 
 \centerdash
 
 \paragraph*{Method Summary}
@@ -115,19 +118,20 @@ The MenuBar contains the game menu, options menu and help menu, is displayed at 
 \begin{longtable}{Lp{10cm}}
 	\startmethodtable
 	\method{public}{MenuBar(GameWindow parent)}{mb:menubar} \\
-	& Creates the MenuBar and registers its parent \ref{cls:gamewindow}. \\
+	& Creates the \texttt{MenuBar} and registers its parent \ref{cls:gamewindow}. \\
 	\method{public boolean}{addCustomMenuItem(MenuItem item)}{mb:addcustommenuitem} \\
-	& Adds a MenuItem to the options menu. \\ \hline
+	& Adds a \texttt{MenuItem} to the options menu. \\ 
+	\hline
 \end{longtable}
 
 %CustomMenuItemListener
 \class{CustomMenuItemListener}{custommenuitemlistener}
-
-Listens to one specific MenuItem in the \ref{cls:menubar} and forwards it to the \ref{cls:viewmanager} if it is selected. \\
+Listens to one specific \texttt{MenuItem} in the \ref{cls:menubar} and forwards it to the \ref{cls:viewmanager} if it is selected. \\
 \begin{description}
 	\item[All Implemented Interfaces] \hfill \\
 		java.awt.event.ActionsListener
 \end{description}
+
 \centerdash
 
 \paragraph*{Method Summary}
@@ -135,14 +139,15 @@ Listens to one specific MenuItem in the \ref{cls:menubar} and forwards it to the
 \begin{longtable}{Lp{10cm}}
 	\startmethodtable
 	\method{public}{CustomMenuItemListener(GameWindow window, MenuItem item)}{cmil:custommenuitemlistener} \\
-	& Creates a CustomMenuItemListener and registers its specific MenuItem and the parent \ref{cls:gamewindow}. \\ \hline
+	& Creates a \texttt{CustomMenuItemListener} and registers its specific \texttt{MenuItem} and the parent \ref{cls:gamewindow}. \\ 
+	\hline
 \end{longtable}
 
 % StatusBar
 \class{StatusBar}{statusbar}
 \createindentedlist{java.lang.Object, java.awt.Component, java.awt.Container, javax.swing.JComponent, javax.swing.JPanel, de.graphioli.view.StatusBar}
+This class represents a \texttt{status bar} at the bottom of the \ref{cls:gamewindow} and displays the current player and short error messages. \\
 
-This class represents a status bar at the bottom of the \ref{cls:gamewindow} and displays the current player and short error messages. \\
 \centerdash
 
 \paragraph*{Method Summary}
@@ -154,5 +159,6 @@ This class represents a status bar at the bottom of the \ref{cls:gamewindow} and
 	\method{public boolean}{updatePlayerStatus(Player player)}{sb:updateplayerstatus} \\
 	& Updates and displays the current \ref{cls:player}. \\
 	\method{public boolean}{displayErrorMessage(String message)}{sb:displayerrormessage} \\
-	& Displays the error message. \\ \hline
+	& Displays the error message. \\ 
+	\hline
 \end{longtable}
