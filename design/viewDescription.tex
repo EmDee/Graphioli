@@ -117,13 +117,13 @@ The MenuBar contains the game menu, options menu and help menu, is displayed at 
 	\method{public}{MenuBar(GameWindow parent)}{mb:menubar} \\
 	& Creates the MenuBar and registers its parent \ref{cls:gamewindow}. \\
 	\method{public boolean}{addCustomMenuItem(MenuItem item)}{mb:addcustommenuitem} \\
-	& Adds a \ref{cls:menuitem} to the options menu. \\ \hline
+	& Adds a MenuItem to the options menu. \\ \hline
 \end{longtable}
 
 %CustomMenuItemListener
 \class{CustomMenuItemListener}{custommenuitemlistener}
 
-Listens to one specific \ref{cls:menuitem} in the \ref{cls:menubar} and forwards it to the \ref{cls:viewmanager} if it is selected. \\
+Listens to one specific MenuItem in the \ref{cls:menubar} and forwards it to the \ref{cls:viewmanager} if it is selected. \\
 \begin{description}
 	\item[All Implemented Interfaces] \hfill \\
 		java.awt.event.ActionsListener
