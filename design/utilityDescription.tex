@@ -2,7 +2,7 @@
 
 % Validation
 \static{Validation}{validation}
-...  \\
+This class provides static methods for checking the validity of given values. \\
 
 \vspace{.5cm}
 \hrule
@@ -12,17 +12,17 @@
 \begin{longtable}{Lp{10cm}}
 	\startmethodtable
 
-	\method{public boolean}{isValidFile(File file)}{validation:isvalidfile} \\
-	& ... \\
-	\method{public boolean}{isValidPlayerName(String name)}{validation:isvalidplayername} \\
-	& ... \\
+	\method{public static boolean}{isValidFile(File file)}{validation:isvalidfile} \\
+	& Checks if the given file is valid. \\
+	\method{public static boolean}{isValidPlayerName(String name)}{validation:isvalidplayername} \\
+	& Checks if the given string is a valid player name. \\
 		
 	\hline
 \end{longtable}
 
 % UIDManager
-\class{UIDManager}{uidmanager} \todo{static}
-...  \\
+\static{UIDManager}{uidmanager}
+This class is responsible for creating unique \glspl{ID}.  \\
 
 \vspace{.5cm}
 \hrule
@@ -32,10 +32,10 @@
 \begin{longtable}{Lp{10cm}}
 	\startmethodtable
 
-	\method{public UUID}{generateUniqueID()}{uidmanager:generateuniqueid} \\
-	& ... \\
-	\method{private boolean}{isUnique(UUID uuid)}{uidmanager:isunique} \\
-	& ... \\
+	\method{public static UUID}{generateUniqueID()}{uidmanager:generateuniqueid} \\
+	& Generates a unique \gls{ID} \\
+	\method{private static boolean}{isUnique(UUID uuid)}{uidmanager:isunique} \\
+	& Helper method, which ensures that a gernerated \gls{ID} is really unique. \\
 		
 	\hline
 \end{longtable}
