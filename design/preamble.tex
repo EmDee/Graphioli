@@ -24,6 +24,7 @@
 % \linenumbers
 \usepackage{lipsum} % just to generate some text
 \usepackage{../materials/resources/dashrule} % for dashed rules
+\usepackage{titlesec} % change size of sectioning/font size
 \usepackage[nonumberlist,acronym,toc,section]{glossaries} % must be the last package to include
 
 \setlength{\parindent}{0cm}
@@ -94,3 +95,15 @@ l}
  }
 \int_new:N \cil_iteration_int
 \ExplSyntaxOff
+
+% change size of sectioning
+\titleformat{\section}
+{\normalfont\sffamily\huge\bfseries}{\thesection}{1em}{}
+\titleformat{\subsection}
+{\normalfont\sffamily\LARGE\bfseries}{\thesubsection}{1em}{}
+\titleformat{\subsubsection}
+{\normalfont\sffamily\Large\bfseries}{\thesubsubsection}{1em}{}
+\titleformat{\paragraph}[runin]
+{\normalfont\sffamily\Large\bfseries}{\theparagraph}{1em}{}
+\titleformat{\subparagraph}[runin]
+{\normalfont\sffamily\Large\bfseries}{\thesubparagraph}{1em}{}
