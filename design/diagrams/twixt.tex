@@ -8,35 +8,32 @@
 
 \begin{document}
 \begin{sequencediagram}
-	
+
 	\newthread{pm}{:PlayerManager}	
-	\newthread{view}{:ViewManager}	
-	\newthread{gm}{:GameManager}
+	\newthread{view}{:ViewManager}
 	\newinst[1]{twx}{:TwixT}
 	\newinst[1]{brd}{:GameBoard}
-	\newinst{vtx}{:TwixTVertex}
+	\newinst{vtx}{tVertex:TwixTVertex}
 	\newinst[1]{pla}{:PlanarityCheck}
 	\newinst{pth}{:FindPath}
 	
 	\begin{sdblock}{Vertex Creation}{}
-	\mess{view}{click}{gm}
-	\begin{call}{gm}{onGridPointClick{()}}{twx}{}
-			\begin{call}{twx}{create}{vtx}{} \end{call}
-			\begin{call}{twx}{addVisualVertex()}{brd}{true} \end{call}
+	\begin{call}{view}{onEmptyGridPointClick(GridPoint)}{twx}{true}
+			\begin{messcall}{twx}{TwixTVertex()}{vtx} \end{messcall}
+			\begin{call}{twx}{addVisualVertex(tVertex)}{brd}{true} \end{call}
 			\begin{call}{twx}{nextPlayer()}{pm}{true} \end{call}
 	\end{call}
+	\mess{view}{redrawGraph()}{view}
 	\end{sdblock}
 
 	\begin{sdblock}{Edge Creation}{}
-	\mess{view}{click}{gm}
-	\begin{call}{gm}{getVertexAtGridPoint()}{brd}{Vertex} \end{call}
-	\begin{call}{gm}{onVertexClick{()}}{twx}{}
-			\begin{call}{twx}{createVisualEdge()}{brd}{VisualEdge} \end{call}
+	\begin{call}{view}{onVisualVertexClick(VertexB)}{twx}{true}
+			\begin{call}{twx}{createVisualEdge(VertexA, VertexB)}{brd}{VisualEdge} \end{call}
 			\begin{call}{twx}{performAlgorithm()}{pla}{true}\end{call}
 			\begin{call}{twx}{performAlgorithm()}{pth}{false}\end{call}
 			\begin{call}{twx}{nextPlayer()}{pm}{true} \end{call}
 	\end{call}
-	\mess{gm}{drawGraph}{view}
+	\mess{view}{redrawGraph()}{view}
 	\end{sdblock}
 	
 

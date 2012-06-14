@@ -20,31 +20,30 @@
 	\newthread{gm}{:GameManager}
 	\newinst[1]{gcg}{:GraphColoring}
 	\newinst[1]{brd}{:GameBoard}
-	\newinst{vtx}{:GraphColoringVertex}
+	\newinst{vtx}{gcVertex:GraphColoringVertex}
 	
 	\begin{call}{gm}{onGameInit()}{gcg}{true} \end{call}
 	\begin{call}{gm}{onGameStart()}{gcg}{true} 
 		\begin{call}{gcg}{generateBoard()}{gcg}{}
 		\begin{call}{gcg}{getBoard()}{gm}{GameBoard} \end{call}
 		\begin{sdblock}{Level Creation Loop}{}
-			\begin{call}{gcg}{create}{vtx}{} \end{call}
-			\begin{call}{gcg}{addVisualVertex()}{brd}{true} \end{call}
+			\begin{messcall}{gcg}{GraphColoringVertex()}{vtx} \end{messcall}
+			\begin{call}{gcg}{addVisualVertex(gcVertex)}{brd}{true} \end{call}
 			\begin{sdblock}{opt}{}
 				\begin{call}{gcg}{createVisualEdge()}{brd}{VisualEdge} \end{call}
 			\end{sdblock}
 		\end{sdblock}
 		\end{call}
 	\end{call}
-	\mess{gm}{drawGraph}{view}
-	\mess{view}{click}{gm}
-	\begin{call}{gm}{getVertexAtGridPoint()}{brd}{Vertex} \end{call}
-	\begin{call}{gm}{onVertexClick{}}{gcg}{finishGame}
-		\begin{call}{gcg}{setColor()}{vtx}{} \end{call}
+	\mess{gm}{redrawGraph()}{view}
+
+	\begin{call}{view}{onVisualVertexClick{}}{gcg}{finishGame}
+		\begin{call}{gcg}{setColor(Color)}{vtx}{} \end{call}
 		\begin{call}{gcg}{isGraphColored()}{gcg}{true} \end{call}
 	\end{call}
-	\mess{gm}{drawGraph}{view}
-	\mess{gm}{diplayPopup}{view}
-	\begin{call}{gm}{closeGame()}{gm}{} \end{call}
+	\mess{view}{redrawGraph()}{view}
+	\mess{view}{diplayPopup()}{view}
+	\begin{messcall}{view}{closeGame()}{gm} \end{messcall}
 	
 
 \end{sequencediagram}
