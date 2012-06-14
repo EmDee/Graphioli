@@ -25,20 +25,9 @@
 	\begin{messcall}{gameExplorer}{startGame(gameDefinition)}{gameManager} \end{messcall}
 
 	% GameManager gets all the information from GameDefinition
-	\begin{call}{gameManager}{getParams()}{gameDefinition}{[...]} \end{call}
-	%\begin{call}{gameManager}{getName()}{gameDefinition}{String} \end{call}
-	%\begin{call}{gameManager}{getMaxPlayerCount()}{gameDefinition}{int} \end{call}
-	%\begin{call}{gameManager}{getMinPlayerCount()}{gameDefinition}{int} \end{call}
-	%\begin{call}{gameManager}{getGamePath()}{gameDefinition}{String} \end{call}
-	%\begin{call}{gameManager}{getDescription()}{gameDefinition}{String} \end{call}
-	%\begin{call}{gameManager}{getFullyQualifiedClassName()}{gameDefinition}{String} \end{call}
-	%\begin{call}{gameManager}{getScreenShot()}{gameDefinition}{BufferedImage} \end{call}
-	%\begin{call}{gameManager}{getLocalizedString()}{gameDefinition}{File} \end{call}
-	%\begin{call}{gameManager}{getHelpFile()}{gameDefinition}{URI} \end{call}
-	%\begin{call}{gameManager}{getPlayers()}{gameDefinition}{Iterable<Player>} \end{call}
-	%\begin{call}{gameManager}{getMenu()}{gameDefinition}{Iterable<MenuItem>} \end{call}
-	%\begin{call}{gameManager}{getHorizontalGridPointCount()}{gameDefinition}{int} \end{call}
-	%\begin{call}{gameManager}{getVerticalGridPointCount()}{gameDefinition}{int} \end{call}
+	\begin{sdblock}{Abbreviation}{getParams() symbolizes all getter methods from GameDefinition}
+		\begin{call}{gameManager}{getParams()}{gameDefinition}{[...]} \end{call}
+	\end{sdblock}
 
 	% GameManager creates an instance of PlayerManager
 	\begin{messcall}{gameManager}{PlayerManager(players)}{playerManager} \end{messcall}
