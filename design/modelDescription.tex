@@ -187,6 +187,8 @@ This class represents a simple \ref{cls:visualvertex} with predefined attributes
 \createindentedlist{de.graphioli.model.Vertex, de.graphioli.model.VisualVertex, de.graphioli.model.SimpleVisualVertex, de.graphioli.model.GraphColoringVertex}
 This class represents a \texttt{GraphColoringVertex}. \\
 
+\subclasses{cls:graphcoloringbuttonvertex}
+
 \centerdash
 
 \paragraph*{Method Summary}
@@ -195,14 +197,25 @@ This class represents a \texttt{GraphColoringVertex}. \\
 	\startmethodtable
 	\method{public int}{getColorID}{gcv:getcolorid} \\
 	& Returns the \texttt{color identification} of this \texttt{GraphColoringVertex}. \\
-	\method{public boolean}{isButton()}{gcv:isbutton} \\
-	& Returns \texttt{true} if this \texttt{GraphColoringVertex} is a button. \\
-	\method{public boolean}{isHighlighted()}{gcv:ishighlighted} \\
-	& Returns \texttt{true} if this \texttt{GraphColoringVertex} is selected. \\
 	\method{public boolean}{setColorID(int id)}{gcv:setcolorid} \\
 	& Returns \texttt{true} if the placement of the specified \texttt{color identification} for this \texttt{GraphColoringVertex} was successful. \\
-	\method{public boolean}{setButton(boolean isButton)}{gcv:setbutton} \\
-	& Sets this \texttt{GraphColoringVertex} as \texttt{button}. \\
+	
+	\hline
+\end{longtable}
+
+% GraphColoringButtonVertex
+\class{GraphColoringButtonVertex}{graphcoloringbuttonvertex}
+\createindentedlist{de.graphioli.model.Vertex, de.graphioli.model.VisualVertex, de.graphioli.model.SimpleVisualVertex, de.graphioli.model.GraphColoringVertex, de.graphioli.model.GraphColoringButtonVertex}
+This class represents a \texttt{GraphColoringVertex}, which will be used. \\ 
+
+\centerdash
+
+\paragraph*{Method Summary}
+\paragraph*{}
+\begin{longtable}{Lp{10cm}}
+	\startmethodtable
+	\method{public boolean}{isHighlighted()}{gcv:ishighlighted} \\
+	& Returns \texttt{true} if this \texttt{GraphColoringVertex} is selected. \\
 	\method{public boolean}{setHighlighted(boolean isHighlighted)}{gcv:sethighlighted} \\
 	& Sets this \texttt{GraphColoringVertex} as selected. \\
 	\hline
@@ -376,7 +389,7 @@ This class represents the game's definition. All crucial information that is nee
 	\method{public int}{getMinPlayerCount()}{gd:getminplayercount} \\
 	& Returns the minimum number of players for this specific game. \\
 	\method{public String}{getGamePath()}{gd:getgamepath} \\
-	& Returns the path of this specific game. \\ \todo{brauchen wir getgamepath, wenn wir schon den namen von dem Spiel haben?}
+	& Returns the path of this specific game. \\
 	\method{public String}{getDescription()}{gd:getdescription} \\
 	& Returns the description of this specific game. \\
 	\method{public String}{getFullyQualifiedClassName()}{gd:getfullyqualifiedclassname} \\
