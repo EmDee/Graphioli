@@ -2,7 +2,7 @@
 
 % GameBoard
 \class{GameBoard}{gameboard}
-This class represents the game board. \\
+This class represents the game board of a game. The \texttt{GameBoard} combines the logical \ref{cls:graph} with the \ref{cls:grid} and has access to both of them. \\
 
 \centerdash
 
@@ -114,20 +114,20 @@ This class represents the logical vertex. \\
 	& Returns all vertices that are connected to this vertex. \\
 	\method{public UUID}{getUID()}{vertex:getuid} \\
 	& Returns the unique identifier for this vertex. \\
-	\method{public Iterable<Edge>}{getInboundEdges()}{vertex:getinboundedges} \\
-	& Returns an iterable list of inbound edges. \\
-	\method{public boolean}{addInboundEdge(Edge edge)}{vertex:addinboundedge} \\
-	& Adds an inbound \ref{cls:edge} to the list of inbound edges. \\
-	\method{public Iterable<Edge>}{getOutboundEdges()}{vertex:getoutboundedges} \\
-	& Returns an iterable list of outbound edges. \\
-	\method{public boolean}{addOutboundEdge(Edge edge)}{vertex:addoutboundedge} \\
-	& Adds an outbound \ref{cls:edge} to the list of outbound edges. \\
+	\method{public Iterable<Edge>}{getIncomingEdges()}{vertex:getincomingedges} \\
+	& Returns an iterable list of incoming edges. \\
+	\method{public boolean}{addIncomingEdge(Edge edge)}{vertex:addincomingedge} \\
+	& Adds an incoming \ref{cls:edge} to the list of incoming edges. \\
+	\method{public Iterable<Edge>}{getOutgoingEdges()}{vertex:getoutgoingedges} \\
+	& Returns an iterable list of outgoing edges. \\
+	\method{public boolean}{addOutgoingEdge(Edge edge)}{vertex:addoutgoingedge} \\
+	& Adds an outgoing \ref{cls:edge} to the list of outgoing edges. \\
 	\method{public boolean}{isAdjacentTo(Vertex vertex)}{vertex:isadjacentto} \\
 	\hline
 \end{longtable}
 
 % VisualVertex
-\class{VisualVertex}{visualvertex}
+\abstractclass{VisualVertex}{visualvertex}
 \createindentedlist{de.graphioli.model.Vertex, de.graphioli.model.VisualVertex}
 This class represents a VisualVertex. \\
 
@@ -141,7 +141,7 @@ This class represents a VisualVertex. \\
 	\startmethodtable
 	\method{public}{VisualVertex(gridPoint : GridPoint)}{vv:visualvertex} \\
 	& Creates a new VisualVertex and places it on the specified \ref{cls:gridpoint}. \\
-	\method{protected void}{draw(Graphics2D)}{vv:draw} \\
+	\method{protected abstract void}{draw(Graphics2D)}{vv:draw} \\
 	& Draws the VisualVertex. \\
 	\method{final void}{update()}{vv:update} \\
 	& Updated the VisualVertex. \\ 
