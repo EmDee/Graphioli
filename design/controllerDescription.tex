@@ -17,17 +17,17 @@ This is the abstract class every \graphioli game has to inherit from. It defines
 	& Associates this \texttt{Game} with a \ref{cls:gamemanager}. \\
 	\method{protected final GameManager}{getGameManager()}{game:getgamemanager} \\
 	& Returns the associated \ref{cls:gamemanager}. \\
-	\method{protected boolean}{onVertexClick(VisualVertex vertex)}{game:onvertexclick} \\
+	\method{protected abstract boolean}{onVertexClick(VisualVertex vertex)}{game:onvertexclick} \\
 	& Called when a player clicks on a \ref{cls:visualvertex}. \\
-	\method{protected boolean}{onEmptyGridPointClick(GridPoint gridPoint)}{game:onemptygridpointclick} \\
+	\method{protected abstract boolean}{onEmptyGridPointClick(GridPoint gridPoint)}{game:onemptygridpointclick} \\
 	& Called when a player clicks on a \ref{cls:gridpoint} that has no \ref{cls:visualvertex} on it. \\
-	\method{protected boolean}{onKeyRelease(int keyCode)}{game:onkeyrelease} \\
+	\method{protected abstract boolean}{onKeyRelease(int keyCode)}{game:onkeyrelease} \\
 	& Called when a player releases a keyboard key.\\
-	\method{protected boolean}{onGameInit()}{game:ongameinit} \\
+	\method{protected abstract boolean}{onGameInit()}{game:ongameinit} \\
 	& Called after a game has been instantiated. \\
-	\method{protected boolean}{onGameStart()}{game:ongamestart} \\
+	\method{protected abstract boolean}{onGameStart()}{game:ongamestart} \\
 	& Called immediately before a game gets (re)started. \\
-	\method{protected boolean}{onMenuItemClick(MenuItem item)}{game:onmenuitemclick} \\
+	\method{protected abstract boolean}{onMenuItemClick(MenuItem item)}{game:onmenuitemclick} \\
 	& Called when a player clicks on a self-defined menu item.
 
 \end{longtable}
