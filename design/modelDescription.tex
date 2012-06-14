@@ -33,6 +33,8 @@ This class represents the game board of a game. The \texttt{GameBoard} combines 
 	\hline
 \end{longtable}
 
+\pagebreak
+
 % Grid
 \class{Grid}{grid}
 This class represents the \texttt{Grid}, which the \ref{cls:graph} will be located on. \\
@@ -54,6 +56,8 @@ This class represents the \texttt{Grid}, which the \ref{cls:graph} will be locat
 	\hline
 \end{longtable}
 
+\pagebreak
+
 % GridPoint
 \class{GridPoint}{gridpoint}
 This class represents a \texttt{GridPoint} on a \texttt{Grid}, which basically is a coordinate, on which \texttt{vertices} will be located on. \\
@@ -72,6 +76,8 @@ This class represents a \texttt{GridPoint} on a \texttt{Grid}, which basically i
 	& Returns the y coordinates of the \texttt{GridPoint}. \\
 	\hline
 \end{longtable}
+
+\pagebreak
 
 % Graph
 \class{Graph}{graph}
@@ -97,6 +103,8 @@ This class represents the logical graph. \\
 	& Returns an iterable list of vertices. \\
 	\hline
 \end{longtable}
+
+\pagebreak
 
 % Vertex
 \class{Vertex}{vertex}
@@ -126,6 +134,8 @@ This class represents the logical vertex. \\
 	\hline
 \end{longtable}
 
+\pagebreak
+
 % VisualVertex
 \abstractclass{VisualVertex}{visualvertex}
 \createindentedlist{de.graphioli.model.Vertex, de.graphioli.model.VisualVertex}
@@ -147,12 +157,14 @@ This class represents a VisualVertex. \\
 	& Updated the VisualVertex. \\ 
 	\method{public \ref{cls:gridpoint}}{getGridPoint()}{vv:getgridpoint} \\
 	& Returns the GridPoint of the VisualVertex. \\ 
-	\method{public boolean}{setGridPoint(gridPoint : GridPoint)}{vv:setGridPoint(gridPoint : GridPoint)} \\
+	\method{public boolean}{setGridPoint(gridPoint : GridPoint)}{vv:setgridpoint} \\
 	& Sets the GridPoint of the VisualVertex. \\
 	\method{public BufferedImage}{getBufferedImage()}{vv:getbufferedimage} \\
 	& Returns the BufferedImage on the VisualVertex. \\ 
 	\hline
 \end{longtable}
+
+\pagebreak
 
 % SimpleVisualVertex
 \class{SimpleVisualVertex}{simplevisualvertex}
@@ -182,6 +194,8 @@ This class represents a simple \ref{cls:visualvertex} with predefined attributes
 	\hline
 \end{longtable}
 
+\pagebreak
+
 % GraphColoringVertex
 \class{GraphColoringVertex}{graphcoloringvertex}
 \createindentedlist{de.graphioli.model.Vertex, de.graphioli.model.VisualVertex, de.graphioli.model.SimpleVisualVertex, de.graphioli.model.GraphColoringVertex}
@@ -203,6 +217,8 @@ This class represents a \texttt{GraphColoringVertex}. \\
 	\hline
 \end{longtable}
 
+\pagebreak
+
 % GraphColoringButtonVertex
 \class{GraphColoringButtonVertex}{graphcoloringbuttonvertex}
 \createindentedlist{de.graphioli.model.Vertex, de.graphioli.model.VisualVertex, de.graphioli.model.SimpleVisualVertex, de.graphioli.model.GraphColoringVertex, de.graphioli.model.GraphColoringButtonVertex}
@@ -220,6 +236,8 @@ This class represents a \texttt{GraphColoringVertex}, which will be used. \\
 	& Sets this \texttt{GraphColoringVertex} as selected. \\
 	\hline
 \end{longtable}
+
+\pagebreak
 
 % GraphicVisualVertex
 \class{GraphicVisualVertex}{graphicvisualvertex}
@@ -247,6 +265,8 @@ This class represents a \ref{cls:visualvertex} with a custom icon. \\
 	\hline
 \end{longtable}
 
+\pagebreak
+
 % TwixtVertex
 \class{TwixtVertex}{twixtvertex}
 \createindentedlist{de.graphioli.model.Vertex, de.graphioli.model.VisualVertex, de.graphioli.model.GraphicVisualVertex,  de.graphioli.model.TwixtVertex}
@@ -261,11 +281,13 @@ This class represents a \texttt{TwixtVertex}. \\
 	\method{public}{TwixtVertex(int playerID)}{tv:twixtvertex} \\
 	& Creates a new \texttt{TwixtVertex} and associate it with a \texttt{player} with the specified \texttt{playerID}. \\
 	\method{public int}{getPlayerID()}{tv:getplayerid} \\
-	& Returns the \ref{Player}'s identification. \\
+	& Returns the \ref{cls:player}'s identification. \\
 	\method{public boolean}{init()}{tv:init} \\
 	& Initializes this \texttt{TwixtVertex}. \\
 	\hline
 \end{longtable}
+
+\pagebreak
 
 % Edge
 \class{Edge}{edge}
@@ -292,12 +314,16 @@ This class represents an \texttt{Edge}. \\
 	\hline
 \end{longtable}
 
+\pagebreak
+
 % VisualEdge
 \abstractclass{VisualEdge}{visualedge}
 \createindentedlist{de.graphioli.model.Edge, de.graphioli.model.VisualEdge}
 This class represents a \texttt{VisualEdge}.
 
 \subclasses{cls:simplevisualedge}
+
+\pagebreak
 
 % SimpleVisualEdge
 \class{SimpleVisualEdge}{simplevisualedge}
@@ -321,6 +347,8 @@ This class represents an \texttt{Edge} with different attributes (color, stroke 
 	\hline
 \end{longtable}
 
+\pagebreak
+
 % Player
 \abstractclass{Player}{player}
 This abtract class represents a \texttt{player}. \\
@@ -342,10 +370,14 @@ This abtract class represents a \texttt{player}. \\
 	\hline
 \end{longtable}
 
+\pagebreak
+
 % LocalPlayer
 \class{LocalPlayer}{localplayer}
 \createindentedlist{de.graphioli.model.Player, de.graphioli.model.LocalPlayer}
 This class represents a \texttt{LocalPlayer}.
+
+\pagebreak
 
 % GameCapsule
 \class{GameCapsule}{gamecapsule}
