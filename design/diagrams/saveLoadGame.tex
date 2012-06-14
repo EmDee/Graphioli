@@ -20,7 +20,7 @@
 	\newinst{fileOutputStream}{fOut:FileOutputStream}
 	\newinst{objectOutputStream}{oOut:ObjectOutputStream}
 
-	\begin{messcall}{menuBar}{click}{menuBar} \end{messcall}
+	\begin{messcall}{menuBar}{onClick()}{menuBar} \end{messcall}
 
 	% Escalate click event to GameManager
 	\begin{call}{menuBar}{getParent()}{menuBar}{GameWindow} \end{call}
@@ -55,7 +55,7 @@
 	\newinst{fileInputStream}{fIn:FileInputStream}
 	\newinst{objectInputStream}{oIn:ObjectInputStream}
 
-	\begin{messcall}{menuBar}{click}{menuBar} \end{messcall}
+	\begin{messcall}{menuBar}{onClick()}{menuBar} \end{messcall}
 
 	% Escalate click event to GameManager
 	\begin{call}{menuBar}{getParent()}{menuBar}{GameWindow} \end{call}

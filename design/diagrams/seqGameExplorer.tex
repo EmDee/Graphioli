@@ -57,26 +57,24 @@
 	\newinst{gebp}{:GEButtonPanel}
 	\newinst{gd}{:GameDefinition}
 
-	\begin{messcall}{gegl}{click}{gew}
-		\begin{call}{gew}{onListSelectionChange()}{gew}{true}
-			\begin{call}{gew}{getSelectedIndex()}{gegl}{index}
-			\end{call}
-			\begin{call}{gew}{getGameDefinitionAtIndex(index)}{gdlm}{gameDef}
-			\end{call}
-			\begin{call}{gew}{setSelectedDefinition(gameDef)}{gew}{true}
-			\end{call}
-			\begin{call}{gew}{getDescription()}{gd}{description}
-			\end{call}
-			\begin{call}{gew}{getScreenshot()}{gd}{screenshot}
-			\end{call}
-			\begin{call}{gew}{setDescription(description)}{gegi}{true}
-			\end{call}
-			\begin{call}{gew}{setScreenshot(screenshot)}{gegi}{true}
-			\end{call}
+	\begin{call}{gew}{onListSelectionChange()}{gew}{true}
+		\begin{call}{gew}{getSelectedIndex()}{gegl}{index}
 		\end{call}
-	\end{messcall}
+		\begin{call}{gew}{getGameDefinitionAtIndex(index)}{gdlm}{gameDef}
+		\end{call}
+		\begin{call}{gew}{setSelectedDefinition(gameDef)}{gew}{true}
+		\end{call}
+		\begin{call}{gew}{getDescription()}{gd}{description}
+		\end{call}
+		\begin{call}{gew}{getScreenshot()}{gd}{screenshot}
+		\end{call}
+		\begin{call}{gew}{setDescription(description)}{gegi}{true}
+		\end{call}
+		\begin{call}{gew}{setScreenshot(screenshot)}{gegi}{true}
+		\end{call}
+	\end{call}
 	
-	\begin{messcall}{gebp}{click}{gew}
+	\begin{messcall}{gebp}{button click}{gew}
 		\begin{messcall}{gew}{selectGame(selectedDefinition)}{ge}
 			\begin{messcall}{ge}{startGame(selectedDefinition)}{gm}
 			\end{messcall}
