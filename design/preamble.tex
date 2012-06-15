@@ -26,6 +26,9 @@
 \usepackage{../materials/resources/dashrule} % for dashed rules
 \usepackage[nonumberlist,acronym,toc,section]{glossaries} % must be the last package to include
 
+\usepackage{makeidx}
+
+
 \setlength{\parindent}{0cm}
 \setlength{\parskip}{8pt}
 \setlength{\LTpost}{0pt} % space after `longtable`
@@ -50,6 +53,8 @@
      \glstarget{##2}{\strut}##4\glspostdescription\space ##6\\}%
   \renewcommand*{\glsgroupskip}{ & \\}%
 }
+
+\makeindex
 
 % glossary
 \makeglossaries
