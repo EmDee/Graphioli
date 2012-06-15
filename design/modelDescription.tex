@@ -328,6 +328,25 @@ This class represents a \texttt{VisualEdge}.
 
 \subclasses{cls:simplevisualedge}
 
+\centerdash
+
+\paragraph*{Method Summary}
+\paragraph*{}
+\begin{longtable}{Lp{10cm}}
+	\startmethodtable
+	\method{protected abstract void}{draw(Graphics2D)}{ve:draw} \\
+	& Draws the VisualEdge onto the given \texttt{Graphics2D} object. \\
+	\method{final void}{update()}{ve:update} \\
+	& Updates the graphical representation of this \texttt{VisualEdge} by recreating its \texttt{BufferedImage} using the \ref{ve:draw} method.\\ 
+	\method{public \ref{cls:gridpoint}}{getGridPoint()}{vv:getgridpoint} \\
+	& Sets the GridPoint of the VisualVertex. \\
+	\method{public BufferedImage}{getBufferedImage()}{ve:getbufferedimage} \\
+	& Returns the \texttt{BufferedImage}, which contains the current graphical representation of this \texttt{VisualEdge}. \\ 
+	\hline
+\end{longtable}
+
+
+
 \pagebreak
 
 % SimpleVisualEdge
@@ -409,10 +428,9 @@ This class represents a \texttt{GameCapsule} that holds all the important data, 
 
 % GameDefinition
 \class{GameDefinition}{gamedefinition}
-This class represents the game's definition. All crucial information that is needed before a game can be started will be saved in a new instance of this \texttt{GameDefinition}.
+This class represents the game's definition, containing crucial information that is needed to start a game.
 
 \centerdash
-\todo{update}
 \paragraph*{Method Summary}
 \paragraph*{}
 \begin{longtable}{Lp{10cm}}
@@ -430,17 +448,15 @@ This class represents the game's definition. All crucial information that is nee
 	\method{public String}{getDescription()}{gd:getdescription} \\
 	& Returns the description of this specific game. \\
 	\method{public String}{getFullyQualifiedClassName()}{gd:getfullyqualifiedclassname} \\
-	& Returns the exact file name of this specific game within the \texttt{.jar} file. \\
+	& Returns the fully qualified class name (e.g. "de.graphioli.game.GraphColoring") of this specific game. \\
 	\method{public BufferedImage}{getScreenshot()}{gd:getscreenshot} \\
 	& Returns a \texttt{BufferedImage} that is this game's screenshot. \\
 	\method{public File}{getLocalizedString()}{gd:getlocalizedstring} \\
 	& Returns a \texttt{String} telling which language file should be used. \\
 	\method{public URI}{getHelpFile()}{gd:gethelpfile} \\
 	& Returns the \texttt{URI} that links to the help file of this game. \\
-	\method{public Iterable<Player>}{getPlayers()}{gd:getplayers} \\
-	& Returns an iterable list of \ref{cls:player}s that will be used to initialize \ref{cls:player}s. \\
 	\method{public Iterable<MenuItem>}{getMenu()}{gd:getmenu} \\
-	& Returns an iterable list of \texttt{MenuItem}s that will be used to generate the \texttt{MenuBar}. \\
+	& Returns an iterable list of \texttt{MenuItem}s that will be used to generate this game's custom \texttt{MenuBar}. \\
 	\method{public int}{getHorizontalGridPointCount()}{gd:gethorizontalgridpointcount} \\
 	& Returns the number of horizontal \ref{cls:gridpoint}s for this specific game. \\
 	\method{public int}{getVerticalGridPointCount()}{gd:getverticalgridpointcount} \\
