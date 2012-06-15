@@ -1,5 +1,14 @@
 \subsection{Controller}
 
+\begin{figure}[h]
+	\centering
+	\includegraphics[page=1,width=\textwidth,keepaspectratio]{controllerClassDiagram.pdf}
+	\caption{Controller class diagram.}
+	\label{img:controllerClassDiagram}
+\end{figure}
+
+\pagebreak
+
 % Game
 \abstractclass{Game}{game}
 This is a abstract class that every \texttt{game} has to inherit, when using the \graphioli framework. It defines the callback functions the game developer needs to implement to provide the game's logic. \\
@@ -76,7 +85,7 @@ This is the framework's central class connecting the actual game with model and 
 
 % ViewManager
 \class{ViewManager}{viewmanager}
-This class acts as an interface between the \gls{GUI} and the other parts of the \gls{framework}. It pushes update notifications to the view and receives user input from it.  \\
+This class acts as an interface between the \gls{GUI} and the other parts of the \gls{framework}. It pushes update notifications to the view and receives user input from it. \\
 
 \centerdash
 
@@ -147,6 +156,8 @@ Our implemented game containing the game's logic of \graphcoloring in single and
 \paragraph*{}
 \begin{longtable}{Lp{10cm}}
 	\startmethodtable
+	\method{private boolean}{generateBoard()}{gc:generateboard} \\
+	& Generates the \ref{cls:gameboard} used to play the game. \\
 	\method{protected abstract boolean}{onVertexClick(VisualVertex vertex)}{gc:onvertexclick} \\
 	& Colors the given Vertex (if possible) and decides if the game is finished by this move. \\
 	\method{protected abstract boolean}{onEmptyGridPointClick(GridPoint gridPoint)}{gc:onemptygridpointclick} \\
@@ -155,8 +166,6 @@ Our implemented game containing the game's logic of \graphcoloring in single and
 	& Decides whether the game is started in Single- or Multiplayer mode. \\
 	\method{protected abstract boolean}{onGameStart()}{gc:ongamestart} \\
 	& (Re)bulids the game board using \ref{gc:generatebaord}. \\
-	\method{private boolean}{generateBoard()}{gc:generateboard} \\
-	& Generates the \ref{cls:gameboard} used to play the game. \\		
 	\hline
 \end{longtable}
 
@@ -173,6 +182,8 @@ Our implemented game containing the game's logic of \twixt. \\
 \paragraph*{}
 \begin{longtable}{Lp{10cm}}
 	\startmethodtable
+	\method{private boolean}{generateBoard()}{twixt:generateboard} \\
+	& Generates the \ref{cls:gameboard} used to play the game. \\
 	\method{protected abstract boolean}{onVertexClick(VisualVertex vertex)}{twixt:onvertexclick} \\
 	& Selects a tower on the board and creates an edge between this one and the one previously selected if they belong to the same player and the new edge would not intersect with another one.
 	It then checks if the baselines are connected and the game is finished.\\
@@ -181,8 +192,6 @@ Our implemented game containing the game's logic of \twixt. \\
 	\method{protected abstract boolean}{onGameInit()}{twixt:ongameinit} \\
 	& Initilaizes the \ref{cls:twixtvertex} class. \\
 	\method{protected abstract boolean}{onGameStart()}{twixt:ongamestart} \\
-	& (Re)bulids the game board using \ref{twixt:generatebaord}. \\
-	\method{private boolean}{generateBoard()}{twixt:generateboard} \\
-	& Generates the \ref{cls:gameboard} used to play the game. \\		
+	& (Re)bulids the game board using \ref{twixt:generatebaord}. \\	
 	\hline
 \end{longtable}
