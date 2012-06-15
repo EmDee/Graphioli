@@ -24,10 +24,9 @@
 % \linenumbers
 \usepackage{lipsum} % just to generate some text
 \usepackage{../materials/resources/dashrule} % for dashed rules
-\usepackage[nonumberlist,acronym,toc,section]{glossaries} % must be the last package to include
-
 \usepackage{makeidx}
-
+\usepackage[nottoc]{tocbibind} % to add the index to the toc without special commands
+\usepackage[nonumberlist,acronym,toc,section]{glossaries} % must be the last package to include
 
 \setlength{\parindent}{0cm}
 \setlength{\parskip}{8pt}
@@ -54,7 +53,7 @@
   \renewcommand*{\glsgroupskip}{ & \\}%
 }
 
-
+% index
 \makeindex
 
 % glossary
