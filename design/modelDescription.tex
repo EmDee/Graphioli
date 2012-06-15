@@ -152,15 +152,15 @@ This class represents a VisualVertex. \\
 	\method{public}{VisualVertex(gridPoint : GridPoint)}{vv:visualvertex} \\
 	& Creates a new VisualVertex and places it on the specified \ref{cls:gridpoint}. \\
 	\method{protected abstract void}{draw(Graphics2D)}{vv:draw} \\
-	& Draws the VisualVertex. \\
+	& Draws the VisualVertex onto the given \texttt{Graphics2D} object. \\
 	\method{final void}{update()}{vv:update} \\
-	& Updated the VisualVertex. \\ 
+	& Updates the graphical representation of this \texttt{VisualVertex} by recreating its \texttt{BufferedImage} using the \ref{vv:draw} method.\\ 
 	\method{public \ref{cls:gridpoint}}{getGridPoint()}{vv:getgridpoint} \\
 	& Returns the GridPoint of the VisualVertex. \\ 
 	\method{public boolean}{setGridPoint(gridPoint : GridPoint)}{vv:setgridpoint} \\
 	& Sets the GridPoint of the VisualVertex. \\
 	\method{public BufferedImage}{getBufferedImage()}{vv:getbufferedimage} \\
-	& Returns the BufferedImage on the VisualVertex. \\ 
+	& Returns the \texttt{BufferedImage}, which contains the current graphical representation of this \texttt{VisualVertex}. \\ 
 	\hline
 \end{longtable}
 
@@ -191,6 +191,8 @@ This class represents a simple \ref{cls:visualvertex} with predefined attributes
 	& Sets the stroke weight of this \ref{cls:simplevisualvertex}. \\
 	\method{public boolean}{setStrokeColor(Color strokeColor)}{svv:setstrokecolor} \\
 	& Sets the stroke color of this \ref{cls:simplevisualvertex}. \\
+	\method{protected void}{draw(Graphics2D)}{svv:draw} \\
+	& Draws this \texttt{SimpleVisualVertex} according to its color, stroke colorand stroke weight attributes. \\
 	\hline
 \end{longtable}
 
@@ -199,7 +201,7 @@ This class represents a simple \ref{cls:visualvertex} with predefined attributes
 % GraphColoringVertex
 \class{GraphColoringVertex}{graphcoloringvertex}
 \createindentedlist{de.graphioli.model.Vertex, de.graphioli.model.VisualVertex, de.graphioli.model.SimpleVisualVertex, de.graphioli.model.GraphColoringVertex}
-This class represents a \texttt{GraphColoringVertex}. \\
+This class represents a Vertex used in the \texttt{Graph Coloring} game by defining a \texttt{colorID} attribute that can be used by the graph coloring algorithms. \\
 
 \subclasses{cls:graphcoloringbuttonvertex}
 
@@ -212,7 +214,7 @@ This class represents a \texttt{GraphColoringVertex}. \\
 	\method{public int}{getColorID}{gcv:getcolorid} \\
 	& Returns the \texttt{color identification} of this \texttt{GraphColoringVertex}. \\
 	\method{public boolean}{setColorID(int id)}{gcv:setcolorid} \\
-	& Returns \texttt{true} if the placement of the specified \texttt{color identification} for this \texttt{GraphColoringVertex} was successful. \\
+	& Sets the \texttt{color identification} of this \texttt{GraphColoringVertex} and changes its \texttt{Color} attribute accordingly. Returns \texttt{true} if successful. \\
 	
 	\hline
 \end{longtable}
@@ -222,7 +224,7 @@ This class represents a \texttt{GraphColoringVertex}. \\
 % GraphColoringButtonVertex
 \class{GraphColoringButtonVertex}{graphcoloringbuttonvertex}
 \createindentedlist{de.graphioli.model.Vertex, de.graphioli.model.VisualVertex, de.graphioli.model.SimpleVisualVertex, de.graphioli.model.GraphColoringVertex, de.graphioli.model.GraphColoringButtonVertex}
-This class represents a \texttt{GraphColoringVertex}, which will be used. \\ 
+This class represents a special \texttt{GraphColoringVertex}, that acts as a button for selecting a color. \\ 
 
 \centerdash
 
@@ -230,10 +232,10 @@ This class represents a \texttt{GraphColoringVertex}, which will be used. \\
 \paragraph*{}
 \begin{longtable}{Lp{10cm}}
 	\startmethodtable
-	\method{public boolean}{isHighlighted()}{gcv:ishighlighted} \\
-	& Returns \texttt{true} if this \texttt{GraphColoringVertex} is selected. \\
-	\method{public boolean}{setHighlighted(boolean isHighlighted)}{gcv:sethighlighted} \\
-	& Sets this \texttt{GraphColoringVertex} as selected. \\
+	\method{public boolean}{isHighlighted()}{gcbv:ishighlighted} \\
+	& Returns \texttt{true} if this \texttt{GraphColoringButtonVertex} is selected. \\
+	\method{public boolean}{setHighlighted(boolean isHighlighted)}{gcbv:sethighlighted} \\
+	& Sets the \texttt{highlighted} attribute of this \texttt{GraphColoringVertex} and changes its stroke color to visually represent the current state. \\
 	\hline
 \end{longtable}
 
@@ -253,15 +255,17 @@ This class represents a \ref{cls:visualvertex} with a custom icon. \\
 \begin{longtable}{Lp{10cm}}
 	\startmethodtable
 	\method{public}{GraphicVisualVertex(String fileName)}{gvv:graphicvisualvertexfile} \\
-	& Creates a new \texttt{GraphicVisualVertex} with the specified url. \\
+	& Creates a new \texttt{GraphicVisualVertex} using the image in the specified file as icon. \\
 	\method{public}{GraphicVisualVertex(BufferedImage image)}{gvv:graphicvisualverteximage} \\
-	& Creates a new \texttt{GraphicVisualVertex} with the specified BufferedImage. \\
-	\method{public BufferedImage}{loadBufferedImage(String fileName)}{gvv:loadbufferedimage} \\
-	& Loads the image file at specified \texttt{fileName} and returns a \texttt{BufferedImage}. \\
+	& Creates a new \texttt{GraphicVisualVertex} using the specified BufferedImage as icon. \\
 	\method{public BufferedImage}{getImage()}{gvv:getimage} \\
-	& Returns the BufferedImage that represents this \ref{cls:graphicvisualvertex}. \\
+	& Returns the image that represents this \texttt{GraphicVisualVertex}. \\
 	\method{public boolean}{setImage(BufferedImage image)}{gvv:setimage} \\
-	& Sets the BufferedImage that represents this \ref{cls:graphicvisualvertex}. \\ 
+	& Sets the image that represents this \ref{cls:graphicvisualvertex}. \\
+	\method{protected final BufferedImage}{loadBufferedImage(String fileName)}{gvv:loadbufferedimage} \\
+	& Loads the image file at the given \texttt{fileName} and returns it as a \texttt{BufferedImage}. \\
+	\method{protected void}{draw(Graphics2D)}{svv:draw} \\
+	& Draws this \texttt{GraphicVisualVertex} using its specified image. \\
 	\hline
 \end{longtable}
 
@@ -270,7 +274,7 @@ This class represents a \ref{cls:visualvertex} with a custom icon. \\
 % TwixtVertex
 \class{TwixtVertex}{twixtvertex}
 \createindentedlist{de.graphioli.model.Vertex, de.graphioli.model.VisualVertex, de.graphioli.model.GraphicVisualVertex,  de.graphioli.model.TwixtVertex}
-This class represents a \texttt{TwixtVertex}. \\
+This class represents a Vertex used in the \texttt{TwixT} game., which is displayed as either a red or blue tower, depending on the player it belongs to. \\
 
 \centerdash
 
@@ -279,11 +283,11 @@ This class represents a \texttt{TwixtVertex}. \\
 \begin{longtable}{Lp{10cm}}
 	\startmethodtable
 	\method{public}{TwixtVertex(int playerID)}{tv:twixtvertex} \\
-	& Creates a new \texttt{TwixtVertex} and associate it with a \texttt{player} with the specified \texttt{playerID}. \\
+	& Creates a new \texttt{TwixtVertex} and associates it with the player of the given \texttt{playerID}. \\
 	\method{public int}{getPlayerID()}{tv:getplayerid} \\
 	& Returns the \ref{cls:player}'s identification. \\
-	\method{public boolean}{init()}{tv:init} \\
-	& Initializes this \texttt{TwixtVertex}. \\
+	\method{public static boolean}{init(int redPlayerID, int bluePlayerID)}{tv:init} \\
+	& Initializes the \texttt{TwixtVertex} class by loading the images and defining which ID belongs to red and blue player respectively. \\
 	\hline
 \end{longtable}
 
@@ -317,6 +321,7 @@ This class represents an \texttt{Edge}. \\
 \pagebreak
 
 % VisualEdge
+\todo{Add methods}
 \abstractclass{VisualEdge}{visualedge}
 \createindentedlist{de.graphioli.model.Edge, de.graphioli.model.VisualEdge}
 This class represents a \texttt{VisualEdge}.
@@ -407,7 +412,7 @@ This class represents a \texttt{GameCapsule} that holds all the important data, 
 This class represents the game's definition. All crucial information that is needed before a game can be started will be saved in a new instance of this \texttt{GameDefinition}.
 
 \centerdash
-
+\todo{update}
 \paragraph*{Method Summary}
 \paragraph*{}
 \begin{longtable}{Lp{10cm}}
