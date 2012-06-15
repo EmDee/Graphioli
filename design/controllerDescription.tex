@@ -44,7 +44,7 @@ This is a abstract class that every \texttt{game} has to inherit, when using the
 
 % GameManager
 \class{GameManager}{gamemanager}
-This is the framework's central class connecting the actual game with model and view. ... \todo{some more description!?} \\
+This is the framework's central class connecting the actual game with the \texttt{model} and the \texttt{view}. Any communication between \texttt{model}, \texttt{view} and \texttt{controller} will be managed by the \texttt{GameManager}. \\
 
 \centerdash
 
@@ -52,7 +52,7 @@ This is the framework's central class connecting the actual game with model and 
 \paragraph*{}
 \begin{longtable}{Lp{10cm}}
 	\startmethodtable
-	\method{public static void}{main(String... args)}{gm:main} \\
+	\method{public static void}{main(String[] args)}{gm:main} \\
 	& The main method initializes the \texttt{GameManager} to start the whole application. \\
 	\method{private boolean}{openGameExplorer()}{gm:opengameexplorer} \\
 	& Starts the \ref{cls:gameexplorer}. \\
