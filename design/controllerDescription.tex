@@ -1,9 +1,8 @@
 \subsection{Controller}
 
-
 % Game
 \abstractclass{Game}{game}
-This is the abstract class every \graphioli game has to inherit from. It defines the callback functions the game developer needs to implement to provide the game's logic. \\
+This is a abstract class that every \texttt{game} has to inherit, when using the \graphioli framework. It defines the callback functions the game developer needs to implement to provide the game's logic. \\
 
 \subclasses{cls:graphcoloring, cls:twixt}
 
@@ -21,16 +20,18 @@ This is the abstract class every \graphioli game has to inherit from. It defines
 	& Called when a player clicks on a \ref{cls:visualvertex}. \\
 	\method{protected abstract boolean}{onEmptyGridPointClick(GridPoint gridPoint)}{game:onemptygridpointclick} \\
 	& Called when a player clicks on a \ref{cls:gridpoint} that has no \ref{cls:visualvertex} on it. \\
-	\method{protected abstract boolean}{onKeyRelease(int keyCode)}{game:onkeyrelease} \\
-	& Called when a player releases a keyboard key.\\
 	\method{protected abstract boolean}{onGameInit()}{game:ongameinit} \\
 	& Called after a game has been instantiated. \\
 	\method{protected abstract boolean}{onGameStart()}{game:ongamestart} \\
 	& Called immediately before a game gets (re)started. \\
-	\method{protected abstract boolean}{onMenuItemClick(MenuItem item)}{game:onmenuitemclick} \\
-	& Called when a player clicks on a self-defined menu item.
-
+	\method{protected boolean}{onKeyRelease(int keyCode)}{game:onkeyrelease} \\
+	& Called when a player releases a keyboard key.\\
+	\method{protected boolean}{onMenuItemClick(MenuItem item)}{game:onmenuitemclick} \\
+	& Called when a player clicks on a self-defined menu item. \\
+	\hline
 \end{longtable}
+
+\pagebreak
 
 % GameManager
 \class{GameManager}{gamemanager}
@@ -43,7 +44,7 @@ This is the framework's central class connecting the actual game with model and 
 \begin{longtable}{Lp{10cm}}
 	\startmethodtable
 	\method{public static void}{main(String... args)}{gm:main} \\
-	& The main method initializes the GameManager to start the whole application. \\
+	& The main method initializes the \texttt{GameManager} to start the whole application. \\
 	\method{private boolean}{openGameExplorer()}{gm:opengameexplorer} \\
 	& Starts the \ref{cls:gameexplorer}. \\
 	\method{private boolean}{killGame()}{gm:killgame} \\
@@ -61,17 +62,17 @@ This is the framework's central class connecting the actual game with model and 
 	\method{public boolean}{restartGame()}{gm:restartgame} \\
 	& Restarts the game from the beginning, reseting the \ref{cls:gameboard} and players. \\
 	\method{public boolean}{closeGame()}{gm:closegame} \\
-	& Closes the game and returns the focus to the Game Explorer. \\
+	& Closes the game and returns the focus to the \texttt{Game Explorer}. \\
 	\method{public PlayerManager}{getPlayerManager()}{gm:getplayermanager} \\
-	& Returns the \ref{cls:playermanager} associated with this GameManager.\\
+	& Returns the \ref{cls:playermanager} associated with this \texttt{GameManager}.\\
 	\method{public ViewManager}{getViewManager()}{gm:getviewmanager} \\
-	& Returns the \ref{cls:viewmanager} associated with this GameManager.\\
+	& Returns the \ref{cls:viewmanager} associated with this \texttt{GameManager}.\\
 	\method{public GameBoard}{getGameBoard()}{gm:getgameboard} \\
-	& Returns the \ref{cls:gameboard} associated with this GameManager.\\
-	
-
+	& Returns the \ref{cls:gameboard} associated with this \texttt{GameManager}.\\
 	\hline
 \end{longtable}
+
+\pagebreak
 
 % ViewManager
 \class{ViewManager}{viewmanager}
@@ -103,11 +104,10 @@ This class acts as an interface between the \gls{GUI} and the other parts of the
 	& Returns the associated \ref{cls:gamemanager}. \\
 	\method{public boolean}{setVisualVertexSet(int size)}{viewmanager:setvisualvertexsize} \\
 	& Notifies the \texttt{View} to change the size of the VisualVertices to the given values. \\
-
 	\hline
 \end{longtable}
 
-
+\pagebreak
 
 % PlayerManager
 \class{PlayerManager}{playermanager}
@@ -129,20 +129,17 @@ This class is responible for keeping information about a game's players.  \\
 	& Returns the \ref{cls:player}, who is currently active. \\
 	\method{public Player}{nextPlayer()}{pm:nextplayer} \\
 	& Sets the next \ref{cls:player} in the list to active. \\
-	
-	
 	\hline
 \end{longtable}
 
-
+\pagebreak
 
 \subsubsection{Games}
 
-%Graphcoloring
+%GraphColoring
 \class{GraphColoring}{graphcoloring}
 \createindentedlist{de.graphioli.controller.Game, de.graphioli.controller.GraphColoring}
-
-Our implemented game containing the game's logic of Graph Coloring in single and multiplayer mode. \\
+Our implemented game containing the game's logic of \graphcoloring in single and multiplayer mode. \\
 
 \centerdash
 
@@ -150,17 +147,25 @@ Our implemented game containing the game's logic of Graph Coloring in single and
 \paragraph*{}
 \begin{longtable}{Lp{10cm}}
 	\startmethodtable
-
 	\method{private boolean}{generateBoard()}{gc:generateboard} \\
-	& Generates the \ref{cls:gameboard} used to play the game. \\		
+	& Generates the \ref{cls:gameboard} used to play the game. \\
+	\method{protected boolean}{onGameInit()}{gc:ongameinit} \\
+	& This method will be called on initialization of the \graphcoloring game. It will set up all parameters that are needed to start the game. \\
+	\method{protected boolean}{onVertexClick(VisualVertex vertex}{gc:onvertexclick} \\
+	& . \\
+	\method{protected boolean}{onEmptyGridPointClick}{GridPoint gridPoint}{gc:onemptygridpointclick} \\
+	& . \\
+	\method{protected boolean}{onGameStart()}{gc:ongamestart} \\
+	& . \\
 	\hline
 \end{longtable}
+
+\pagebreak
 
 %TwixT
 \class{TwixT}{twixt}
 \createindentedlist{de.graphioli.controller.Game, de.graphioli.controller.TwixT}
-
-Our implemented game containing the game's logic of TwixT. \\
+Our implemented game containing the game's logic of \twixt. \\
 
 \centerdash
 
@@ -168,11 +173,11 @@ Our implemented game containing the game's logic of TwixT. \\
 \paragraph*{}
 \begin{longtable}{Lp{10cm}}
 	\startmethodtable
-
 	\method{private boolean}{generateBoard()}{twixt:generateboard} \\
-	& Generates the \ref{cls:gameboard} used to play the game. \\		
+	& Generates the \ref{cls:gameboard} used to play the \twixt game. \\
+	\method{protected boolean}{onVertexClick(VisualVertex vertex)}{twixt:onvertexclick} \\
+	\method{protected boolean}{onEmptyGridPointClick(GridPoint gridPoint)}{twixt:onemptygridpointclick} \\
+	\method{protected boolean}{onGameInit()}{twixt:ongameinit} \\
+	\method{protected boolean}{onGameStart()}{twixt:ongamestart} \\
 	\hline
 \end{longtable}
-
-
-
