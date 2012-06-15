@@ -10,25 +10,28 @@ View is an interface for implementation of the (graphical) user interface. \\
 \paragraph*{}
 \begin{longtable}{Lp{10cm}}
 	\startmethodtable
-	\method{public boolean}{registerController(ViewManager controller)}{view:registercontroller} \\
+	\method{public boolean}{registerController(ViewManager viewManager)}{view:registercontroller} \\
 	& Registers a \ref{cls:viewmanager} as the controller for the user interface. \\
 	\method{public boolean}{displayPopUp(String message)}{view:displaypopup} \\
 	& Displays a message in a popup. \\
 	\method{public boolean}{addCustomMenuItem(MenuItem item)}{view:addcustommenuitem} \\
-	& Adds a custom menu item to the menu (in the \ref{cls:menubar}). \\ 
+	& Adds a custom menu item to the menu. \\ 
 	\method{public boolean}{updatePlayerStatus(Player player)}{view:updateplayerstatus}\\
-	& Updates the current \ref{cls:player} shown in the \ref{cls:statusbar}. \\
+	& Updates the currently active \ref{cls:player} displayed. \\
 	\method{public boolean}{displayErrorMessage(String message)}{view:displayerrormessage} \\
-	& Displays a error message in the \ref{cls:statusbar}. \\
+	& Displays a error message. \\
 	\method{public boolean}{redrawGraph()}{view:redrawgraph} \\
-	& Redraws the graph displayed in the \ref{cls:graphcanvas}. \\ 
+	& Redraws the graph. \\ 
+	\method{public boolean}{setVisualVertexSize(int size)}{view:setvisualvertexsize} \\
+	& Sets the size of the vertices displayed. \\ 
 	\hline
 \end{longtable}
 
 % GameWindow
 \class{GameWindow}{gamewindow}
 \createindentedlist{java.lang.Object, java.awt.Component, java.awt.Container, java.awt.Window, java.awt.Frame, javax.swing.JFrame, de.graphioli.view.GameWindow}
-This class is the actual game window containing \ref{cls:graphcanvas}, \ref{cls:statusbar} and \ref{cls:menubar}. It handles keyboard inputs with \ref{cls:customkeydispatcher}. \\ 
+
+This class is the actual game window containing \ref{cls:graphcanvas}, \ref{cls:statusbar} and \ref{cls:menubar}. It handles keyboard inputs with a \ref{cls:customkeydispatcher}. \\ 
 \interfaces{cls:view}
 
 \centerdash
@@ -37,6 +40,20 @@ This class is the actual game window containing \ref{cls:graphcanvas}, \ref{cls:
 \paragraph*{}
 \begin{longtable}{Lp{10cm}}
 	\startmethodtable
+	\method{public boolean}{registerController(ViewManager viewManager)}{view:registercontroller} \\
+	& Registers a \ref{cls:viewmanager} as the controller of the GUI. \\
+	\method{public boolean}{displayPopUp(String message)}{view:displaypopup} \\
+	& Creates a popup to display a message. \\
+	\method{public boolean}{addCustomMenuItem(MenuItem item)}{view:addcustommenuitem} \\
+	& Adds a custom menu item to the menu in the \ref{cls:menubar}. \\ 
+	\method{public boolean}{updatePlayerStatus(Player player)}{view:updateplayerstatus}\\
+	& Updates the currently active \ref{cls:player} displayed in the \ref{cls:statusbar}. \\
+	\method{public boolean}{displayErrorMessage(String message)}{view:displayerrormessage} \\
+	& Displays a error message in the \ref{cls:statusbar}. \\
+	\method{public boolean}{redrawGraph()}{view:redrawgraph} \\
+	& Redraws the graph displayed in the \ref{cls:graphcanvas}. \\ 
+	\method{public boolean}{setVisualVertexSize(int size)}{view:setvisualvertexsize} \\
+	& Sets the size of the vertices displayed. \\ 
 	\method{public ViewManager}{getViewManager()}{gw:getviewmanager} \\
 	& Returns the  associated \ref{cls:viewmanager}. \\
 	\method{public boolean}{onKeyRelease(int keyCode)}{gw:onkeyrelease} \\
@@ -61,13 +78,16 @@ This class handles the keyboard input. \\
 	\startmethodtable
 	\method{public}{CustomKeyDispatcher(GameWindow gamewindow)}{ckd:customkeydispatcher} \\
 	& Creates a \texttt{CustomKeyDispatcher} and registers its parent \ref{cls:gamewindow}. \\
+	\method{public boolean}{dispatchKeyEvent(Keyevent event)}{ckd:dispatchkeyevent} \\
+	& Dispatches the KeyEvent and calls the \ref{cls:gamewindow}. \\
 	\hline
 \end{longtable}
 
 % GraphCanvas
 \class{GraphCanvas}{graphcanvas}
 \createindentedlist{java.lang.Object, java.awt.Component, java.awt.Container, javax.swing.JComponent, javax.swing.JPanel, de.graphioli.view.GraphCanvas}
-This class is responsible for displaying the \ref{cls:graph} and \ref{cls:grid} and handles mouse clicks through the \ref{cls:visualgrid}. \\ 
+
+This class is responsible for displaying the \ref{cls:graph} and \ref{cls:grid} and handles mouse clicks through a \ref{cls:visualgrid}. \\ 
 
 \centerdash
 
@@ -95,7 +115,7 @@ This class handles mouse input and serves as an connector between \ref{cls:grid}
 \paragraph*{}
 \begin{longtable}{Lp{10cm}}
 	\startmethodtable
-	\method{public}{VisualGrid(GameWindow gamewindow)}{vg:visualgrid} \\
+	\method{public}{VisualGrid(GameWindow parentGameWindow)}{vg:visualgrid} \\
 	& Creates a \texttt{VisualGrid} and registers its parent \ref{cls:gamewindow}. \\
 	\method{private GridPoint}{parseCoordinates(int xCoord, int yCoord)}{vs:parsecoordinates} \\
 	& Parses the coordinates of the mouse click to the specific \ref{cls:gridpoint}. \\
@@ -103,12 +123,15 @@ This class handles mouse input and serves as an connector between \ref{cls:grid}
 	& Sets the size of the displayed vertices up to a grid specific maximum value. \\
 	\method{public int}{getVisualVertexSize()}{vs:getvisualvertexsize} \\
 	& Returns the size of the displayed vertices. \\ 
+	\method{public void}{mouseClicked(MouseEvent event)}{vs:mouseclicked} \\
+	& Invoked if the mouse button has been clicked. \\ 
 	\hline
 \end{longtable}
 
 % MenuBar
 \class{MenuBar}{menubar}
 \createindentedlist{java.lang.Object, java.awt.Component, java.awt.Container, javax.swing.JComponent, javax.swing.JMenuBar, de.graphioli.view.MenuBar}
+
 The \texttt{MenuBar} contains the game menu, options menu and help menu, is displayed at the top of the \ref{cls:gamewindow} and starts the standard menu item specific methods. \\
 
 \centerdash
@@ -119,8 +142,12 @@ The \texttt{MenuBar} contains the game menu, options menu and help menu, is disp
 	\startmethodtable
 	\method{public}{MenuBar(GameWindow parent)}{mb:menubar} \\
 	& Creates the \texttt{MenuBar} and registers its parent \ref{cls:gamewindow}. \\
+	\method{private boolean}{createManus()}{mb:addcustommenuitem} \\
+	& Creates the standard \texttt{Menus} including their menu items. \\ 
 	\method{public boolean}{addCustomMenuItem(MenuItem item)}{mb:addcustommenuitem} \\
 	& Adds a \texttt{MenuItem} to the options menu. \\ 
+	\method{public void}{actionPerformed(ActionEvent event)}{mb:actionperformed} \\
+	& Invokes when a menu item is selected. \\ 
 	\hline
 \end{longtable}
 
@@ -140,6 +167,8 @@ Listens to one specific \texttt{MenuItem} in the \ref{cls:menubar} and forwards 
 	\startmethodtable
 	\method{public}{CustomMenuItemListener(GameWindow window, MenuItem item)}{cmil:custommenuitemlistener} \\
 	& Creates a \texttt{CustomMenuItemListener} and registers its specific \texttt{MenuItem} and the parent \ref{cls:gamewindow}. \\ 
+	\method{public void}{actionPerformed(ActionEvent event)}{cmil:actionPerformed} \\
+	& Invokes when a menu item is selected. \\ 
 	\hline
 \end{longtable}
 
@@ -155,7 +184,7 @@ This class represents a \texttt{status bar} at the bottom of the \ref{cls:gamewi
 \begin{longtable}{Lp{10cm}}
 	\startmethodtable
 	\method{public String}{getStatus()}{sb:getstatus} \\
-	& Returns the currently shown status message. \\
+	& Returns the currently shown status message (including the currently active \ref{cls:player} and error message). \\
 	\method{public boolean}{updatePlayerStatus(Player player)}{sb:updateplayerstatus} \\
 	& Updates and displays the current \ref{cls:player}. \\
 	\method{public boolean}{displayErrorMessage(String message)}{sb:displayerrormessage} \\
