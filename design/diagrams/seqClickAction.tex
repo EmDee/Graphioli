@@ -1,0 +1,28 @@
+\documentclass{article}
+
+\pagestyle{empty} % surpress page numbers
+
+\usepackage[margin=1cm, landscape]{geometry}
+
+\usepackage{tikz}
+\usepackage{pgf-umlsd}
+\usepgflibrary{arrows} % for pgf-umlsd
+\usetikzlibrary{shadows}
+
+
+\begin{document}
+
+\begin{sequencediagram}
+	
+	\newinst{vg}{:VisualGrid}
+	\newinst{gw}{:GameWindow}
+	\newinst{vm}{:ViewManager}
+	\newinst{gm}{:GameManager}
+	\newinst{gb}{:GameBoard}
+	\newinst{grid}{:Grid}
+	\newinst{game}{:Game}
+
+	
+\end{sequencediagram}
+
+\end{document}
