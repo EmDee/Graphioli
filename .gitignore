@@ -45,5 +45,8 @@ pflichtenheft/*.pdf
 design/*.pdf
 design/diagrams/*.pdf
 
+# exceptions
+!idxStyle.ist
+
 # miscellaneous
 *.un~
