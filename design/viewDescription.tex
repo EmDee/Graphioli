@@ -1,5 +1,13 @@
 \subsection{View}
 
+\begin{figure}[h]
+	\centering
+	\includegraphics[page=1,width=\textwidth,keepaspectratio]{viewClassDiagram.pdf}
+	\caption{View class diagram.}
+	\label{img:viewClassDiagram}
+\end{figure}
+\pagebreak
+
 % Interface View
 \interface{View}{view}
 View is an interface for implementation of the (graphical) user interface. \\ 
@@ -26,6 +34,7 @@ View is an interface for implementation of the (graphical) user interface. \\
 	& Sets the size of the vertices displayed. \\ 
 	\hline
 \end{longtable}
+\pagebreak
 
 % GameWindow
 \class{GameWindow}{gamewindow}
@@ -60,6 +69,7 @@ This class is the actual game window containing \ref{cls:graphcanvas}, \ref{cls:
 	& Forwards the key input to the \ref{cls:viewmanager}. \\
 	\hline
 \end{longtable}
+\pagebreak
 
 % CustomKeyDispatcher
 \class{CustomKeyDispatcher}{customkeydispatcher}
@@ -82,6 +92,7 @@ This class handles the keyboard input. \\
 	& Dispatches the KeyEvent and calls the \ref{cls:gamewindow}. \\
 	\hline
 \end{longtable}
+\pagebreak
 
 % GraphCanvas
 \class{GraphCanvas}{graphcanvas}
@@ -101,6 +112,7 @@ This class is responsible for displaying the \ref{cls:graph} and \ref{cls:grid} 
 	& Updates and redraws the canvas. \\ 
 	\hline
 \end{longtable}
+\pagebreak
 
 % VisualGrid
 \class{VisualGrid}{visualgrid}
@@ -127,6 +139,7 @@ This class handles mouse input and serves as an connector between \ref{cls:grid}
 	& Invoked if the mouse button has been clicked. \\ 
 	\hline
 \end{longtable}
+\pagebreak
 
 % MenuBar
 \class{MenuBar}{menubar}
@@ -148,46 +161,5 @@ The \texttt{MenuBar} contains the game menu, options menu and help menu, is disp
 	& Adds a \texttt{MenuItem} to the options menu. \\ 
 	\method{public void}{actionPerformed(ActionEvent event)}{mb:actionperformed} \\
 	& Invokes when a menu item is selected. \\ 
-	\hline
-\end{longtable}
-
-%CustomMenuItemListener
-\class{CustomMenuItemListener}{custommenuitemlistener}
-Listens to one specific \texttt{MenuItem} in the \ref{cls:menubar} and forwards it to the \ref{cls:viewmanager} if it is selected. \\
-\begin{description}
-	\item[All Implemented Interfaces] \hfill \\
-		java.awt.event.ActionsListener
-\end{description}
-
-\centerdash
-
-\paragraph*{Method Summary}
-\paragraph*{}
-\begin{longtable}{Lp{10cm}}
-	\startmethodtable
-	\method{public}{CustomMenuItemListener(GameWindow window, MenuItem item)}{cmil:custommenuitemlistener} \\
-	& Creates a \texttt{CustomMenuItemListener} and registers its specific \texttt{MenuItem} and the parent \ref{cls:gamewindow}. \\ 
-	\method{public void}{actionPerformed(ActionEvent event)}{cmil:actionPerformed} \\
-	& Invokes when a menu item is selected. \\ 
-	\hline
-\end{longtable}
-
-% StatusBar
-\class{StatusBar}{statusbar}
-\createindentedlist{java.lang.Object, java.awt.Component, java.awt.Container, javax.swing.JComponent, javax.swing.JPanel, de.graphioli.view.StatusBar}
-This class represents a \texttt{status bar} at the bottom of the \ref{cls:gamewindow} and displays the current player and short error messages. \\
-
-\centerdash
-
-\paragraph*{Method Summary}
-\paragraph*{}
-\begin{longtable}{Lp{10cm}}
-	\startmethodtable
-	\method{public String}{getStatus()}{sb:getstatus} \\
-	& Returns the currently shown status message (including the currently active \ref{cls:player} and error message). \\
-	\method{public boolean}{updatePlayerStatus(Player player)}{sb:updateplayerstatus} \\
-	& Updates and displays the current \ref{cls:player}. \\
-	\method{public boolean}{displayErrorMessage(String message)}{sb:displayerrormessage} \\
-	& Displays the error message. \\ 
 	\hline
 \end{longtable}
