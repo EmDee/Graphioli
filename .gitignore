@@ -33,7 +33,6 @@
 *.xdy
 *.tex.swp
 *.tex~
-*.sh
 
 # system
 .DS_Store
