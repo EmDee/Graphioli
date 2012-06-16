@@ -329,7 +329,6 @@ This class represents an \texttt{Edge}. \\
 \pagebreak
 
 % VisualEdge
-\todo{Add methods}
 \abstractclass{VisualEdge}{visualedge}
 \createindentedlist{de.graphioli.model.Edge, de.graphioli.model.VisualEdge}
 This class represents a \texttt{VisualEdge}.
@@ -376,6 +375,8 @@ This class represents an \texttt{Edge} with different attributes (color, stroke 
 	& Sets the \texttt{color} of this \texttt{SimpleVisualEdge}. \\
 	\method{public int}{setStrokeWeight()}{sve:setstrokeweight} \\
 	& Sets the \texttt{stroke weight} of this \texttt{SimpleVisualEdge}. \\
+	\method{protected void}{draw(Graphics2D)}{sve:draw} \\
+	& Draws this \texttt{SimpleVisualEdge} according to its troke color and stroke weight attributes and the position of its \texttt{VisualVertices}. \\
 	\hline
 \end{longtable}
 

@@ -1,18 +1,13 @@
 \documentclass{article}
 
-\pagestyle{empty} % surpress page numbers
-
-\usepackage[margin=1cm]{geometry}
-
+\usepackage[hmargin=0cm,vmargin=.7cm,centering,paperwidth=188mm,paperheight=218mm]{geometry} % switch to landscape, remove margins, set size to content size
 \usepackage{tikz}
 \usepackage{pgf-umlsd}
-\usepgflibrary{arrows} % for pgf-umlsd
 \usetikzlibrary{shadows}
-
+\usepgflibrary{arrows} % for pgf-umlsd
+\pagestyle{empty} % surpress page numbers
 
 \begin{document}
-
-
 
 \begin{sequencediagram}
 	
@@ -44,10 +39,7 @@
 	\mess{view}{redrawGraph()}{view}
 	\mess{view}{diplayPopup()}{view}
 	\begin{messcall}{view}{closeGame()}{gm} \end{messcall}
-	
 
 \end{sequencediagram}
-
-
 
 \end{document}

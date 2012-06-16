@@ -1,5 +1,6 @@
 \documentclass{article}
-\usepackage[margin=1cm]{geometry} % switch to landscape, remove margins
+
+\usepackage[hmargin=0cm,vmargin=.7cm,centering,paperwidth=157mm,paperheight=182mm]{geometry} % switch to landscape, remove margins, set size to content size
 \usepackage{tikz}
 \usepackage{pgf-umlsd}
 \usetikzlibrary{shadows}
@@ -15,7 +16,7 @@
 	\newinst[1]{brd}{:GameBoard}
 	\newinst{vtx}{:TwixTVertex}
 	
-		\begin{call}{gm}{onGameInit()}{twx}{true}
+	\begin{call}{gm}{onGameInit()}{twx}{true}
 		\begin{call}{twx}{init()}{vtx}{true}
 			\begin{call}{vtx}{loadBufferedImages}{vtx}{BufferedImages} \end{call}
 		\end{call}
@@ -35,8 +36,6 @@
 		\end{call}
 	\end{call}
 	\mess{gm}{drawGraph}{view}
-
-
 
 \end{sequencediagram}
 \end{document}
