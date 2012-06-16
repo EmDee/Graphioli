@@ -40,6 +40,10 @@
 .com.apple.timemachine.supported
 *.swp
 
+# Shell Scripts
+*.bat
+*.sh
+
 # pdfs
 pflichtenheft/*.pdf
 design/*.pdf
