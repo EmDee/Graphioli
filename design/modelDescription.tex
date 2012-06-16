@@ -19,11 +19,11 @@ This class represents the game board of a game. The \texttt{GameBoard} combines 
 \begin{longtable}{Lp{10cm}}
 	\startmethodtable
 	\method{public}{GameBoard(boolean isDirected)}{gb:gameboard} \\
-	& Creates a new \texttt{GameBoard} with the specified option - if the GameBoard is directed or not. \\
+	& Creates a new \texttt{GameBoard} with the specified option - if the \texttt{GameBoard} is directed or not. \\
 	\method{public boolean}{addVisualVertex(VisualVertex visualVertex)}{gb:addvisualvertex} \\
 	& Adds a \ref{cls:visualvertex} to this \texttt{GameBoard} and returns \texttt{true} if adding was successful. \\
 	\method{public boolean}{addVisualVertices(VisualVertex[ ] visualVertices)}{gb:addvisualvertices} \\
-	& Adds a list of VisualVertices to this \texttt{GameBoard} and returns \texttt{true} if adding was successful. \\
+	& Adds a list of \texttt{VisualVertices} to this \texttt{GameBoard} and returns \texttt{true} if adding was successful. \\
 	\method{public VisualEdge}{addVisualEdge(VisualVertex vertexA, VisualVertex vertexB)}{gb:addvisualedge} \\
 	& Adds a \ref{cls:visualedge} between two specified \texttt{VisualVertices} \texttt{vertexA} and \texttt{vertexB}, and returns the added \ref{cls:visualvertex}. \\
 	\method{public boolean}{removeVisualVertex(VisualVertex visualVertex)}{gb:removevisualvertex} \\
@@ -31,9 +31,9 @@ This class represents the game board of a game. The \texttt{GameBoard} combines 
 	\method{public boolean}{removeVisualEdge(VisualEdge visualEdge)}{gb:removevisualedge} \\
 	& Returns \texttt{true} if a specified \ref{cls:visualedge} was removed successfully from this \texttt{GameBoard}. \\
 	\method{public VisualEdge}{getVisualEdge(VisualVertex vexA, VisualVertex vexB)}{gb:getVisualEdge} \\
-	& Returns a \ref{cls:visualedge} between two specified \texttt{VisualVertices} \texttt{vertexA} and \texttt{vertexB}. \\
+	& Returns a \ref{cls:visualedge} between two specified \texttt{VisualVertices} \texttt{vexA} and \texttt{vexB}. \\
 	\method{public boolean}{isGraphDirected()}{gb:isgraphdirected} \\
-	& Returns true if the \ref{cls:graph} in this \texttt{GameBoard} is directed. \\
+	& Returns \texttt{true} if the \ref{cls:graph} in this \texttt{GameBoard} is directed. \\
 	\method{public Graph}{getGraph()}{gb:getgraph} \\
 	& Returns the \ref{cls:graph} in this \texttt{GameBoard}. \\
 	\method{public Grid}{getGrid()}{gb:getgrid} \\
@@ -45,7 +45,7 @@ This class represents the game board of a game. The \texttt{GameBoard} combines 
 
 % Grid
 \class{Grid}{grid}
-This class represents the \texttt{Grid}, on which the \ref{cls:graph} will be located. \\
+This class represents the \gls{grid}, on which the \ref{cls:graph} will be located. \\
 
 \centerdash
 
@@ -60,7 +60,7 @@ This class represents the \texttt{Grid}, on which the \ref{cls:graph} will be lo
 	\method{public boolean}{removeVisualVertexAtGridPoint(GridPoint gridPoint)}{grid:removevisualvertexatgridpoint} \\
 	& Returns \texttt{true} if a \ref{cls:visualvertex} was removed successfully from the specified \ref{cls:gridpoint} on this \texttt{Grid}. \\
 	\method{public VisualVertex}{getVertexAtGridPoint(GridPoint gridPoint)}{grid:getvertexatgridpoint} \\
-	& Returns a \ref{cls:visualvertex} from a specified \ref{cls:gridpoint} on this \texttt{Grid}. \\
+	& Returns a \ref{cls:visualvertex} from the specified \ref{cls:gridpoint} on this \texttt{Grid}. \\
 	\hline
 \end{longtable}
 
@@ -68,7 +68,7 @@ This class represents the \texttt{Grid}, on which the \ref{cls:graph} will be lo
 
 % GridPoint
 \class{GridPoint}{gridpoint}
-This class represents a \texttt{GridPoint} on a \texttt{Grid}, which basically is a coordinate, on which \texttt{vertices} will be located on. \\
+This class represents a grid point on the \ref{cls:grid}, which basically is a coordinate, on which \texttt{vertices} will be located. \\
 
 \centerdash
 
@@ -79,9 +79,9 @@ This class represents a \texttt{GridPoint} on a \texttt{Grid}, which basically i
 	\method{public}{GridPoint(int positionX, int positionY)}{gp:gridpoint} \\
 	& Creates a new \texttt{GridPoint} with the specified positions \texttt{positionX} and \texttt{positionY}. \\
 	\method{public int}{getPositionX()}{gp:getpositionx} \\
-	& Returns the x coordinates of the \texttt{GridPoint}. \\
+	& Returns the x coordinate of the \texttt{GridPoint}. \\
 	\method{public int}{getPositionY()}{gp:getpositiony} \\
-	& Returns the y coordinates of the \texttt{GridPoint}. \\
+	& Returns the y coordinate of the \texttt{GridPoint}. \\
 	\hline
 \end{longtable}
 
@@ -89,7 +89,7 @@ This class represents a \texttt{GridPoint} on a \texttt{Grid}, which basically i
 
 % Graph
 \class{Graph}{graph}
-This class represents the logical graph. \\
+This class represents the logical \gls{graph}. \\
 
 \centerdash
 
@@ -98,17 +98,17 @@ This class represents the logical graph. \\
 \begin{longtable}{Lp{10cm}}
 	\startmethodtable
 	\method{public boolean}{addEdge(Vertex vertexA, Vertex vertexB)}{graph:addEdge} \\
-	& Adds an \ref{cls:edge} to this graph. \\
+	& Adds an \ref{cls:edge} to this \texttt{Graph}. \\
 	\method{public boolean}{addVertex(Vertex vertex)}{graph:addVertex} \\
-	& Adds a \ref{cls:vertex} to this graph. \\
+	& Adds a \ref{cls:vertex} to this \texttt{Graph}. \\
 	\method{public boolean}{removeVertex(Vertex vertex)}{graph:removevertex} \\
-	& Removes a specified \ref{cls:vertex} from this graph. \\
+	& Removes a specified \ref{cls:vertex} from this \texttt{Graph}. \\
 	\method{public boolean}{removeEdge(Edge edge)}{graph:removeedge} \\
-	& Removes a specified \ref{cls:edge} from this graph. \\
+	& Removes a specified \ref{cls:edge} from this \texttt{Graph}. \\
 	\method{public Iterable<Vertex>}{getVertices()}{graph:iterablevertex} \\
-	& Returns an iterable list of vertices.  \\
+	& Returns an iterable list of the \texttt{Vertices} of this \texttt{Graph}.  \\
 	\method{public Iterable<Edge>}{getEdge()}{graph:iterableedge} \\
-	& Returns an iterable list of vertices. \\
+	& Returns an iterable list of the \ref{cls:edge}s of this \texttt{Graph}. \\
 	\hline
 \end{longtable}
 
@@ -116,7 +116,7 @@ This class represents the logical graph. \\
 
 % Vertex
 \class{Vertex}{vertex}
-This class represents a logical vertex. \\
+This class represents a logical \gls{vertex}. \\
 
 \subclasses{cls:visualvertex}
 
@@ -127,19 +127,19 @@ This class represents a logical vertex. \\
 \begin{longtable}{Lp{10cm}}
 	\startmethodtable
 	\method{public Iterable<Vertex>}{getAdjacentVertices()}{vertex:getadjacentvertices} \\
-	& Returns all vertices that are connected to this vertex. \\
+	& Returns all \texttt{Vertices} that are connected to this \texttt{Vertex}. \\
 	\method{public UUID}{getUID()}{vertex:getuid} \\
-	& Returns the unique identifier for this vertex. \\
+	& Returns the unique identifier for this \texttt{Vertex}. \\
 	\method{public Iterable<Edge>}{getIncomingEdges()}{vertex:getincomingedges} \\
-	& Returns an iterable list of incoming edges. \\
+	& Returns an iterable list of incoming \ref{cls:edge}s. \\
 	\method{public boolean}{addIncomingEdge(Edge edge)}{vertex:addincomingedge} \\
-	& Adds an incoming \ref{cls:edge} to the list of incoming edges. \\
+	& Adds an incoming \ref{cls:edge} to the list of incoming \ref{cls:edge}s. \\
 	\method{public Iterable<Edge>}{getOutgoingEdges()}{vertex:getoutgoingedges} \\
-	& Returns an iterable list of outgoing edges. \\
+	& Returns an iterable list of outgoing \ref{cls:edge}s. \\
 	\method{public boolean}{addOutgoingEdge(Edge edge)}{vertex:addoutgoingedge} \\
-	& Adds an outgoing \ref{cls:edge} to the list of outgoing edges. \\
+	& Adds an outgoing \ref{cls:edge} to the list of outgoing \ref{cls:edge}s. \\
 	\method{public boolean}{isAdjacentTo(Vertex vertex)}{vertex:isadjacentto} \\
-	& Returns true if this vertex is adjacent to the given vertex. \\
+	& Returns true if this \texttt{Vertex} is adjacent to the given \texttt{Vertex}. \\
 	\hline
 \end{longtable}
 
@@ -148,7 +148,8 @@ This class represents a logical vertex. \\
 % VisualVertex
 \abstractclass{VisualVertex}{visualvertex}
 \createindentedlist{de.graphioli.model.Vertex, de.graphioli.model.VisualVertex}
-This class represents a vertex and its visual representation. \\
+
+This class represents a \gls{vertex} with its graphical representation. \\
 
 \subclasses{cls:graphicvisualvertex, cls:simplevisualvertex}
 
@@ -159,15 +160,15 @@ This class represents a vertex and its visual representation. \\
 \begin{longtable}{Lp{10cm}}
 	\startmethodtable
 	\method{public}{VisualVertex(GridPoint gridPoint)}{vv:visualvertex} \\
-	& Creates a new VisualVertex and places it on the specified \ref{cls:gridpoint}. \\
+	& Creates a new \texttt{VisualVertex} and places it on the specified \ref{cls:gridpoint}. \\
 	\method{protected abstract void}{draw(Graphics2D)}{vv:draw} \\
-	& Draws the VisualVertex onto the given \texttt{Graphics2D} object. \\
+	& Draws the \texttt{VisualVertex} onto the given \texttt{Graphics2D} object. \\
 	\method{final void}{update()}{vv:update} \\
 	& Updates the graphical representation of this \texttt{VisualVertex} by recreating its \texttt{BufferedImage} using the \ref{vv:draw} method.\\ 
 	\method{public \ref{cls:gridpoint}}{getGridPoint()}{vv:getgridpoint} \\
-	& Returns the GridPoint of the VisualVertex. \\ 
+	& Returns the \ref{cls:gridpoint} of this \texttt{VisualVertex}. \\ 
 	\method{public boolean}{setGridPoint(GridPoint gridPoint)}{vv:setgridpoint} \\
-	& Sets the GridPoint of the VisualVertex. \\
+	& Sets the \ref{cls:gridpoint} of this \texttt{VisualVertex}. \\
 	\method{public BufferedImage}{getBufferedImage()}{vv:getbufferedimage} \\
 	& Returns the \texttt{BufferedImage}, which contains the current graphical representation of this \texttt{VisualVertex}. \\ 
 	\hline
@@ -178,6 +179,7 @@ This class represents a vertex and its visual representation. \\
 % SimpleVisualVertex
 \class{SimpleVisualVertex}{simplevisualvertex}
 \createindentedlist{de.graphioli.model.Vertex, de.graphioli.model.VisualVertex, de.graphioli.model.SimpleVisualVertex}
+
 This class represents a simple \ref{cls:visualvertex} with predefined attributes.\\
 
 \subclasses{cls:graphcoloringvertex}
@@ -189,19 +191,19 @@ This class represents a simple \ref{cls:visualvertex} with predefined attributes
 \begin{longtable}{Lp{10cm}}
 	\startmethodtable
 	\method{public Color}{getColor()}{svv:getcolor} \\
-	& Returns the color of this \texttt{SimpleVisualVertex}. \\
+	& Returns the \texttt{color} of this \texttt{SimpleVisualVertex}. \\
 	\method{public int}{getStrokeWeight()}{svv:getStrokeWeight} \\
-	& Returns the stroke weight of this \texttt{SimpleVisualVertex}. \\
+	& Returns the \texttt{stroke weight} of this \texttt{SimpleVisualVertex}. \\
 	\method{public Color}{getStrokeColor()}{svv:getstrokecolor} \\
-	& Returns the stroke color of this \texttt{SimpleVisualVertex}. \\
+	& Returns the \texttt{stroke color} of this \texttt{SimpleVisualVertex}. \\
 	\method{public boolean}{setColor(Color color)}{svv:setcolor} \\
-	& Sets the color of this \texttt{SimpleVisualVertex}. \\
+	& Sets the \texttt{color} of this \texttt{SimpleVisualVertex}. \\
 	\method{public boolean}{setStrokeWeight(int strokeWeight)}{svv:setstrokeweight} \\
-	& Sets the stroke weight of this \texttt{SimpleVisualVertex}. \\
+	& Sets the \texttt{stroke weight} of this \texttt{SimpleVisualVertex}. \\
 	\method{public boolean}{setStrokeColor(Color strokeColor)}{svv:setstrokecolor} \\
-	& Sets the stroke color of this \texttt{SimpleVisualVertex}. \\
+	& Sets the \texttt{stroke color} of this \texttt{SimpleVisualVertex}. \\
 	\method{protected void}{draw(Graphics2D)}{svv:draw} \\
-	& Draws this \texttt{SimpleVisualVertex} according to its color, stroke color and stroke weight attributes. \\
+	& Draws this \texttt{SimpleVisualVertex} according to its \texttt{color}, \texttt{stroke color} and \texttt{stroke weight} attributes. \\
 	\hline
 \end{longtable}
 
@@ -210,7 +212,8 @@ This class represents a simple \ref{cls:visualvertex} with predefined attributes
 % GraphColoringVertex
 \class{GraphColoringVertex}{graphcoloringvertex}
 \createindentedlist{de.graphioli.model.Vertex, de.graphioli.model.VisualVertex, de.graphioli.model.SimpleVisualVertex, de.graphioli.model.GraphColoringVertex}
-This class represents a vertex used in the \graphcoloring game by defining a \texttt{colorID} attribute that can be used by the graph coloring algorithms. \\
+
+This class represents a \gls{vertex} used in the \graphcoloring \gls{game} by defining a \texttt{colorID} attribute that can be used by the graph coloring \gls{algorithm}s. \\
 
 \subclasses{cls:graphcoloringbuttonvertex}	
 
@@ -223,7 +226,7 @@ This class represents a vertex used in the \graphcoloring game by defining a \te
 	\method{public int}{getColorID}{gcv:getcolorid} \\
 	& Returns the \texttt{color identification} of this \texttt{GraphColoringVertex}. \\
 	\method{public boolean}{setColorID(int id)}{gcv:setcolorid} \\
-	& Sets the \texttt{color identification} of this \texttt{GraphColoringVertex} and changes its \texttt{Color} attribute accordingly. Returns \texttt{true} if successful. \\
+	& Sets the \texttt{color identification} of this \texttt{GraphColoringVertex} and changes its \texttt{Color} attribute accordingly. \\
 	
 	\hline
 \end{longtable}
@@ -233,6 +236,7 @@ This class represents a vertex used in the \graphcoloring game by defining a \te
 % GraphColoringButtonVertex
 \class{GraphColoringButtonVertex}{graphcoloringbuttonvertex}
 \createindentedlist{de.graphioli.model.Vertex, de.graphioli.model.VisualVertex, de.graphioli.model.SimpleVisualVertex, de.graphioli.model.GraphColoringVertex, de.graphioli.model.GraphColoringButtonVertex}
+
 This class represents a special \texttt{GraphColoringVertex}, that acts as a button for selecting a color. \\ 
 
 \centerdash
@@ -244,7 +248,7 @@ This class represents a special \texttt{GraphColoringVertex}, that acts as a but
 	\method{public boolean}{isHighlighted()}{gcbv:ishighlighted} \\
 	& Returns \texttt{true} if this \texttt{GraphColoringButtonVertex} is selected. \\
 	\method{public boolean}{setHighlighted(boolean isHighlighted)}{gcbv:sethighlighted} \\
-	& Sets the \texttt{highlighted} attribute of this \texttt{GraphColoringVertex} and changes its stroke color to visually represent the current state. \\
+	& Sets the \texttt{highlighted} attribute of this \texttt{GraphColoringVertex} and changes its \texttt{stroke color} to visually represent the current state. \\
 	\hline
 \end{longtable}
 
@@ -266,15 +270,15 @@ This class represents a \ref{cls:visualvertex} with a custom icon. \\
 	\method{public}{GraphicVisualVertex(String fileName)}{gvv:graphicvisualvertexfile} \\
 	& Creates a new \texttt{GraphicVisualVertex} using the image in the specified file as icon. \\
 	\method{public}{GraphicVisualVertex(BufferedImage image)}{gvv:graphicvisualverteximage} \\
-	& Creates a new \texttt{GraphicVisualVertex} using the specified BufferedImage as icon. \\
+	& Creates a new \texttt{GraphicVisualVertex} using the specified \texttt{BufferedImage} as icon. \\
 	\method{public BufferedImage}{getImage()}{gvv:getimage} \\
-	& Returns the image that represents this \texttt{GraphicVisualVertex}. \\
+	& Returns the \texttt{image} that represents this \texttt{GraphicVisualVertex}. \\
 	\method{public boolean}{setImage(BufferedImage image)}{gvv:setimage} \\
-	& Sets the image that represents this \ref{cls:graphicvisualvertex}. \\
+	& Sets the \texttt{image} that represents this \texttt{GraphicVisualVertex}. \\
 	\method{protected final BufferedImage}{loadBufferedImage(String fileName)}{gvv:loadbufferedimage} \\
 	& Loads the image file at the given \texttt{fileName} and returns it as a \texttt{BufferedImage}. \\
 	\method{protected void}{draw(Graphics2D)}{svv:draw} \\
-	& Draws this \texttt{GraphicVisualVertex} using its specified image. \\
+	& Draws this \texttt{GraphicVisualVertex} using its specified \texttt{image}. \\
 	\hline
 \end{longtable}
 
@@ -283,7 +287,7 @@ This class represents a \ref{cls:visualvertex} with a custom icon. \\
 % TwixtVertex
 \class{TwixtVertex}{twixtvertex}
 \createindentedlist{de.graphioli.model.Vertex, de.graphioli.model.VisualVertex, de.graphioli.model.GraphicVisualVertex,  de.graphioli.model.TwixtVertex}
-This class represents a vertex used in the \twixt game, which is displayed as either a red or blue tower, depending on the player it belongs to. \\
+This class represents a \gls{vertex} used in the \twixt game, which is displayed as either a red or blue tower, depending on the \gls{player} it belongs to. \\
 
 \centerdash
 
@@ -292,11 +296,11 @@ This class represents a vertex used in the \twixt game, which is displayed as ei
 \begin{longtable}{Lp{10cm}}
 	\startmethodtable
 	\method{public}{TwixtVertex(int playerID)}{tv:twixtvertex} \\
-	& Creates a new \texttt{TwixtVertex} and associates it with the player of the given \texttt{playerID}. \\
+	& Creates a new \texttt{TwixtVertex} and associates it with the \ref{cls:player} of the given \texttt{playerID}. \\
 	\method{public int}{getPlayerID()}{tv:getplayerid} \\
 	& Returns the \ref{cls:player}'s identification. \\
 	\method{public static boolean}{init(int redPlayerID, int bluePlayerID)}{tv:init} \\
-	& Initializes the \texttt{TwixtVertex} class by loading the images and defining which ID belongs to red and blue player respectively. \\
+	& Initializes the \texttt{TwixtVertex} by loading the images and defining which ID belongs to red and blue \ref{cls:player} respectively. \\
 	\hline
 \end{longtable}
 
@@ -304,7 +308,7 @@ This class represents a vertex used in the \twixt game, which is displayed as ei
 
 % Edge
 \class{Edge}{edge}
-This class represents a logical \texttt{edge}. \\
+This class represents a logical \gls{edge}. \\
 
 \subclasses{cls:visualedge}
 
@@ -315,15 +319,15 @@ This class represents a logical \texttt{edge}. \\
 \begin{longtable}{Lp{10cm}}
 	\startmethodtable
 	\method{public}{Edge(Vertex vertexA, Vertex vertexB)}{edge:edge} \\
-	& Creates a new \texttt{Edge} with the specified Vertices \texttt{vertexA} and \texttt{vertexB}. \\
+	& Creates a new \texttt{Edge} with the specified \texttt{Vertices} \texttt{vertexA} and \texttt{vertexB}. \\
 	\method{public Vertex}{getOriginVertex()}{edge:getoriginvertex} \\
 	& Returns the origin \ref{cls:vertex}. \\
 	\method{public Vertex}{getTargetVertex()}{edge:gettargetvertex} \\
-	& Returns the end \ref{cls:vertex}. \\
+	& Returns the target \ref{cls:vertex}. \\
 	\method{public int}{getWeight()}{edge:getweight} \\
-	& Returns the weight of this \texttt{edge}. \\
+	& Returns the \texttt{weight} of this \texttt{Edge}. \\
 	\method{public boolean}{setWeight(int weight)}{edge:setweight} \\
-	& Sets the weight of this \texttt{edge}. \\
+	& Sets the \texttt{weight} of this \texttt{Edge}. \\
 	\hline
 \end{longtable}
 
@@ -332,7 +336,7 @@ This class represents a logical \texttt{edge}. \\
 % VisualEdge
 \abstractclass{VisualEdge}{visualedge}
 \createindentedlist{de.graphioli.model.Edge, de.graphioli.model.VisualEdge}
-This class represents an edge and its visual representation.
+This class represents an \gls{edge} with its visual representation.
 
 \subclasses{cls:simplevisualedge}
 
@@ -343,11 +347,9 @@ This class represents an edge and its visual representation.
 \begin{longtable}{Lp{10cm}}
 	\startmethodtable
 	\method{protected abstract void}{draw(Graphics2D)}{ve:draw} \\
-	& Draws the VisualEdge onto the given \texttt{Graphics2D} object. \\
+	& Draws the \texttt{VisualEdge} onto the given \texttt{Graphics2D} object. \\
 	\method{final void}{update()}{ve:update} \\
 	& Updates the graphical representation of this \texttt{VisualEdge} by recreating its \texttt{BufferedImage} using the \ref{ve:draw} method.\\ 
-	\method{public \ref{cls:gridpoint}}{getGridPoint()}{vv:getgridpoint} \\
-	& Sets the GridPoint of the VisualVertex. \\
 	\method{public BufferedImage}{getBufferedImage()}{ve:getbufferedimage} \\
 	& Returns the \texttt{BufferedImage}, which contains the current graphical representation of this \texttt{VisualEdge}. \\ 
 	\hline
@@ -360,7 +362,8 @@ This class represents an edge and its visual representation.
 % SimpleVisualEdge
 \class{SimpleVisualEdge}{simplevisualedge}
 \createindentedlist{de.graphioli.model.Edge, de.graphioli.model.VisualEdge, de.graphioli.model.SimpleVisualEdge}
-This class represents an \texttt{Edge} with different attributes (color, stroke and stroke weight). \\
+
+This class represents a simple \ref{cls:visualedge} with predefined attributes. \\
 
 \centerdash
 
@@ -385,7 +388,7 @@ This class represents an \texttt{Edge} with different attributes (color, stroke 
 
 % Player
 \abstractclass{Player}{player}
-This abstract class represents a \texttt{player}. \\
+This class represents a \gls{player}. \\
 
 \subclasses{cls:localplayer}
 
@@ -409,13 +412,13 @@ This abstract class represents a \texttt{player}. \\
 % LocalPlayer
 \class{LocalPlayer}{localplayer}
 \createindentedlist{de.graphioli.model.Player, de.graphioli.model.LocalPlayer}
-This class represents a \texttt{LocalPlayer}.
+This class represents a local \gls{player}.
 
 \pagebreak
 
 % GameCapsule
 \class{GameCapsule}{gamecapsule}
-This class represents a \texttt{GameCapsule} that holds all the important data, which are absolutely neccessary. A \gls{savegame} will be saved in such a \texttt{GameCapsule}, which later on can be loaded to resume a game.
+This class represents a \texttt{GameCapsule} that holds all the important data about the game state. A \gls{savegame} will be saved in such a \texttt{GameCapsule}, which later on can be loaded to resume the \gls{game}.
 
 \centerdash
 
