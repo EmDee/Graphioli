@@ -11,7 +11,7 @@
 
 % Game
 \abstractclass{Game}{game}
-This is a abstract class that every \texttt{game} has to inherit, when using the \graphioli framework. It defines the callback functions the game developer needs to implement to provide the game's logic. \\
+This is the class that every \gls{game} has to inherit, when using the \graphioli framework. It defines the callback functions the game developer needs to implement the game's logic. \\
 
 \subclasses{cls:graphcoloring, cls:twixt}
 
@@ -30,13 +30,13 @@ This is a abstract class that every \texttt{game} has to inherit, when using the
 	\method{protected abstract boolean}{onEmptyGridPointClick(GridPoint gridPoint)}{game:onemptygridpointclick} \\
 	& Called when a player clicks on a \ref{cls:gridpoint} that has no \ref{cls:visualvertex} on it. \\
 	\method{protected abstract boolean}{onGameInit()}{game:ongameinit} \\
-	& Called after a game has been instantiated. \\
+	& Called after a \texttt{Game} has been instantiated. \\
 	\method{protected abstract boolean}{onGameStart()}{game:ongamestart} \\
-	& Called immediately before a game gets (re)started. \\
+	& Called immediately before a \texttt{Game} gets (re)started. \\
 	\method{protected boolean}{onKeyRelease(int keyCode)}{game:onkeyrelease} \\
 	& Called when a player releases a keyboard key.\\
 	\method{protected boolean}{onMenuItemClick(MenuItem item)}{game:onmenuitemclick} \\
-	& Called when a player clicks on a self-defined menu item. \\
+	& Called when a player clicks on a custom \texttt{MenuItem}. \\
 	\hline
 \end{longtable}
 
@@ -65,13 +65,13 @@ This is the framework's central class connecting the actual game with the \textt
 	\method{public boolean}{saveGame(file savegame)}{gm:savegame} \\
 	& Creates a \ref{cls:gamecapsule} and serializes it into a savegame file to save the current state of the game. \\
 	\method{public boolean}{finishGame()}{gm:finishgame} \\
-	& Finishs the game and displays a default Pop Up for single player games. \\
+	& Finishs the game and displays a default pop-up for single player games. \\
 	\method{public boolean}{finishGame(Player winner)}{gm:finishgameWinner} \\
-	& Finishs the game and displays the winning \ref{cls:player} in a Pop Up.  \\
+	& Finishs the game and displays the winning \ref{cls:player} in a pop-up.  \\
 	\method{public boolean}{restartGame()}{gm:restartgame} \\
-	& Restarts the game from the beginning, reseting the \ref{cls:gameboard} and players. \\
+	& Restarts the game from the beginning, reseting the \ref{cls:gameboard} and \ref{cls:player}s. \\
 	\method{public boolean}{closeGame()}{gm:closegame} \\
-	& Closes the game and returns the focus to the \texttt{Game Explorer}. \\
+	& Closes the game and returns the focus to the \ref{cls:gameexplorer}. \\
 	\method{public PlayerManager}{getPlayerManager()}{gm:getplayermanager} \\
 	& Returns the \ref{cls:playermanager} associated with this \texttt{GameManager}.\\
 	\method{public ViewManager}{getViewManager()}{gm:getviewmanager} \\
@@ -96,23 +96,23 @@ This class acts as an interface between the \gls{GUI} and the other parts of the
 	\method{public}{ViewManager(GameManager gameManager)}{viewmanager:viewmanager} \\
 	& Creates a new \texttt{ViewManager} associated with the given \ref{cls:gamemanager}. \\
 	\method{public boolean}{updatePlayerStatus(Player player)}{viewmanager:updateplayerstatus} \\
-	& Notifies the \texttt{View} to display the given player as active. \\
+	& Notifies the \ref{cls:view} to display the given \ref{cls:player} as active. \\
 	\method{public boolean}{onGridPointClick(GridPoint gridpoint)}{viewmanager:ongridpointclick} \\
-	& Callback function used by the view to notify about a click on a \ref{cls:gridpoint}.  \\
+	& Callback function used by the \ref{cls:view} to notify about a click on a \ref{cls:gridpoint}.  \\
 	\method{public boolean}{onKeyRelease(int keycode)}{viewmanager:onkeyrelease} \\
-	& Callback function used by the view to notify about a key release. \\
+	& Callback function used by the \ref{cls:view} to notify about a key release. \\
 	\method{public boolean}{displayErrorMessage(String message)}{viewmanager:displayerrormessage} \\
-	& Notifies the \texttt{view} to display the error message. \\
+	& Notifies the \ref{cls:view} to display the error message. \\
 	\method{public boolean}{displayPopUp(String message)}{viewmanager:displaypopup} \\
-	& Notifies the \texttt{view} to display the given message in a popup. \\
+	& Notifies the \ref{cls:view} to display the given message in a pop-up. \\
 	\method{public boolean}{addGameMenuItem(MenuItem item}{viewmanager:addgamemenuitem} \\
-	& Notifies the \texttt{view} to add the given item to the menu. \\
+	& Notifies the \ref{cls:view} to add the given \texttt{MenuItem} to the menu. \\
 	\method{public boolean}{onMenuItemClick(MenuItem item)}{viewmanager:onmenuitemclick} \\
-	& Callback function used by the view to notify about a click on a previously added menu item.  \\
+	& Callback function used by the \ref{cls:view} to notify about a click on a previously added \texttt{MenuItem}.  \\
 	\method{public GameManager}{getGameManager()}{viewmanager:getgamemanager} \\
 	& Returns the associated \ref{cls:gamemanager}. \\
 	\method{public boolean}{setVisualVertexSet(int size)}{viewmanager:setvisualvertexsize} \\
-	& Notifies the \texttt{View} to change the size of the VisualVertices to the given values. \\
+	& Notifies the \ref{cls:view} to change the \texttt{size} of the \texttt{VisualVertices} to the given value. \\
 	\hline
 \end{longtable}
 
@@ -120,7 +120,7 @@ This class acts as an interface between the \gls{GUI} and the other parts of the
 
 % PlayerManager
 \class{PlayerManager}{playermanager}
-This class is responible for keeping information about a game's players.  \\
+This class is responsible for keeping information about a game's \ref{cls:player}s.  \\
 
 \centerdash
 
@@ -131,7 +131,7 @@ This class is responible for keeping information about a game's players.  \\
 	\method{public}{PlayerManager(Iterable<Player> players)}{pm:playermanager} \\
 	& Constructs a \texttt{PlayerManager} with the given set of \ref{cls:player}s. \\
 	\method{private boolean}{initializePlayers()}{pm:initializeplayers} \\
-	& Initializes registered players. \\
+	& Initializes registered \ref{cls:player}s. \\
 	\method{public Iterable<Player> players}{getPlayers()}{pm:getplayers} \\
 	& Returns the list of \ref{cls:player}s managed by this instance. \\
 	\method{public Player}{getActivePlayer()}{pm:getactiveplayer} \\
@@ -159,13 +159,13 @@ Our implemented game containing the game's logic of \graphcoloring in single and
 	\method{private boolean}{generateBoard()}{gc:generateboard} \\
 	& Generates the \ref{cls:gameboard} used to play the game. \\
 	\method{protected abstract boolean}{onVertexClick(VisualVertex vertex)}{gc:onvertexclick} \\
-	& Colors the given Vertex (if possible) and decides if the game is finished by this move. \\
+	& Colors the given \ref{cls:vertex} (if possible) and decides if the game is finished by this move. \\
 	\method{protected abstract boolean}{onEmptyGridPointClick(GridPoint gridPoint)}{gc:onemptygridpointclick} \\
 	& Has no function in this game. \\
 	\method{protected abstract boolean}{onGameInit()}{gc:ongameinit} \\
-	& Decides whether the game is started in Single- or Multiplayer mode. \\
+	& Decides whether the game is started in single or multiplayer mode. \\
 	\method{protected abstract boolean}{onGameStart()}{gc:ongamestart} \\
-	& (Re)builds the game board using \ref{gc:generateboard}. \\
+	& (Re)builds the \ref{cls:gameboard} using \ref{gc:generateboard}. \\
 	\hline
 \end{longtable}
 
@@ -185,13 +185,13 @@ Our implemented game containing the game's logic of \twixt. \\
 	\method{private boolean}{generateBoard()}{twixt:generateboard} \\
 	& Generates the \ref{cls:gameboard} used to play the game. \\
 	\method{protected abstract boolean}{onVertexClick(VisualVertex vertex)}{twixt:onvertexclick} \\
-	& Selects a tower on the board and creates an edge between this one and the one previously selected if they belong to the same player and the new edge would not intersect with another one.
+	& Selects a tower on the \ref{cls:gameboard} and creates an \ref{cls:edge} between this \ref{cls:vertex} and the one previously selected if they belong to the same \ref{cls:player} and the new \ref{cls:edge} would not intersect with another one.
 	It then checks if the baselines are connected and the game is finished.\\
 	\method{protected abstract boolean}{onEmptyGridPointClick(GridPoint gridPoint)}{twixt:onemptygridpointclick} \\
-	& Sets a new \ref{cls:twixtvertex} belonging to the active player onto the given grid point, if possible. \\
+	& Sets a new \ref{cls:twixtvertex} belonging to the active \ref{cls:player} onto the given \ref{cls:gridpoint}, if possible. \\
 	\method{protected abstract boolean}{onGameInit()}{twixt:ongameinit} \\
 	& Initilaizes the \ref{cls:twixtvertex} class. \\
 	\method{protected abstract boolean}{onGameStart()}{twixt:ongamestart} \\
-	& (Re)builds the game board using \ref{twixt:generateboard}. \\	
+	& (Re)builds the \ref{cls:gameboard} using \ref{twixt:generateboard}. \\	
 	\hline
 \end{longtable}
