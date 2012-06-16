@@ -99,7 +99,7 @@ This class represents the logical graph. \\
 	\startmethodtable
 	\method{public boolean}{addEdge(Vertex vertexA, Vertex vertexB)}{graph:addEdge} \\
 	& Adds an \ref{cls:edge} to this graph. \\
-	\method{public boolean}{addVertex(vertex : Vertex)}{graph:addVertex} \\
+	\method{public boolean}{addVertex(Vertex vertex)}{graph:addVertex} \\
 	& Adds a \ref{cls:vertex} to this graph. \\
 	\method{public boolean}{removeVertex(Vertex vertex)}{graph:removevertex} \\
 	& Removes a specified \ref{cls:vertex} from this graph. \\
@@ -116,7 +116,7 @@ This class represents the logical graph. \\
 
 % Vertex
 \class{Vertex}{vertex}
-This class represents the logical vertex. \\
+This class represents a logical vertex. \\
 
 \subclasses{cls:visualvertex}
 
@@ -139,6 +139,7 @@ This class represents the logical vertex. \\
 	\method{public boolean}{addOutgoingEdge(Edge edge)}{vertex:addoutgoingedge} \\
 	& Adds an outgoing \ref{cls:edge} to the list of outgoing edges. \\
 	\method{public boolean}{isAdjacentTo(Vertex vertex)}{vertex:isadjacentto} \\
+	& Returns true if this vertex is adjacent to the given vertex. \\
 	\hline
 \end{longtable}
 
@@ -147,7 +148,7 @@ This class represents the logical vertex. \\
 % VisualVertex
 \abstractclass{VisualVertex}{visualvertex}
 \createindentedlist{de.graphioli.model.Vertex, de.graphioli.model.VisualVertex}
-This class represents a VisualVertex. \\
+This class represents a vertex and its visual representation. \\
 
 \subclasses{cls:graphicvisualvertex, cls:simplevisualvertex}
 
@@ -157,7 +158,7 @@ This class represents a VisualVertex. \\
 \paragraph*{}
 \begin{longtable}{Lp{10cm}}
 	\startmethodtable
-	\method{public}{VisualVertex(gridPoint : GridPoint)}{vv:visualvertex} \\
+	\method{public}{VisualVertex(GridPoint gridPoint)}{vv:visualvertex} \\
 	& Creates a new VisualVertex and places it on the specified \ref{cls:gridpoint}. \\
 	\method{protected abstract void}{draw(Graphics2D)}{vv:draw} \\
 	& Draws the VisualVertex onto the given \texttt{Graphics2D} object. \\
@@ -165,7 +166,7 @@ This class represents a VisualVertex. \\
 	& Updates the graphical representation of this \texttt{VisualVertex} by recreating its \texttt{BufferedImage} using the \ref{vv:draw} method.\\ 
 	\method{public \ref{cls:gridpoint}}{getGridPoint()}{vv:getgridpoint} \\
 	& Returns the GridPoint of the VisualVertex. \\ 
-	\method{public boolean}{setGridPoint(gridPoint : GridPoint)}{vv:setgridpoint} \\
+	\method{public boolean}{setGridPoint(GridPoint gridPoint)}{vv:setgridpoint} \\
 	& Sets the GridPoint of the VisualVertex. \\
 	\method{public BufferedImage}{getBufferedImage()}{vv:getbufferedimage} \\
 	& Returns the \texttt{BufferedImage}, which contains the current graphical representation of this \texttt{VisualVertex}. \\ 
@@ -188,17 +189,17 @@ This class represents a simple \ref{cls:visualvertex} with predefined attributes
 \begin{longtable}{Lp{10cm}}
 	\startmethodtable
 	\method{public Color}{getColor()}{svv:getcolor} \\
-	& Returns the color of this \ref{cls:simplevisualvertex}. \\
+	& Returns the color of this \texttt{SimpleVisualVertex}. \\
 	\method{public int}{getStrokeWeight()}{svv:getStrokeWeight} \\
-	& Returns the stroke weight of this \ref{cls:simplevisualvertex}. \\
+	& Returns the stroke weight of this \texttt{SimpleVisualVertex}. \\
 	\method{public Color}{getStrokeColor()}{svv:getstrokecolor} \\
-	& Returns the stroke color of this \ref{cls:simplevisualvertex}. \\
+	& Returns the stroke color of this \texttt{SimpleVisualVertex}. \\
 	\method{public boolean}{setColor(Color color)}{svv:setcolor} \\
-	& Sets the color of this \ref{cls:simplevisualvertex}. \\
+	& Sets the color of this \texttt{SimpleVisualVertex}. \\
 	\method{public boolean}{setStrokeWeight(int strokeWeight)}{svv:setstrokeweight} \\
-	& Sets the stroke weight of this \ref{cls:simplevisualvertex}. \\
+	& Sets the stroke weight of this \texttt{SimpleVisualVertex}. \\
 	\method{public boolean}{setStrokeColor(Color strokeColor)}{svv:setstrokecolor} \\
-	& Sets the stroke color of this \ref{cls:simplevisualvertex}. \\
+	& Sets the stroke color of this \texttt{SimpleVisualVertex}. \\
 	\method{protected void}{draw(Graphics2D)}{svv:draw} \\
 	& Draws this \texttt{SimpleVisualVertex} according to its color, stroke color and stroke weight attributes. \\
 	\hline
@@ -303,7 +304,7 @@ This class represents a vertex used in the \twixt game, which is displayed as ei
 
 % Edge
 \class{Edge}{edge}
-This class represents an \texttt{Edge}. \\
+This class represents a logical \texttt{edge}. \\
 
 \subclasses{cls:visualedge}
 
@@ -331,7 +332,7 @@ This class represents an \texttt{Edge}. \\
 % VisualEdge
 \abstractclass{VisualEdge}{visualedge}
 \createindentedlist{de.graphioli.model.Edge, de.graphioli.model.VisualEdge}
-This class represents a \texttt{VisualEdge}.
+This class represents an edge and its visual representation.
 
 \subclasses{cls:simplevisualedge}
 
@@ -384,7 +385,7 @@ This class represents an \texttt{Edge} with different attributes (color, stroke 
 
 % Player
 \abstractclass{Player}{player}
-This abtract class represents a \texttt{player}. \\
+This abstract class represents a \texttt{player}. \\
 
 \subclasses{cls:localplayer}
 
