@@ -31,15 +31,15 @@
 		\end{sdblock}
 		\end{call}
 	\end{call}
-	\mess{gm}{redrawGraph()}{view}
+	\mess{gm}{redrawGraph{()}}{view}
 
 	\begin{messcall}{view}{onVisualVertexClick{}}{gcg}
 		\begin{call}{gcg}{setColor(Color)}{vtx}{true} \end{call}
 		\begin{call}{gcg}{isGraphColored()}{gcg}{true} \end{call}
 		\begin{messcall}{gcg}{finishGame()}{gm} \end{messcall}
 	\end{messcall}
-	\mess{gm}{redrawGraph()}{view}
-	\mess{gm}{diplayPopup()}{view}
+	\mess{gm}{redrawGraph{()}}{view}
+	\mess{gm}{diplayPopup{()}}{view}
 	\begin{messcall}{gm}{closeGame()}{gm} \end{messcall}
 
 \end{sequencediagram}
