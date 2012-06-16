@@ -8,6 +8,7 @@
 \end{figure}
 \pagebreak
 
+% GameExplorer
 \class{GameExplorer}{gameexplorer}
 The \texttt{GameExplorer} list the avaliable games and enables the user to select and start one of it.
 
@@ -19,16 +20,18 @@ The \texttt{GameExplorer} list the avaliable games and enables the user to selec
 	\startmethodtable
 	\method{public}{GameExplorer(GameManager gameManager)}{ge:gameexplorer} \\
 	& Creates a new \texttt{Game Explorer}. \\
-	\method{private GameDefinition}{parseGameDefinition(String jsonString)}{ge:parsegamedefinition} \\
+	\method{private GameDefinition}{createGameDefinitionFromJSON(String jsonString)}{ge:creategamedefinitionfromjson} \\
 	& Parses a \ref{cls:gamedefinition} from a given JSON string. \\
 	\method{private Iterable<GameDefinition>}{scanGameFolder()}{ge:scangamefolder} \\
-	& Scans the \texttt{Game Folder} and returns the \ref{cls:gamedefinition}s of the games in it. \\
-	\method{public boolean}{selectGame(GameDefinition gameDef), Iterable<Player> players}{ge:selectgame} \\
+	& Scans the \texttt{Game Folder} for games and returns the \ref{cls:gamedefinition}s of the games in it. \\
+	\method{public boolean}{selectGame(GameDefinition gameDef, Iterable<Player> players)}{ge:selectgame} \\
 	& Calls the \ref{cls:gamemanager} to start the game of the given \ref{cls:gamedefinition} and with the given \ref{cls:player}s. \\
 	\method{public boolean}{openHelpFile(GameDefinition gameDef)}{ge:openhelpfile} \\
 	& Opens the help file of the given \ref{cls:gamedefinition}. \\
 	\method{public Iterable<GameDefinition>}{getGameDefinitions()}{ge:getgamedefinitions} \\
-	& Returns the \ref{cls:gamedefinition} of this\texttt{GameExplorer}. \\
+	& Returns the \ref{cls:gamedefinition}s of this \texttt{GameExplorer}. \\
+	\method{public GameDefinition}{getGameDefinitionAtIndex(int index)}{ge:getgamedefinitionatindex} \\
+	& Returns the \ref{cls:gamedefinition} at the specific index. \\
 	\hline
 \end{longtable}
 
@@ -69,11 +72,14 @@ This class represents the game's definition, containing crucial information that
 	& Returns the number of horizontal \ref{cls:gridpoint}s for this specific game. \\
 	\method{public int}{getVerticalGridPointCount()}{gd:getverticalgridpointcount} \\
 	& Returns the number of vertical \ref{cls:gridpoint}s for this specific game. \\
+	\method{public boolean}{isDirected()}{gd:isdirected} \\
+	& Returns whether the game's graph is directed. \\
 	\hline
 \end{longtable}
 
 \pagebreak
 
+% GameExplorerView (interface)
 \interface{GEView}{geview}
 This interface defines the methods the \ref{cls:gameexplorer} uses to commuinicate with its \gls{GUI}. \\
 
@@ -85,14 +91,21 @@ This interface defines the methods the \ref{cls:gameexplorer} uses to commuinica
 	\startmethodtable
 	\method{public boolean}{registerController(GameExplorer gameExplorer)}{gev:registercontroller} \\
 	& Registers the controller for the Game Explorer user interface. \\
+	\method{public boolean}{generateView()}{gev:generateview} \\
+	& Generates the user interface of the \ref{cls:gameexplorer}. \\
 	\hline
 \end{longtable}
 
 \pagebreak
 
+% GameExplorerWindow
 \class{GEWindow}{gewindow}
+\createindentedlist{java.lang.Object, java.awt.Component, java.awt.Container, java.awt.Window, java.awt.Frame, javax.swing.JFrame, de.graphioli.gameexplorer.GEWindow}
 This class represents the main window of the \ref{cls:gameexplorer}. \\
+
 \interfaces{cls:geview}
+
+\todo{....WIEE??? wenigstens einrücken} java.awt.event.ListSelectionListener
 
 \centerdash
 
@@ -100,19 +113,30 @@ This class represents the main window of the \ref{cls:gameexplorer}. \\
 \paragraph*{}
 \begin{longtable}{Lp{10cm}}
 	\startmethodtable
+	\method{public boolean}{generateView()}{gew:generateview} \\
+	& Generates the graphical user interface of the \ref{cls:gameexplorer} (\ref{cls:gegameinformation}, \ref{cls:gebuttonpanel} and JList containing the \ref{cls:gamedefinitionlistmodel}). \\
 	\method{public void}{valueChanged(ListSelectionEvent event)}{gew:valuechanged} \\
 	& Called by the \texttt{JList} when its selection has changed to update the remaining graphical elements of this \texttt{GEWindow}. \\
-	\method{private boolean}{openPlayerPopUp()}{gew:openplayerpopup} \\
+	\method{public boolean}{openHelpFile()}{gew:openhelpfile} \\
+	& Calls \ref{ge:openhelpfile} of \ref{cls:gameexplorer} with the \texttt{selectedGameDefinition}. \\
+	\method{public boolean}{openPlayerPopUp()}{gew:openplayerpopup} \\
 	& Creates and shows a \ref{cls:playerpopup} for player selection. \\
-	\method{public boolean}{onPlayerPopUpReturn(Itreable<Player> players)}{gew:onplayerpopupreturn} \\
+	\method{public boolean}{onPlayerPopUpReturn(Iterable<Player> players)}{gew:onplayerpopupreturn} \\
 	& Called by the \ref{cls:playerpopup} when it has finished and triggers the start of the game. \\
 	\hline
 \end{longtable}
 
 \pagebreak
 
+% PlayerPopUp
 \class{PlayerPopUp}{playerpopup}
-Represents PopUp-Window that is used to select the players for a game. \\
+\createindentedlist{java.lang.Object, java.awt.Component, java.awt.Container, java.awt.Window, java.awt.Frame, javax.swing.JFrame, de.graphioli.gameexplorer.PlayerPopUp}
+
+Represents PopUp-Window that is used to select the the number of players and their names for a game. \\
+\begin{description}
+	\item[All Implemented Interfaces] \hfill \\
+	java.awt.event.ActionListener
+\end{description}
 
 \centerdash
 
@@ -120,6 +144,8 @@ Represents PopUp-Window that is used to select the players for a game. \\
 \paragraph*{}
 \begin{longtable}{Lp{10cm}}
 	\startmethodtable
+	\method{public}{PlayerPopUp(int minPlayer, int maxPlayer)}{ppu:playerpopup} \\
+	& Creates a \texttt{PlayerPopUp}. \\
 	\method{public void}{actionPerformed(ActionEvent event)}{ppu:gamedefinitionlistmodel} \\
 	& Callback method for the Buttons, that creates the \ref{cls:player}s based on the input and calls \ref{gew:onplayerpopupreturn}. \\
 	\hline
@@ -127,6 +153,7 @@ Represents PopUp-Window that is used to select the players for a game. \\
 
 \pagebreak
 
+% GameDefinitionListModel
 \class{GameDefinitionListModel}{gamedefinitionlistmodel}
 Represents a data model that provides the \texttt{JList} with its content. \\
 
@@ -145,8 +172,11 @@ Represents a data model that provides the \texttt{JList} with its content. \\
 
 \pagebreak
 
+% GameExplorerGameInformation
 \class{GEGameInformation}{gegameinformation}
-Organizes the output of the screenshot and the description of the game \\
+\createindentedlist{java.lang.Object, java.awt.Component, java.awt.Container, javax.swing.JComponent, javax.swing.JPanel, de.graphioli.gameexplorer.GEGameInformation}
+
+Organizes the output of the screenshot and the description of the game. \\
 
 \centerdash
 
@@ -158,5 +188,30 @@ Organizes the output of the screenshot and the description of the game \\
 	& Sets the description of the game and updates the display \\
 	\method{public boolean}{setScreenshot(BufferedImage screenshot)}{gegi:setscreenshot} \\
 	& Sets the screenshot of the game and updates the display \\
+	\hline
+\end{longtable}
+
+\pagebreak
+
+% GameExplorerButtonPanel
+\class{GEButtonPanel}{gebuttonpanel}
+\createindentedlist{java.lang.Object, java.awt.Component, java.awt.Container, javax.swing.JComponent, javax.swing.JPanel, de.graphioli.gameexplorer.GEButtonPanel}
+
+Organizes buttons and listens to them calling the specific methods in the \ref{cls:gamewindow}. \\
+\begin{description}
+	\item[All Implemented Interfaces] \hfill \\
+	java.awt.event.ActionListener
+\end{description}
+
+\centerdash
+
+\paragraph*{Method Summary}
+\paragraph*{}
+\begin{longtable}{Lp{10cm}}
+	\startmethodtable
+	\method{public boolean}{setButtonsActive(boolean isActive)}{gebp:setbuttonsactive} \\
+	& Sets the buttons (in)active. \\
+	\method{public boolean}{actionPerformed(ActionEvent event)}{gebp:actionperformed} \\
+	& Invokes if a button is clicked and calls the specific methods in the \ref{cls:gewindow} for the selected button. \\
 	\hline
 \end{longtable}
