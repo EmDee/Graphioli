@@ -24,7 +24,7 @@
 		\begin{messcall}{gm}{GameExplorer(this)}{ge}
 			\begin{call}{ge}{scanGameFolder()}{ge}{gameDefinitions}
 				\begin{sdblock}{Loop}{}
-					\begin{call}{ge}{createGameDefinitionFromJSON(JSONString)}{ge}{GameDefinition}
+					\begin{call}{ge}{createGameDefinitionFromJSON(JSONObject)}{ge}{GameDefinition}
 						\begin{messcall}{ge}{GameDefinition()}{gd} \end{messcall}
 					\end{call}
 				\end{sdblock}
