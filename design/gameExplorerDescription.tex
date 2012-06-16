@@ -9,7 +9,7 @@
 \pagebreak
 
 \class{GameExplorer}{gameexplorer}
-\todo{Description} \\
+The \texttt{GameExplorer} list the avaliable games and enables the user to select and start one of it.
 
 \centerdash
 
@@ -19,14 +19,16 @@
 	\startmethodtable
 	\method{public}{GameExplorer(GameManager gameManager)}{ge:gameexplorer} \\
 	& Creates a new \texttt{Game Explorer}. \\
-	\method{private JSONObject}{parseJSON()}{ge:parsejson} \\
-	& Parses the property file to a JSON Object. \\
+	\method{private GameDefinition}{parseGameDefinition(String jsonString)}{ge:parsegamedefinition} \\
+	& Parses a \ref{cls:gamedefinition} from a given JSON string. \\
 	\method{private Iterable<GameDefinition>}{scanGameFolder()}{ge:scangamefolder} \\
 	& Scans the \texttt{Game Folder} and returns the \ref{cls:gamedefinition}s of the games in it. \\
-	\method{public boolean}{selectGame(GameDefinition gameDef)}{ge:selectgame} \\
-	& description \\
+	\method{public boolean}{selectGame(GameDefinition gameDef), Iterable<Player> players}{ge:selectgame} \\
+	& Calls the \ref{cls:gamemanager} to start the game of the given \ref{cls:gamedefinition} and with the given \ref{cls:player}s. \\
 	\method{public boolean}{openHelpFile(GameDefinition gameDef)}{ge:openhelpfile} \\
-	& description \\
+	& Opens the help file of the given \ref{cls:gamedefinition}. \\
+	\method{public Iterable<GameDefinition>}{getGameDefinitions()}{ge:getgamedefinitions} \\
+	& Returns the \ref{cls:gamedefinition} of this\texttt{GameExplorer}. \\
 	\hline
 \end{longtable}
 
@@ -73,7 +75,7 @@ This class represents the game's definition, containing crucial information that
 \pagebreak
 
 \interface{GEView}{geview}
-description \\
+This interface defines the methods the \ref{cls:gameexplorer} uses to commuinicate with its \gls{GUI}. \\
 
 \centerdash
 
@@ -89,7 +91,8 @@ description \\
 \pagebreak
 
 \class{GEWindow}{gewindow}
-This class represents the window of the \ref{cls:gameexplorer}. \\
+This class represents the main window of the \ref{cls:gameexplorer}. \\
+\interfaces{cls:geview}
 
 \centerdash
 
@@ -97,17 +100,35 @@ This class represents the window of the \ref{cls:gameexplorer}. \\
 \paragraph*{}
 \begin{longtable}{Lp{10cm}}
 	\startmethodtable
-	\method{public}{GEWindow(Iterable<GameDefinition> games)}{gew:gewindow} \\
-	& Creates a new \texttt{Game Explorer window}. \\
-	\method{public}{onListSelectionChange(GameDefinition gameDef)}{gew:onlistselectionchange} \\
-	& Updates the window when a game in the list is selected. \\
+	\method{public void}{valueChanged(ListSelectionEvent event)}{gew:valuechanged} \\
+	& Called by the \texttt{JList} when its selection has changed to update the remaining graphical elements of this \texttt{GEWindow}. \\
+	\method{private boolean}{openPlayerPopUp()}{gew:openplayerpopup} \\
+	& Creates and shows a \ref{cls:playerpopup} for player selection. \\
+	\method{public boolean}{onPlayerPopUpReturn(Itreable<Player> players)}{gew:onplayerpopupreturn} \\
+	& Called by the \ref{cls:playerpopup} when it has finished and triggers the start of the game. \\
+	\hline
+\end{longtable}
+
+\pagebreak
+
+\class{PlayerPopUp}{playerpopup}
+Represents PopUp-Window that is used to select the players for a game. \\
+
+\centerdash
+
+\paragraph*{Method Summary}
+\paragraph*{}
+\begin{longtable}{Lp{10cm}}
+	\startmethodtable
+	\method{public void}{actionPerformed(ActionEvent event)}{ppu:gamedefinitionlistmodel} \\
+	& Callback method for the Buttons, that creates the \ref{cls:player}s based on the input and calls \ref{gew:onplayerpopupreturn}. \\
 	\hline
 \end{longtable}
 
 \pagebreak
 
 \class{GameDefinitionListModel}{gamedefinitionlistmodel}
-Represents a data model that provides the \ref{cls:gegamelist} with its content. \\
+Represents a data model that provides the \texttt{JList} with its content. \\
 
 \centerdash
 
@@ -117,8 +138,8 @@ Represents a data model that provides the \ref{cls:gegamelist} with its content.
 	\startmethodtable
 	\method{public}{GameDefinitionListModel(Iterable<GameDefinition> definitions)}{gdlm:gamedefinitionlistmodel} \\
 	& Creates a new game definition list model with the given \ref{cls:gamedefinition}s. \\
-	\method{public GameDefinition}{getGameDefinitionAtIndex(int index)}{gdlm:getgamedefinitionatindex} \\
-	& Returns the \ref{cls:gamedefinition} at the given index. \\
+	\method{public Object}{getGetElementAt(int index)}{gdlm:getgamedefinitionatindex} \\
+	& Returns the name of the \ref{cls:gamedefinition} at the given index so the \texttt{JList} can display it. \\
 	\hline
 \end{longtable}
 
