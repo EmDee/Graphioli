@@ -1,1 +1,27 @@
 \section{Miscellaneous}
+\subsection{Game property file}
+
+\begin{lstlisting}[caption=An example of a property file]
+/* This is an example property file for the 'Dummy' game. */
+
+{
+    "game": [{
+        "name": "Dummy",
+        "gamePath": "..path/to/dummy/",
+        "fullyQualifiedClassName": "de.graphioli.game.Dummy",
+        "description": "This is a description for the Dummy game",
+        "screenshot": "./screenshot.png",
+        "languageFile": "./language_en.txt",
+        "helpFile": "../helpFile.pdf",
+        "maxPlayerCount": 1,
+        "minPlayerCount": 4,
+        "menuItem": [{
+            "save": 1,
+            "load": 2,
+            "exit": 3
+        }],
+        "horizontalGridPointCount": 100,
+        "verticalGridPointCount": 100
+    }]
+}
+\end{lstlisting}
