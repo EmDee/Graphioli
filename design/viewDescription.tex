@@ -167,3 +167,23 @@ The \texttt{MenuBar} contains the game menu, options menu and help menu, is disp
 	& Invokes when a menu item is selected. \\ 
 	\hline
 \end{longtable}
+\pagebreak
+
+% StatusBar
+\class{StatusBar}{statusbar}
+\createindentedlist{java.lang.Object, java.awt.Component, java.awt.Container, javax.swing.JComponent, javax.swing.JPanel, de.graphioli.view.StatusBar}
+
+The \texttt{StatusBar} displays the currently active \ref{cls:player} and a short status or error message. \\
+
+\centerdash
+
+\paragraph*{Method Summary}
+\paragraph*{}
+\begin{longtable}{Lp{10cm}}
+	\startmethodtable
+	\method{public boolean}{updatePlayerStatus(Player player)}{sb:updateplayerstatus} \\
+	& Updates the currently active \ref{cls:player} displayed. \\ 
+	\method{public boolean}{displayedErrorMessage(String message)}{sb:displayerrormessage} \\
+	& Displays a status or error message. \\ 
+	\hline
+\end{longtable}
