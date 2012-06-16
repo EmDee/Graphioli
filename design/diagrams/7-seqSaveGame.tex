@@ -1,6 +1,6 @@
 \documentclass{article}
 
-\usepackage[hmargin=0cm,vmargin=.7cm,centering,paperwidth=251mm,paperheight=189mm]{geometry} % switch to landscape, remove margins, set size to content size
+\usepackage[hmargin=0cm,vmargin=.7cm,centering,paperwidth=244mm,paperheight=177mm]{geometry} % switch to landscape, remove margins, set size to content size
 \usepackage{tikz}
 \usepackage{pgf-umlsd}
 \usetikzlibrary{shadows}
@@ -13,17 +13,15 @@
 
 	\newthread{menuBar}{:MenuBar}
 	\newinst{gameWindow}{:GameWindow}
-	\newinst{file}{file:File}
-	\newinst{viewManager}{:ViewManager}
+	\newinst[1]{viewManager}{:ViewManager}
 	\newinst{gameManager}{:GameManager}
 	\newinst{gameCapsule}{gC:GameCapsule}
 	\newinst{fileOutputStream}{fOut:FileOutputStream}
 	\newinst{objectOutputStream}{oOut:ObjectOutputStream}
 
-	\begin{messcall}{menuBar}{onClick()}{menuBar} \end{messcall}
+	\begin{messcall}{menuBar}{actionPerformed()}{menuBar} \end{messcall}
 
 	% Escalate click event to GameManager
-	\begin{call}{menuBar}{getParent()}{menuBar}{GameWindow} \end{call}
 	\begin{call}{menuBar}{saveFileDialog()}{gameWindow}{File} \end{call}
 	\begin{call}{menuBar}{getViewManager()}{gameWindow}{ViewManager} \end{call}
 	\begin{call}{menuBar}{getGameManager()}{viewManager}{GameManager} \end{call}

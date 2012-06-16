@@ -1,6 +1,6 @@
 \documentclass{article}
 
-\usepackage[hmargin=0cm,vmargin=.7cm,centering,paperwidth=223mm,paperheight=188mm]{geometry} % switch to landscape, remove margins, set size to content size
+\usepackage[hmargin=0cm,vmargin=.7cm,centering,paperwidth=223mm,paperheight=200mm]{geometry} % switch to landscape, remove margins, set size to content size
 \usepackage{tikz}
 \usepackage{pgf-umlsd}
 \usetikzlibrary{shadows}
@@ -10,8 +10,8 @@
 \begin{document}
 \begin{sequencediagram}
 
-	\newthread{pm}{:PlayerManager}	
 	\newthread{view}{:ViewManager}
+	\newthread{pm}{:PlayerManager}
 	\newinst[1]{twx}{:TwixT}
 	\newinst[1]{brd}{:GameBoard}
 	\newinst{vtx}{tVertex:TwixTVertex}
@@ -20,11 +20,12 @@
 	
 	\begin{sdblock}{Vertex Creation}{}
 	\begin{call}{view}{onEmptyGridPointClick(GridPoint)}{twx}{true}
-			\begin{messcall}{twx}{TwixTVertex()}{vtx} \end{messcall}
+			\begin{call}{twx}{getActivePlayer()}{pm}{activePlayer} \end{call}
+			\begin{messcall}{twx}{TwixTVertex(activePlayer)}{vtx} \end{messcall}
 			\begin{call}{twx}{addVisualVertex(tVertex)}{brd}{true} \end{call}
 			\begin{call}{twx}{nextPlayer()}{pm}{true} \end{call}
 	\end{call}
-	\mess{view}{redrawGraph()}{view}
+	\mess{view}{redrawGraph{()}}{view}
 	\end{sdblock}
 
 	\begin{sdblock}{Edge Creation}{}
@@ -34,7 +35,7 @@
 			\begin{call}{twx}{performAlgorithm()}{pth}{false}\end{call}
 			\begin{call}{twx}{nextPlayer()}{pm}{true} \end{call}
 	\end{call}
-	\mess{view}{redrawGraph()}{view}
+	\mess{view}{redrawGraph{()}}{view}
 	\end{sdblock}
 
 \end{sequencediagram}

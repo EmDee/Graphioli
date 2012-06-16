@@ -1,6 +1,6 @@
 \documentclass{article}
 
-\usepackage[hmargin=0cm,vmargin=.7cm,centering,paperwidth=157mm,paperheight=182mm]{geometry} % switch to landscape, remove margins, set size to content size
+\usepackage[hmargin=0cm,vmargin=.7cm,centering,paperwidth=188mm,paperheight=224mm]{geometry} % switch to landscape, remove margins, set size to content size
 \usepackage{tikz}
 \usepackage{pgf-umlsd}
 \usetikzlibrary{shadows}
@@ -13,12 +13,17 @@
 	\newthread{view}{:ViewManager}	
 	\newthread{gm}{:GameManager}
 	\newinst[1]{twx}{:TwixT}
+	\newinst{pm}{:PlayerManager}
 	\newinst[1]{brd}{:GameBoard}
 	\newinst{vtx}{:TwixTVertex}
 	
 	\begin{call}{gm}{onGameInit()}{twx}{true}
-		\begin{call}{twx}{init()}{vtx}{true}
-			\begin{call}{vtx}{loadBufferedImages}{vtx}{BufferedImages} \end{call}
+		\begin{call}{twx}{getPlayerManager()}{gm}{playerManager} \end{call}
+		\begin{call}{twx}{getPlayers()}{pm}{players} \end{call}
+		\begin{call}{twx}{init(players[0], players[1])}{vtx}{true}
+			\begin{sdblock}{Loop}{2x}
+				\begin{call}{vtx}{loadBufferedImage()}{vtx}{BufferedImage} \end{call}
+			\end{sdblock}
 		\end{call}
 		\begin{call}{twx}{getBoard()}{gm}{GameBoard}\end{call}
 	\end{call}
@@ -26,10 +31,10 @@
 		\begin{call}{gm}{onGameStart()}{twx}{true} 
 		\begin{call}{twx}{generateBoard()}{twx}{}
 		
-		\begin{sdblock}{Level Creation Loop}{}
+		\begin{sdblock}{Level Creation Loop}{Baselines}
 			\begin{messcall}{twx}{TwixTVertex()}{vtx} \end{messcall}
 			\begin{call}{twx}{addVisualVertex()}{brd}{true} \end{call}
-			\begin{sdblock}{opt}{}
+			\begin{sdblock}{Optional}{}
 				\begin{call}{twx}{createVisualEdge()}{brd}{VisualEdge} \end{call}
 			\end{sdblock}
 		\end{sdblock}

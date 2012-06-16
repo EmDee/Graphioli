@@ -1,6 +1,6 @@
 \documentclass{article}
 
-\usepackage[hmargin=0cm,vmargin=.7cm,centering,paperwidth=188mm,paperheight=218mm]{geometry} % switch to landscape, remove margins, set size to content size
+\usepackage[hmargin=0cm,vmargin=.7cm,centering,paperwidth=188mm,paperheight=231mm]{geometry} % switch to landscape, remove margins, set size to content size
 \usepackage{tikz}
 \usepackage{pgf-umlsd}
 \usetikzlibrary{shadows}
@@ -17,28 +17,30 @@
 	\newinst[1]{brd}{:GameBoard}
 	\newinst{vtx}{gcVertex:GraphColoringVertex}
 	
-	\begin{call}{gm}{onGameInit()}{gcg}{true} \end{call}
+	\begin{call}{gm}{onGameInit()}{gcg}{true}
+		\begin{call}{gcg}{getBoard()}{gm}{GameBoard} \end{call}
+	\end{call}
 	\begin{call}{gm}{onGameStart()}{gcg}{true} 
 		\begin{call}{gcg}{generateBoard()}{gcg}{}
-		\begin{call}{gcg}{getBoard()}{gm}{GameBoard} \end{call}
 		\begin{sdblock}{Level Creation Loop}{}
 			\begin{messcall}{gcg}{GraphColoringVertex()}{vtx} \end{messcall}
 			\begin{call}{gcg}{addVisualVertex(gcVertex)}{brd}{true} \end{call}
-			\begin{sdblock}{opt}{}
+			\begin{sdblock}{Optional}{}
 				\begin{call}{gcg}{createVisualEdge()}{brd}{VisualEdge} \end{call}
 			\end{sdblock}
 		\end{sdblock}
 		\end{call}
 	\end{call}
-	\mess{gm}{redrawGraph()}{view}
+	\mess{gm}{redrawGraph{()}}{view}
 
-	\begin{call}{view}{onVisualVertexClick{}}{gcg}{finishGame}
-		\begin{call}{gcg}{setColor(Color)}{vtx}{} \end{call}
+	\begin{messcall}{view}{onVisualVertexClick{}}{gcg}
+		\begin{call}{gcg}{setColor(Color)}{vtx}{true} \end{call}
 		\begin{call}{gcg}{isGraphColored()}{gcg}{true} \end{call}
-	\end{call}
-	\mess{view}{redrawGraph()}{view}
-	\mess{view}{diplayPopup()}{view}
-	\begin{messcall}{view}{closeGame()}{gm} \end{messcall}
+		\begin{messcall}{gcg}{finishGame()}{gm} \end{messcall}
+	\end{messcall}
+	\mess{gm}{redrawGraph{()}}{view}
+	\mess{gm}{diplayPopup{()}}{view}
+	\begin{messcall}{gm}{closeGame()}{gm} \end{messcall}
 
 \end{sequencediagram}
 

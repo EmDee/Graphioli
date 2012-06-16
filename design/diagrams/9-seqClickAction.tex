@@ -1,6 +1,6 @@
 \documentclass{article}
 
-\usepackage[hmargin=0cm,vmargin=.7cm,centering,paperwidth=180mm,paperheight=158mm]{geometry} % switch to landscape, remove margins, set size to content size
+\usepackage[hmargin=0cm,vmargin=.7cm,centering,paperwidth=193mm,paperheight=200mm]{geometry} % switch to landscape, remove margins, set size to content size
 \usepackage{tikz}
 \usepackage{pgf-umlsd}
 \usetikzlibrary{shadows}
@@ -19,18 +19,23 @@
 	\newinst{grid}{:Grid}
 	\newinst{game}{:Game}
 
-	\begin{call}{vg}{parseCoordinates()}{vg}{GridPoint} \end{call}
-	\begin{call}{vg}{getViewManager()}{gw}{ViewManager} \end{call}
-	\begin{call}{vg}{onGridPointClick(GridPoint)}{vm}{}
-		\begin{call}{vm}{getBoard()}{gm}{GameBoard} \end{call}
-		\begin{call}{vm}{getGrid()}{gb}{Grid} \end{call}
-		\begin{sdblock}{alt}{}
-			\begin{call}{vm}{getVertexAtGridPoint(GridPoint)}{grid}{VisualVertex} \end{call}
-			\begin{call}{vm}{onVisualVertexClick(VisualVertex)}{game}{} \end{call}
-			\begin{call}{vm}{getVertexAtGridPoint(GridPoint)}{grid}{NULL} \end{call}
-			\begin{call}{vm}{onEmptyGridPointClick(GridPoint)}{game}{} \end{call}
-		\end{sdblock}
-	\end{call}
+	\begin{messcall}{vg}{mouseClicked()}{vg}
+		\begin{call}{vg}{parseCoordinates(mouseX, mouseY)}{vg}{GridPoint} \end{call}
+		\begin{call}{vg}{getViewManager()}{gw}{ViewManager} \end{call}
+		\begin{messcall}{vg}{onGridPointClick(GridPoint)}{vm}
+			\begin{call}{vm}{getGame()}{gm}{Game} \end{call}
+			\begin{call}{vm}{getBoard()}{gm}{GameBoard} \end{call}
+			\begin{call}{vm}{getGrid()}{gb}{Grid} \end{call}
+			\begin{sdblock}{Option 1}{In case GridPoint is not empty}
+				\begin{call}{vm}{getVertexAtGridPoint(GridPoint)}{grid}{VisualVertex} \end{call}
+				\begin{messcall}{vm}{onVisualVertexClick(VisualVertex)}{game} \end{messcall}
+			\end{sdblock}
+			\begin{sdblock}{Option 2}{In case GridPoint is empty}
+				\begin{call}{vm}{getVertexAtGridPoint(GridPoint)}{grid}{null} \end{call}
+				\begin{messcall}{vm}{onEmptyGridPointClick(GridPoint)}{game} \end{messcall}
+			\end{sdblock}
+		\end{messcall}
+	\end{messcall}
 
 \end{sequencediagram}
 
