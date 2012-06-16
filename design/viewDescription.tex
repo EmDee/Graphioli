@@ -23,11 +23,11 @@ View is an \gls{interface} for implementation of the \gls{gui}. \\
 	\method{public boolean}{displayPopUp(String message)}{view:displaypopup} \\
 	& Displays a message in a pop-up. \\
 	\method{public boolean}{addCustomMenuItem(MenuItem item)}{view:addcustommenuitem} \\
-	& Adds a custom \texttt{MenuItem} to the menu. \emph{facultative}\\ 
+	& Adds a custom \texttt{MenuItem} to the menu (\emph{facultative}). \\ 
 	\method{public boolean}{updatePlayerStatus(Player player)}{view:updateplayerstatus}\\
 	& Updates the currently active \ref{cls:player} displayed. \\
 	\method{public boolean}{displayErrorMessage(String message)}{view:displayerrormessage} \\
-	& Displays a error message. \\
+	& Displays an error message. \\
 	\method{public boolean}{redrawGraph()}{view:redrawgraph} \\
 	& Redraws the \ref{cls:graph}. \\ 
 	\method{public boolean}{setVisualVertexSize(int size)}{view:setvisualvertexsize} \\
@@ -50,9 +50,9 @@ This class is the actual game window containing \ref{cls:graphcanvas}, \ref{cls:
 \begin{longtable}{Lp{10cm}}
 	\startmethodtable
 	\method{public boolean}{registerController(ViewManager viewManager)}{view:registercontroller} \\
-	& Registers a \ref{cls:viewmanager} as the controller of the GUI. \\
+	& Registers a specified \ref{cls:viewmanager} as the controller of the \gls{GUI}. \\
 	\method{public boolean}{displayPopUp(String message)}{view:displaypopup} \\
-	& Creates a pop-up to display a message. \\
+	& Creates a pop-up to display a specified message. \\
 	\method{public boolean}{addCustomMenuItem(MenuItem item)}{view:addcustommenuitem} \\
 	& Adds a custom \texttt{MenuItem} to the menu in the \ref{cls:menubar}. \\ 
 	\method{public boolean}{updatePlayerStatus(Player player)}{view:updateplayerstatus}\\

@@ -52,7 +52,7 @@ This is the framework's central class connecting the actual game with the \textt
 \paragraph*{}
 \begin{longtable}{Lp{10cm}}
 	\startmethodtable
-	\method{public static void}{main(String[] args)}{gm:main} \\
+	\method{public static void}{main(String[ ] args)}{gm:main} \\
 	& The main method initializes the \texttt{GameManager} to start the whole application. \\
 	\method{private boolean}{openGameExplorer()}{gm:opengameexplorer} \\
 	& Starts the \ref{cls:gameexplorer}. \\
@@ -65,13 +65,13 @@ This is the framework's central class connecting the actual game with the \textt
 	\method{public boolean}{saveGame(file savegame)}{gm:savegame} \\
 	& Creates a \ref{cls:gamecapsule} and serializes it into a savegame file to save the current state of the game. \\
 	\method{public boolean}{finishGame()}{gm:finishgame} \\
-	& Finishs the game and displays a default pop-up for single player games. \\
+	& Finishes the game and displays a default pop-up for single player games. \\
 	\method{public boolean}{finishGame(Player winner)}{gm:finishgameWinner} \\
-	& Finishs the game and displays the winning \ref{cls:player} in a pop-up.  \\
+	& Finishes the game and displays the winning \ref{cls:player} in a pop-up.  \\
 	\method{public boolean}{restartGame()}{gm:restartgame} \\
-	& Restarts the game from the beginning, reseting the \ref{cls:gameboard} and \ref{cls:player}s. \\
+	& Restarts the game and resets the \ref{cls:gameboard} and \ref{cls:player}s. \\
 	\method{public boolean}{closeGame()}{gm:closegame} \\
-	& Closes the game and returns the focus to the \ref{cls:gameexplorer}. \\
+	& Closes the game with its \ref{cls:gamewindow} and returns the focus to the \ref{cls:gameexplorer}. \\
 	\method{public PlayerManager}{getPlayerManager()}{gm:getplayermanager} \\
 	& Returns the \ref{cls:playermanager} associated with this \texttt{GameManager}.\\
 	\method{public ViewManager}{getViewManager()}{gm:getviewmanager} \\
@@ -159,11 +159,11 @@ Our implemented game containing the game's logic of \graphcoloring in single and
 	\method{private boolean}{generateBoard()}{gc:generateboard} \\
 	& Generates the \ref{cls:gameboard} used to play the game. \\
 	\method{protected abstract boolean}{onVertexClick(VisualVertex vertex)}{gc:onvertexclick} \\
-	& Colors the given \ref{cls:vertex} (if possible) and decides if the game is finished by this move. \\
+	& Colors the given \ref{cls:vertex} -- if possible -- and decides if the game is finished by this move. \\
 	\method{protected abstract boolean}{onEmptyGridPointClick(GridPoint gridPoint)}{gc:onemptygridpointclick} \\
 	& Has no function in this game. \\
 	\method{protected abstract boolean}{onGameInit()}{gc:ongameinit} \\
-	& Decides whether the game is started in single or multiplayer mode. \\
+	& Decides whether the game is started in \texttt{single} or \texttt{multiplayer mode}. \\
 	\method{protected abstract boolean}{onGameStart()}{gc:ongamestart} \\
 	& (Re)builds the \ref{cls:gameboard} using \ref{gc:generateboard}. \\
 	\hline

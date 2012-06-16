@@ -32,7 +32,7 @@ This class represents the game board of a game. The \texttt{GameBoard} combines 
 	& Returns \texttt{true} if a specified \ref{cls:visualedge} was removed successfully from this \texttt{GameBoard}. \\
 	\method{public VisualEdge}{getVisualEdge(VisualVertex vexA, VisualVertex vexB)}{gb:getVisualEdge} \\
 	& Returns a \ref{cls:visualedge} between two specified \texttt{VisualVertices} \texttt{vexA} and \texttt{vexB}. \\
-	\method{public boolean}{isGraphDirected()}{gb:isgraphdirected} \\
+	\method{public boolean}{isDirectedGraph()}{gb:isdirectedgraph} \\
 	& Returns \texttt{true} if the \ref{cls:graph} in this \texttt{GameBoard} is directed. \\
 	\method{public Graph}{getGraph()}{gb:getgraph} \\
 	& Returns the \ref{cls:graph} in this \texttt{GameBoard}. \\
@@ -213,7 +213,7 @@ This class represents a simple \ref{cls:visualvertex} with predefined attributes
 \class{GraphColoringVertex}{graphcoloringvertex}
 \createindentedlist{de.graphioli.model.Vertex, de.graphioli.model.VisualVertex, de.graphioli.model.SimpleVisualVertex, de.graphioli.model.GraphColoringVertex}
 
-This class represents a \gls{vertex} used in the \graphcoloring \gls{game} by defining a \texttt{colorID} attribute that can be used by the graph coloring \gls{algorithm}s. \\
+This class represents a \gls{vertex} used in the \graphcoloring \gls{game} by defining a \texttt{colorID} attribute that can be used by the \graphcoloring \gls{algorithm}s. \\
 
 \subclasses{cls:graphcoloringbuttonvertex}	
 
