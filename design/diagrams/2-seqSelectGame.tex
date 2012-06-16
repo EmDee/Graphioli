@@ -1,50 +1,13 @@
 \documentclass{article}
 
-\pagestyle{empty} % surpress page numbers
-
-\usepackage[margin=1cm, landscape]{geometry}
-
+\usepackage[hmargin=0cm,vmargin=.7cm,centering,paperwidth=260mm,paperheight=164mm]{geometry} % switch to landscape, remove margins, set size to content size
 \usepackage{tikz}
 \usepackage{pgf-umlsd}
-\usepgflibrary{arrows} % for pgf-umlsd
 \usetikzlibrary{shadows}
-
+\usepgflibrary{arrows} % for pgf-umlsd
+\pagestyle{empty} % surpress page numbers
 
 \begin{document}
-
-\begin{sequencediagram}
-	
-	\newthread{gm}{:GameManager}
-	\newinst{ge}{:GameExplorer}
-	\newinst{gew}{:GEWindow}
-	\newinst{gdlm}{:GameDefinitionListModel}
-	\newinst{gegl}{:GEGameList}
-	\newinst{gegi}{:GEGameInformation}
-	\newinst{gebp}{:GEButtonPanel}
-	\newinst{gd}{:GameDefinition}
-
-	\begin{call}{gm}{openGameExplorer()}{gm}{}
-		\begin{messcall}{gm}{GameExplorer(this)}{ge}
-			\begin{call}{ge}{scanGameFolder()}{ge}{games}
-				\begin{messcall}{ge}{GameDefinition()}{gd} \end{messcall}
-			\end{call}
-			\begin{messcall}{ge}{GEWindow(games)}{gew}
-				\begin{messcall}{gew}{GameDefinitionListModel(games)}{gdlm}
-				\end{messcall}
-				\begin{messcall}{gew}{GEGameList(model)}{gegl}
-				\end{messcall}
-				\begin{messcall}{gew}{GEGameInformation()}{gegi}
-				\end{messcall}
-				\begin{messcall}{gew}{GEButtonPanel()}{gebp}
-				\end{messcall}
-			\end{messcall}
-			\begin{call}{ge}{registerController(this)}{gew}{true}
-			\end{call}
-		\end{messcall}
-	\end{call}
-	
-	
-\end{sequencediagram}
 
 \begin{sequencediagram}
 	

@@ -1,0 +1,37 @@
+\documentclass{article}
+
+\usepackage[hmargin=0cm,vmargin=.7cm,centering,paperwidth=180mm,paperheight=158mm]{geometry} % switch to landscape, remove margins, set size to content size
+\usepackage{tikz}
+\usepackage{pgf-umlsd}
+\usetikzlibrary{shadows}
+\usepgflibrary{arrows} % for pgf-umlsd
+\pagestyle{empty} % surpress page numbers
+
+\begin{document}
+
+\begin{sequencediagram}
+
+	\newthread{vg}{:VisualGrid}
+	\newinst{gw}{:GameWindow}
+	\newinst{vm}{:ViewManager}
+	\newinst{gm}{:GameManager}
+	\newinst{gb}{:GameBoard}
+	\newinst{grid}{:Grid}
+	\newinst{game}{:Game}
+
+	\begin{call}{vg}{parseCoordinates()}{vg}{GridPoint} \end{call}
+	\begin{call}{vg}{getViewManager()}{gw}{ViewManager} \end{call}
+	\begin{call}{vg}{onGridPointClick(GridPoint)}{vm}{}
+		\begin{call}{vm}{getBoard()}{gm}{GameBoard} \end{call}
+		\begin{call}{vm}{getGrid()}{gb}{Grid} \end{call}
+		\begin{sdblock}{alt}{}
+			\begin{call}{vm}{getVertexAtGridPoint(GridPoint)}{grid}{VisualVertex} \end{call}
+			\begin{call}{vm}{onVisualVertexClick(VisualVertex)}{game}{} \end{call}
+			\begin{call}{vm}{getVertexAtGridPoint(GridPoint)}{grid}{NULL} \end{call}
+			\begin{call}{vm}{onEmptyGridPointClick(GridPoint)}{game}{} \end{call}
+		\end{sdblock}
+	\end{call}
+
+\end{sequencediagram}
+
+\end{document}
