@@ -1,6 +1,6 @@
 \documentclass{article}
 
-\usepackage[hmargin=0cm,vmargin=.7cm,centering,paperwidth=260mm,paperheight=164mm]{geometry} % switch to landscape, remove margins, set size to content size
+\usepackage[hmargin=0cm,vmargin=.7cm,centering,paperwidth=279mm,paperheight=224mm]{geometry} % switch to landscape, remove margins, set size to content size
 \usepackage{tikz}
 \usepackage{pgf-umlsd}
 \usetikzlibrary{shadows}
@@ -13,33 +13,35 @@
 	
 	\newthread{gm}{:GameManager}
 	\newinst{ge}{:GameExplorer}
-	\newinst{gew}{:GEWindow}
+	\newthread{gew}{:GEWindow}
 	\newinst{gdlm}{:GameDefinitionListModel}
-	\newinst{gegl}{:GEGameList}
+	\newinst{gegl}{:JList}
 	\newinst{gegi}{:GEGameInformation}
+	\newinst{ppup}{:PlayerPopup}
 	\newinst{gebp}{:GEButtonPanel}
 	\newinst{gd}{:GameDefinition}
 
-	\begin{call}{gew}{onListSelectionChange()}{gew}{true}
-		\begin{call}{gew}{getSelectedIndex()}{gegl}{index}
-		\end{call}
-		\begin{call}{gew}{getGameDefinitionAtIndex(index)}{gdlm}{gameDef}
-		\end{call}
-		\begin{call}{gew}{setSelectedDefinition(gameDef)}{gew}{true}
-		\end{call}
-		\begin{call}{gew}{getDescription()}{gd}{description}
-		\end{call}
-		\begin{call}{gew}{getScreenshot()}{gd}{screenshot}
-		\end{call}
-		\begin{call}{gew}{setDescription(description)}{gegi}{true}
-		\end{call}
-		\begin{call}{gew}{setScreenshot(screenshot)}{gegi}{true}
-		\end{call}
-	\end{call}
-	
-	\begin{messcall}{gebp}{button click}{gew}
-		\begin{messcall}{gew}{selectGame(selectedDefinition)}{ge}
-			\begin{messcall}{ge}{startGame(selectedDefinition)}{gm}
+	\begin{messcall}{gew}{valueChanged()}{gew}
+		\begin{call}{gew}{getSelectedIndex()}{gegl}{index} \end{call}
+		\begin{call}{gew}{getGameDefinitionAtIndex(index)}{ge}{gameDefinition} \end{call}
+		\begin{call}{gew}{getDescription()}{gd}{description} \end{call}
+		\begin{call}{gew}{getScreenshot()}{gd}{screenshot} \end{call}
+		\begin{call}{gew}{getMinPlayerCount()}{gd}{minPlayerCount} \end{call}
+		\begin{call}{gew}{getMaxPlayerCount()}{gd}{maxPlayerCount} \end{call}
+		\begin{call}{gew}{setDescription(description)}{gegi}{true} \end{call}
+		\begin{call}{gew}{setScreenshot(screenshot)}{gegi}{true} \end{call}
+	\end{messcall}
+
+	\begin{messcall}{gebp}{actionPerformed()}{gebp}
+		\begin{messcall}{gebp}{openPlayerPopup()}{gew}
+			\begin{messcall}{gew}{PlayerPopup(minPlayerCount, maxPlayerCount)}{ppup}
+				\begin{messcall}{ppup}{actionPerformed()}{ppup}
+					\begin{messcall}{ppup}{onPlayerPopupReturn(players)}{gew}
+						\begin{messcall}{gew}{selectGame(gameDefinition, players)}{ge}
+							\begin{messcall}{ge}{startGame(gameDefinition, players)}{gm}\end{messcall}
+						\end{messcall}
+					\end{messcall}
+				\end{messcall}
 			\end{messcall}
 		\end{messcall}
 	\end{messcall}
