@@ -161,7 +161,7 @@ Our implemented game containing the game's logic of \graphcoloring in single and
 	\method{private boolean}{generateBoard()}{gc:generateboard} \\
 	& Generates the \ref{cls:gameboard} used to play the game. \\
 	\method{protected abstract boolean}{onVertexClick(VisualVertex vertex)}{gc:onvertexclick} \\
-	& Colors the given \ref{cls:vertex} -- if possible -- and decides if the game is finished by this move. \\
+	& If the given \ref{cls:visualvertex} is an \ref{cls:graphcoloringbuttonvertex} its color is selected otherwise it colors the given vertex  -- if possible --  with the selected color and decides if the game is finished by this move. \\
 	\method{protected abstract boolean}{onEmptyGridPointClick(GridPoint gridPoint)}{gc:onemptygridpointclick} \\
 	& Has no function in this game. \\
 	\method{protected abstract boolean}{onGameInit()}{gc:ongameinit} \\
