@@ -18,11 +18,11 @@ This class represents the game board of a game. The \texttt{GameBoard} combines 
 \paragraph*{}
 \begin{longtable}{Lp{10cm}}
 	\startmethodtable
-	\method{public}{GameBoard(boolean isDirected)}{gb:gameboard} \\
+	\method{public}{GameBoard(boolean isDirectedGraph)}{gb:gameboard} \\
 	& Creates a new \texttt{GameBoard} with the specified option - if the \texttt{GameBoard} is directed or not. \\
 	\method{public boolean}{addVisualVertex(VisualVertex visualVertex)}{gb:addvisualvertex} \\
 	& Adds a \ref{cls:visualvertex} to this \texttt{GameBoard} and returns \texttt{true} if adding was successful. \\
-	\method{public boolean}{addVisualVertices(VisualVertex[ ] visualVertices)}{gb:addvisualvertices} \\
+	\method{public boolean}{addVisualVertices(Iterable<VisualVertex> visualVertices)}{gb:addvisualvertices} \\
 	& Adds a list of \texttt{VisualVertices} to this \texttt{GameBoard} and returns \texttt{true} if adding was successful. \\
 	\method{public VisualEdge}{addVisualEdge(VisualVertex vertexA, VisualVertex vertexB)}{gb:addvisualedge} \\
 	& Adds a \ref{cls:visualedge} between two specified \texttt{VisualVertices} \texttt{vertexA} and \texttt{vertexB}, and returns the added \ref{cls:visualvertex}. \\
@@ -102,12 +102,12 @@ This class represents the logical \gls{graph}. \\
 	\method{public boolean}{addVertex(Vertex vertex)}{graph:addVertex} \\
 	& Adds a \ref{cls:vertex} to this \texttt{Graph}. \\
 	\method{public boolean}{removeVertex(Vertex vertex)}{graph:removevertex} \\
-	& Removes a specified \ref{cls:vertex} from this \texttt{Graph}. \\
+	& Removes a specified \ref{cls:vertex} from this \texttt{Graph} and the \ref{cls:edge}s connected to it. \\
 	\method{public boolean}{removeEdge(Edge edge)}{graph:removeedge} \\
 	& Removes a specified \ref{cls:edge} from this \texttt{Graph}. \\
-	\method{public Iterable<Vertex>}{getVertices()}{graph:iterablevertex} \\
+	\method{public Iterable<Vertex>}{getVertices()}{graph:getvertices} \\
 	& Returns an iterable list of the \texttt{Vertices} of this \texttt{Graph}.  \\
-	\method{public Iterable<Edge>}{getEdge()}{graph:iterableedge} \\
+	\method{public Iterable<Edge>}{getEdges()}{graph:getedges} \\
 	& Returns an iterable list of the \ref{cls:edge}s of this \texttt{Graph}. \\
 	\hline
 \end{longtable}
@@ -134,10 +134,14 @@ This class represents a logical \gls{vertex}. \\
 	& Returns an iterable list of incoming \ref{cls:edge}s. \\
 	\method{public boolean}{addIncomingEdge(Edge edge)}{vertex:addincomingedge} \\
 	& Adds an incoming \ref{cls:edge} to the list of incoming \ref{cls:edge}s. \\
+	\method{public boolean}{removeIncomingEdge(Edge edge)}{vertex:removeincomingedge} \\
+	& Removes an incoming \ref{cls:edge} from the list of incoming \ref{cls:edge}s. \\
 	\method{public Iterable<Edge>}{getOutgoingEdges()}{vertex:getoutgoingedges} \\
-	& Returns an iterable list of outgoing \ref{cls:edge}s. \\
+	& Returns an iterable list of outgoing \ref{cls:edge}s. \\	
 	\method{public boolean}{addOutgoingEdge(Edge edge)}{vertex:addoutgoingedge} \\
 	& Adds an outgoing \ref{cls:edge} to the list of outgoing \ref{cls:edge}s. \\
+	\method{public boolean}{removeOutgoinggEdge(Edge edge)}{vertex:removeoutgoingedge} \\
+	& Removes an outgoing \ref{cls:edge} from the list of outgoing \ref{cls:edge}s. \\
 	\method{public boolean}{isAdjacentTo(Vertex vertex)}{vertex:isadjacentto} \\
 	& Returns true if this \texttt{Vertex} is adjacent to the given \texttt{Vertex}. \\
 	\hline
@@ -161,7 +165,7 @@ This class represents a \gls{vertex} with its graphical representation. \\
 	\startmethodtable
 	\method{public}{VisualVertex(GridPoint gridPoint)}{vv:visualvertex} \\
 	& Creates a new \texttt{VisualVertex} and places it on the specified \ref{cls:gridpoint}. \\
-	\method{protected abstract void}{draw(Graphics2D)}{vv:draw} \\
+	\method{protected abstract boolean}{draw(Graphics2D)}{vv:draw} \\
 	& Draws the \texttt{VisualVertex} onto the given \texttt{Graphics2D} object. \\
 	\method{final void}{update()}{vv:update} \\
 	& Updates the graphical representation of this \texttt{VisualVertex} by recreating its \texttt{BufferedImage} using the \ref{vv:draw} method.\\ 
@@ -169,7 +173,7 @@ This class represents a \gls{vertex} with its graphical representation. \\
 	& Returns the \ref{cls:gridpoint} of this \texttt{VisualVertex}. \\ 
 	\method{public boolean}{setGridPoint(GridPoint gridPoint)}{vv:setgridpoint} \\
 	& Sets the \ref{cls:gridpoint} of this \texttt{VisualVertex}. \\
-	\method{public BufferedImage}{getBufferedImage()}{vv:getbufferedimage} \\
+	\method{public final BufferedImage}{getBufferedImage()}{vv:getbufferedimage} \\
 	& Returns the \texttt{BufferedImage}, which contains the current graphical representation of this \texttt{VisualVertex}. \\ 
 	\hline
 \end{longtable}
@@ -285,7 +289,7 @@ This class represents a \ref{cls:visualvertex} with a custom icon. \\
 \pagebreak
 
 % TwixtVertex
-\class{TwixtVertex}{twixtvertex}
+\class{TwixTVertex}{twixtvertex}
 \createindentedlist{de.graphioli.model.Vertex, de.graphioli.model.VisualVertex, de.graphioli.model.GraphicVisualVertex,  de.graphioli.model.TwixtVertex}
 This class represents a \gls{vertex} used in the \twixt game, which is displayed as either a red or blue tower, depending on the \gls{player} it belongs to. \\
 
@@ -300,7 +304,7 @@ This class represents a \gls{vertex} used in the \twixt game, which is displayed
 	\method{public int}{getPlayerID()}{tv:getplayerid} \\
 	& Returns the \ref{cls:player}'s identification. \\
 	\method{public static boolean}{init(int redPlayerID, int bluePlayerID)}{tv:init} \\
-	& Initializes the \texttt{TwixtVertex} by loading the images and defining which ID belongs to red and blue \ref{cls:player} respectively. \\
+	& Initializes the \texttt{TwixtVertex} by loading the images and defining which ID belongs to the red and blue \ref{cls:player} respectively. \\
 	\hline
 \end{longtable}
 
@@ -346,11 +350,11 @@ This class represents an \gls{edge} with its visual representation.
 \paragraph*{}
 \begin{longtable}{Lp{10cm}}
 	\startmethodtable
-	\method{protected abstract void}{draw(Graphics2D)}{ve:draw} \\
+	\method{protected abstract boolean}{draw(Graphics2D)}{ve:draw} \\
 	& Draws the \texttt{VisualEdge} onto the given \texttt{Graphics2D} object. \\
 	\method{final void}{update()}{ve:update} \\
 	& Updates the graphical representation of this \texttt{VisualEdge} by recreating its \texttt{BufferedImage} using the \ref{ve:draw} method.\\ 
-	\method{public BufferedImage}{getBufferedImage()}{ve:getbufferedimage} \\
+	\method{public final BufferedImage}{getBufferedImage()}{ve:getbufferedimage} \\
 	& Returns the \texttt{BufferedImage}, which contains the current graphical representation of this \texttt{VisualEdge}. \\ 
 	\hline
 \end{longtable}
@@ -380,7 +384,7 @@ This class represents a simple \ref{cls:visualedge} with predefined attributes. 
 	\method{public int}{setStrokeWeight()}{sve:setstrokeweight} \\
 	& Sets the \texttt{stroke weight} of this \texttt{SimpleVisualEdge}. \\
 	\method{protected void}{draw(Graphics2D)}{sve:draw} \\
-	& Draws this \texttt{SimpleVisualEdge} according to its troke color and stroke weight attributes and the position of its \texttt{VisualVertices}. \\
+	& Draws this \texttt{SimpleVisualEdge} according to its stroke color and stroke weight attributes and the position of its \texttt{VisualVertices}. \\
 	\hline
 \end{longtable}
 
@@ -418,7 +422,7 @@ This class represents a local \gls{player}.
 
 % GameCapsule
 \class{GameCapsule}{gamecapsule}
-This class represents a \texttt{GameCapsule} that holds all the important data about the game state. A \gls{savegame} will be saved in such a \texttt{GameCapsule}, which later on can be loaded to resume the \gls{game}.
+This serializable class represents a \texttt{GameCapsule} that holds all the important data about the game state. A \gls{savegame} will be saved in such a \texttt{GameCapsule}, which later on can be loaded to resume the \gls{game}.
 
 \centerdash
 
