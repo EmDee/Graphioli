@@ -129,7 +129,7 @@ public class GameManager {
 	/**
 	 * Returns the {@link ViewManager} associated with this {@link GameManager}.
 	 * 
-	 * @return
+	 * @return ViewManager
 	 */
 	public ViewManager getViewManager() {
 		return this.viewManager;
@@ -139,7 +139,7 @@ public class GameManager {
 	/**
 	 * Returns the {@link GameBoard} associated with this {@link GameManager}.
 	 * 
-	 * @return
+	 * @return GameBoard
 	 */
 	public GameBoard getGameBoard() {
 		return this.gameBoard;
