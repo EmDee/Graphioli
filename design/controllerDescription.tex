@@ -65,7 +65,7 @@ This is the framework's central class, connecting the actual game with the \text
 	\method{public boolean}{saveGame(File savegame)}{gm:savegame} \\
 	& Creates a \ref{cls:gamecapsule} and serializes it into a savegame file to save the current state of the game. \\
 	\method{public boolean}{finishGame()}{gm:finishgame} \\
-	& Finishes the game and displays a default pop-up for single player games. \\
+	& Finishes the game and displays the player currently active as winner. \\
 	\method{public boolean}{finishGame(Player winner)}{gm:finishgameWinner} \\
 	& Finishes the game and displays the winning \ref{cls:player} in a pop-up.  \\
 	\method{public boolean}{restartGame()}{gm:restartgame} \\
@@ -78,6 +78,8 @@ This is the framework's central class, connecting the actual game with the \text
 	& Returns the \ref{cls:viewmanager} associated with this \texttt{GameManager}.\\
 	\method{public GameBoard}{getGameBoard()}{gm:getgameboard} \\
 	& Returns the \ref{cls:gameboard} associated with this \texttt{GameManager}.\\
+	\method{public Game}{getGame()}{gm:getgame} \\
+	& Returns the \ref{cls:game} associated with this \texttt{GameManager}.\\
 	\hline
 \end{longtable}
 
@@ -102,7 +104,7 @@ This class acts as an interface between the \gls{GUI} and the other parts of the
 	\method{public boolean}{onKeyRelease(int keycode)}{viewmanager:onkeyrelease} \\
 	& Callback function used by the \ref{cls:view} to notify about a key release. \\
 	\method{public boolean}{displayErrorMessage(String message)}{viewmanager:displayerrormessage} \\
-	& Notifies the \ref{cls:view} to display the error message. \\
+	& Notifies the \ref{cls:view} to display the given error message. \\
 	\method{public boolean}{displayPopUp(String message)}{viewmanager:displaypopup} \\
 	& Notifies the \ref{cls:view} to display the given message in a pop-up. \\
 	\method{public boolean}{addGameMenuItem(MenuItem item)}{viewmanager:addgamemenuitem} \\
@@ -163,7 +165,7 @@ Our implemented game containing the game's logic of \graphcoloring in single and
 	\method{protected abstract boolean}{onEmptyGridPointClick(GridPoint gridPoint)}{gc:onemptygridpointclick} \\
 	& Has no function in this game. \\
 	\method{protected abstract boolean}{onGameInit()}{gc:ongameinit} \\
-	& Decides whether the game is started in \texttt{single} or \texttt{multiplayer mode}. \\
+	& Decides whether the game is started in single or multiplayer mode. \\
 	\method{protected abstract boolean}{onGameStart()}{gc:ongamestart} \\
 	& (Re)builds the \ref{cls:gameboard} using \ref{gc:generateboard}. \\
 	\hline
