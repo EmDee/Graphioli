@@ -19,7 +19,7 @@
 	\newinst{grid}{:Grid}
 	\newinst{game}{:Game}
 
-	\begin{messcall}{vg}{mouseClicked()}{vg}
+	\begin{call}{vg}{mouseClicked()}{vg}{}
 		\begin{call}{vg}{parseCoordinates(mouseX, mouseY)}{vg}{GridPoint} \end{call}
 		\begin{call}{vg}{getViewManager()}{gw}{ViewManager} \end{call}
 		\begin{messcall}{vg}{onGridPointClick(GridPoint)}{vm}
@@ -35,7 +35,7 @@
 				\begin{messcall}{vm}{onEmptyGridPointClick(GridPoint)}{game} \end{messcall}
 			\end{sdblock}
 		\end{messcall}
-	\end{messcall}
+	\end{call}
 
 \end{sequencediagram}
 

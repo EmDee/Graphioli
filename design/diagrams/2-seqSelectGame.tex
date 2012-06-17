@@ -21,7 +21,7 @@
 	\newinst{gebp}{:GEButtonPanel}
 	\newinst{gd}{:GameDefinition}
 
-	\begin{messcall}{gew}{valueChanged()}{gew}
+	\begin{call}{gew}{valueChanged()}{gew}{}
 		\begin{call}{gew}{getSelectedIndex()}{gegl}{index} \end{call}
 		\begin{call}{gew}{getGameDefinitionAtIndex(index)}{ge}{gameDefinition} \end{call}
 		\begin{call}{gew}{getDescription()}{gd}{description} \end{call}
@@ -30,18 +30,18 @@
 		\begin{call}{gew}{getMaxPlayerCount()}{gd}{maxPlayerCount} \end{call}
 		\begin{call}{gew}{setDescription(description)}{gegi}{true} \end{call}
 		\begin{call}{gew}{setScreenshot(screenshot)}{gegi}{true} \end{call}
-	\end{messcall}
+	\end{call}
 
 	\begin{messcall}{gebp}{actionPerformed()}{gebp}
 		\begin{messcall}{gebp}{openPlayerPopup()}{gew}
 			\begin{messcall}{gew}{PlayerPopup(minPlayerCount, maxPlayerCount)}{ppup}
-				\begin{messcall}{ppup}{actionPerformed()}{ppup}
+				\begin{call}{ppup}{actionPerformed()}{ppup}{}
 					\begin{messcall}{ppup}{onPlayerPopupReturn(players)}{gew}
 						\begin{messcall}{gew}{selectGame(gameDefinition, players)}{ge}
 							\begin{messcall}{ge}{startGame(gameDefinition, players)}{gm}\end{messcall}
 						\end{messcall}
 					\end{messcall}
-				\end{messcall}
+				\end{call}
 			\end{messcall}
 		\end{messcall}
 	\end{messcall}
