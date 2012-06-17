@@ -77,7 +77,39 @@ public class ViewManager {
 	 * 
 	 * @param item
 	 * @return boolean
+	 * @todo Facultative
 	 */
 	public boolean addGameMenuItem(MenuItem item) {}
+
+
+	/**
+	 * Callback function used by the {@link View} to notify about a click on a
+	 * previously added {@link MenuItem}.
+	 * 
+	 * @param item
+	 * @return boolean
+	 * @todo Facultative
+	 */
+	public boolean onMenuItemClick(MenuItem item) {}
+
+
+	/**
+	 * Returns the associated {@link GameManager}.
+	 * 
+	 * @return the associated {@link GameManager}
+	 */
+	public boolean getGameManager() {
+		return this.gameManager;
+	}
+
+
+	/**
+	 * Notifies the {@link View} to change the size of the {@link VisualVertex}es
+	 * to the given value.
+	 * 
+	 * @param size
+	 * @return boolean
+	 */
+	public boolean setVisualVertexSize(int size) {}
 
 }
