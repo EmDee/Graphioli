@@ -20,8 +20,8 @@ The \texttt{GameExplorer} lists the available games and enables the user to sele
 	\startmethodtable
 	\method{public}{GameExplorer(GameManager gameManager)}{ge:gameexplorer} \\
 	& Creates a new \texttt{GameExplorer}. \\
-	\method{private GameDefinition}{createGameDefinitionFromJSON(String jsonString)}{ge:creategamedefinitionfromjson} \\
-	& Parses a \ref{cls:gamedefinition} from a given JSON string. \\
+	\method{private GameDefinition}{createGameDefinitionFromJSON(JSONObject jsonData)}{ge:creategamedefinitionfromjson} \\
+	& Parses a \ref{cls:gamedefinition} from a specified JSONObject. \\
 	\method{private Iterable<GameDefinition>}{scanGameFolder()}{ge:scangamefolder} \\
 	& Scans the game folder for games and returns the \ref{cls:gamedefinition}s of the games in it. \\
 	\method{public boolean}{selectGame(GameDefinition gameDef, Iterable<Player> players)}{ge:selectgame} \\
@@ -60,14 +60,14 @@ This class represents the game's definition, containing crucial information that
 	& Returns the \texttt{description} of this specific game. \\
 	\method{public String}{getFullyQualifiedClassName()}{gd:getfullyqualifiedclassname} \\
 	& Returns the fully qualified class name (e.g. ``de.graphioli.game.GraphColoring'') of this specific game. \\
-	\method{public BufferedImage}{getScreenshot()}{gd:getscreenshot} \\
-	& Returns a \texttt{BufferedImage} that is this game's screenshot. \\
-	\method{public File}{getLocalizedString()}{gd:getlocalizedstring} \\
-	& Returns a \texttt{String} telling which language file should be used. \\
+	\method{public String}{getScreenshotPath()}{gd:getscreenshotpath} \\
+	& Returns a \texttt{String} to this game's screenshot file. \\
+	\method{public String}{getLocalizationFilePath()}{gd:getlocalizationfilepath} \\
+	& Returns a \texttt{String} telling which language file should be used in this game. \\
 	\method{public URI}{getHelpFile()}{gd:gethelpfile} \\
 	& Returns the \texttt{URI} that links to the help file of this game. \\
 	\method{public Iterable<MenuItem>}{getMenu()}{gd:getmenu} \\
-	& Returns an iterable list of \texttt{MenuItem}s that will be used to generate this game's custom \texttt{MenuBar}. \\
+	& Returns an iterable list of \texttt{MenuItem}s that will be used to generate this game's custom \texttt{MenuBar} (\emph{facultative}). \\
 	\method{public int}{getHorizontalGridPointCount()}{gd:gethorizontalgridpointcount} \\
 	& Returns the number of horizontal \ref{cls:gridpoint}s for this specific game. \\
 	\method{public int}{getVerticalGridPointCount()}{gd:getverticalgridpointcount} \\
@@ -166,7 +166,7 @@ Represents a data model that provides the \texttt{JList} with its content. \\
 	\startmethodtable
 	\method{public}{GameDefinitionListModel(Iterable<GameDefinition> definitions)}{gdlm:gamedefinitionlistmodel} \\
 	& Creates a new \texttt{GameDefinitionListModel} with the given \ref{cls:gamedefinition}s. \\
-	\method{public Object}{getElementAt(int index)}{gdlm:getgamedefinitionatindex} \\
+	\method{public Object}{getElementAtIndex(int index)}{gdlm:getgameelementatindex} \\
 	& Returns the \texttt{name} of the \ref{cls:gamedefinition} at the given \texttt{index} so the \texttt{JList} can display it. \\
 	\hline
 \end{longtable}
