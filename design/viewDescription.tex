@@ -10,7 +10,7 @@
 
 % Interface View
 \interface{View}{view}
-View is an \gls{interface} for implementation of the \gls{gui}. \\ 
+The \texttt{View} interface defines the methods a \gls{gui} for the \graphioli framework has to implement. \\ 
 
 \centerdash
 
@@ -25,7 +25,7 @@ View is an \gls{interface} for implementation of the \gls{gui}. \\
 	\method{public boolean}{addCustomMenuItem(MenuItem item)}{view:addcustommenuitem} \\
 	& Adds a custom \texttt{MenuItem} to the menu (\emph{facultative}). \\ 
 	\method{public boolean}{updatePlayerStatus(Player player)}{view:updateplayerstatus}\\
-	& Updates the currently active \ref{cls:player} displayed. \\
+	& Updates which \ref{cls:player} is displayed as active. \\
 	\method{public boolean}{displayErrorMessage(String message)}{view:displayerrormessage} \\
 	& Displays an error message. \\
 	\method{public boolean}{redrawGraph()}{view:redrawgraph} \\
@@ -54,9 +54,9 @@ This class is the actual game window containing \ref{cls:graphcanvas}, \ref{cls:
 	\method{public boolean}{displayPopUp(String message)}{view:displaypopup} \\
 	& Creates a pop-up to display a specified message. \\
 	\method{public boolean}{addCustomMenuItem(MenuItem item)}{view:addcustommenuitem} \\
-	& Adds a custom \texttt{MenuItem} to the menu in the \ref{cls:menubar}. \\ 
+	& Adds a custom \texttt{MenuItem} to the menu in the \ref{cls:menubar} (\emph{facultative}). \\ 
 	\method{public boolean}{updatePlayerStatus(Player player)}{view:updateplayerstatus}\\
-	& Updates the currently active \ref{cls:player} displayed in the \ref{cls:statusbar}. \\
+	& Updates which \ref{cls:player} is displayed as active in the \ref{cls:statusbar}. \\
 	\method{public boolean}{displayErrorMessage(String message)}{view:displayerrormessage} \\
 	& Displays an error message in the \ref{cls:statusbar}. \\
 	\method{public boolean}{redrawGraph()}{view:redrawgraph} \\
@@ -110,7 +110,7 @@ This class is responsible for displaying \ref{cls:graph} and \ref{cls:grid} and 
 \paragraph*{}
 \begin{longtable}{Lp{10cm}}
 	\startmethodtable
-	\method{public}{GraphCanvas(GameWindow parent)}{gc:graphcanvas} \\
+	\method{public}{GraphCanvas(GameWindow parentGameWindow)}{gc:graphcanvas} \\
 	& Creates a \texttt{GraphCanvas} and registers its parent \ref{cls:gamewindow}. \\
 	\method{public boolean}{updateCanvas()}{gc:updatecanvas} \\
 	& Updates and redraws the \texttt{GraphCanvas}. \\ 
@@ -157,7 +157,7 @@ The \texttt{MenuBar} contains the game menu, options menu and help menu. It is d
 \paragraph*{}
 \begin{longtable}{Lp{10cm}}
 	\startmethodtable
-	\method{public}{MenuBar(GameWindow parent)}{mb:menubar} \\
+	\method{public}{MenuBar(GameWindow parentGameWindow)}{mb:menubar} \\
 	& Creates the \texttt{MenuBar} and registers its parent \ref{cls:gamewindow}. \\
 	\method{private boolean}{createMenus()}{mb:addcustommenuitem} \\
 	& Creates the standard menus including their menu items. \\ 
@@ -173,7 +173,7 @@ The \texttt{MenuBar} contains the game menu, options menu and help menu. It is d
 \class{StatusBar}{statusbar}
 \createindentedlist{java.lang.Object, java.awt.Component, java.awt.Container, javax.swing.JComponent, javax.swing.JPanel, de.graphioli.view.StatusBar}
 
-The \texttt{StatusBar} displays the currently active \ref{cls:player} and a short status or error message. \\
+The \texttt{StatusBar} displays which \ref{cls:player} is currently active and a short status or error message. \\
 
 \centerdash
 
@@ -183,7 +183,7 @@ The \texttt{StatusBar} displays the currently active \ref{cls:player} and a shor
 	\startmethodtable
 	\method{public boolean}{updatePlayerStatus(Player player)}{sb:updateplayerstatus} \\
 	& Updates the currently active \ref{cls:player} displayed. \\ 
-	\method{public boolean}{displayedErrorMessage(String message)}{sb:displayerrormessage} \\
+	\method{public boolean}{displayErrorMessage(String message)}{sb:displayerrormessage} \\
 	& Displays a status or error message. \\ 
 	\hline
 \end{longtable}
