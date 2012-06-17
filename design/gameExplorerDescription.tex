@@ -166,7 +166,7 @@ Represents a data model that provides the \texttt{JList} with its content. \\
 	\startmethodtable
 	\method{public}{GameDefinitionListModel(Iterable<GameDefinition> definitions)}{gdlm:gamedefinitionlistmodel} \\
 	& Creates a new game definition list model with the given \ref{cls:gamedefinition}s. \\
-	\method{public Object}{getGetElementAt(int index)}{gdlm:getgamedefinitionatindex} \\
+	\method{public Object}{getElementAt(int index)}{gdlm:getgamedefinitionatindex} \\
 	& Returns the name of the \ref{cls:gamedefinition} at the given index so the \texttt{JList} can display it. \\
 	\hline
 \end{longtable}
@@ -198,7 +198,7 @@ Organizes the output of the screenshot and the description of the game. \\
 \class{GEButtonPanel}{gebuttonpanel}
 \createindentedlist{java.lang.Object, java.awt.Component, java.awt.Container, javax.swing.JComponent, javax.swing.JPanel, de.graphioli.gameexplorer.GEButtonPanel}
 
-Organizes buttons and listens to them calling the specific methods in the \ref{cls:gamewindow}. \\
+Organizes buttons and listens to them calling the specific methods in the \ref{cls:gewindow}. \\
 \begin{description}
 	\item[All Implemented Interfaces] \hfill \\
 	java.awt.event.ActionListener
