@@ -21,7 +21,7 @@ This is the class that every \gls{game} has to inherit from, when using the \gra
 \paragraph*{}
 \begin{longtable}{Lp{10cm}}
 	\startmethodtable
-	\method{public final boolean}{registerController(GameManager manager)}{game:registercontroller} \\
+	\method{public final boolean}{registerController(GameManager gameManager)}{game:registercontroller} \\
 	& Associates this \texttt{Game} with a \ref{cls:gamemanager}. \\
 	\method{protected final GameManager}{getGameManager()}{game:getgamemanager} \\
 	& Returns the associated \ref{cls:gamemanager}. \\
@@ -160,13 +160,13 @@ Our implemented game containing the game's logic of \graphcoloring in single and
 	\startmethodtable
 	\method{private boolean}{generateBoard()}{gc:generateboard} \\
 	& Generates the \ref{cls:gameboard} used to play the game. \\
-	\method{protected abstract boolean}{onVertexClick(VisualVertex vertex)}{gc:onvertexclick} \\
+	\method{protected boolean}{onVertexClick(VisualVertex vertex)}{gc:onvertexclick} \\
 	& If the given \ref{cls:visualvertex} is an \ref{cls:graphcoloringbuttonvertex} its color is selected otherwise it colors the given vertex  -- if possible --  with the selected color and decides if the game is finished by this move. \\
-	\method{protected abstract boolean}{onEmptyGridPointClick(GridPoint gridPoint)}{gc:onemptygridpointclick} \\
+	\method{protected boolean}{onEmptyGridPointClick(GridPoint gridPoint)}{gc:onemptygridpointclick} \\
 	& Has no function in this game. \\
-	\method{protected abstract boolean}{onGameInit()}{gc:ongameinit} \\
+	\method{protected boolean}{onGameInit()}{gc:ongameinit} \\
 	& Decides whether the game is started in single or multiplayer mode. \\
-	\method{protected abstract boolean}{onGameStart()}{gc:ongamestart} \\
+	\method{protected boolean}{onGameStart()}{gc:ongamestart} \\
 	& (Re)builds the \ref{cls:gameboard} using \ref{gc:generateboard}. \\
 	\hline
 \end{longtable}
@@ -186,14 +186,14 @@ Our implemented game containing the game's logic of \twixt. \\
 	\startmethodtable
 	\method{private boolean}{generateBoard()}{twixt:generateboard} \\
 	& Generates the \ref{cls:gameboard} used to play the game. \\
-	\method{protected abstract boolean}{onVertexClick(VisualVertex vertex)}{twixt:onvertexclick} \\
+	\method{protected boolean}{onVertexClick(VisualVertex vertex)}{twixt:onvertexclick} \\
 	& Selects a tower on the \ref{cls:gameboard} and creates an \ref{cls:edge} between this \ref{cls:vertex} and the one previously selected if they belong to the same \ref{cls:player} and the new \ref{cls:edge} would not intersect with another one.
 	It then checks if the baselines are connected and the game is finished.\\
-	\method{protected abstract boolean}{onEmptyGridPointClick(GridPoint gridPoint)}{twixt:onemptygridpointclick} \\
+	\method{protected boolean}{onEmptyGridPointClick(GridPoint gridPoint)}{twixt:onemptygridpointclick} \\
 	& Sets a new \ref{cls:twixtvertex} belonging to the active \ref{cls:player} onto the given \ref{cls:gridpoint}, if possible. \\
-	\method{protected abstract boolean}{onGameInit()}{twixt:ongameinit} \\
+	\method{protected boolean}{onGameInit()}{twixt:ongameinit} \\
 	& Initilaizes the \ref{cls:twixtvertex} class. \\
-	\method{protected abstract boolean}{onGameStart()}{twixt:ongamestart} \\
+	\method{protected boolean}{onGameStart()}{twixt:ongamestart} \\
 	& (Re)builds the \ref{cls:gameboard} using \ref{twixt:generateboard}. \\	
 	\hline
 \end{longtable}
