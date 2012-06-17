@@ -22,7 +22,7 @@ This class represents the game board of a game. The \texttt{GameBoard} combines 
 	& Creates a new \texttt{GameBoard} with the specified option - if the \texttt{GameBoard} is directed or not. \\
 	\method{public boolean}{addVisualVertex(VisualVertex visualVertex)}{gb:addvisualvertex} \\
 	& Adds a \ref{cls:visualvertex} to this \texttt{GameBoard} and returns \texttt{true} if adding was successful. \\
-	\method{public boolean}{addVisualVertices(VisualVertex[ ] visualVertices)}{gb:addvisualvertices} \\
+	\method{public boolean}{addVisualVertices(Iterable<VisualVertex> visualVertices)}{gb:addvisualvertices} \\
 	& Adds a list of \texttt{VisualVertices} to this \texttt{GameBoard} and returns \texttt{true} if adding was successful. \\
 	\method{public VisualEdge}{addVisualEdge(VisualVertex vertexA, VisualVertex vertexB)}{gb:addvisualedge} \\
 	& Adds a \ref{cls:visualedge} between two specified \texttt{VisualVertices} \texttt{vertexA} and \texttt{vertexB}, and returns the added \ref{cls:visualvertex}. \\
