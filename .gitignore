@@ -48,6 +48,15 @@
 pflichtenheft/*.pdf
 design/*.pdf
 design/diagrams/*.pdf
+implementation/*.pdf
+
+# eclipse specific file
+.classpath
+.project
+
+# Java
+*.class
+bin/
 
 # exceptions
 !idxStyle.ist
