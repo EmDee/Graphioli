@@ -36,7 +36,7 @@ This is the class that every \gls{game} has to inherit from, when using the \gra
 	\method{protected boolean}{onKeyRelease(int keyCode)}{game:onkeyrelease} \\
 	& Called when a player releases a keyboard key.\\
 	\method{protected boolean}{onMenuItemClick(MenuItem item)}{game:onmenuitemclick} \\
-	& Called when a player clicks on a custom \texttt{MenuItem}. \\
+	& Called when a player clicks on a custom \texttt{MenuItem} (\emph{facultative}). \\
 	\hline
 \end{longtable}
 
@@ -108,7 +108,7 @@ This class acts as an interface between the \gls{GUI} and the other parts of the
 	\method{public boolean}{addGameMenuItem(MenuItem item)}{viewmanager:addgamemenuitem} \\
 	& Notifies the \ref{cls:view} to add the given \texttt{MenuItem} to the menu. \\
 	\method{public boolean}{onMenuItemClick(MenuItem item)}{viewmanager:onmenuitemclick} \\
-	& Callback function used by the \ref{cls:view} to notify about a click on a previously added \texttt{MenuItem}.  \\
+	& Callback function used by the \ref{cls:view} to notify about a click on a previously added \texttt{MenuItem} (\emph{facultative}).  \\
 	\method{public GameManager}{getGameManager()}{viewmanager:getgamemanager} \\
 	& Returns the associated \ref{cls:gamemanager}. \\
 	\method{public boolean}{setVisualVertexSet(int size)}{viewmanager:setvisualvertexsize} \\
