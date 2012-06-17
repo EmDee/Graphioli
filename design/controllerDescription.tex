@@ -36,7 +36,7 @@ This is the class that every \gls{game} has to inherit from, when using the \gra
 	\method{protected boolean}{onKeyRelease(int keyCode)}{game:onkeyrelease} \\
 	& Called when a player releases a keyboard key.\\
 	\method{protected boolean}{onMenuItemClick(MenuItem item)}{game:onmenuitemclick} \\
-	& Called when a player clicks on a custom \texttt{MenuItem}. \\
+	& Called when a player clicks on a custom \texttt{MenuItem} (\emph{facultative}). \\
 	\hline
 \end{longtable}
 
@@ -58,11 +58,11 @@ This is the framework's central class, connecting the actual game with the \text
 	& Starts the \ref{cls:gameexplorer}. \\
 	\method{private boolean}{killGame()}{gm:killgame} \\
 	& Kills the currently running game. \\
-	\method{public boolean}{startGame(GameDefinition gameDefinition)}{gamemanager:startgame} \\
+	\method{public boolean}{startGame(GameDefinition gameDefinition, Iterable<Player> players)}{gamemanager:startgame} \\
 	& Starts the game specified by the \ref{cls:gamedefinition}. \\
-	\method{public boolean}{loadGame(file savegame)}{gm:loadgame} \\
-	& Creates a \ref{cls:gamecapsule} from the savegame file and loads the informations to start the game in the saved state. \\
-	\method{public boolean}{saveGame(file savegame)}{gm:savegame} \\
+	\method{public boolean}{loadGame(File savegame)}{gm:loadgame} \\
+	& Creates a \ref{cls:gamecapsule} from the savegame file and loads the information to start the game in the saved state. \\
+	\method{public boolean}{saveGame(File savegame)}{gm:savegame} \\
 	& Creates a \ref{cls:gamecapsule} and serializes it into a savegame file to save the current state of the game. \\
 	\method{public boolean}{finishGame()}{gm:finishgame} \\
 	& Finishes the game and displays a default pop-up for single player games. \\
@@ -97,7 +97,7 @@ This class acts as an interface between the \gls{GUI} and the other parts of the
 	& Creates a new \texttt{ViewManager} associated with the given \ref{cls:gamemanager}. \\
 	\method{public boolean}{updatePlayerStatus(Player player)}{viewmanager:updateplayerstatus} \\
 	& Notifies the \ref{cls:view} to display the given \ref{cls:player} as active. \\
-	\method{public boolean}{onGridPointClick(GridPoint gridpoint)}{viewmanager:ongridpointclick} \\
+	\method{public boolean}{onGridPointClick(GridPoint gridPoint)}{viewmanager:ongridpointclick} \\
 	& Callback function used by the \ref{cls:view} to notify about a click on a \ref{cls:gridpoint}.  \\
 	\method{public boolean}{onKeyRelease(int keycode)}{viewmanager:onkeyrelease} \\
 	& Callback function used by the \ref{cls:view} to notify about a key release. \\
@@ -105,10 +105,10 @@ This class acts as an interface between the \gls{GUI} and the other parts of the
 	& Notifies the \ref{cls:view} to display the error message. \\
 	\method{public boolean}{displayPopUp(String message)}{viewmanager:displaypopup} \\
 	& Notifies the \ref{cls:view} to display the given message in a pop-up. \\
-	\method{public boolean}{addGameMenuItem(MenuItem item}{viewmanager:addgamemenuitem} \\
-	& Notifies the \ref{cls:view} to add the given \texttt{MenuItem} to the menu. \\
+	\method{public boolean}{addGameMenuItem(MenuItem item)}{viewmanager:addgamemenuitem} \\
+	& Notifies the \ref{cls:view} to add the given \texttt{MenuItem} to the menu (\emph{facultative}). \\
 	\method{public boolean}{onMenuItemClick(MenuItem item)}{viewmanager:onmenuitemclick} \\
-	& Callback function used by the \ref{cls:view} to notify about a click on a previously added \texttt{MenuItem}.  \\
+	& Callback function used by the \ref{cls:view} to notify about a click on a previously added \texttt{MenuItem} (\emph{facultative}).  \\
 	\method{public GameManager}{getGameManager()}{viewmanager:getgamemanager} \\
 	& Returns the associated \ref{cls:gamemanager}. \\
 	\method{public boolean}{setVisualVertexSet(int size)}{viewmanager:setvisualvertexsize} \\
@@ -132,7 +132,7 @@ This class is responsible for keeping information about a game's \ref{cls:player
 	& Constructs a \texttt{PlayerManager} with the given set of \ref{cls:player}s. \\
 	\method{private boolean}{initializePlayers()}{pm:initializeplayers} \\
 	& Initializes registered \ref{cls:player}s. \\
-	\method{public Iterable<Player> players}{getPlayers()}{pm:getplayers} \\
+	\method{public Iterable<Player>}{getPlayers()}{pm:getplayers} \\
 	& Returns the list of \ref{cls:player}s managed by this instance. \\
 	\method{public Player}{getActivePlayer()}{pm:getactiveplayer} \\
 	& Returns the \ref{cls:player}, who is currently active. \\
