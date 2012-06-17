@@ -93,7 +93,7 @@ This class handles the keyboard input. \\
 	\method{public}{CustomKeyDispatcher(GameWindow gamewindow)}{ckd:customkeydispatcher} \\
 	& Creates a \texttt{CustomKeyDispatcher} and registers its parent \ref{cls:gamewindow}. \\
 	\method{public boolean}{dispatchKeyEvent(Keyevent event)}{ckd:dispatchkeyevent} \\
-	& Dispatches the \texttt{KeyEvent} and calls the \ref{cls:gamewindow}. \\
+	& Dispatches the \texttt{KeyEvent} and calls \ref{gw:onkeyrelease} in the \ref{cls:gamewindow}. \\
 	\hline
 \end{longtable}
 \pagebreak
@@ -133,14 +133,14 @@ This class handles mouse input, serves as a connector between \ref{cls:grid} and
 	\startmethodtable
 	\method{public}{VisualGrid(GameWindow parentGameWindow)}{vg:visualgrid} \\
 	& Creates a \texttt{VisualGrid} and registers its parent \ref{cls:gamewindow}. \\
-	\method{private GridPoint}{parseCoordinates(int xCoord, int yCoord)}{vs:parsecoordinates} \\
+	\method{private GridPoint}{parseCoordinates(int xCoord, int yCoord)}{vg:parsecoordinates} \\
 	& Parses the coordinates of the mouse click to the specific \ref{cls:gridpoint}. \\
-	\method{public boolean}{setVisualVertexSize(int size)}{vs:setvisualvertexsize} \\
+	\method{public boolean}{setVisualVertexSize(int size)}{vg:setvisualvertexsize} \\
 	& Sets the \texttt{size} of the displayed \texttt{Vertices} up to a \ref{cls:grid} specific maximum value. \\
-	\method{public int}{getVisualVertexSize()}{vs:getvisualvertexsize} \\
+	\method{public int}{getVisualVertexSize()}{vg:getvisualvertexsize} \\
 	& Returns the \texttt{size} of the displayed \texttt{Vertices}. \\ 
-	\method{public void}{mouseClicked(MouseEvent event)}{vs:mouseclicked} \\
-	& Invoked if the mouse button has been clicked. \\ 
+	\method{public void}{mouseClicked(MouseEvent event)}{vg:mouseclicked} \\
+	& Invoked if the mouse button has been clicked, calls \ref{vg:parsecoordinates} and forwards the selected \ref{cls:gridpoint} to its parent \ref{cls:gamewindow}. \\ 
 	\hline
 \end{longtable}
 \pagebreak
@@ -162,9 +162,9 @@ The \texttt{MenuBar} contains the game menu, options menu and help menu. It is d
 	\method{private boolean}{createMenus()}{mb:addcustommenuitem} \\
 	& Creates the standard menus including their menu items. \\ 
 	\method{public boolean}{addCustomMenuItem(MenuItem item)}{mb:addcustommenuitem} \\
-	& Adds a \texttt{MenuItem} to the options menu. \\ 
+	& Adds a \texttt{MenuItem} to the options menu (\emph{facultative}). \\ 
 	\method{public void}{actionPerformed(ActionEvent event)}{mb:actionperformed} \\
-	& Invoked when a \texttt{MenuItem} is selected. \\ 
+	& Invoked when a menu item is selected and performs the menu item specific action. \\ 
 	\hline
 \end{longtable}
 \pagebreak
