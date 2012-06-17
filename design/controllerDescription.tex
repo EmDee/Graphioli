@@ -60,9 +60,9 @@ This is the framework's central class, connecting the actual game with the \text
 	& Kills the currently running game. \\
 	\method{public boolean}{startGame(GameDefinition gameDefinition)}{gamemanager:startgame} \\
 	& Starts the game specified by the \ref{cls:gamedefinition}. \\
-	\method{public boolean}{loadGame(file savegame)}{gm:loadgame} \\
-	& Creates a \ref{cls:gamecapsule} from the savegame file and loads the informations to start the game in the saved state. \\
-	\method{public boolean}{saveGame(file savegame)}{gm:savegame} \\
+	\method{public boolean}{loadGame(File savegame)}{gm:loadgame} \\
+	& Creates a \ref{cls:gamecapsule} from the savegame file and loads the information to start the game in the saved state. \\
+	\method{public boolean}{saveGame(File savegame)}{gm:savegame} \\
 	& Creates a \ref{cls:gamecapsule} and serializes it into a savegame file to save the current state of the game. \\
 	\method{public boolean}{finishGame()}{gm:finishgame} \\
 	& Finishes the game and displays a default pop-up for single player games. \\
