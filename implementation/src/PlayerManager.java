@@ -37,7 +37,9 @@ public class PlayerManager {
 	 * 
 	 * @return Iterable<Player>
 	 */
-	public Iterable<Player> getPlayers() {}
+	public Iterable<Player> getPlayers() {
+		return this.players;
+	}
 
 
 	/**
@@ -45,7 +47,9 @@ public class PlayerManager {
 	 * 
 	 * @return Player
 	 */
-	public Player getActivePlayer() {}
+	public Player getActivePlayer() {
+		return this.activePlayer;
+	}
 
 
 	/**
