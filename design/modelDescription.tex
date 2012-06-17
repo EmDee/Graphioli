@@ -30,8 +30,8 @@ This class represents the game board of a game. The \texttt{GameBoard} combines 
 	& Returns \texttt{true} if a specified \ref{cls:visualvertex} was removed successfully from this \texttt{GameBoard}. \\
 	\method{public boolean}{removeVisualEdge(VisualEdge visualEdge)}{gb:removevisualedge} \\
 	& Returns \texttt{true} if a specified \ref{cls:visualedge} was removed successfully from this \texttt{GameBoard}. \\
-	\method{public VisualEdge}{getVisualEdge(VisualVertex vexA, VisualVertex vexB)}{gb:getVisualEdge} \\
-	& Returns a \ref{cls:visualedge} between two specified \texttt{VisualVertices} \texttt{vexA} and \texttt{vexB}. \\
+	\method{public VisualEdge}{getVisualEdge(VisualVertex vertexA, VisualVertex vertexB)}{gb:getVisualEdge} \\
+	& Returns a \ref{cls:visualedge} between two specified \texttt{VisualVertices} \texttt{vertexA} and \texttt{vertexB}. \\
 	\method{public boolean}{isDirectedGraph()}{gb:isdirectedgraph} \\
 	& Returns \texttt{true} if the \ref{cls:graph} in this \texttt{GameBoard} is directed. \\
 	\method{public Graph}{getGraph()}{gb:getgraph} \\
@@ -59,7 +59,7 @@ This class represents the \gls{grid}, on which the \ref{cls:graph} will be locat
 	& Returns \texttt{true} if a specified \ref{cls:visualvertex} was added successfully to this \texttt{Grid}. \\
 	\method{public boolean}{removeVisualVertexAtGridPoint(GridPoint gridPoint)}{grid:removevisualvertexatgridpoint} \\
 	& Returns \texttt{true} if a \ref{cls:visualvertex} was removed successfully from the specified \ref{cls:gridpoint} on this \texttt{Grid}. \\
-	\method{public VisualVertex}{getVertexAtGridPoint(GridPoint gridPoint)}{grid:getvertexatgridpoint} \\
+	\method{public VisualVertex}{getVisualVertexAtGridPoint(GridPoint gridPoint)}{grid:getvisualvertexatgridpoint} \\
 	& Returns a \ref{cls:visualvertex} from the specified \ref{cls:gridpoint} on this \texttt{Grid}. \\
 	\hline
 \end{longtable}
@@ -169,7 +169,7 @@ This class represents a \gls{vertex} with its graphical representation. \\
 	& Draws the \texttt{VisualVertex} onto the given \texttt{Graphics2D} object. \\
 	\method{final void}{update()}{vv:update} \\
 	& Updates the graphical representation of this \texttt{VisualVertex} by recreating its \texttt{BufferedImage} using the \ref{vv:draw} method.\\ 
-	\method{public \ref{cls:gridpoint}}{getGridPoint()}{vv:getgridpoint} \\
+	\method{public GridPoint}{getGridPoint()}{vv:getgridpoint} \\
 	& Returns the \ref{cls:gridpoint} of this \texttt{VisualVertex}. \\ 
 	\method{public boolean}{setGridPoint(GridPoint gridPoint)}{vv:setgridpoint} \\
 	& Sets the \ref{cls:gridpoint} of this \texttt{VisualVertex}. \\
@@ -227,7 +227,7 @@ This class represents a \gls{vertex} used in the \graphcoloring \gls{game} by de
 \paragraph*{}
 \begin{longtable}{Lp{10cm}}
 	\startmethodtable
-	\method{public int}{getColorID}{gcv:getcolorid} \\
+	\method{public int}{getColorID()}{gcv:getcolorid} \\
 	& Returns the \texttt{color identification} of this \texttt{GraphColoringVertex}. \\
 	\method{public boolean}{setColorID(int id)}{gcv:setcolorid} \\
 	& Sets the \texttt{color identification} of this \texttt{GraphColoringVertex} and changes its \texttt{Color} attribute accordingly. \\
@@ -241,7 +241,7 @@ This class represents a \gls{vertex} used in the \graphcoloring \gls{game} by de
 \class{GraphColoringButtonVertex}{graphcoloringbuttonvertex}
 \createindentedlist{de.graphioli.model.Vertex, de.graphioli.model.VisualVertex, de.graphioli.model.SimpleVisualVertex, de.graphioli.model.GraphColoringVertex, de.graphioli.model.GraphColoringButtonVertex}
 
-This class represents a special \texttt{GraphColoringVertex}, that serves as a button for selecting a color. \\ 
+This class represents a special \ref{cls:graphcoloringvertex} that serves as a button for selecting a color. \\ 
 
 \centerdash
 
@@ -411,8 +411,6 @@ This class represents a \gls{player}. \\
 	\hline
 \end{longtable}
 
-\pagebreak
-
 % LocalPlayer
 \class{LocalPlayer}{localplayer}
 \createindentedlist{de.graphioli.model.Player, de.graphioli.model.LocalPlayer}
@@ -436,7 +434,7 @@ This serializable class represents a \texttt{GameCapsule} that holds all the imp
 	& Returns the \ref{cls:gameboard} of this \texttt{GameCapsule}. \\
 	\method{public Iterable<Player>}{getPlayers()}{gc:getplayers} \\
 	& Returns an iterable list of \ref{cls:player}s of this \texttt{GameCapsule}. \\
-	\method{public Player}{getActivePlayer}{gc:getActivePlayer} \\
+	\method{public Player}{getActivePlayer()}{gc:getactiveplayer} \\
 	& Returns the current active \ref{cls:player} of this \texttt{GameCapsule}. \\
 	\hline
 \end{longtable}
