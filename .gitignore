@@ -53,6 +53,7 @@ implementation/*.pdf
 # eclipse specific file
 .classpath
 .project
+.settings
 
 # Java
 *.class
