@@ -1,4 +1,5 @@
 package de.graphioli.controller;
+
 /**
  * This class acts as an interface between the graphical user interface (GUI) and
  * the other parts of the framework. It pushes update notifications to the view and

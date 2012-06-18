@@ -2,7 +2,7 @@ package de.graphioli.controller;
 import java.io.File;
 
 /**
- * This is the framework’s central class, connecting the actual game with the model and the view.
+ * This is the framewor's central class, connecting the actual game with the model and the view.
  * Any communication between model, view and controller will be managed by the GameManager.
  * 
  * @author Graphioli

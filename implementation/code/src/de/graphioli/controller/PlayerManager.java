@@ -1,6 +1,7 @@
 package de.graphioli.controller;
+
 /**
- * This class is responsible for keeping information about a game’s {@link Player}s.
+ * This class is responsible for keeping information about a game's {@link Player}s.
  * 
  * @author Graphioli
  */
