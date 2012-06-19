@@ -1,34 +1,42 @@
-\documentclass{article}
+\documentclass[paper=a4,landscape]{scrartcl}
+\usepackage[top=1cm, bottom=1cm, left=1cm, right=1cm]{geometry}
+\usepackage[usenames,dvipsnames,svgnames]{xcolor}
 
 \usepackage{../materials/resources/gantt}
-\usepackage{pdflscape}
+\newcommand{\week}{%
+	\titleelement{Mon}{1}
+	\titleelement{Tue}{1}
+	\titleelement{Wed}{1}
+	\titleelement{Thu}{1}
+	\titleelement{Fri}{1}
+	\titleelement{Sat}{1}
+	\titleelement{Sun}{1}
+}
+
+\pagenumbering{gobble} % remove page numbers
 
 \begin{document}
-  \begin{landscape}
-  \scalebox{0.8}{
-  \begin{gantt}[xunitlength=0.5cm,fontsize=\small,titlefontsize=\small,drawledgerline=true]{10}{48}
-    \begin{ganttitle}
-      \titleelement{2009}{7}
-      \numtitle{2010}{1}{2012}{12}
-      \titleelement{2013}{5}
-    \end{ganttitle}
-    \begin{ganttitle}
-      \numtitle{6}{1}{12}{1}
-      \numtitle{1}{1}{12}{1}
-      \numtitle{1}{1}{12}{1}
-      \numtitle{1}{1}{12}{1}
-      \numtitle{1}{1}{5}{1}
-    \end{ganttitle}
-    \ganttbar{task 1}{2}{17}
-    \ganttgroup{a group of tasks}{6}{18}
-    \ganttbar{task 2}{5}{10}
-    \ganttbar[pattern=crosshatch,color=blue]{task 3}{15}{3}
-    \ganttbar{task 4}{20}{3}
-    \ganttcon{15}{4}{20}{6}
-    \ganttbar{task 5}{15}{5}
-    \ganttbarcon[color=red]{task 6}{20}{5}
-    \ganttbarcon{task 7}{30}{5}
-  \end{gantt}
-  }
-  \end{landscape}
+	\begin{center}
+		\begin{gantt}[xunitlength=0.8cm,fontsize=\small,titlefontsize=\small,drawledgerline=true]{10}{28} %{# of tasks}{# of slots}
+    		\begin{ganttitle}
+      			\titleelement{Week 25}{7}
+      			\titleelement{Week 26}{7}
+      	  	  	\titleelement{Week 27}{7}
+      			\titleelement{Week 28}{7}
+    		\end{ganttitle}
+    		\begin{ganttitle}
+	      		\week
+				\week
+				\week
+				\week
+    	  	\end{ganttitle}
+			\ganttbar{\textcolor{CornflowerBlue}{\textbf{Jack}}}{0}{0}
+			\ganttbar{\textcolor{BurntOrange}{\textbf{Johannes}}}{0}{0}
+			\ganttbar{\textcolor{Bittersweet}{\textbf{Leon}}}{0}{0}
+			\ganttbar{\textcolor{LimeGreen}{\textbf{Martin}}}{0}{0}
+			\ganttbar{\textcolor{WildStrawberry}{\textbf{Ole}}}{0}{0}
+		    \ganttbar[color=NavyBlue]{view classes}{2}{17}
+		    \ganttbar{model class}{5}{10}
+		\end{gantt}
+	\end{center}
 \end{document}
