@@ -25,14 +25,16 @@ public class ViewManager {
 	 * 
 	 * @param gameManager
 	 */
-	public ViewManager(GameManager gameManager) {}
+	public ViewManager(GameManager gameManager) {
+		this.gameManager = gameManager;
+	}
 
 
 	/**
 	 * Notifies the {@link View} to display the given {@link Player} as active.
 	 * 
-	 * @param player
-	 * @return boolean
+	 * @param player The active player
+	 * @return <code>true</code> if the action was performed successfully, <code>false</code> otherwise
 	 */
 	public boolean updatePlayerStatus(Player player) {}
 
@@ -41,8 +43,8 @@ public class ViewManager {
 	 * Callback function used by the {@link View} to notify about a click
 	 * on a {@link GridPoint}.
 	 * 
-	 * @param gridPoint
-	 * @return boolean
+	 * @param gridPoint The GridPoint that was clicked
+	 * @return <code>true</code> if the action was performed successfully, <code>false</code> otherwise
 	 */
 	public boolean onGridPointClick(GridPoint gridPoint) {}
 
@@ -50,17 +52,17 @@ public class ViewManager {
 	/**
 	 * Callback function used by the {@link View} to notify about a key release.
 	 * 
-	 * @param keycode
-	 * @return boolean
+	 * @param keyCode The code of the key that was released
+	 * @return <code>true</code> if the action was performed successfully, <code>false</code> otherwise
 	 */
-	public boolean onKeyRelease(int keycode) {}
+	public boolean onKeyRelease(int keyCode) {}
 
 
 	/**
 	 * Notifies the {@link View} to display the error message.
 	 * 
-	 * @param message
-	 * @return boolean
+	 * @param message The message to display
+	 * @return <code>true</code> if the action was performed successfully, <code>false</code> otherwise
 	 */
 	public boolean displayErrorMessage(String message) {}
 
@@ -68,8 +70,8 @@ public class ViewManager {
 	/**
 	 * Notifies the {@link View} to display the given message in a pop-up.
 	 * 
-	 * @param message
-	 * @return boolean
+	 * @param message The message to display
+	 * @return <code>true</code> if the action was performed successfully, <code>false</code> otherwise
 	 */
 	public boolean displayPopUp(String message) {}
 
@@ -77,22 +79,22 @@ public class ViewManager {
 	/**
 	 * Notifies the {@link View} to add the given {@link MenuItem} to the menu.
 	 * 
-	 * @param item
-	 * @return boolean
+	 * @param item The MenuItem to add
+	 * @return <code>true</code> if the action was performed successfully, <code>false</code> otherwise
 	 * @todo Facultative
 	 */
-	public boolean addGameMenuItem(MenuItem item) {}
+	//public boolean addGameMenuItem(MenuItem item) {}
 
 
 	/**
 	 * Callback function used by the {@link View} to notify about a click on a
 	 * previously added {@link MenuItem}.
 	 * 
-	 * @param item
-	 * @return boolean
+	 * @param item The MenuItem that was clicked
+	 * @return <code>true</code> if the action was performed successfully, <code>false</code> otherwise
 	 * @todo Facultative
 	 */
-	public boolean onMenuItemClick(MenuItem item) {}
+	//public boolean onMenuItemClick(MenuItem item) {}
 
 
 	/**
@@ -100,7 +102,7 @@ public class ViewManager {
 	 * 
 	 * @return the associated {@link GameManager}
 	 */
-	public boolean getGameManager() {
+	public GameManager getGameManager() {
 		return this.gameManager;
 	}
 
@@ -109,8 +111,8 @@ public class ViewManager {
 	 * Notifies the {@link View} to change the size of the {@link VisualVertex}es
 	 * to the given value.
 	 * 
-	 * @param size
-	 * @return boolean
+	 * @param size The new size of the VisualVertex
+	 * @return <code>true</code> if the action was performed successfully, <code>false</code> otherwise
 	 */
 	public boolean setVisualVertexSize(int size) {}
 

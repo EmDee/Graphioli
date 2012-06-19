@@ -11,14 +11,14 @@ public abstract class Game {
 	/**
 	 * The {@link GameManager} associated with this {@link Game}.
 	 */
-	GameManager gameManager;
+	private GameManager gameManager;
 
 
 	/**
 	 * Associates this {@link Game} with a {@link GameManager}.
 	 * 
 	 * @param gameManager
-	 * @return
+	 * @return <code>true</code> if the action was performed successfully, <code>false</code> otherwise
 	 */
 	public final boolean registerController(GameManager gameManager) {
 
@@ -31,7 +31,7 @@ public abstract class Game {
 	/**
 	 * Returns the associated {@link GameManager}.
 	 * 
-	 * @return
+	 * @return the associated {@link GameManager}
 	 */
 	protected final GameManager getGameManager() {
 		return this.gameManager;
@@ -41,8 +41,8 @@ public abstract class Game {
 	/**
 	 * Called when a player clicks on a {@link VisualVertex}.
 	 * 
-	 * @param vertex
-	 * @return
+	 * @param vertex The VisualVertex that was clicked
+	 * @return <code>true</code> if the action was performed successfully, <code>false</code> otherwise
 	 */
 	protected abstract boolean onVertexClick(VisualVertex vertex) {}
 
@@ -51,8 +51,8 @@ public abstract class Game {
 	 * Called when a player clicks on a {@link GridPoint} that has no
 	 * {@link VisualVertex} on it.
 	 * 
-	 * @param gridPoint
-	 * @return
+	 * @param gridPoint The empty GridPoint that was clicked
+	 * @return <code>true</code> if the action was performed successfully, <code>false</code> otherwise
 	 */
 	protected abstract boolean onEmptyGridPointClick(GridPoint gridPoint) {}
 
@@ -60,7 +60,7 @@ public abstract class Game {
 	/**
 	 * Called after a {@link Game} has been instantiated.
 	 * 
-	 * @return
+	 * @return <code>true</code> if the action was performed successfully, <code>false</code> otherwise
 	 */
 	protected abstract boolean onGameInit() {}
 
@@ -68,7 +68,7 @@ public abstract class Game {
 	/**
 	 * Called immediately before a {@link Game} gets (re)started.
 	 * 
-	 * @return
+	 * @return <code>true</code> if the action was performed successfully, <code>false</code> otherwise
 	 */
 	protected abstract boolean onGameStart() {}
 
@@ -76,8 +76,8 @@ public abstract class Game {
 	/**
 	 * Called when a player releases a keyboard key.
 	 * 
-	 * @param keyCode
-	 * @return
+	 * @param keyCode The code of the key that was released
+	 * @return <code>true</code> if the action was performed successfully, <code>false</code> otherwise
 	 */
 	protected boolean onKeyRelease(int keyCode) {}
 
@@ -85,10 +85,10 @@ public abstract class Game {
 	/**
 	 * Called when a player clicks on a custom {@link MenuItem}.
 	 * 
-	 * @param item
-	 * @return
+	 * @param item The MenuItem that was clicked
+	 * @return <code>true</code> if the action was performed successfully, <code>false</code> otherwise
 	 * @todo Facultative
 	 */
-	protected boolean onMenuItemClick(MenuItem item) {}
+	//protected boolean onMenuItemClick(MenuItem item) {}
 
 }

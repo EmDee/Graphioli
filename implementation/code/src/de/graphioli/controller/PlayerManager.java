@@ -21,7 +21,7 @@ public class PlayerManager {
 	/**
 	 * Constructs a PlayerManager with the given set of {@link Player}s.
 	 * 
-	 * @param players
+	 * @param players The set of players
 	 */
 	public PlayerManager(Iterable<Player> players) {}
 
@@ -29,7 +29,7 @@ public class PlayerManager {
 	/**
 	 * Initializes registered {@link Player}s.
 	 * 
-	 * @return boolean
+	 * @return <code>true</code> if the action was performed successfully, <code>false</code> otherwise
 	 */
 	public boolean initializePlayers() {}
 
@@ -37,7 +37,7 @@ public class PlayerManager {
 	/**
 	 * Returns the list of {@link Player}s managed by this instance.
 	 * 
-	 * @return Iterable<Player>
+	 * @return the list of players managed by this instance
 	 */
 	public Iterable<Player> getPlayers() {
 		return this.players;
@@ -45,9 +45,9 @@ public class PlayerManager {
 
 
 	/**
-	 * Returns the {@link Player}, who is currently active.
+	 * Returns the {@link Player} who is currently active.
 	 * 
-	 * @return Player
+	 * @return the player who is currently active
 	 */
 	public Player getActivePlayer() {
 		return this.activePlayer;
@@ -57,7 +57,7 @@ public class PlayerManager {
 	/**
 	 * Sets the next {@link Player} in the list to active.
 	 * 
-	 * @return Player
+	 * @return the player that was set to active
 	 */
 	public Player nextPlayer() {}
 

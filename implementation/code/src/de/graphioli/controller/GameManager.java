@@ -34,7 +34,7 @@ public class GameManager {
 	/**
 	 * Initializes the GameManager to start the whole application.
 	 * 
-	 * @param args
+	 * @param args Provided command-line arguments
 	 */
 	public static void main(String[] args) {}
 
@@ -42,7 +42,7 @@ public class GameManager {
 	/**
 	 * Starts the {@link GameExplorer}.
 	 * 
-	 * @return boolean
+	 * @return <code>true</code> if the action was performed successfully, <code>false</code> otherwise
 	 */
 	private boolean openGameExplorer() {}
 
@@ -50,7 +50,7 @@ public class GameManager {
 	/**
 	 * Kills the currently running game.
 	 * 
-	 * @return boolean
+	 * @return <code>true</code> if the action was performed successfully, <code>false</code> otherwise
 	 */
 	private boolean killGame() {}
 
@@ -58,8 +58,8 @@ public class GameManager {
 	/**
 	 * Starts the game specified by the {@link GameDefinition}.
 	 * 
-	 * @param gameDefinition
-	 * @return boolean
+	 * @param gameDefinition The GameDefinition of the game to start
+	 * @return <code>true</code> if the action was performed successfully, <code>false</code> otherwise
 	 */
 	public boolean startGame(GameDefinition gameDefinition) {}
 
@@ -68,8 +68,8 @@ public class GameManager {
 	 * Creates a {@link GameCapsule} from the savegame file and loads the
 	 * information to start the game in the saved state.
 	 * 
-	 * @param savegame
-	 * @return boolean
+	 * @param savegame The savegame file
+	 * @return <code>true</code> if the action was performed successfully, <code>false</code> otherwise
 	 */
 	public boolean loadGame(File savegame) {}
 
@@ -78,8 +78,8 @@ public class GameManager {
 	 * Creates a {@link GameCapsule} and serializes it into a savegame file
 	 * to save the current state of the game.
 	 * 
-	 * @param savegame
-	 * @return boolean
+	 * @param savegame The savegame file
+	 * @return <code>true</code> if the action was performed successfully, <code>false</code> otherwise
 	 */
 	public boolean saveGame(File savegame) {}
 
@@ -87,7 +87,7 @@ public class GameManager {
 	/**
 	 * Finishes the game and displays a default pop-up for single player games.
 	 * 
-	 * @return boolean
+	 * @return <code>true</code> if the action was performed successfully, <code>false</code> otherwise
 	 */
 	public boolean finishGame() {}
 
@@ -95,8 +95,8 @@ public class GameManager {
 	/**
 	 * Finishes the game and displays the winning {@link Player} in a pop-up.
 	 * 
-	 * @param winner
-	 * @return boolean
+	 * @param winner The winning player
+	 * @return <code>true</code> if the action was performed successfully, <code>false</code> otherwise
 	 */
 	public boolean finishGame(Player winner) {}
 
@@ -104,7 +104,7 @@ public class GameManager {
 	/**
 	 * Restarts the game and resets the {@link GameBoard} and {@link Player}s.
 	 * 
-	 * @return boolean
+	 * @return <code>true</code> if the action was performed successfully, <code>false</code> otherwise
 	 */
 	public boolean restartGame() {}
 
@@ -113,7 +113,7 @@ public class GameManager {
 	 * Closes the game with its {@link GameWindow} and returns the focus to
 	 * the {@link GameExplorer}.
 	 * 
-	 * @return boolean
+	 * @return <code>true</code> if the action was performed successfully, <code>false</code> otherwise
 	 */
 	public boolean closeGame() {}
 
@@ -121,7 +121,7 @@ public class GameManager {
 	/**
 	 * Returns the {@link PlayerManager} associated with this {@link GameManager}.
 	 * 
-	 * @return PlayerManager
+	 * @return PlayerManager The PlayerManager
 	 */
 	public PlayerManager getPlayerManager() {
 		return this.playerManager;
@@ -131,7 +131,7 @@ public class GameManager {
 	/**
 	 * Returns the {@link ViewManager} associated with this {@link GameManager}.
 	 * 
-	 * @return ViewManager
+	 * @return ViewManager The ViewManager
 	 */
 	public ViewManager getViewManager() {
 		return this.viewManager;
@@ -141,7 +141,7 @@ public class GameManager {
 	/**
 	 * Returns the {@link GameBoard} associated with this {@link GameManager}.
 	 * 
-	 * @return GameBoard
+	 * @return GameBoard The GameBoard
 	 */
 	public GameBoard getGameBoard() {
 		return this.gameBoard;
