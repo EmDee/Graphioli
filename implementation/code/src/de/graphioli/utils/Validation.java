@@ -8,9 +8,6 @@ import java.io.File;
  */
 public class Validation {
 
-	/**
-	 * 
-	 */
 	public Validation() {}
 
 
