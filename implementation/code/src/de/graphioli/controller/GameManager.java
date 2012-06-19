@@ -1,5 +1,6 @@
 package de.graphioli.controller;
 import java.io.File;
+import de.graphioli.gameexplorer.GameDefinition;
 
 /**
  * This is the framewor's central class, connecting the actual game with the model and the view.
