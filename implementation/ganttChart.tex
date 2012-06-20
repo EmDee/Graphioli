@@ -14,20 +14,12 @@
 	\titleelement{Sun}{1}
 }
 
-\newcommand{\all}[3]{\ganttbar[color=black]{#1}{#2}{#3}}
-\newcommand{\jack}[3]{\ganttbar[color=CornflowerBlue]{#1}{#2}{#3}}
-\newcommand{\joe}[3]{\ganttbar[color=Red]{#1}{#2}{#3}}
-\newcommand{\leon}[3]{\ganttbar[color=Goldenrod]{#1}{#2}{#3}}
-\newcommand{\martin}[3]{\ganttbar[color=LimeGreen]{#1}{#2}{#3}}
-\newcommand{\ole}[3]{\ganttbar[color=Mulberry]{#1}{#2}{#3}}
-
-\newcommand{\allc}[3]{\ganttbarcon[color=black]{#1}{#2}{#3}}
-\newcommand{\jackc}[3]{\ganttbarcon[color=CornflowerBlue]{#1}{#2}{#3}}
-\newcommand{\joec}[3]{\ganttbarcon[color=Red]{#1}{#2}{#3}}
-\newcommand{\leonc}[3]{\ganttbarcon[color=Goldenrod]{#1}{#2}{#3}}
-\newcommand{\martinc}[3]{\ganttbarcon[color=LimeGreen]{#1}{#2}{#3}}
-\newcommand{\olec}[3]{\ganttbarcon[color=Mulberry]{#1}{#2}{#3}}
-
+\newcommand{\all}{black}
+\newcommand{\jack}{CornflowerBlue}
+\newcommand{\joe}{Red}
+\newcommand{\leon}{Goldenrod}
+\newcommand{\martin}{LimeGreen}
+\newcommand{\ole}{Mulberry}
 
 \pagenumbering{gobble} % remove page numbers
 
@@ -50,40 +42,40 @@
 		
 		% localization
 		\ganttgroup{model}{1}{5}
-		\leon{localization}{1}{2}
-		\leonc{ensure correct locale in every class}{3}{3}
+		\ganttbar[color=\leon]{localization}{1}{2}
+		\ganttbar[color=\leon]{ensure correct locale in every class}{3}{3}
 			
 		% model
 		\ganttgroup{model}{1}{7}
-	    \martin{implement class: Vertex, Edge and subclasses}{1}{2}
-		\martinc{implement class: Graph}{3}{3}
-		\martinc{combine GameBoard with Graph and Grid}{6}{2}
-	    \ole{implement class: Grid, GridPoints, and Player}{1}{1}
-		\olec{implement class: GameBoard}{2}{2}
+	    \ganttbar[color=\martin]{implement class: Vertex, Edge and subclasses}{1}{2}
+		\ganttbar[color=\martin]{implement class: Graph}{3}{3}
+		\ganttbar[color=\martin]{combine GameBoard with Graph and Grid}{6}{2}
+	    \ganttbar[color=\ole]{implement class: Grid, GridPoints, and Player}{1}{1}
+		\ganttbarcon[color=\ole]{implement class: GameBoard}{2}{2}
 		    
 		% controller
 		\ganttgroup{controller}{1}{4}
-		\joe{implement utility classes}{1}{1}
-		\joe{implement class: GameManager}{1}{4}
-		\joe{implement class: Game, PlayerManager and ViewManager}{1}{3}
+		\ganttbar[color=\joe]{implement utility classes}{1}{1}
+		\ganttbar[color=\joe]{implement class: GameManager}{1}{4}
+		\ganttbar[color=\joe]{implement class: Game, PlayerManager and ViewManager}{1}{3}
 			
 		% view
 		\ganttgroup{view}{1}{8}
-		\jack{implement VisualGrid, StatusBar, and GraphCanvas}{1}{3}
-		\jackc{implement GameWindow}{4}{5}
+		\ganttbar[color=\jack]{implement VisualGrid, StatusBar, and GraphCanvas}{1}{3}
+		\ganttbar[color=\jack]{implement GameWindow}{4}{5}
 			
 		\ganttmilestone[color=red]{first prototype}{9}
 			
 		% game explorer
 		\ganttgroup{GameExplorer}{6}{10}
-		\martin{implementation of GameExplorer GUI}{6}{5}
-		\martinc{combine GameExplorer's logic with GUI}{11}{5}
+		\ganttbar[color=\martin]{implementation of GameExplorer GUI}{6}{5}
+		\ganttbar[color=\martin]{combine GameExplorer's logic with GUI}{11}{5}
 		\ganttmilestone[color=red]{GameExplorer done}{16}
 			
 		% games
 		\ganttgroup{games}{8}{5}
-		\leon{GraphColoring}{8}{3}
-		\ole{TwixT}{8}{5}
+		\ganttbar[color=\leon]{GraphColoring}{8}{3}
+		\ganttbar[color=\ole]{TwixT}{8}{5}
 			
 		\ganttmilestone[color=red]{Games done}{14}
 			
@@ -91,10 +83,10 @@
 			
 		% facultative
 		\ganttgroup{facultatives}{12}{11}
-		\all{AI Player}{12}{4}
-		\all{Network functionalities}{16}{7}
-		\all{AppStore}{16}{4}
-		\all{Add custom menu items}{16}{2}
+		\ganttbar[color=\all]{AI Player}{12}{4}
+		\ganttbar[color=\all]{Network functionalities}{16}{7}
+		\ganttbar[color=\all]{AppStore}{16}{4}
+		\ganttbar[color=\all]{Add custom menu items}{16}{2}
 			
 		\ganttmilestone[color=red]{Graphioli done}{27}
 			
