@@ -1,5 +1,8 @@
 package de.graphioli.controller;
 
+import java.util.ArrayList;
+import de.graphioli.model.Player;
+
 /**
  * This class is responsible for keeping information about a game's {@link Player}s.
  * 
@@ -10,7 +13,7 @@ public class PlayerManager {
 	/**
 	 * Set of {@link Player}s.
 	 */
-	private Iterable<Player> players;
+	private ArrayList<Player> players;
 
 	/**
 	 * Currently active {@link Player}.
@@ -23,7 +26,14 @@ public class PlayerManager {
 	 * 
 	 * @param players The set of players
 	 */
-	public PlayerManager(Iterable<Player> players) {}
+	public PlayerManager(ArrayList<Player> players) {
+
+		this.players = players;
+
+		// Set first player to active
+		this.activePlayer = players.get(0);
+
+	}
 
 
 	/**
@@ -31,7 +41,9 @@ public class PlayerManager {
 	 * 
 	 * @return <code>true</code> if the action was performed successfully, <code>false</code> otherwise
 	 */
-	public boolean initializePlayers() {}
+	public boolean initializePlayers() {
+		return false;
+	}
 
 
 	/**
@@ -39,7 +51,7 @@ public class PlayerManager {
 	 * 
 	 * @return the list of players managed by this instance
 	 */
-	public Iterable<Player> getPlayers() {
+	public ArrayList<Player> getPlayers() {
 		return this.players;
 	}
 
@@ -59,6 +71,20 @@ public class PlayerManager {
 	 * 
 	 * @return the player that was set to active
 	 */
-	public Player nextPlayer() {}
+	public Player nextPlayer() {
+
+		int activeIndex = this.players.indexOf(this.activePlayer);
+
+		// Set next active player (first one, if currently active player is last entry in the list)
+		if (activeIndex == this.players.size() - 1) {
+			this.activePlayer = this.players.get(0);
+		} else {
+			this.activePlayer = this.players.get(activeIndex + 1);
+		}
+
+		// Return the newly set active player
+		return this.activePlayer;
+
+	}
 
 }
