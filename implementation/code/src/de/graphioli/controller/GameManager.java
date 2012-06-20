@@ -1,6 +1,9 @@
 package de.graphioli.controller;
 import java.io.File;
+import java.util.ArrayList;
+
 import de.graphioli.gameexplorer.GameDefinition;
+import de.graphioli.gameexplorer.GameExplorer;
 
 /**
  * This is the framewor's central class, connecting the actual game with the model and the view.
@@ -36,7 +39,22 @@ public class GameManager {
 	 * 
 	 * @param args Provided command-line arguments
 	 */
-	public static void main(String[] args) {}
+	public static void main(String[] args) {
+
+		// Create controller
+		GameManager gameManager = new GameManager();
+
+		// Open GameExplorer to select a game
+		// This will cause GameExplorer to call startGame()
+		gameManager.openGameExplorer();
+
+	}
+
+
+	/**
+	 * Creates a new instance of {@link GameManager}.
+	 */
+	public GameManager() {}
 
 
 	/**
@@ -44,7 +62,9 @@ public class GameManager {
 	 * 
 	 * @return <code>true</code> if the action was performed successfully, <code>false</code> otherwise
 	 */
-	private boolean openGameExplorer() {}
+	private boolean openGameExplorer() {
+		GameExplorer gameExplorer = new GameExplorer(this);
+	}
 
 
 	/**
@@ -59,9 +79,30 @@ public class GameManager {
 	 * Starts the game specified by the {@link GameDefinition}.
 	 * 
 	 * @param gameDefinition The GameDefinition of the game to start
+	 * @param players The list of players for this game
 	 * @return <code>true</code> if the action was performed successfully, <code>false</code> otherwise
 	 */
-	public boolean startGame(GameDefinition gameDefinition) {}
+	public boolean startGame(GameDefinition gameDefinition, ArrayList<Player> players) {
+
+		// Create PlayerManager instance
+		this.playerManager = new PlayerManager(players);
+
+		// Create GameBoard
+		this.gameBoard = new GameBoard(gameDefinition.isDirectedGraph(),
+				gameDefinition.getHorizontalGridPointCount(),
+				gameDefinition.getVerticalGridPointCount());
+
+		// Create ViewManager instance
+		this.viewManager = new ViewManager(this);
+
+		// Facultative: Create MenuItems here
+
+		// Instantiate game
+		this.game = (Game) Class.forName(gameDefinition.getFullyQualifiedClassName()).newInstance();
+		game.registerController(this);
+		game.onGameInit();
+
+	}
 
 
 	/**
