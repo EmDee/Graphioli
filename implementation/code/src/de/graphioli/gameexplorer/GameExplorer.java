@@ -1,4 +1,5 @@
 package de.graphioli.gameexplorer;
+import java.net.URI;
 import java.util.ArrayList;
 import de.graphioli.controller.GameManager;
 
@@ -15,7 +16,7 @@ public class GameExplorer {
 	/**
 	 * The {@link GameManager} controlling this GameExplorer.
 	 */
-	private GameManager controller;
+	private GameManager gameManager;
 
 	/**
 	 * The list of {@link GameDefinition}s in this GameExplorer.
@@ -35,10 +36,11 @@ public class GameExplorer {
 	 */
 	public GameExplorer(GameManager gameManager) {
 
-		this.controller = gameManager;
+		this.gameManager = gameManager;
 
 		// Instantiate mock-up GameDefinition
-		GameDefinition gameDefinition = new GameDefinition();
+		GameDefinition gameDefinition = new GameDefinition("Test Game", 1, 2, String gamePath, "Fake description for test game",
+				"GameTest", String screenshotPath, String localizationFilePath, URI helpFile, 8, 8, true);
 		this.gameDefinitions.add(gameDefinition);
 
 		// Instantiate mock-up players
@@ -50,7 +52,7 @@ public class GameExplorer {
 		players.add(player2);
 
 		// Notify controller. Note: This is usually done in the startGame() method.
-		this.controller.startGame(this.gameDefinitions.get(0), players);
+		this.gameManager.startGame(this.gameDefinitions.get(0), players);
 
 	}
 

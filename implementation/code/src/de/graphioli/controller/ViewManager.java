@@ -26,7 +26,13 @@ public class ViewManager {
 	 * @param gameManager
 	 */
 	public ViewManager(GameManager gameManager) {
+
 		this.gameManager = gameManager;
+
+		// Instantiate view
+		this.view = new View();
+		this.view.registerController(this);
+
 	}
 
 

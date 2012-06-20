@@ -1,9 +1,7 @@
 package de.graphioli.gameexplorer;
 import java.net.URI;
 //import java.util.ArrayList;
-import de.graphioli.model.Game;
 import de.graphioli.model.Graph;
-import de.graphioli.model.Grid;
 
 /**
  * This class represents the game’s definition, containing crucial information that
@@ -74,9 +72,9 @@ public class GameDefinition {
 	private int verticalGridPointCount;
 
 	/**
-	 * Whether the graph of the game is directed or not
+	 * Whether the {@link Graph} of the game is directed or not
 	 */
-	private boolean directedGraph;
+	private boolean isDirectedGraph;
 
 
 	/**
@@ -94,7 +92,7 @@ public class GameDefinition {
 	 * @param menu The list of additional menu items
 	 * @param horizontalGridPointCount The number of horizontal grid points
 	 * @param verticalGridPointCount The number of vertical grid points
-	 * @param directedGraph Whether the graph of the game is directed or not
+	 * @param directedGraph Whether the {@link Graph} of the game is directed or not
 	 */
 	public GameDefinition(String name,
 			int minPlayerCount,
@@ -108,7 +106,7 @@ public class GameDefinition {
 			//ArrayList<MenuItem> menu,
 			int horizontalGridPointCount,
 			int verticalGridPointCount,
-			boolean directedGraph) {
+			boolean isDirectedGraph) {
 
 		this.name = name;
 		this.minPlayerCount = minPlayerCount;
@@ -122,7 +120,7 @@ public class GameDefinition {
 		//this.menu = menu;
 		this.horizontalGridPointCount = horizontalGridPointCount;
 		this.verticalGridPointCount = verticalGridPointCount;
-		this.directedGraph = directedGraph;
+		this.isDirectedGraph = isDirectedGraph;
 
 	}
 
@@ -236,11 +234,11 @@ public class GameDefinition {
 
 
 	/**
-	 * Returns whether the graph of the game is directed or not.
+	 * Returns whether the {@link Graph} of the game is directed or not.
 	 * @return <code>true</code> if the graph of the game is directed, <code>false</code> otherwise
 	 */
 	public boolean isDirectedGraph() {
-		return this.directedGraph;
+		return this.isDirectedGraph;
 	}
 
 }

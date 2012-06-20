@@ -1,9 +1,9 @@
 package de.graphioli.controller;
 import java.io.File;
 import java.util.ArrayList;
-
 import de.graphioli.gameexplorer.GameDefinition;
 import de.graphioli.gameexplorer.GameExplorer;
+import de.graphioli.model.GameBoard;
 
 /**
  * This is the framewor's central class, connecting the actual game with the model and the view.
@@ -63,7 +63,11 @@ public class GameManager {
 	 * @return <code>true</code> if the action was performed successfully, <code>false</code> otherwise
 	 */
 	private boolean openGameExplorer() {
-		GameExplorer gameExplorer = new GameExplorer(this);
+
+		// Create new instance of GameExplorer
+		new GameExplorer(this);
+		return true;
+
 	}
 
 
@@ -71,8 +75,11 @@ public class GameManager {
 	 * Kills the currently running game.
 	 * 
 	 * @return <code>true</code> if the action was performed successfully, <code>false</code> otherwise
+	 * @todo Implement
 	 */
-	private boolean killGame() {}
+	private boolean killGame() {
+		return false;
+	}
 
 
 	/**
@@ -111,8 +118,11 @@ public class GameManager {
 	 * 
 	 * @param savegame The savegame file
 	 * @return <code>true</code> if the action was performed successfully, <code>false</code> otherwise
+	 * @todo Implement
 	 */
-	public boolean loadGame(File savegame) {}
+	public boolean loadGame(File savegame) {
+		return false;
+	}
 
 
 	/**
@@ -121,16 +131,23 @@ public class GameManager {
 	 * 
 	 * @param savegame The savegame file
 	 * @return <code>true</code> if the action was performed successfully, <code>false</code> otherwise
+	 * @todo Implement
 	 */
-	public boolean saveGame(File savegame) {}
+	public boolean saveGame(File savegame) {
+		return false;
+	}
 
 
 	/**
 	 * Finishes the game and displays a default pop-up for single player games.
 	 * 
 	 * @return <code>true</code> if the action was performed successfully, <code>false</code> otherwise
+	 * @todo Implement
 	 */
-	public boolean finishGame() {}
+	public boolean finishGame() {
+		this.killGame();
+		return false;
+	}
 
 
 	/**
@@ -138,16 +155,22 @@ public class GameManager {
 	 * 
 	 * @param winner The winning player
 	 * @return <code>true</code> if the action was performed successfully, <code>false</code> otherwise
+	 * @todo Implement
 	 */
-	public boolean finishGame(Player winner) {}
+	public boolean finishGame(Player winner) {
+		return false;
+	}
 
 
 	/**
 	 * Restarts the game and resets the {@link GameBoard} and {@link Player}s.
 	 * 
 	 * @return <code>true</code> if the action was performed successfully, <code>false</code> otherwise
+	 * @todo Implement
 	 */
-	public boolean restartGame() {}
+	public boolean restartGame() {
+		return false;
+	}
 
 
 	/**
@@ -155,8 +178,11 @@ public class GameManager {
 	 * the {@link GameExplorer}.
 	 * 
 	 * @return <code>true</code> if the action was performed successfully, <code>false</code> otherwise
+	 * @todo Implement
 	 */
-	public boolean closeGame() {}
+	public boolean closeGame() {
+		return false;
+	}
 
 
 	/**
