@@ -1,5 +1,5 @@
 package de.graphioli.model;
 
-public class Graph {
+public class GameCapsule {
 
 }

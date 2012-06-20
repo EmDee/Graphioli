@@ -1,5 +1,5 @@
 package de.graphioli.view;
 
-public class GameWindow {
+public class GameWindow implements View {
 
 }
