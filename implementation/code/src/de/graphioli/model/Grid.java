@@ -1,10 +1,11 @@
 package de.graphioli.model;
 
+import de.graphioli.utils.Validation;
+
 /**
  * This class represents the grid, on which the {@link Graph} will be located.
  * 
  * @author Graphioli
- * @todo Implement ArrayIndexOutOfBounds checkings
  */
 public class Grid {
 
@@ -47,6 +48,11 @@ public class Grid {
 	 */
 	public boolean addVisualVertexToGrid(GridPoint gridPoint, VisualVertex visualVertex) {
 
+		// Early negative return if specified GridPoint is invalid
+		if (!Validation.isValidGridPoint(gridPoint, this.horizontalGridPoints, this.verticalGridPoints)) {
+			return false;
+		}
+
 		// Get VisualVertex at specified GridPoint
 		VisualVertex visualVertexAtGridPoint = this.grid[gridPoint.getPositionX()][gridPoint.getPositionY()];
 
@@ -71,6 +77,11 @@ public class Grid {
 	 */
 	public boolean removeVisualVertexAtGridPoint(GridPoint gridPoint) {
 
+		// Early negative return if specified GridPoint is invalid
+		if (!Validation.isValidGridPoint(gridPoint, this.horizontalGridPoints, this.verticalGridPoints)) {
+			return false;
+		}
+
 		// Get VisualVertex at specified GridPoint
 		VisualVertex visualVertex = this.grid[gridPoint.getPositionX()][gridPoint.getPositionY()];
 
@@ -94,6 +105,11 @@ public class Grid {
 	 * @return the VisualVertex at the specified GridPoint or <code>null</code> if the GridPoint is empty
 	 */
 	public VisualVertex getVisualVertexAtGridPoint(GridPoint gridPoint) {
+
+		// Early negative return if specified GridPoint is invalid
+		if (!Validation.isValidGridPoint(gridPoint, this.horizontalGridPoints, this.verticalGridPoints)) {
+			return null;
+		}
 
 		// Get VisualVertex at specified GridPoint
 		VisualVertex visualVertex = this.grid[gridPoint.getPositionX()][gridPoint.getPositionY()];
