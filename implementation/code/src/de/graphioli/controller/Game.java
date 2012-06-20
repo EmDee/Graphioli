@@ -1,5 +1,8 @@
 package de.graphioli.controller;
 
+import de.graphioli.model.GridPoint;
+import de.graphioli.model.VisualVertex;
+
 /**
  * This is the class that every game has to inherit from, when using the Graphioli framework. It defines 
  * the callback functions that the game developer needs in order to implement the game's logic.
@@ -44,7 +47,7 @@ public abstract class Game {
 	 * @param vertex The VisualVertex that was clicked
 	 * @return <code>true</code> if the action was performed successfully, <code>false</code> otherwise
 	 */
-	protected abstract boolean onVertexClick(VisualVertex vertex) {}
+	protected abstract boolean onVertexClick(VisualVertex vertex);
 
 
 	/**
@@ -54,7 +57,7 @@ public abstract class Game {
 	 * @param gridPoint The empty GridPoint that was clicked
 	 * @return <code>true</code> if the action was performed successfully, <code>false</code> otherwise
 	 */
-	protected abstract boolean onEmptyGridPointClick(GridPoint gridPoint) {}
+	protected abstract boolean onEmptyGridPointClick(GridPoint gridPoint);
 
 
 	/**
@@ -62,7 +65,7 @@ public abstract class Game {
 	 * 
 	 * @return <code>true</code> if the action was performed successfully, <code>false</code> otherwise
 	 */
-	protected abstract boolean onGameInit() {}
+	protected abstract boolean onGameInit();
 
 
 	/**
@@ -70,7 +73,7 @@ public abstract class Game {
 	 * 
 	 * @return <code>true</code> if the action was performed successfully, <code>false</code> otherwise
 	 */
-	protected abstract boolean onGameStart() {}
+	protected abstract boolean onGameStart();
 
 
 	/**
@@ -79,7 +82,9 @@ public abstract class Game {
 	 * @param keyCode The code of the key that was released
 	 * @return <code>true</code> if the action was performed successfully, <code>false</code> otherwise
 	 */
-	protected boolean onKeyRelease(int keyCode) {}
+	protected boolean onKeyRelease(int keyCode) {
+		return false;
+	}
 
 
 	/**
