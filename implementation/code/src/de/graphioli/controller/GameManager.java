@@ -1,9 +1,11 @@
 package de.graphioli.controller;
+
 import java.io.File;
 import java.util.ArrayList;
 import de.graphioli.gameexplorer.GameDefinition;
 import de.graphioli.gameexplorer.GameExplorer;
 import de.graphioli.model.GameBoard;
+import de.graphioli.model.Player;
 
 /**
  * This is the framewor's central class, connecting the actual game with the model and the view.
@@ -105,9 +107,22 @@ public class GameManager {
 		// Facultative: Create MenuItems here
 
 		// Instantiate game
-		this.game = (Game) Class.forName(gameDefinition.getFullyQualifiedClassName()).newInstance();
+		try {
+			this.game = (Game) Class.forName(gameDefinition.getFullyQualifiedClassName()).newInstance();
+		} catch (InstantiationException e) {
+			e.printStackTrace();
+			return false;
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+			return false;
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+			return false;
+		}
 		game.registerController(this);
 		game.onGameInit();
+
+		return true;
 
 	}
 

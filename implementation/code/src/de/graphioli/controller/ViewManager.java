@@ -1,5 +1,9 @@
 package de.graphioli.controller;
 
+import de.graphioli.model.GridPoint;
+import de.graphioli.model.Player;
+import de.graphioli.view.View;
+
 /**
  * This class acts as an interface between the graphical user interface (GUI) and
  * the other parts of the framework. It pushes update notifications to the view and

@@ -1,10 +1,13 @@
 package de.graphioli.gameexplorer;
+
 import java.net.URI;
 import java.util.ArrayList;
 import de.graphioli.controller.GameManager;
+import de.graphioli.model.LocalPlayer;
+import de.graphioli.model.Player;
 
 /**
- * This is only a mock-up!
+ * This has mock-up functionalities!
  * 
  * The GameExplorer lists the available games and enables the user to select and start one of it.
  * 
@@ -39,13 +42,13 @@ public class GameExplorer {
 		this.gameManager = gameManager;
 
 		// Instantiate mock-up GameDefinition
-		GameDefinition gameDefinition = new GameDefinition("Test Game", 1, 2, String gamePath, "Fake description for test game",
-				"GameTest", String screenshotPath, String localizationFilePath, URI helpFile, 8, 8, true);
+		GameDefinition gameDefinition = new GameDefinition("Test Game", 1, 2, "dummy/path/to/game.class", "Fake description for test game",
+				"GameTest", "dummy/path/to/screenshot.jpg", "dummy/path/to/localization/file.txt", URI.create("http://supergame.io/help.html"), 8, 8, true);
 		this.gameDefinitions.add(gameDefinition);
 
 		// Instantiate mock-up players
-		Player player1 = new Player();
-		Player player1 = new Player();
+		Player player1 = new LocalPlayer("Player 1");
+		Player player2 = new LocalPlayer("Player 2");
 		ArrayList<Player> players = new ArrayList<Player>();
 
 		players.add(player1);
