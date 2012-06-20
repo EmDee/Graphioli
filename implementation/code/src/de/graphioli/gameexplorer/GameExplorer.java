@@ -41,8 +41,16 @@ public class GameExplorer {
 		GameDefinition gameDefinition = new GameDefinition();
 		this.gameDefinitions.add(gameDefinition);
 
+		// Instantiate mock-up players
+		Player player1 = new Player();
+		Player player1 = new Player();
+		ArrayList<Player> players = new ArrayList<Player>();
+
+		players.add(player1);
+		players.add(player2);
+
 		// Notify controller. Note: This is usually done in the startGame() method.
-		this.controller.startGame(this.gameDefinitions.get(0));
+		this.controller.startGame(this.gameDefinitions.get(0), players);
 
 	}
 
