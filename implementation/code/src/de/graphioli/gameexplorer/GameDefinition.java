@@ -1,7 +1,16 @@
 package de.graphioli.gameexplorer;
 import java.net.URI;
 //import java.util.ArrayList;
+import de.graphioli.model.Game;
+import de.graphioli.model.Graph;
+import de.graphioli.model.Grid;
 
+/**
+ * This class represents the game’s definition, containing crucial information that
+ * is needed to start a {@link Game}.
+ * 
+ * @author Graphioli
+ */
 public class GameDefinition {
 
 	/**
