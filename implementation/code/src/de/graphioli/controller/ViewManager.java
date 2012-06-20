@@ -34,7 +34,7 @@ public class ViewManager {
 		this.gameManager = gameManager;
 
 		// Instantiate view
-		this.view = new View();
+		//this.view = new View();
 		this.view.registerController(this);
 
 	}
@@ -46,7 +46,9 @@ public class ViewManager {
 	 * @param player The active player
 	 * @return <code>true</code> if the action was performed successfully, <code>false</code> otherwise
 	 */
-	public boolean updatePlayerStatus(Player player) {}
+	public boolean updatePlayerStatus(Player player) {
+		return this.view.updatePlayerStatus(player);
+	}
 
 
 	/**
@@ -55,8 +57,11 @@ public class ViewManager {
 	 * 
 	 * @param gridPoint The GridPoint that was clicked
 	 * @return <code>true</code> if the action was performed successfully, <code>false</code> otherwise
+	 * @todo Implement
 	 */
-	public boolean onGridPointClick(GridPoint gridPoint) {}
+	public boolean onGridPointClick(GridPoint gridPoint) {
+		return false;
+	}
 
 
 	/**
@@ -64,8 +69,11 @@ public class ViewManager {
 	 * 
 	 * @param keyCode The code of the key that was released
 	 * @return <code>true</code> if the action was performed successfully, <code>false</code> otherwise
+	 * @todo Implement
 	 */
-	public boolean onKeyRelease(int keyCode) {}
+	public boolean onKeyRelease(int keyCode) {
+		return false;
+	}
 
 
 	/**
@@ -74,7 +82,9 @@ public class ViewManager {
 	 * @param message The message to display
 	 * @return <code>true</code> if the action was performed successfully, <code>false</code> otherwise
 	 */
-	public boolean displayErrorMessage(String message) {}
+	public boolean displayErrorMessage(String message) {
+		return this.view.displayErrorMessage(message);
+	}
 
 
 	/**
@@ -83,7 +93,9 @@ public class ViewManager {
 	 * @param message The message to display
 	 * @return <code>true</code> if the action was performed successfully, <code>false</code> otherwise
 	 */
-	public boolean displayPopUp(String message) {}
+	public boolean displayPopUp(String message) {
+		return this.view.displayPopUp(message);
+	}
 
 
 	/**
@@ -93,7 +105,9 @@ public class ViewManager {
 	 * @return <code>true</code> if the action was performed successfully, <code>false</code> otherwise
 	 * @todo Facultative
 	 */
-	//public boolean addGameMenuItem(MenuItem item) {}
+	/*public boolean addGameMenuItem(MenuItem item) {
+		return this.view.addCustomMenuItem(item);
+	}*/
 
 
 	/**
@@ -124,6 +138,8 @@ public class ViewManager {
 	 * @param size The new size of the VisualVertex
 	 * @return <code>true</code> if the action was performed successfully, <code>false</code> otherwise
 	 */
-	public boolean setVisualVertexSize(int size) {}
+	public boolean setVisualVertexSize(int size) {
+		return this.view.setVisualVertexSize(size);
+	}
 
 }
