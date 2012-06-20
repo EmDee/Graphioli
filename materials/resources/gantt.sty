@@ -60,11 +60,12 @@
   \setlength{\ganttunitlength}{#1}
 }
 \define@boolkey{ganttx}{drawledgerline}{}
+\define@boolkey{ganttx}{showgrid}{}
 
 \define@key{ganttx}{fontsize}{\def\ganttfontsize{#1}}
 \define@key{ganttx}{titlefontsize}{\def\gantttitlefontsize{#1}}
 
-\presetkeys{ganttx}{drawledgerline=false,xunitlength=1cm,titlefontsize=\small,fontsize=\normalsize}{}
+\presetkeys{ganttx}{showgrid=true,drawledgerline=false,xunitlength=1cm,titlefontsize=\small,fontsize=\normalsize}{}
 
 \define@key{ganttbarx}{pattern}{\def\ganttbarpattern{#1}}
 \define@key{ganttbarx}{color}{\def\ganttbarcolor{#1}}
@@ -99,7 +100,8 @@
       \ganttx=0
       \draw (0,0.5) node[above] {\ganttxstringtop} -- (0,1.4-\ganttheight)  node[below] {\ganttxstringbottom};
       \draw (\value{ganttwidth}*\ganttunitlength,0.5) node[above] {\ganttxstringtop} -- (\value{ganttwidth}*\ganttunitlength,1.4-\ganttheight)  node[below] {\ganttxstringbottom};
-
+	  
+	  \ifKV@ganttx@showgrid % set `showgrid` to false to hide grid
       %draw grid
       \foreach \t in {1,2,...,\value{ganttwidth}}{
         \ganttx=1
@@ -109,6 +111,7 @@
       }
      %draw x axis
      \draw[] (0,-#2+0.4) -- (\value{ganttwidth}*\ganttunitlength,-#2+0.4);
+	  \fi
 }
 }{\end{tikzpicture}}
 
@@ -158,12 +161,15 @@
   \ifKV@ganttx@drawledgerline
     \draw[dotted] (0,\value{ganttnum}-0.2) -- (\value{ganttwidth}*\ganttunitlength,\value{ganttnum}-0.2);
   \fi
-  \node at (0,\value{ganttnum}) [anchor=base east] {%
+  \node at (0,\value{ganttnum}+0.2) [anchor=base east] {%
 		\ganttfontsize #2%
   };
+  
+  % weird starting point of bar
   \setkeys{ganttbarx}{#1}{%
   \draw[pattern=\ganttbarpattern,pattern color=\ganttbarcolor] (\gantttmpa,\value{ganttnum}+0.1) rectangle (\gantttmpb,\value{ganttnum}+0.5);
   }
+  
   \setlength{\ganttlastx}{\gantttmpb}
   \addtocounter{ganttnum}{-1}
 }
@@ -201,7 +207,7 @@
   \ifKV@ganttx@drawledgerline
     \draw[dotted] (0,\value{ganttnum}-0.2) -- (\value{ganttwidth}*\ganttunitlength,\value{ganttnum}-0.2);
   \fi
-  \node at (0,\value{ganttnum}) [anchor=base east] {%
+  \node at (0,\value{ganttnum}+0.2) [anchor=base east] {%
     \ganttfontsize\bfseries #1%
    };
   \fill[black] (\gantttmpa-0.14cm,\value{ganttnum}+0.2) rectangle (\gantttmpb+0.14cm,\value{ganttnum}+0.4);
