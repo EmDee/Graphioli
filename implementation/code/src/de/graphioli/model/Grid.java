@@ -6,7 +6,6 @@ import de.graphioli.utils.Validation;
  * This class represents the grid, on which the {@link Graph} will be located.
  * 
  * @author Graphioli
- * @todo Implement ArrayIndexOutOfBounds checkings
  */
 public class Grid {
 
