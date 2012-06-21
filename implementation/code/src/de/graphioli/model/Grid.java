@@ -46,15 +46,15 @@ public class Grid {
 	 * @param visualVertex The VisualVertex to add
 	 * @return <code>true</code> if the VisualVertex was added successfully to this Grid, <code>false</code> otherwise
 	 */
-	public boolean addVisualVertexToGrid(GridPoint gridPoint, VisualVertex visualVertex) {
+	public boolean addVisualVertexToGrid(VisualVertex visualVertex) {
 
 		// Early negative return if specified GridPoint is invalid
-		if (!Validation.isValidGridPoint(gridPoint, this.horizontalGridPoints, this.verticalGridPoints)) {
+		if (!Validation.isValidGridPoint(visualVertex.getGridPoint(), this.horizontalGridPoints, this.verticalGridPoints)) {
 			return false;
 		}
 
 		// Get VisualVertex at specified GridPoint
-		VisualVertex visualVertexAtGridPoint = this.grid[gridPoint.getPositionX()][gridPoint.getPositionY()];
+		VisualVertex visualVertexAtGridPoint = this.grid[visualVertex.getGridPoint().getPositionX()][visualVertex.getGridPoint().getPositionY()];
 
 		// Return false if GridPoint is not empty
 		if (visualVertexAtGridPoint != null) {
@@ -62,7 +62,7 @@ public class Grid {
 		}
 
 		// Add VisualVertex
-		this.grid[gridPoint.getPositionX()][gridPoint.getPositionY()] = visualVertex;
+		this.grid[visualVertex.getGridPoint().getPositionX()][visualVertex.getGridPoint().getPositionY()] = visualVertex;
 
 		return true;
 
