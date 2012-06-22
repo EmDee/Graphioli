@@ -59,6 +59,7 @@ public interface View {
 
 	/**
 	 * Redraws the {@link Graph}.
+	 * 
 	 * @return <code>true</code> if the action was performed successfully, <code>false</code> otherwise
 	 */
 	public boolean redrawGraph();
