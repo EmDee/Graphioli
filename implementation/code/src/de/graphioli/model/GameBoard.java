@@ -40,12 +40,18 @@ public class GameBoard {
 	}
 
 
-	public boolean addVisualVertex(VisualVertex visualVertex) {}
-	public boolean addVisualVertices(Iterable<VisualVertex> visualVertices) {}
-	public VisualEdge addVisualEdge(VisualVertex vertexA, VisualVertex vertexB) {}
-	public boolean removeVisualVertex(VisualVertex visualVertex) {}
-	public boolean removeVisualEdge(VisualEdge visualEdge) {}
-	public VisualEdge getVisualEdge(VisualVertex vertexA, VisualVertex vertexB) {}
+	public boolean addVisualVertex(VisualVertex visualVertex) {
+		return false;}
+	public boolean addVisualVertices(Iterable<VisualVertex> visualVertices) {
+		return false;}
+	public VisualEdge addVisualEdge(VisualVertex vertexA, VisualVertex vertexB) {
+		return null;}
+	public boolean removeVisualVertex(VisualVertex visualVertex) {
+		return false;}
+	public boolean removeVisualEdge(VisualEdge visualEdge) {
+		return false;}
+	public VisualEdge getVisualEdge(VisualVertex vertexA, VisualVertex vertexB) {
+		return null;}
 
 
 	/**
