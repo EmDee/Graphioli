@@ -47,5 +47,13 @@ public class GridPoint {
 	public int getPositionY() {
 		return this.positionY;
 	}
+	
+	/**
+	 * Returns a string representation of this grid point in form of "(PositionX, PositionY)". 
+	 */
+	@Override
+	public String toString() {
+		return "(" + positionX + ", " + positionY + ")";
+	}
 
 }
