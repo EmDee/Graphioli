@@ -1,11 +1,16 @@
 package de.graphioli.controller;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import de.graphioli.gameexplorer.GameDefinition;
 import de.graphioli.gameexplorer.GameExplorer;
 import de.graphioli.model.GameBoard;
 import de.graphioli.model.Player;
+import de.graphioli.utils.GraphioliLogger;
 
 /**
  * This is the framewor's central class, connecting the actual game with the model and the view.
@@ -14,7 +19,10 @@ import de.graphioli.model.Player;
  * @author Graphioli
  */
 public class GameManager {
+	
+	private final static Logger LOG = Logger.getLogger(GameManager.class.getName());
 
+	
 	/**
 	 * The {@link Game} associated with this {@link GameManager}.
 	 */
@@ -42,6 +50,12 @@ public class GameManager {
 	 * @param args Provided command-line arguments
 	 */
 	public static void main(String[] args) {
+		
+		// Start Logging
+		if (!initLogger()) {
+			System.out.print("STOP: Unable to create log file.");
+			return;
+		}
 
 		// Create controller
 		GameManager gameManager = new GameManager();
@@ -49,14 +63,17 @@ public class GameManager {
 		// Open GameExplorer to select a game
 		// This will cause GameExplorer to call startGame()
 		gameManager.openGameExplorer();
-
+		
+		LOG.fine("'main'-Method finished.");
 	}
 
 
 	/**
 	 * Creates a new instance of {@link GameManager}.
 	 */
-	public GameManager() {}
+	public GameManager() {
+		LOG.info("GameManager instantiated.");
+	}
 
 
 	/**
@@ -227,6 +244,20 @@ public class GameManager {
 	 */
 	public GameBoard getGameBoard() {
 		return this.gameBoard;
+	}
+	
+	/**
+	 * Starts the logging for the framework.
+	 * 
+	 * @return {@code false} when logging could not be started.
+	 */
+	private static boolean initLogger() {
+		try {
+			GraphioliLogger.startLog(Level.FINEST);
+		} catch (IOException e) {
+			return false;
+		}
+		return true;
 	}
 
 }
