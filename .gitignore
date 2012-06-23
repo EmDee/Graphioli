@@ -59,6 +59,9 @@ implementation/*.pdf
 *.class
 bin/
 
+# Log file
+log.html
+
 # exceptions
 !idxStyle.ist
 
