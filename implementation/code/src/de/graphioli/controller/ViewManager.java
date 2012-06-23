@@ -35,7 +35,7 @@ public class ViewManager {
 
 		// Instantiate view
 		//this.view = new View();
-		this.view.registerController(this);
+		//this.view.registerController(this);
 
 	}
 

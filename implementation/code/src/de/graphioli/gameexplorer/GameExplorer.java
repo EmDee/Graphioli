@@ -55,7 +55,8 @@ public class GameExplorer {
 		players.add(player2);
 
 		// Notify controller. Note: This is usually done in the startGame() method.
-		this.gameManager.startGame(this.gameDefinitions.get(0), players);
+		
+		// this.gameManager.startGame(this.gameDefinitions.get(0), players);
 
 	}
 
