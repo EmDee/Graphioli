@@ -11,13 +11,12 @@ import de.graphioli.utils.UIDManager;
  * 
  */
 public class Vertex {
-	
-	
+
 	private UUID uuid;
 	private ArrayList<Edge> incomingEdges = new ArrayList<Edge>();
 	private ArrayList<Edge> outgoingEdges = new ArrayList<Edge>();
-	
-	
+	private VertexState vertexState = VertexState.UNVISITED;
+
 	/**
 	 * Creates a new {@link Vertex} with an UID.
 	 */
@@ -171,9 +170,31 @@ public class Vertex {
 
 		return false;
 	}
-	
-	
-	/* (non-Javadoc)
+
+	/**
+	 * Gets the state of this {@link Vertex} according to {@link VertexState}.
+	 * 
+	 * @return the vertexState of this {@link Vertex}
+	 */
+	public VertexState getVertexStage() {
+		return vertexState;
+	}
+
+	/**
+	 * Sets the state of this {@link Vertex}. Default is
+	 * <code>VertexState.UNVISITED</code>. See {@link VertexState} for all the
+	 * different states.
+	 * 
+	 * @param vertexStage
+	 *            the vertexStage to set
+	 */
+	public void setVertexStage(VertexState vertexStage) {
+		this.vertexState = vertexStage;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#hashCode()
 	 */
 	@Override
@@ -183,7 +204,7 @@ public class Vertex {
 		result = prime * result + ((uuid == null) ? 0 : uuid.hashCode());
 		return result;
 	}
-	
+
 	/**
 	 * Two vertices are equal, if their {@link UUID} is equal.
 	 */
@@ -202,7 +223,5 @@ public class Vertex {
 		} else if (!uuid.equals(other.uuid))
 			return false;
 		return true;
-	}	
-	
-
+	}
 }
