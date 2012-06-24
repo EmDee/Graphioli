@@ -25,7 +25,7 @@ public class Vertex {
 	}
 
 	/**
-	 * Returns all vertices that are connected to this {@link Vertex}.
+	 * Returns all vertices that are reachable from this {@link Vertex}.
 	 * 
 	 * @return a list with all adjacent vertices
 	 */
@@ -153,12 +153,6 @@ public class Vertex {
 	public boolean isAdjacentTo(Vertex vertex) {
 		for (Edge edge : outgoingEdges) {
 			if (edge.getTargetVertex().equals(vertex)) {
-				return true;
-			}
-		}
-
-		for (Edge edge : incomingEdges) {
-			if (edge.getOriginVertex().equals(vertex)) {
 				return true;
 			}
 		}
