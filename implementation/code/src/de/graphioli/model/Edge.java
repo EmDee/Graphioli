@@ -7,8 +7,8 @@ package de.graphioli.model;
  * 
  */
 public class Edge {
-	private Vertex originVertex;
-	private Vertex targetVertex;
+	private final Vertex originVertex;
+	private final Vertex targetVertex;
 	private int weight;
 
 	/**
@@ -63,4 +63,46 @@ public class Edge {
 		this.weight = weight;
 		return true;
 	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result
+				+ ((originVertex == null) ? 0 : originVertex.hashCode());
+		result = prime * result
+				+ ((targetVertex == null) ? 0 : targetVertex.hashCode());
+		return result;
+	}
+
+	/**
+	 * Two edges are equal if their respective target and origin vertices are equal.
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Edge other = (Edge) obj;
+		if (originVertex == null) {
+			if (other.originVertex != null)
+				return false;
+		} else if (!originVertex.equals(other.originVertex))
+			return false;
+		if (targetVertex == null) {
+			if (other.targetVertex != null)
+				return false;
+		} else if (!targetVertex.equals(other.targetVertex))
+			return false;
+		return true;
+	}
+	
+	
+
 }

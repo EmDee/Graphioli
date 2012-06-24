@@ -2,6 +2,7 @@ package de.graphioli.model;
 
 import java.util.ArrayList;
 import java.util.UUID;
+import de.graphioli.utils.UIDManager;
 
 /**
  * This class represents a logical vertex.
@@ -10,9 +11,19 @@ import java.util.UUID;
  * 
  */
 public class Vertex {
+	
+	
 	private UUID uuid;
 	private ArrayList<Edge> incomingEdges = new ArrayList<Edge>();
 	private ArrayList<Edge> outgoingEdges = new ArrayList<Edge>();
+	
+	
+	/**
+	 * Creates a new {@link Vertex} with an UID.
+	 */
+	public Vertex() {
+		uuid = UIDManager.generateUniqueID();
+	}
 
 	/**
 	 * Returns all vertices that are connected to this {@link Vertex}.
@@ -54,6 +65,9 @@ public class Vertex {
 	}
 
 	/**
+	 * 
+	 * 
+	 * 
 	 * Adds an incoming {@link Edge} to the list of incoming {@link Edge}s.
 	 * 
 	 * @param edge
@@ -61,7 +75,7 @@ public class Vertex {
 	 * @return <code>true</code> if the {@link Edge} is not already in the list
 	 *         of incoming {@link Edge}s, <code>false</code> otherwise
 	 */
-	public boolean addIncomingEdge(Edge edge) {
+	boolean addIncomingEdge(Edge edge) {
 		for (Edge tmpEdge : this.incomingEdges) {
 			if (tmpEdge.equals(edge)) {
 				return false;
@@ -79,7 +93,7 @@ public class Vertex {
 	 * @return <code>true</code> if the {@link Edge} was found in the list of
 	 *         incoming {@link Edge}s and removed, <code>false</code> otherwise
 	 */
-	public boolean removeIncomingEdge(Edge edge) {
+	boolean removeIncomingEdge(Edge edge) {
 		for (Edge tmpEdge : this.incomingEdges) {
 			if (tmpEdge.equals(edge)) {
 				this.incomingEdges.remove(tmpEdge);
@@ -106,7 +120,7 @@ public class Vertex {
 	 * @return <code>true</code> if the {@link Edge} is not already in the list
 	 *         of outgoing {@link Edge}s, <code>false</code> otherwise
 	 */
-	public boolean addOutgoingEdge(Edge edge) {
+	boolean addOutgoingEdge(Edge edge) {
 		for (Edge tmpEdge : this.outgoingEdges) {
 			if (tmpEdge.equals(edge)) {
 				return false;
@@ -124,7 +138,7 @@ public class Vertex {
 	 * @return <code>true</code> if the {@link Edge} was found in the list of
 	 *         outgoing {@link Edge}s and removed, <code>false</code> otherwise
 	 */
-	public boolean removeOutgoingEdge(Edge edge) {
+	boolean removeOutgoingEdge(Edge edge) {
 		for (Edge tmpEdge : this.outgoingEdges) {
 			if (tmpEdge.equals(edge)) {
 				this.outgoingEdges.remove(tmpEdge);
@@ -144,17 +158,51 @@ public class Vertex {
 	 */
 	public boolean isAdjacentTo(Vertex vertex) {
 		for (Edge edge : outgoingEdges) {
-			if (vertex.incomingEdges.equals(edge)) {
+			if (edge.getTargetVertex().equals(vertex)) {
 				return true;
 			}
 		}
 
 		for (Edge edge : incomingEdges) {
-			if (vertex.outgoingEdges.equals(edge)) {
+			if (edge.getOriginVertex().equals(vertex)) {
 				return true;
 			}
 		}
 
 		return false;
 	}
+	
+	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((uuid == null) ? 0 : uuid.hashCode());
+		return result;
+	}
+	
+	/**
+	 * Two vertices are equal, if their {@link UUID} is equal.
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Vertex other = (Vertex) obj;
+		if (uuid == null) {
+			if (other.uuid != null)
+				return false;
+		} else if (!uuid.equals(other.uuid))
+			return false;
+		return true;
+	}	
+	
+
 }
