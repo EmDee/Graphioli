@@ -171,7 +171,7 @@ public class Vertex {
 	 * 
 	 * @return the vertexState of this {@link Vertex}
 	 */
-	public VertexState getVertexStage() {
+	public VertexState getVertexState() {
 		return vertexState;
 	}
 
@@ -180,11 +180,11 @@ public class Vertex {
 	 * <code>VertexState.UNVISITED</code>. See {@link VertexState} for all the
 	 * different states.
 	 * 
-	 * @param vertexStage
-	 *            the vertexStage to set
+	 * @param vertexState
+	 *            the vertexState to set
 	 */
-	public void setVertexStage(VertexState vertexStage) {
-		this.vertexState = vertexStage;
+	public void setVertexState(VertexState vertexState) {
+		this.vertexState = vertexState;
 	}
 
 	/*
