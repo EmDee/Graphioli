@@ -37,11 +37,6 @@ public class Vertex {
 			tmpAdjacentVertices.add(tmpVertex);
 		}
 
-		for (Edge edge : this.incomingEdges) {
-			Vertex tmpVertex = edge.getOriginVertex();
-			tmpAdjacentVertices.add(tmpVertex);
-		}
-
 		return tmpAdjacentVertices;
 	}
 
