@@ -1,5 +1,9 @@
 == GameManager
-+ private attribute 'gamePackagePath'
+- added private attribute 'gamePackagePath'
+
+== PlayerPopUp
+- added private attribute 'geWindow'
+- changed constructor signature to 'public PlayerPopUp(GEWindow geWindow, int minPlayer, int maxPlayer)'
 
 == Graph
-+ public Edge getEdge(vertexA, vertexB)
+- added public Edge getEdge(vertexA, vertexB)

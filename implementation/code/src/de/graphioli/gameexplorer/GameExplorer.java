@@ -2,8 +2,9 @@ package de.graphioli.gameexplorer;
 
 import java.net.URI;
 import java.util.ArrayList;
+import java.util.logging.Logger;
+
 import de.graphioli.controller.GameManager;
-import de.graphioli.model.LocalPlayer;
 import de.graphioli.model.Player;
 
 /**
@@ -16,6 +17,11 @@ import de.graphioli.model.Player;
 public class GameExplorer {
 
 	/**
+	 * Logging instance
+	 */
+	private static final Logger LOG = Logger.getLogger(GameManager.class.getName());
+
+	/**
 	 * The {@link GameManager} controlling this GameExplorer.
 	 */
 	private GameManager gameManager;
@@ -26,9 +32,9 @@ public class GameExplorer {
 	private ArrayList<GameDefinition> gameDefinitions = new ArrayList<GameDefinition>();
 
 	/**
-	 * The implementation of the {@link View} interface that this GameExplorer uses.
+	 * The implementation of the {@link GEView} interface that this GameExplorer uses.
 	 */
-	//private GEView view;
+	private GEView view;
 
 
 	/**
@@ -41,21 +47,19 @@ public class GameExplorer {
 		this.gameManager = gameManager;
 
 		// Instantiate mock-up GameDefinition
-		GameDefinition gameDefinition = new GameDefinition("Test Game", 1, 2, "dummy/path/to/game.class",
+		GameDefinition gameDefinition1 = new GameDefinition("Test Game", 1, 2, "dummy/path/to/game.class",
 				"Fake description for test game", "GameTest", "dummy/path/to/screenshot.jpg",
 				"dummy/path/to/localization/file.txt", URI.create("http://supergame.io/help.html"), 8, 8, true);
-		this.gameDefinitions.add(gameDefinition);
+		this.gameDefinitions.add(gameDefinition1);
 
-		// Instantiate mock-up players
-		Player player1 = new LocalPlayer("Player 1");
-		Player player2 = new LocalPlayer("Player 2");
-		ArrayList<Player> players = new ArrayList<Player>();
+		GameDefinition gameDefinition2 = new GameDefinition("Test Game 2", 1, 2, "dummy/path/to/game.class",
+				"Fake description for test game 2", "GameTest", "dummy/path/to/screenshot.jpg",
+				"dummy/path/to/localization/file.txt", URI.create("http://supergame.io/help.html"), 8, 8, true);
+		this.gameDefinitions.add(gameDefinition2);
 
-		players.add(player1);
-		players.add(player2);
-
-		// Notify controller. Note: This is usually done in the startGame() method.
-		this.gameManager.startGame(this.gameDefinitions.get(0), players);
+		// Initialize GEWindow (implementation of GEView)
+		this.view = new GEWindow();
+		view.registerController(this);
 
 	}
 
@@ -85,7 +89,14 @@ public class GameExplorer {
 	 * @param players The list of players.
 	 * @return <code>true</code> if the action was performed successfully, <code>false</code> otherwise
 	 */
-	//public boolean selectGame(GameDefinition gameDefinition, ArrayList<Player> players) {}
+	public boolean selectGame(GameDefinition gameDefinition, ArrayList<Player> players) {
+
+		LOG.info("GameExplorer.<em>selectGame([...])</em> called.");
+
+		// Forward call to GameManager with the selected GameDefinition and Players
+		return this.gameManager.startGame(gameDefinition, players);
+
+	}
 
 
 	/**
@@ -95,7 +106,8 @@ public class GameExplorer {
 	 * @return <code>true</code> if the action was performed successfully, <code>false</code> otherwise
 	 */
 	public boolean openHelpFile(GameDefinition gameDefinition) {
-		return true;
+		// TODO implementation
+		return false;
 	}
 
 

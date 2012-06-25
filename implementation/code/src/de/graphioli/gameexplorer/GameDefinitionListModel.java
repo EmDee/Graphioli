@@ -1,36 +1,62 @@
 package de.graphioli.gameexplorer;
+
+import java.util.ArrayList;
+import java.util.logging.Logger;
 import javax.swing.AbstractListModel;
+import de.graphioli.controller.GameManager;
 
 /**
- * TODO: JavaDoc
+ * Represents a data model that provides the {@link JList} with its content.
  * 
  * @author Graphioli
  */
 public class GameDefinitionListModel extends AbstractListModel {
 
 	/**
-	 * TODO: JavaDoc
+	 * Logging instance
+	 */
+	private static final Logger LOG = Logger.getLogger(GameManager.class.getName());
+
+	/**
+	 * UID for serializing this object.
 	 */
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * The list of {@link GameDefinition}s in this ListModel.
+	 */
+	private ArrayList<GameDefinition> gameDefinitions;
+
 
 	/**
-	 * TODO: Javadoc
+	 * Creates a new GameDefinitionListModel with the given {@link GameDefinition}s.
+	 * 
+	 * @param gameDefinitions The list of {@link GameDefinition}s in this ListModel
 	 */
-	@Override
-	public Object getElementAt(int arg0) {
-		// TODO Auto-generated method stub
-		return null;
+	public GameDefinitionListModel(ArrayList<GameDefinition> gameDefinitions) {
+
+		this.gameDefinitions = gameDefinitions;
+		LOG.info("Created new GameDefinitionListModel with " + this.getSize() + " items.");
+
 	}
 
 
 	/**
-	 * TODO: JavaDoc
+	 * Returns the name of the {@link GameDefinition} at the given index so the {@link JList} can display it.
+	 * 
+	 * @param index The index position
+	 * @return GameDefinition The GameDefintion at the specified index position
 	 */
 	@Override
+	public GameDefinition getElementAt(int index) {
+		return this.gameDefinitions.get(index);
+	}
+
+
+	/** {@inheritDoc} */
+	@Override
 	public int getSize() {
-		// TODO Auto-generated method stub
-		return 0;
+		return this.gameDefinitions.size();
 	}
 
 }
