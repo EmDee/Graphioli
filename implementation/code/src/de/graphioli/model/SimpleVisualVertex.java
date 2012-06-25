@@ -39,7 +39,7 @@ public class SimpleVisualVertex extends VisualVertex {
 	 */
 	@Override
 	protected boolean draw(Graphics2D graphics) {
-		graphics.setStroke(stroke);
+		//graphics.setStroke(stroke);
 		graphics.setColor(fillColor);
 		graphics.fillOval(0, 0, 74, 74);
 		graphics.setColor(strokeColor);
