@@ -61,9 +61,11 @@ bin/
 
 # Log file
 log.html
+log.html.*
 
 # exceptions
 !idxStyle.ist
 
 # miscellaneous
 *.un~
+*.lck
