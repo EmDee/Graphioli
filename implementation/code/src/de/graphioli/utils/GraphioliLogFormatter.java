@@ -1,4 +1,5 @@
 package de.graphioli.utils;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.logging.Formatter;
@@ -9,10 +10,8 @@ import java.util.logging.LogRecord;
 /**
  * This class is used by the {@link GraphioliLogger} to generate HTML formatted log messages.
  * 
- * @author Team Graphioli
- *
+ * @author Graphioli
  */
-
 public class GraphioliLogFormatter extends Formatter {
 
 	/** {@inheritDoc} */
@@ -48,6 +47,7 @@ public class GraphioliLogFormatter extends Formatter {
 		buf.append("</tr>\n\n");
 
 		return buf.toString();
+
 	}
 
 	/** {@inheritDoc} */
@@ -61,6 +61,7 @@ public class GraphioliLogFormatter extends Formatter {
 		return headString;
 	}
 
+
 	/** {@inheritDoc} */
 	@Override
 	public String getTail(Handler h) {
@@ -68,6 +69,7 @@ public class GraphioliLogFormatter extends Formatter {
 				+ generateTimeStamp() + ".\n" + "</p></body></html>";
 		return tailString;
 	}
+
 
 	/**
 	 * Generates a formatted date string of the time this method was called.
@@ -79,4 +81,5 @@ public class GraphioliLogFormatter extends Formatter {
 		SimpleDateFormat df = new SimpleDateFormat("dd. MMM yyyy HH:mm:ss");
 		return df.format(cal.getTime());
 	}
-};
+
+}
