@@ -273,6 +273,10 @@ public class GEWindow extends JFrame implements GEView, ActionListener, ListSele
 			return false;
 		}
 
+		// Close window
+		this.setVisible(false);
+
+		// Forward call to GameExplorer
 		return this.gameExplorer.selectGame(this.selectedGameDefinition, players);
 
 	}
