@@ -19,6 +19,12 @@ public class StatusBar extends JPanel {
 	 * The {@link Player} that is currently displayed as active
 	 */
 	private Player playerStatus;
+
+	/**
+	 * Constructs a {@link StatusBar} responsible for displaying the playerStatus and errorMessages
+	 */
+	public StatusBar() {
+	}
 	
 	/**
 	 * Updates the currently active {@link Player} displayed.

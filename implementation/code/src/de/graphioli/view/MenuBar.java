@@ -9,7 +9,7 @@ import javax.swing.JMenu;
  * 
  * @author Graphioli
  */
-public class MenuBar implements ActionListener {
+public class MenuBar extends JMenuBar implements ActionListener {
 
 	/**
 	 * The game menu 
@@ -37,7 +37,11 @@ public class MenuBar implements ActionListener {
 	 * @param parentGameWindow The {@link GameWindow} that contains this {@link MenuBar}
 	 */
 	public MenuBar(GameWindow parentGameWindow) {
-		
+		this.parentGameWindow = parentGameWindow;
+		this.gameMenu = new JMenu();
+		this.optionsMenu = new JMenu();
+		this.helpMenu = new JMenu();
+		//TODO create menus...
 	}
 	
 	/**
