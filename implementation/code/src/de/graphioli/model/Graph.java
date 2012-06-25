@@ -92,13 +92,13 @@ public class Graph {
 	
 			// Remove edges connected to it
 			for (Edge edge : vertex.getIncomingEdges()) {
-				if (edgeList.remove(edge)) {
+				if (!edgeList.remove(edge)) {
 					LOG.severe("Graph inconsistency in removeVertex method!");
 				}
 			}
 	
 			for (Edge edge : vertex.getOutgoingEdges()) {
-				if (edgeList.remove(edge)) {
+				if (!edgeList.remove(edge)) {
 					LOG.severe("Graph inconsistency in removeVertex method!");
 				}
 			}
@@ -130,6 +130,15 @@ public class Graph {
 			}
 			return true;
 		}
+	}
+	
+	public Edge getEdge(Vertex origin, Vertex target) {
+		for (Edge edge : origin.getOutgoingEdges()) {
+			if (edge.getTargetVertex().equals(target)) {
+				return edge;
+			}
+		}
+		return null;
 	}
 	
 	public List<Vertex> getVertices() {

@@ -1,2 +1,5 @@
 == GameManager
 + private attribute 'gamePackagePath'
+
+== Graph
++ public Edge getEdge(vertexA, vertexB)

@@ -1,5 +1,7 @@
 package de.graphioli.model;
 
+import java.util.ArrayList;
+
 /**
  * This class represents the game board of a {@link Game}. The GameBoard combines the logical
  * {@link Graph} with the {@link Grid} and has access to both of them.
@@ -39,19 +41,104 @@ public class GameBoard {
 
 	}
 
-
+	/**
+	 * 
+	 * @param visualVertex
+	 * @return
+	 */
 	public boolean addVisualVertex(VisualVertex visualVertex) {
-		return false;}
-	public boolean addVisualVertices(Iterable<VisualVertex> visualVertices) {
-		return false;}
+		if (this.grid.addVisualVertexToGrid(visualVertex)) {
+			if (this.graph.addVertex(visualVertex)) {
+				return true;
+			}
+			this.grid.removeVisualVertexAtGridPoint(visualVertex.getGridPoint());
+		}
+		return false;
+	}
+	
+	
+	/**
+	 * 
+	 * @param visualVertices
+	 * @return
+	 */
+	public boolean addVisualVertices(ArrayList<VisualVertex> visualVertices) {
+		for (VisualVertex vertex : visualVertices) {
+			if (!this.addVisualVertex(vertex)) {
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	/**
+	 * 
+	 * @param vertexA
+	 * @param vertexB
+	 * @return
+	 */
 	public VisualEdge addVisualEdge(VisualVertex vertexA, VisualVertex vertexB) {
-		return null;}
+		SimpleVisualEdge edgeToAdd = new SimpleVisualEdge(vertexA, vertexB);
+		if (this.graph.addEdge(edgeToAdd)) {
+			if (!this.isDirectedGraph) {
+				SimpleVisualEdge twinEdgeToAdd = new SimpleVisualEdge(vertexB, vertexA);
+				if (this.graph.addEdge(twinEdgeToAdd)) {
+					return edgeToAdd;
+				} else {
+					this.graph.removeEdge(edgeToAdd);
+					return null;
+				}
+			}
+			return edgeToAdd;
+		}
+		return null;
+	}
+	
+	/**
+	 * 
+	 * @param visualVertex
+	 * @return
+	 */
 	public boolean removeVisualVertex(VisualVertex visualVertex) {
-		return false;}
+		if (this.grid.removeVisualVertexAtGridPoint(visualVertex.getGridPoint())) {
+			if (this.graph.removeVertex(visualVertex)) {
+				return true;
+			}
+			this.grid.addVisualVertexToGrid(visualVertex);
+		}
+		return false;
+	}
+	
+	/**
+	 * 
+	 * @param visualEdge
+	 * @return
+	 */
 	public boolean removeVisualEdge(VisualEdge visualEdge) {
-		return false;}
+		if (this.graph.removeEdge(visualEdge)) {
+			if (!this.isDirectedGraph) {
+				Edge twinEdge = this.graph.getEdge(visualEdge.getTargetVertex(), visualEdge.getOriginVertex());
+				if (this.graph.removeEdge(twinEdge)) {
+					return true;
+				} else {
+					this.graph.addEdge(visualEdge);
+					return false;
+				}
+			}
+			return true;
+		}
+		return false;
+	}
+	
+	/**
+	 * 
+	 * @param vertexA
+	 * @param vertexB
+	 * @return
+	 */
 	public VisualEdge getVisualEdge(VisualVertex vertexA, VisualVertex vertexB) {
-		return null;}
+		return null;
+	}
 
 
 	/**
