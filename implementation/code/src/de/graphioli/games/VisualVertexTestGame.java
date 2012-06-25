@@ -41,7 +41,7 @@ public class VisualVertexTestGame extends Game {
 	@Override
 	protected boolean onGameInit() {
 		this.onGameStart();
-		return false;
+		return true;
 	}
 
 	@Override
@@ -61,6 +61,6 @@ public class VisualVertexTestGame extends Game {
 
 		this.getGameManager().getGameBoard().addVisualVertices(simpleVisualVertecies);
 
-		return false;
+		return true;
 	}
 }
