@@ -42,7 +42,8 @@ public class GameWindow extends JFrame implements View {
 	 * Constructs a {@link GameWindow} including {@link GraphCanvas},
 	 * {@link StatusBar} and {@link MenuBar}.
 	 */
-	public GameWindow() {
+	public GameWindow(ViewManager viewManager) {
+		this.registerController(viewManager);
 		this.menuBar = new MenuBar(this);
 		this.graphCanvas = new GraphCanvas(this);
 		this.statusBar = new StatusBar();
@@ -50,9 +51,9 @@ public class GameWindow extends JFrame implements View {
 		this.add(this.graphCanvas);
 		this.add(this.statusBar);
 		this.setSize(500, 500);
-		this.graphCanvas.setSize(500, 300);
 		this.statusBar.setSize(500, 100);
-		//this.setVisible(true);
+		this.setResizable(false);
+		this.setVisible(true);
 	}
 
 	/**
