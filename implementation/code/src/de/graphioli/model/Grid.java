@@ -118,4 +118,14 @@ public class Grid {
 
 	}
 
+
+	public int getHorizontalGridPoints() {
+		return horizontalGridPoints;
+	}
+
+
+	public int getVerticalGridPoints() {
+		return verticalGridPoints;
+	}
+
 }
