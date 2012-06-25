@@ -14,11 +14,11 @@ import de.graphioli.model.VertexState;
  * 
  */
 public final class BreadthFirstSearch {
-	private static ArrayList<Vertex> reachableVertex;
-	private static LinkedList<Vertex> queue;
+	private static ArrayList<Vertex> reachableVertex = new ArrayList<Vertex>();
+	private static LinkedList<Vertex> queue = new LinkedList<Vertex>();
 
 	/**
-	 * Private empty contructor, to ensure that no instance is being created.
+	 * Private empty constructor, to ensure that no instance is being created.
 	 */
 	private BreadthFirstSearch() {
 	}
