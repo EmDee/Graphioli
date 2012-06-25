@@ -82,6 +82,7 @@ public class GameBoard {
 		if (this.graph.addEdge(edgeToAdd)) {
 			if (!this.isDirectedGraph) {
 				SimpleVisualEdge twinEdgeToAdd = new SimpleVisualEdge(vertexB, vertexA);
+				twinEdgeToAdd.setVisible(false);
 				if (this.graph.addEdge(twinEdgeToAdd)) {
 					return edgeToAdd;
 				} else {
@@ -137,7 +138,12 @@ public class GameBoard {
 	 * @return
 	 */
 	public VisualEdge getVisualEdge(VisualVertex vertexA, VisualVertex vertexB) {
-		return null;
+		VisualEdge edge = (VisualEdge) this.graph.getEdge(vertexA, vertexB);
+		if (edge.isVisible()) {
+			return edge;
+		} else {
+			return (VisualEdge) this.graph.getEdge(vertexB, vertexA);
+		}
 	}
 
 
