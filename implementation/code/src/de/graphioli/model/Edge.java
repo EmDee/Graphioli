@@ -22,8 +22,6 @@ public class Edge {
 	public Edge(Vertex vertexA, Vertex vertexB) {
 		this.originVertex = vertexA;
 		this.targetVertex = vertexB;
-		vertexA.addOutgoingEdge(this);
-		vertexB.addIncomingEdge(this);
 	}
 
 	/**
