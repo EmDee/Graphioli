@@ -40,7 +40,7 @@ public class VisualVertexTestGame extends Game {
 
 	@Override
 	protected boolean onGameInit() {
-		this.onGameStart();
+
 		return true;
 	}
 

@@ -140,6 +140,7 @@ public class GameManager {
 
 		// Instantiate game
 		try {
+			// TODO: Package Path should be included in fully qualified class name.
 			String fullyQualifiedClassName = this.gamePackagePath + gameDefinition.getFullyQualifiedClassName();
 			this.game = (Game) Class.forName(fullyQualifiedClassName).newInstance();
 		} catch (InstantiationException e) {
@@ -156,9 +157,28 @@ public class GameManager {
 			return false;
 		}
 		game.registerController(this);
-		game.onGameInit();
-
-
+		
+		
+		// Start Game
+		
+		LOG.finer("Calling <em>onGameInit()</em>.");
+		
+		if (game.onGameInit()) {
+			LOG.fine("<em>onGameInit()</em> returned <em>true</em>.");
+			
+			LOG.finer("Calling <em>onGameStart()</em>.");
+			
+			if (game.onGameStart()) {
+				LOG.info("<em>onGameStart()</em> returned <em>true</em>. Game started.");
+			} else {
+				LOG.warning("<em>onGameStart()</em> returned <em>false</em>.");
+			}
+			
+		} else {
+			LOG.warning("<em>onGameInit()</em> returned <em>false</em>.");
+		}
+		
+		
 		return true;
 
 	}
