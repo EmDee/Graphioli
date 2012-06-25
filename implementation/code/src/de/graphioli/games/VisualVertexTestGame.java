@@ -1,0 +1,66 @@
+package de.graphioli.games;
+
+import java.util.ArrayList;
+import java.util.logging.Logger;
+
+import de.graphioli.controller.Game;
+import de.graphioli.controller.GameManager;
+import de.graphioli.model.GameBoard;
+import de.graphioli.model.GridPoint;
+import de.graphioli.model.SimpleVisualVertex;
+import de.graphioli.model.VisualVertex;
+
+/**
+ * Test game class.
+ * 
+ * @author Graphioli
+ */
+public class VisualVertexTestGame extends Game {
+	/**
+	 * Logging instance
+	 */
+	private static final Logger LOG = Logger.getLogger(GameManager.class.getName());
+
+	/**
+	 * Constructs a new instance of {@link VisualVertexTestGame}.
+	 */
+	public VisualVertexTestGame() {
+		LOG.info("GameTest class instantiated.");
+	}
+
+	@Override
+	protected boolean onVertexClick(VisualVertex vertex) {
+		return false;
+	}
+
+	@Override
+	protected boolean onEmptyGridPointClick(GridPoint gridPoint) {
+		return false;
+	}
+
+	@Override
+	protected boolean onGameInit() {
+		this.onGameStart();
+		return false;
+	}
+
+	@Override
+	protected boolean onGameStart() {
+		/*
+		 * Set up graph
+		 */
+
+		GridPoint gridPointA = new GridPoint(3, 3);
+		GridPoint gridPointB = new GridPoint(6, 7);
+		SimpleVisualVertex simpleVisualVertexA = new SimpleVisualVertex(gridPointA);
+		SimpleVisualVertex simpleVisualVertexB = new SimpleVisualVertex(gridPointB);
+
+		ArrayList<VisualVertex> simpleVisualVertecies = new ArrayList<VisualVertex>();
+		simpleVisualVertecies.add(simpleVisualVertexA);
+		simpleVisualVertecies.add(simpleVisualVertexB);
+
+		this.getGameManager().getGameBoard().addVisualVertices(simpleVisualVertecies);
+
+		return false;
+	}
+}
