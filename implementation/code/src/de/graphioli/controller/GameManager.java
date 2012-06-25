@@ -19,10 +19,12 @@ import de.graphioli.utils.GraphioliLogger;
  * @author Graphioli
  */
 public class GameManager {
-	
-	private final static Logger LOG = Logger.getLogger(GameManager.class.getName());
 
-	
+	/**
+	 * Logging instance
+	 */
+	private static final Logger LOG = Logger.getLogger(GameManager.class.getName());
+
 	/**
 	 * The {@link Game} associated with this {@link GameManager}.
 	 */
@@ -64,7 +66,8 @@ public class GameManager {
 		// This will cause GameExplorer to call startGame()
 		gameManager.openGameExplorer();
 		
-		LOG.fine("'main'-Method finished.");
+		LOG.fine("<em>main</em> method finished");
+
 	}
 
 
@@ -85,6 +88,9 @@ public class GameManager {
 
 		// Create new instance of GameExplorer
 		new GameExplorer(this);
+
+		LOG.info("<em>GameExplorer</em> call finished.");
+
 		return true;
 
 	}
@@ -110,6 +116,8 @@ public class GameManager {
 	 */
 	public boolean startGame(GameDefinition gameDefinition, ArrayList<Player> players) {
 
+		LOG.info("<em>startGame()</em> called.");
+
 		// Create PlayerManager instance
 		this.playerManager = new PlayerManager(players);
 
@@ -127,17 +135,22 @@ public class GameManager {
 		try {
 			this.game = (Game) Class.forName(gameDefinition.getFullyQualifiedClassName()).newInstance();
 		} catch (InstantiationException e) {
-			e.printStackTrace();
+			// Log exception
+			LOG.severe(e.getMessage());
 			return false;
 		} catch (IllegalAccessException e) {
-			e.printStackTrace();
+			// Log exception
+			LOG.severe(e.getMessage());
 			return false;
 		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
+			// Log exception
+			LOG.severe(e.getMessage());
 			return false;
 		}
 		game.registerController(this);
 		game.onGameInit();
+
+		LOG.info("<em>Game</em> initialized.");
 
 		return true;
 
@@ -249,15 +262,18 @@ public class GameManager {
 	/**
 	 * Starts the logging for the framework.
 	 * 
-	 * @return {@code false} when logging could not be started.
+	 * @return {@code false} when logging could not be started
 	 */
 	private static boolean initLogger() {
+
 		try {
 			GraphioliLogger.startLog(Level.FINEST);
 		} catch (IOException e) {
 			return false;
 		}
+
 		return true;
+
 	}
 
 }
