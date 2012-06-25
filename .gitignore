@@ -69,3 +69,4 @@ log.html.*
 # miscellaneous
 *.un~
 *.lck
+*.*~
