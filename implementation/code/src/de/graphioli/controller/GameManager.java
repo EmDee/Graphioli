@@ -45,6 +45,11 @@ public class GameManager {
 	 */
 	private PlayerManager playerManager;
 
+	/**
+	 * Path to the package that holds all implemented {@link Game} sub-classes.
+	 */
+	private String gamePackagePath = "de.graphioli.games.";
+
 
 	/**
 	 * Initializes the GameManager to start the whole application.
@@ -135,7 +140,7 @@ public class GameManager {
 
 		// Instantiate game
 		try {
-			String fullyQualifiedClassName = "de.graphioli.games." + gameDefinition.getFullyQualifiedClassName();
+			String fullyQualifiedClassName = this.gamePackagePath + gameDefinition.getFullyQualifiedClassName();
 			this.game = (Game) Class.forName(fullyQualifiedClassName).newInstance();
 		} catch (InstantiationException e) {
 			// Log exception
