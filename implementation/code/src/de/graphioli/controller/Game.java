@@ -20,7 +20,7 @@ public abstract class Game {
 	/**
 	 * Associates this {@link Game} with a {@link GameManager}.
 	 * 
-	 * @param gameManager
+	 * @param gameManager The controlling <code>GameManager</code>
 	 * @return <code>true</code> if the action was performed successfully, <code>false</code> otherwise
 	 */
 	public final boolean registerController(GameManager gameManager) {

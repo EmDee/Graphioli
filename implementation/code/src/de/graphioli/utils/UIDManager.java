@@ -7,7 +7,7 @@ import java.util.UUID;
  * 
  * @author Graphioli
  */
-public class UIDManager {
+public final class UIDManager {
 
 	/**
 	 * List of all generated unique IDs.
@@ -15,7 +15,8 @@ public class UIDManager {
 	private static ArrayList<UUID> uuids = new ArrayList<UUID>();
 
 
-	public UIDManager() {}
+	private UIDManager() {
+	}
 
 
 	/**

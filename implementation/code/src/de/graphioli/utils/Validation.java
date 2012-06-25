@@ -8,9 +8,10 @@ import de.graphioli.model.GridPoint;
  * 
  * @author Graphioli
  */
-public class Validation {
+public final class Validation {
 
-	public Validation() {}
+	private Validation() {
+	}
 
 
 	/**
@@ -46,11 +47,11 @@ public class Validation {
 	public static boolean isValidGridPoint(GridPoint gridPoint, int horizontalGridPoints, int verticalGridPoints) {
 
 		// Check if specified GridPoint is in bounds of Grid
-		if (gridPoint == null ||
-				gridPoint.getPositionX() < 0 ||
-				gridPoint.getPositionX() >= horizontalGridPoints ||
-				gridPoint.getPositionY() < 0 ||
-				gridPoint.getPositionY() >= verticalGridPoints) {
+		if (gridPoint == null
+				|| gridPoint.getPositionX() < 0
+				|| gridPoint.getPositionX() >= horizontalGridPoints
+				|| gridPoint.getPositionY() < 0
+				|| gridPoint.getPositionY() >= verticalGridPoints) {
 			return false;
 		}
 
