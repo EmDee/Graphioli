@@ -52,7 +52,7 @@ public class GameWindow extends JFrame implements View {
 		this.setSize(500, 500);
 		this.graphCanvas.setSize(500, 300);
 		this.statusBar.setSize(500, 100);
-		this.setVisible(true);
+		//this.setVisible(true);
 	}
 
 	/**
