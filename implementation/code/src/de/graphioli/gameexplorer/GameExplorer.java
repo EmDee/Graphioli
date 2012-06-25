@@ -48,18 +48,19 @@ public class GameExplorer {
 
 		// Instantiate mock-up GameDefinition
 		GameDefinition gameDefinition1 = new GameDefinition("Test Game", 1, 2, "dummy/path/to/game.class",
-				"Fake description for test game", "GameTest", "dummy/path/to/screenshot.jpg",
+				"Fake description for test game", "VisualVertexTestGame", "dummy/path/to/screenshot.jpg",
 				"dummy/path/to/localization/file.txt", URI.create("http://supergame.io/help.html"), 8, 8, true);
 		this.gameDefinitions.add(gameDefinition1);
 
 		GameDefinition gameDefinition2 = new GameDefinition("Test Game 2", 1, 2, "dummy/path/to/game.class",
 				"Fake description for test game 2", "GameTest", "dummy/path/to/screenshot.jpg",
-				"dummy/path/to/localization/file.txt", URI.create("http://supergame.io/help.html"), 8, 8, true);
+				"dummy/path/to/localization/file.txt", URI.create("http://supergame2.io/help.html"), 8, 8, true);
 		this.gameDefinitions.add(gameDefinition2);
 
 		// Initialize GEWindow (implementation of GEView)
 		this.view = new GEWindow();
 		view.registerController(this);
+		view.generateView();
 
 	}
 
@@ -107,7 +108,12 @@ public class GameExplorer {
 	 */
 	public boolean openHelpFile(GameDefinition gameDefinition) {
 		// TODO implementation
-		return false;
+
+		LOG.info("GameExplorer.<em>openHelpFile([...])</em> called.");
+
+		System.out.println("URI to help file: " + gameDefinition.getHelpFile().toString());
+		return true;
+
 	}
 
 

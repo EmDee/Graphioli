@@ -47,6 +47,8 @@ public class PlayerPopUp extends JFrame implements ActionListener {
 	 */
 	public PlayerPopUp(GEWindow geWindow, int minPlayer, int maxPlayer) {
 
+		this.geWindow = geWindow;
+
 		LOG.info("PlayerPopUp instantiated.");
 
 		// Instantiate mock-up players

@@ -240,4 +240,15 @@ public class GameDefinition {
 		return this.isDirectedGraph;
 	}
 
+
+	/**
+	 * Returns a string representation of this instance of {@link GameDefinition}.
+	 * 
+	 * @return a string representation of this instance of {@link GameDefinition}.
+	 */
+	@Override
+	public String toString() {
+		return this.getName();
+	}
+
 }
