@@ -17,7 +17,7 @@ public class GameWindow extends JFrame implements View {
 	 * The controlling {@link ViewManager} of this class.
 	 */
 	private ViewManager viewManager;
-	
+
 	/**
 	 * The {@link GraphCanvas} associated with the this {@link GameWindow}.
 	 */
@@ -32,9 +32,10 @@ public class GameWindow extends JFrame implements View {
 	 * The {@link StatusBar} associated with the this {@link GameWindow}.
 	 */
 	private StatusBar statusBar;
-	
+
 	/**
-	 * Constructs a {@link GameWindow} including {@link GraphCanvas}, {@link StatusBar} and {@link MenuBar}.
+	 * Constructs a {@link GameWindow} including {@link GraphCanvas},
+	 * {@link StatusBar} and {@link MenuBar}.
 	 */
 	public GameWindow() {
 		this.menuBar = new MenuBar(this);
@@ -47,12 +48,14 @@ public class GameWindow extends JFrame implements View {
 		this.graphCanvas.setSize(500, 300);
 		this.statusBar.setSize(500, 100);
 	}
-	
+
 	/**
 	 * Registers a {@link ViewManager} as the controller for the user interface.
 	 * 
-	 * @param viewManager The controlling ViewManager
-	 * @return <code>true</code> if the action was performed successfully, <code>false</code> otherwise
+	 * @param viewManager
+	 *            The controlling ViewManager
+	 * @return <code>true</code> if the action was performed successfully,
+	 *         <code>false</code> otherwise
 	 */
 	@Override
 	public boolean registerController(ViewManager viewManager) {
@@ -60,80 +63,86 @@ public class GameWindow extends JFrame implements View {
 		return true;
 	}
 
-
 	/**
 	 * Displays a message in a pop-up.
 	 * 
-	 * @param message The message to display
-	 * @return <code>true</code> if the action was performed successfully, <code>false</code> otherwise
+	 * @param message
+	 *            The message to display
+	 * @return <code>true</code> if the action was performed successfully,
+	 *         <code>false</code> otherwise
 	 */
 	@Override
 	public boolean displayPopUp(String message) {
 		return true;
 	}
 
-
 	/**
 	 * Adds a custom {@link MenuItem} to the menu.
 	 * 
-	 * @param item The MenuItem to add
-	 * @return <code>true</code> if the action was performed successfully, <code>false</code> otherwise
+	 * @param item
+	 *            The MenuItem to add
+	 * @return <code>true</code> if the action was performed successfully,
+	 *         <code>false</code> otherwise
 	 * @todo Facultative
 	 */
-	//public boolean addCustomMenuItem(MenuItem item);
-
+	// public boolean addCustomMenuItem(MenuItem item);
 
 	/**
 	 * Updates which {@link Player} is displayed as active.
 	 * 
-	 * @param player The new active player
-	 * @return <code>true</code> if the action was performed successfully, <code>false</code> otherwise
+	 * @param player
+	 *            The new active player
+	 * @return <code>true</code> if the action was performed successfully,
+	 *         <code>false</code> otherwise
 	 */
 	@Override
 	public boolean updatePlayerStatus(Player player) {
 		if (this.statusBar.updatePlayerStatus(player)) {
 			return true;
 		}
+		return false;
 	}
-
 
 	/**
 	 * Displays an error message.
 	 * 
-	 * @param message The message to display
-	 * @return <code>true</code> if the action was performed successfully, <code>false</code> otherwise
+	 * @param message
+	 *            The message to display
+	 * @return <code>true</code> if the action was performed successfully,
+	 *         <code>false</code> otherwise
 	 */
 	@Override
 	public boolean displayErrorMessage(String message) {
 		if (this.statusBar.displayErrorMessage(message)) {
 			return true;
 		}
+		return false;
 	}
-
 
 	/**
 	 * Redraws the {@link Graph}.
 	 * 
-	 * @return <code>true</code> if the action was performed successfully, <code>false</code> otherwise
+	 * @return <code>true</code> if the action was performed successfully,
+	 *         <code>false</code> otherwise
 	 */
 	@Override
 	public boolean redrawGraph() {
 		return true;
 	}
 
-
 	/**
 	 * Sets the size of the {@link VisualVertex}es displayed.
 	 * 
-	 * @param size The size of the vertices
-	 * @return <code>true</code> if the action was performed successfully, <code>false</code> otherwise
+	 * @param size
+	 *            The size of the vertices
+	 * @return <code>true</code> if the action was performed successfully,
+	 *         <code>false</code> otherwise
 	 */
 	@Override
 	public boolean setVisualVertexSize(int size) {
 		return true;
 	}
 
-	
 	/**
 	 * Returns the {@link ViewManager} associated with the {@link GameWindow}.
 	 * 
@@ -146,8 +155,10 @@ public class GameWindow extends JFrame implements View {
 	/**
 	 * Forwards the key input to the {@link ViewManager}.
 	 * 
-	 * @param keyCode The code of the key that was released
-	 * @return <code>true</code> if the action was performed successfully, <code>false</code> otherwise
+	 * @param keyCode
+	 *            The code of the key that was released
+	 * @return <code>true</code> if the action was performed successfully,
+	 *         <code>false</code> otherwise
 	 */
 	public boolean onKeyRelease(int keyCode) {
 		return true;
@@ -160,9 +171,9 @@ public class GameWindow extends JFrame implements View {
 	 */
 	public File openFileDialog() {
 		return null;
-		
+
 	}
-	
+
 	/**
 	 * Opens a save file dialog.
 	 * 
@@ -170,6 +181,6 @@ public class GameWindow extends JFrame implements View {
 	 */
 	public File saveFileDialog() {
 		return null;
-		
+
 	}
 }
