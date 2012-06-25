@@ -1,3 +1,6 @@
+== Vertex ==
+- added vertexState as attribute and VertexState class
+
 == GameManager
 - added private attribute 'gamePackagePath'
 
