@@ -13,7 +13,7 @@ import de.graphioli.model.Player;
 import de.graphioli.utils.GraphioliLogger;
 
 /**
- * This is the framewor's central class, connecting the actual game with the model and the view.
+ * This is the framework's central class, connecting the actual game with the model and the view.
  * Any communication between model, view and controller will be managed by the GameManager.
  * 
  * @author Graphioli
@@ -135,7 +135,8 @@ public class GameManager {
 
 		// Instantiate game
 		try {
-			this.game = (Game) Class.forName(gameDefinition.getFullyQualifiedClassName()).newInstance();
+			String fullyQualifiedClassName = "de.graphioli.games." + gameDefinition.getFullyQualifiedClassName();
+			this.game = (Game) Class.forName(fullyQualifiedClassName).newInstance();
 		} catch (InstantiationException e) {
 			// Log exception
 			LOG.severe("InstantiationException: " + e.getMessage());
