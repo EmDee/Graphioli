@@ -13,7 +13,7 @@ import de.graphioli.model.Player;
 import de.graphioli.utils.GraphioliLogger;
 
 /**
- * This is the framewor's central class, connecting the actual game with the model and the view.
+ * This is the framework's central class, connecting the actual game with the model and the view.
  * Any communication between model, view and controller will be managed by the GameManager.
  * 
  * @author Graphioli
@@ -44,6 +44,11 @@ public class GameManager {
 	 * The {@link PlayerManager} associated with this {@link GameManager}.
 	 */
 	private PlayerManager playerManager;
+
+	/**
+	 * Path to the package that holds all implemented {@link Game} sub-classes.
+	 */
+	private String gamePackagePath = "de.graphioli.games.";
 
 
 	/**
@@ -131,20 +136,23 @@ public class GameManager {
 
 		// Facultative: Create MenuItems here
 
+		LOG.info("Try starting game '" + gameDefinition.getFullyQualifiedClassName() + "'.");
+
 		// Instantiate game
 		try {
-			this.game = (Game) Class.forName(gameDefinition.getFullyQualifiedClassName()).newInstance();
+			String fullyQualifiedClassName = this.gamePackagePath + gameDefinition.getFullyQualifiedClassName();
+			this.game = (Game) Class.forName(fullyQualifiedClassName).newInstance();
 		} catch (InstantiationException e) {
 			// Log exception
-			LOG.severe(e.getMessage());
+			LOG.severe("InstantiationException: " + e.getMessage());
 			return false;
 		} catch (IllegalAccessException e) {
 			// Log exception
-			LOG.severe(e.getMessage());
+			LOG.severe("IllegalAccessException: " + e.getMessage());
 			return false;
 		} catch (ClassNotFoundException e) {
 			// Log exception
-			LOG.severe(e.getMessage());
+			LOG.severe("ClassNotFoundException: " + e.getMessage());
 			return false;
 		}
 		game.registerController(this);

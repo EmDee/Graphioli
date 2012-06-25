@@ -2,6 +2,7 @@ package de.graphioli.controller;
 
 import de.graphioli.model.GridPoint;
 import de.graphioli.model.Player;
+import de.graphioli.view.GameWindow;
 import de.graphioli.view.View;
 
 /**
@@ -27,15 +28,15 @@ public class ViewManager {
 	/**
 	 * Creates a new ViewManager associated with the given {@link GameManager}.
 	 * 
-	 * @param gameManager
+	 * @param gameManager The controlling <code>GameManager</code>
 	 */
 	public ViewManager(GameManager gameManager) {
 
 		this.gameManager = gameManager;
 
 		// Instantiate view
-		//this.view = new View();
-		//this.view.registerController(this);
+		this.view = new GameWindow();
+		this.view.registerController(this);
 
 	}
 

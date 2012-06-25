@@ -12,7 +12,6 @@ import de.graphioli.model.Player;
  * The GameExplorer lists the available games and enables the user to select and start one of it.
  * 
  * @author Graphioli
- * @todo Implement real GameExplorer
  */
 public class GameExplorer {
 
@@ -42,8 +41,9 @@ public class GameExplorer {
 		this.gameManager = gameManager;
 
 		// Instantiate mock-up GameDefinition
-		GameDefinition gameDefinition = new GameDefinition("Test Game", 1, 2, "dummy/path/to/game.class", "Fake description for test game",
-				"GameTest", "dummy/path/to/screenshot.jpg", "dummy/path/to/localization/file.txt", URI.create("http://supergame.io/help.html"), 8, 8, true);
+		GameDefinition gameDefinition = new GameDefinition("Test Game", 1, 2, "dummy/path/to/game.class",
+				"Fake description for test game", "GameTest", "dummy/path/to/screenshot.jpg",
+				"dummy/path/to/localization/file.txt", URI.create("http://supergame.io/help.html"), 8, 8, true);
 		this.gameDefinitions.add(gameDefinition);
 
 		// Instantiate mock-up players
@@ -55,8 +55,7 @@ public class GameExplorer {
 		players.add(player2);
 
 		// Notify controller. Note: This is usually done in the startGame() method.
-		
-		// this.gameManager.startGame(this.gameDefinitions.get(0), players);
+		this.gameManager.startGame(this.gameDefinitions.get(0), players);
 
 	}
 
