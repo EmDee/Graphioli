@@ -25,7 +25,7 @@ public class GridPoint {
 	 * @param positionX The x coordinate of the GridPoint
 	 * @param positionY The y coordinate of the GridPoint
 	 */
-	GridPoint(int positionX, int positionY) {
+	public GridPoint(int positionX, int positionY) {
 		this.positionX = positionX;
 		this.positionY = positionY;
 	}
