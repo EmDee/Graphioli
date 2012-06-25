@@ -27,7 +27,7 @@ public class GEWindow extends JFrame implements GEView, ActionListener, ListSele
 	/**
 	 * Logging instance
 	 */
-	private static final Logger LOG = Logger.getLogger(GameManager.class.getName());
+	private static final Logger LOG = Logger.getLogger(GEWindow.class.getName());
 
 	/**
 	 * UID for serializing this object.
@@ -74,7 +74,7 @@ public class GEWindow extends JFrame implements GEView, ActionListener, ListSele
 	@Override
 	public boolean registerController(GameExplorer gameExplorer) {
 
-		LOG.info("GEWindow.<em>registerController([...])</em> called.");
+		LOG.finer("GEWindow.<em>registerController([...])</em> called.");
 
 		this.gameExplorer = gameExplorer;
 		LOG.info("Controller registered: GameExplorer.");
@@ -88,7 +88,7 @@ public class GEWindow extends JFrame implements GEView, ActionListener, ListSele
 	@Override
 	public boolean generateView() {
 
-		LOG.info("GEWindow.<em>generateView()</em> called.");
+		LOG.finer("GEWindow.<em>generateView()</em> called.");
 
 		if (!this.isGameExplorerRegistered()) {
 			return false;
@@ -155,13 +155,13 @@ public class GEWindow extends JFrame implements GEView, ActionListener, ListSele
 	@Override
 	public void valueChanged(ListSelectionEvent event) {
 
-		LOG.info("GEWindow.<em>valueChanged([...])</em> called.");
+		LOG.finer("GEWindow.<em>valueChanged([...])</em> called.");
 
 		// Get new selected GameDefinition
 		JList sourceList = (JList) event.getSource();
 		this.selectedGameDefinition = (GameDefinition) sourceList.getSelectedValue();
 
-		LOG.info("New GameDefinition '" + this.selectedGameDefinition.toString() + "' selected.");
+		LOG.fine("New GameDefinition '" + this.selectedGameDefinition.toString() + "' selected.");
 
 	}
 
@@ -175,12 +175,12 @@ public class GEWindow extends JFrame implements GEView, ActionListener, ListSele
 	@Override
 	public void actionPerformed(ActionEvent event) {
 
-		LOG.info("GEWindow.<em>actionPerformed([...])</em> called.");
+		LOG.finer("GEWindow.<em>actionPerformed([...])</em> called.");
 
 		// Get clicked button
 		JButton sourceButton = (JButton) event.getSource();
 
-		LOG.info("Button '" + sourceButton.getText() + "' clicked.");
+		LOG.fine("Button '" + sourceButton.getText() + "' clicked.");
 
 		if (sourceButton.getText().equals("Start")) {
 
@@ -241,7 +241,7 @@ public class GEWindow extends JFrame implements GEView, ActionListener, ListSele
 	 */
 	public boolean openPlayerPopUp() {
 
-		LOG.info("GEWindow.<em>openPlayerPopUp()</em> called.");
+		LOG.fine("GEWindow.<em>openPlayerPopUp()</em> called.");
 
 		// Create new Player pop-up (will call onPlayerPopUpReturn)
 		new PlayerPopUp(this,
@@ -264,7 +264,7 @@ public class GEWindow extends JFrame implements GEView, ActionListener, ListSele
 	 */
 	public boolean onPlayerPopUpReturn(ArrayList<Player> players) {
 
-		LOG.info("GEWindow.<em>onPlayerPopUpReturn([...])</em> called.");
+		LOG.finer("GEWindow.<em>onPlayerPopUpReturn([...])</em> called.");
 
 		if (players == null
 				|| players.isEmpty()

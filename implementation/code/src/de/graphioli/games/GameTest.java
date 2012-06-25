@@ -17,13 +17,13 @@ public class GameTest extends Game {
 	/**
 	 * Logging instance
 	 */
-	private static final Logger LOG = Logger.getLogger(GameManager.class.getName());
+	private static final Logger LOG = Logger.getLogger(GameTest.class.getName());
 
 	/**
 	 * Constructs a new instance of {@link GameTest}.
 	 */
 	public GameTest() {
-		LOG.info("GameTest class instantiated.");
+		LOG.fine("GameTest class instantiated.");
 	}
 
 	@Override

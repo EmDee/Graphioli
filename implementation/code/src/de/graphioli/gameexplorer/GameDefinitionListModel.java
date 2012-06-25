@@ -15,7 +15,7 @@ public class GameDefinitionListModel extends AbstractListModel {
 	/**
 	 * Logging instance
 	 */
-	private static final Logger LOG = Logger.getLogger(GameManager.class.getName());
+	private static final Logger LOG = Logger.getLogger(GameDefinitionListModel.class.getName());
 
 	/**
 	 * UID for serializing this object.
@@ -36,7 +36,7 @@ public class GameDefinitionListModel extends AbstractListModel {
 	public GameDefinitionListModel(ArrayList<GameDefinition> gameDefinitions) {
 
 		this.gameDefinitions = gameDefinitions;
-		LOG.info("Created new GameDefinitionListModel with " + this.getSize() + " items.");
+		LOG.fine("Created new GameDefinitionListModel with " + this.getSize() + " items.");
 
 	}
 

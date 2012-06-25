@@ -20,7 +20,7 @@ public class PlayerPopUp extends JFrame implements ActionListener {
 	/**
 	 * Logging instance
 	 */
-	private static final Logger LOG = Logger.getLogger(GameManager.class.getName());
+	private static final Logger LOG = Logger.getLogger(PlayerPopUp.class.getName());
 
 	/**
 	 * UID for serializing this object.

@@ -19,7 +19,7 @@ public class GameExplorer {
 	/**
 	 * Logging instance
 	 */
-	private static final Logger LOG = Logger.getLogger(GameManager.class.getName());
+	private static final Logger LOG = Logger.getLogger(GameExplorer.class.getName());
 
 	/**
 	 * The {@link GameManager} controlling this GameExplorer.
@@ -92,7 +92,7 @@ public class GameExplorer {
 	 */
 	public boolean selectGame(GameDefinition gameDefinition, ArrayList<Player> players) {
 
-		LOG.info("GameExplorer.<em>selectGame([...])</em> called.");
+		LOG.finer("GameExplorer.<em>selectGame([...])</em> called.");
 
 		// Forward call to GameManager with the selected GameDefinition and Players
 		return this.gameManager.startGame(gameDefinition, players);

@@ -19,13 +19,13 @@ public class VisualVertexTestGame extends Game {
 	/**
 	 * Logging instance
 	 */
-	private static final Logger LOG = Logger.getLogger(GameManager.class.getName());
+	private static final Logger LOG = Logger.getLogger(VisualVertexTestGame.class.getName());
 
 	/**
 	 * Constructs a new instance of {@link VisualVertexTestGame}.
 	 */
 	public VisualVertexTestGame() {
-		LOG.info("GameTest class instantiated.");
+		LOG.fine("GameTest class instantiated.");
 	}
 
 	@Override

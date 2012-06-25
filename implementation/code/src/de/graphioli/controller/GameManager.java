@@ -94,7 +94,7 @@ public class GameManager {
 		// Create new instance of GameExplorer
 		new GameExplorer(this);
 
-		LOG.info("<em>GameExplorer</em> call finished.");
+		LOG.fine("<em>GameExplorer</em> call finished.");
 
 		return true;
 
@@ -136,7 +136,7 @@ public class GameManager {
 
 		// Facultative: Create MenuItems here
 
-		LOG.info("Try starting game '" + gameDefinition.getFullyQualifiedClassName() + "'.");
+		LOG.fine("Try starting game '" + gameDefinition.getFullyQualifiedClassName() + "'.");
 
 		// Instantiate game
 		try {
@@ -158,7 +158,6 @@ public class GameManager {
 		game.registerController(this);
 		game.onGameInit();
 
-		LOG.info("<em>Game</em> initialized.");
 
 		return true;
 
