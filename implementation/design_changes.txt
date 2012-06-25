@@ -2,4 +2,5 @@
 - added private attribute 'gamePackagePath'
 
 == PlayerPopUp
-- changed constructor signature to public PlayerPopUp(GEWindow geWindow, int minPlayer, int maxPlayer)
+- added private attribute 'geWindow'
+- changed constructor signature to 'public PlayerPopUp(GEWindow geWindow, int minPlayer, int maxPlayer)'
