@@ -47,7 +47,7 @@ public class GameExplorer {
 		this.gameManager = gameManager;
 
 		// Instantiate mock-up GameDefinition
-		GameDefinition gameDefinition1 = new GameDefinition("Test Game", 1, 2, "dummy/path/to/game.class",
+		GameDefinition gameDefinition1 = new GameDefinition("VisualVertexTestGame", 1, 2, "dummy/path/to/game.class",
 				"Fake description for test game", "VisualVertexTestGame", "dummy/path/to/screenshot.jpg",
 				"dummy/path/to/localization/file.txt", URI.create("http://supergame.io/help.html"), 8, 8, true);
 		this.gameDefinitions.add(gameDefinition1);
