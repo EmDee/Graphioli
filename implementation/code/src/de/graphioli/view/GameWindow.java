@@ -14,6 +14,11 @@ import de.graphioli.model.Player;
 public class GameWindow extends JFrame implements View {
 
 	/**
+	 * UID for serializing this object
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
 	 * The controlling {@link ViewManager} of this class.
 	 */
 	private ViewManager viewManager;

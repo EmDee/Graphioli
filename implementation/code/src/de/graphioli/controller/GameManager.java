@@ -131,20 +131,22 @@ public class GameManager {
 
 		// Facultative: Create MenuItems here
 
+		LOG.info("Try starting game '" + gameDefinition.getFullyQualifiedClassName() + "'.");
+
 		// Instantiate game
 		try {
 			this.game = (Game) Class.forName(gameDefinition.getFullyQualifiedClassName()).newInstance();
 		} catch (InstantiationException e) {
 			// Log exception
-			LOG.severe(e.getMessage());
+			LOG.severe("InstantiationException: " + e.getMessage());
 			return false;
 		} catch (IllegalAccessException e) {
 			// Log exception
-			LOG.severe(e.getMessage());
+			LOG.severe("IllegalAccessException: " + e.getMessage());
 			return false;
 		} catch (ClassNotFoundException e) {
 			// Log exception
-			LOG.severe(e.getMessage());
+			LOG.severe("ClassNotFoundException: " + e.getMessage());
 			return false;
 		}
 		game.registerController(this);

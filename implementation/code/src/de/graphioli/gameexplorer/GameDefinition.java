@@ -1,7 +1,6 @@
 package de.graphioli.gameexplorer;
 import java.net.URI;
 //import java.util.ArrayList;
-import de.graphioli.model.Graph;
 
 /**
  * This class represents the game’s definition, containing crucial information that
@@ -92,7 +91,7 @@ public class GameDefinition {
 	 * @param menu The list of additional menu items
 	 * @param horizontalGridPointCount The number of horizontal grid points
 	 * @param verticalGridPointCount The number of vertical grid points
-	 * @param directedGraph Whether the {@link Graph} of the game is directed or not
+	 * @param isDirectedGraph Whether the {@link Graph} of the game is directed or not
 	 */
 	public GameDefinition(String name,
 			int minPlayerCount,
