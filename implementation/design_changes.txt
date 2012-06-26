@@ -13,3 +13,6 @@
 
 == VisualEdge
 - added private attribute 'visible'
+
+== VisualGrid
+- added attribute GraphCanvas to constructor to get the size of the canvas
