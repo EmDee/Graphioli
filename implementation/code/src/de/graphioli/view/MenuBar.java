@@ -99,7 +99,7 @@ public class MenuBar extends JMenuBar implements ActionListener {
 		}
 		
 		if (sourceItem.getText().equals("Quit")) {
-			
+			this.parentGameWindow.getViewManager().getGameManager().closeGame();
 		}
 
 	}

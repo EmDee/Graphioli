@@ -72,5 +72,12 @@ public interface View {
 	 * @return <code>true</code> if the action was performed successfully, <code>false</code> otherwise
 	 */
 	public boolean setVisualVertexSize(int size);
+	
+	/**
+	 * Disposes all components of the View
+	 * 
+	 * @return {@code true} if the disposal was successful
+	 */
+	public boolean closeView();
 
 }

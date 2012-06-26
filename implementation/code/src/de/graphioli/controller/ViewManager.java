@@ -161,5 +161,15 @@ public class ViewManager {
 	public boolean setVisualVertexSize(int size) {
 		return this.view.setVisualVertexSize(size);
 	}
+	
+	
+	/**
+	 * Closes the View and all its components
+	 * @return {@code true} if the disposal was successful
+	 */
+	public boolean closeView() {
+		this.view.closeView();
+		return true;
+	}
 
 }

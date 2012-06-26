@@ -282,7 +282,9 @@ public class GameManager {
 	 * @todo Implement
 	 */
 	public boolean closeGame() {
-		return false;
+		this.viewManager.closeView();
+		this.openGameExplorer();
+		return true;
 	}
 
 

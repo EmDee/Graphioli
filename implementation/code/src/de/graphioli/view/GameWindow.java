@@ -200,6 +200,16 @@ public class GameWindow extends JFrame implements View {
 	public VisualGrid getVisualGrid() {
 		return visualGrid;
 	}
+	
+	
+	/**
+	 * Disposes all components of the GameWindow
+	 */
+	public boolean closeView() {
+		//TODO implement
+		this.dispose();
+		return true;
+	}
 
 	/**
 	 * Forwards the key input to the {@link ViewManager}.
