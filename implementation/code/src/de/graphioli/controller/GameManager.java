@@ -2,6 +2,10 @@ package de.graphioli.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Array;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLClassLoader;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -48,7 +52,7 @@ public class GameManager {
 	/**
 	 * Path to the package that holds all implemented {@link Game} sub-classes.
 	 */
-	private String gamePackagePath = "de.graphioli.games.";
+	private String gamePackagePath = "game.";
 
 
 	/**
@@ -136,13 +140,37 @@ public class GameManager {
 
 		// Facultative: Create MenuItems here
 
-		LOG.fine("Try starting game '" + gameDefinition.getFullyQualifiedClassName() + "'.");
+		LOG.fine("Try starting game '" + gameDefinition.getClassName() + "'.");
 
 		// Instantiate game
 		try {
-			// TODO: Package Path should be included in fully qualified class name.
-			String fullyQualifiedClassName = this.gamePackagePath + gameDefinition.getFullyQualifiedClassName();
-			this.game = (Game) Class.forName(fullyQualifiedClassName).newInstance();
+
+			String fullyQualifiedClassName = this.gamePackagePath + gameDefinition.getClassName();
+			String canonicalPath;
+			try {
+				canonicalPath = new File(".").getCanonicalPath();
+			} catch (IOException e1) {
+				canonicalPath = ".";
+			}
+
+			// Create jarBall file pointer to specific game class
+			File jarBall = new File(canonicalPath + "/src/games/" + gameDefinition.getClassName() + "/");
+			URL[] urls = new URL[1];
+
+			// Format jarBall file pointer to proper URL
+			try {
+				urls[0] = jarBall.toURI().toURL();
+			} catch (MalformedURLException e) {
+				// Log exception
+				LOG.severe("MalformedURLException: " + e.getMessage());
+				return false;
+			}
+
+			URLClassLoader loader = new URLClassLoader(urls);
+			Class<?> gameClass = loader.loadClass(fullyQualifiedClassName);
+
+			this.game = (Game) gameClass.newInstance();
+
 		} catch (InstantiationException e) {
 			// Log exception
 			LOG.severe("InstantiationException: " + e.getMessage());
@@ -156,8 +184,9 @@ public class GameManager {
 			LOG.severe("ClassNotFoundException: " + e.getMessage());
 			return false;
 		}
+
 		game.registerController(this);
-		
+
 		
 		// Start Game
 		

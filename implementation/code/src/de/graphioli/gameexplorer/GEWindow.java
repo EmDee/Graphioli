@@ -12,7 +12,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.logging.Logger;
-
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -322,7 +321,7 @@ public class GEWindow extends JFrame implements GEView, ActionListener, ListSele
 
 		BufferedImage screenshot;
 		String screenshotPath = "../../../games/"
-				+ this.selectedGameDefinition.getFullyQualifiedClassName() + "/screenshot.jpg";
+				+ this.selectedGameDefinition.getClassName() + "/screenshot.jpg";
 		InputStream screenshotInputStream = getClass().getResourceAsStream(screenshotPath);
 
 		// Try creating buffered image from path

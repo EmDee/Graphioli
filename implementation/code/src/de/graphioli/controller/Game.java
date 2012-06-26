@@ -1,8 +1,6 @@
 package de.graphioli.controller;
 
 import java.util.logging.Logger;
-
-import de.graphioli.games.VisualVertexTestGame;
 import de.graphioli.model.GridPoint;
 import de.graphioli.model.VisualVertex;
 
@@ -24,7 +22,10 @@ public abstract class Game {
 	 */
 	private GameManager gameManager;
 	
-	
+
+	/**
+	 * Creates a new instance of Game.
+	 */
 	public Game() {
 		LOG.info("Game Object instantiated.");
 	}

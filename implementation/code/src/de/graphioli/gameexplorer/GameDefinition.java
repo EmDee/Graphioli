@@ -38,7 +38,7 @@ public class GameDefinition {
 	/**
 	 * The name of the game class
 	 */
-	private String fullyQualifiedClassName;
+	private String className;
 
 	/**
 	 * The path to the screenshot of the game
@@ -84,7 +84,7 @@ public class GameDefinition {
 	 * @param maxPlayerCount The maximum number of players allowed
 	 * @param gamePath The path to the game class file
 	 * @param description The description of the game
-	 * @param fullyQualifiedClassName The name of the game class
+	 * @param className The name of the game class
 	 * @param screenshotPath The path to the screenshot of the game
 	 * @param localizationFilePath The path to the localization file of the game
 	 * @param helpFile The URI to the help file of the game
@@ -98,7 +98,7 @@ public class GameDefinition {
 			int maxPlayerCount,
 			String gamePath,
 			String description,
-			String fullyQualifiedClassName,
+			String className,
 			String screenshotPath,
 			String localizationFilePath,
 			URI helpFile,
@@ -112,7 +112,7 @@ public class GameDefinition {
 		this.maxPlayerCount = maxPlayerCount;
 		this.gamePath = gamePath;
 		this.description = description;
-		this.fullyQualifiedClassName = fullyQualifiedClassName;
+		this.className = className;
 		this.screenshotPath = screenshotPath;
 		this.localizationFilePath = localizationFilePath;
 		this.helpFile = helpFile;
@@ -173,8 +173,8 @@ public class GameDefinition {
 	 * Returns the name of the game class.
 	 * @return the name of the game class
 	 */
-	public String getFullyQualifiedClassName() {
-		return this.fullyQualifiedClassName;
+	public String getClassName() {
+		return this.className;
 	}
 
 

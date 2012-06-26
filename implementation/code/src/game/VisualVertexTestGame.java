@@ -1,12 +1,9 @@
-package de.graphioli.games;
+package game;
 
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.logging.Logger;
-
 import de.graphioli.controller.Game;
-import de.graphioli.controller.GameManager;
-import de.graphioli.model.GameBoard;
 import de.graphioli.model.GridPoint;
 import de.graphioli.model.SimpleVisualVertex;
 import de.graphioli.model.VisualVertex;

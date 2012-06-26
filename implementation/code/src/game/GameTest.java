@@ -1,4 +1,4 @@
-package de.graphioli.games;
+package game;
 
 import java.util.logging.Logger;
 
