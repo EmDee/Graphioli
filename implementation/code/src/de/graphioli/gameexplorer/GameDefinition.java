@@ -1,14 +1,16 @@
 package de.graphioli.gameexplorer;
+
 import java.net.URI;
+
 //import java.util.ArrayList;
 
 /**
- * This class represents the game’s definition, containing crucial information that
- * is needed to start a {@link Game}.
+ * This class represents the game’s definition, containing crucial information
+ * that is needed to start a {@link Game}.
  * 
  * @author Graphioli
  */
-public class GameDefinition {
+public final class GameDefinition {
 
 	/**
 	 * The name of the game
@@ -41,16 +43,6 @@ public class GameDefinition {
 	private String className;
 
 	/**
-	 * The path to the screenshot of the game
-	 */
-	private String screenshotPath;
-
-	/**
-	 * The path to the localization file of the game
-	 */
-	private String localizationFilePath;
-
-	/**
 	 * The URI to the help file of the game
 	 */
 	private URI helpFile;
@@ -58,7 +50,7 @@ public class GameDefinition {
 	/**
 	 * The list of additional menu items
 	 */
-	//private ArrayList<MenuItem> menu;
+	// private ArrayList<MenuItem> menu;
 
 	/**
 	 * The number of horizontal grid points
@@ -75,148 +67,118 @@ public class GameDefinition {
 	 */
 	private boolean isDirectedGraph;
 
-
 	/**
-	 * Creates a new instance of {@link GameDefinition}.
-	 * 
-	 * @param name The name of the game
-	 * @param minPlayerCount The minimum number of players allowed
-	 * @param maxPlayerCount The maximum number of players allowed
-	 * @param gamePath The path to the game class file
-	 * @param description The description of the game
-	 * @param className The name of the game class
-	 * @param screenshotPath The path to the screenshot of the game
-	 * @param localizationFilePath The path to the localization file of the game
-	 * @param helpFile The URI to the help file of the game
-	 * @param menu The list of additional menu items
-	 * @param horizontalGridPointCount The number of horizontal grid points
-	 * @param verticalGridPointCount The number of vertical grid points
-	 * @param isDirectedGraph Whether the {@link Graph} of the game is directed or not
+	 * Private constructor to ensure that no instance is created of this class.
 	 */
-	private GameDefinition() { };
-
+	private GameDefinition() {
+	};
 
 	/**
 	 * Returns the name of the game.
+	 * 
 	 * @return the name of the game
 	 */
 	public String getName() {
 		return this.name;
 	}
 
-
 	/**
 	 * Returns the minimum number of players allowed.
+	 * 
 	 * @return the minimum number of players allowed
 	 */
 	public int getMinPlayerCount() {
 		return this.minPlayerCount;
 	}
 
-
 	/**
 	 * Returns the maximum number of players allowed.
+	 * 
 	 * @return the maximum number of players allowed
 	 */
 	public int getMaxPlayerCount() {
 		return this.maxPlayerCount;
 	}
 
-
 	/**
 	 * Returns the path to the game class file.
+	 * 
 	 * @return the path to the game class file
 	 */
 	public String getGamePath() {
 		return this.gamePath;
 	}
 
-
 	/**
 	 * Returns the description of the game.
+	 * 
 	 * @return the description of the game
 	 */
 	public String getDescription() {
 		return this.description;
 	}
 
-
 	/**
 	 * Returns the name of the game class.
+	 * 
 	 * @return the name of the game class
 	 */
 	public String getClassName() {
 		return this.className;
 	}
 
-
-	/**
-	 * Returns the path to the screenshot of the game.
-	 * @return the path to the screenshot of the game
-	 */
-	public String getScreenshotPath() {
-		return this.screenshotPath;
-	}
-
-
-	/**
-	 * Returns the path to the localization file of the game.
-	 * @return the path to the localization file of the game
-	 */
-	public String getLocalizationFilePath() {
-		return this.localizationFilePath;
-	}
-
-
 	/**
 	 * Returns the URI to the help file of the game.
+	 * 
 	 * @return the URI to the help file of the game
 	 */
 	public URI getHelpFile() {
 		return this.helpFile;
 	}
 
-
 	/**
 	 * Returns the list of additional menu items.
+	 * 
 	 * @return the list of additional menu items
 	 */
-	/*public ArrayList<MenuItem> getMenu() {
-		return this.menu;
-	}*/
-
+	/*
+	 * public ArrayList<MenuItem> getMenu() { return this.menu; }
+	 */
 
 	/**
 	 * Returns the number of horizontal grid points.
+	 * 
 	 * @return the number of horizontal grid points
 	 */
 	public int getHorizontalGridPointCount() {
 		return this.horizontalGridPointCount;
 	}
 
-
 	/**
 	 * Returns the number of vertical grid points.
+	 * 
 	 * @return the number of vertical grid points
 	 */
 	public int getVerticalGridPointCount() {
 		return this.verticalGridPointCount;
 	}
 
-
 	/**
 	 * Returns whether the {@link Graph} of the game is directed or not.
-	 * @return <code>true</code> if the graph of the game is directed, <code>false</code> otherwise
+	 * 
+	 * @return <code>true</code> if the graph of the game is directed,
+	 *         <code>false</code> otherwise
 	 */
 	public boolean isDirectedGraph() {
 		return this.isDirectedGraph;
 	}
 
-
 	/**
-	 * Returns a string representation of this instance of {@link GameDefinition}.
+	 * Returns a string representation of this instance of
+	 * {@link GameDefinition}.
 	 * 
-	 * @return a string representation of this instance of {@link GameDefinition}.
+	 * @return a string representation of this instance of
+	 *         {@link GameDefinition}.
 	 */
 	@Override
 	public String toString() {

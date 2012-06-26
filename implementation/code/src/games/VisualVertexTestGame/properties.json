@@ -1,0 +1,32 @@
+{
+
+   "name":"VisualVertexTestGame",
+
+   "className":"VisualVertexTestGame",
+
+   "description":"This is a description for the another game",
+
+   "helpFile":"../helpFile.pdf",
+
+   "maxPlayerCount":1,
+
+   "minPlayerCount":4,
+
+   "menuItem":[
+
+      {
+
+         "Next Level":1,
+
+         "Previous Level":2
+
+      }
+
+   ],
+
+   "directedGraph":false,
+
+   "horizontalGridPointCount":100,
+
+   "verticalGridPointCount":100
+}
