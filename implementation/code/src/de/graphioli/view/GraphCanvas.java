@@ -76,6 +76,9 @@ public class GraphCanvas extends JPanel {
 		this.visualGrid = this.parentGameWindow.getVisualGrid();
 		int gridScale = this.visualGrid.getGridScale();
 		
+		// Drawing grid lines
+		this.visualGrid.draw(g2d);
+		
 		// Drawing vertices
 		for (Vertex v : graph.getVertices()) {
 			
