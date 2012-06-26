@@ -13,6 +13,7 @@ import com.google.gson.JsonSyntaxException;
 import de.graphioli.controller.GameManager;
 import de.graphioli.model.Player;
 
+
 /**
  * This has mock-up functionalities!
  * 
@@ -98,14 +99,12 @@ public class GameExplorer {
 	private void scanGameFolderAndCreateGameDefinitions() {
 
 		File gamesDirectory = new File("src/games/");
-		System.out.println("gamesDirectory: " + gamesDirectory);
 		String pathToPropertyFile = new String();
 		GameDefinition gameDefinition;
 
 		// TODO: Different path for different environments
 		for (File tmpGame : gamesDirectory.listFiles()) {
 			if (tmpGame.isDirectory()) {
-				System.out.println("tmpGame: " + tmpGame.getName());
 				pathToPropertyFile = (tmpGame.getName() + "/properties.json");
 				gameDefinition = this.createGameDefinitionFromJSON("src/games/" + pathToPropertyFile);
 				if (gameDefinition != null) {
