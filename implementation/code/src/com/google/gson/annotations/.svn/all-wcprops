@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/!svn/ver/475/trunk/gson/src/main/java/com/google/gson/annotations
+END
+Since.java
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/!svn/ver/411/trunk/gson/src/main/java/com/google/gson/annotations/Since.java
+END
+Expose.java
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/!svn/ver/475/trunk/gson/src/main/java/com/google/gson/annotations/Expose.java
+END
+package-info.java
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/!svn/ver/234/trunk/gson/src/main/java/com/google/gson/annotations/package-info.java
+END
+Until.java
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/!svn/ver/411/trunk/gson/src/main/java/com/google/gson/annotations/Until.java
+END
+SerializedName.java
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/!svn/ver/411/trunk/gson/src/main/java/com/google/gson/annotations/SerializedName.java
+END

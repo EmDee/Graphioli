@@ -1,0 +1,41 @@
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/!svn/ver/1136/trunk/gson/src/main/java/com/google/gson/stream
+END
+MalformedJsonException.java
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svn/!svn/ver/653/trunk/gson/src/main/java/com/google/gson/stream/MalformedJsonException.java
+END
+StringPool.java
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/!svn/ver/832/trunk/gson/src/main/java/com/google/gson/stream/StringPool.java
+END
+JsonScope.java
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/!svn/ver/615/trunk/gson/src/main/java/com/google/gson/stream/JsonScope.java
+END
+JsonWriter.java
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/!svn/ver/1135/trunk/gson/src/main/java/com/google/gson/stream/JsonWriter.java
+END
+JsonToken.java
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/!svn/ver/615/trunk/gson/src/main/java/com/google/gson/stream/JsonToken.java
+END
+JsonReader.java
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/!svn/ver/1136/trunk/gson/src/main/java/com/google/gson/stream/JsonReader.java
+END

@@ -1,0 +1,77 @@
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/!svn/ver/1140/trunk/gson/src/main/java/com/google/gson/internal
+END
+$Gson$Preconditions.java
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svn/!svn/ver/1031/trunk/gson/src/main/java/com/google/gson/internal/$Gson$Preconditions.java
+END
+UnsafeAllocator.java
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/!svn/ver/885/trunk/gson/src/main/java/com/google/gson/internal/UnsafeAllocator.java
+END
+$Gson$Types.java
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/!svn/ver/1031/trunk/gson/src/main/java/com/google/gson/internal/$Gson$Types.java
+END
+package-info.java
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/!svn/ver/788/trunk/gson/src/main/java/com/google/gson/internal/package-info.java
+END
+StringMap.java
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/!svn/ver/1131/trunk/gson/src/main/java/com/google/gson/internal/StringMap.java
+END
+JsonReaderInternalAccess.java
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/svn/!svn/ver/1051/trunk/gson/src/main/java/com/google/gson/internal/JsonReaderInternalAccess.java
+END
+Excluder.java
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/!svn/ver/1140/trunk/gson/src/main/java/com/google/gson/internal/Excluder.java
+END
+Primitives.java
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/!svn/ver/1123/trunk/gson/src/main/java/com/google/gson/internal/Primitives.java
+END
+ConstructorConstructor.java
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/svn/!svn/ver/1126/trunk/gson/src/main/java/com/google/gson/internal/ConstructorConstructor.java
+END
+ObjectConstructor.java
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/!svn/ver/938/trunk/gson/src/main/java/com/google/gson/internal/ObjectConstructor.java
+END
+LazilyParsedNumber.java
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/!svn/ver/887/trunk/gson/src/main/java/com/google/gson/internal/LazilyParsedNumber.java
+END
+Streams.java
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/!svn/ver/991/trunk/gson/src/main/java/com/google/gson/internal/Streams.java
+END
