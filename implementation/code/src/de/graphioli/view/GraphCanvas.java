@@ -8,6 +8,7 @@ import de.graphioli.model.VisualVertex;
 
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.util.logging.Logger;
 
 import javax.swing.JPanel;
 
@@ -20,6 +21,12 @@ import javax.swing.JPanel;
 public class GraphCanvas extends JPanel {
 
 	private static final long serialVersionUID = 1L;
+	
+	/**
+	 * Logging instance
+	 */
+	private final static Logger LOG = Logger.getLogger(GraphCanvas.class
+			.getName());
 
 	/**
 	 * The parent {@link GameWindow} associated with this @ GraphCanvas}
@@ -38,6 +45,7 @@ public class GraphCanvas extends JPanel {
 	 *            The {@link GameWindow} that contains this {@link GraphCanvas}
 	 */
 	public GraphCanvas(GameWindow parentGameWindow) {
+		LOG.fine("GraphCanvas instantiated");
 		this.parentGameWindow = parentGameWindow;
 		this.setSize(500, 300);
 		this.visualGrid = new VisualGrid(this, this.parentGameWindow);

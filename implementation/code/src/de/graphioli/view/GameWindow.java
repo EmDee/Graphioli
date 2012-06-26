@@ -5,6 +5,8 @@ import de.graphioli.controller.ViewManager;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.io.File;
+import java.util.logging.Logger;
+
 import javax.swing.JFrame;
 
 import de.graphioli.model.Player;
@@ -15,6 +17,12 @@ import de.graphioli.model.Player;
  * @author Graphioli
  */
 public class GameWindow extends JFrame implements View {
+	
+	/**
+	 * Logging instance
+	 */
+	private final static Logger LOG = Logger.getLogger(GameWindow.class
+			.getName());
 
 	/**
 	 * UID for serializing this object
@@ -51,6 +59,8 @@ public class GameWindow extends JFrame implements View {
 	 * {@link StatusBar} and {@link MenuBar}.
 	 */
 	public GameWindow(ViewManager viewManager) {
+		
+		LOG.info("GameWindow instantiated.");
 		this.registerController(viewManager);
 		
 		this.setLayout(new BorderLayout());
