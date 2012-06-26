@@ -1,8 +1,12 @@
 package de.graphioli.controller;
 
+import java.awt.Color;
+import java.util.logging.Logger;
+
 import de.graphioli.model.GridPoint;
 import de.graphioli.model.Player;
 import de.graphioli.view.GameWindow;
+import de.graphioli.view.GraphCanvas;
 import de.graphioli.view.View;
 
 /**
@@ -14,6 +18,12 @@ import de.graphioli.view.View;
  */
 public class ViewManager {
 
+	/**
+	 * Logging instance
+	 */
+	private final static Logger LOG = Logger.getLogger(ViewManager.class
+			.getName());
+	
 	/**
 	 * The {@link View} associated with this {@link ViewManager}.
 	 */
@@ -31,12 +41,11 @@ public class ViewManager {
 	 * @param gameManager The controlling <code>GameManager</code>
 	 */
 	public ViewManager(GameManager gameManager) {
-
+		LOG.fine("ViewManager initiated");
 		this.gameManager = gameManager;
 
 		// Instantiate view
 		this.view = new GameWindow(this);
-
 	}
 
 
@@ -60,9 +69,16 @@ public class ViewManager {
 	 */
 	public boolean onGridPointClick(GridPoint gridPoint) {
 		if (this.gameManager.getGameBoard().getGrid().getVisualVertexAtGridPoint(gridPoint) == null) {
-			this.gameManager.getGame().onEmptyGridPointClick(gridPoint);
+			if (this.gameManager.getGame().onEmptyGridPointClick(gridPoint)) {
+				LOG.fine("OnEmptyGridPointClick " + gridPoint);
+				this.view.redrawGraph();
+			}
+			
 		} else {
-			this.gameManager.getGame().onVertexClick(this.gameManager.getGameBoard().getGrid().getVisualVertexAtGridPoint(gridPoint));
+			if (this.gameManager.getGame().onVertexClick(this.gameManager.getGameBoard().getGrid().getVisualVertexAtGridPoint(gridPoint))) {
+				LOG.fine("OnVertexClick (at GridPoint " + this.gameManager.getGameBoard().getGrid().getVisualVertexAtGridPoint(gridPoint).getGridPoint() + ")");
+				this.view.redrawGraph();
+			}
 		}
 		return true;
 	}
