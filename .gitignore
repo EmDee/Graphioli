@@ -65,7 +65,7 @@ log.html.*
 
 # exceptions
 !idxStyle.ist
-!games/*.class
+!implementation/code/src/games/*.class
 
 # miscellaneous
 *.un~
