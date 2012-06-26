@@ -83,9 +83,9 @@ public class GraphCanvas extends JPanel {
 			g2d.drawImage(
 					vertex.getBufferedImage(),
 					((1 + vertex.getGridPoint().getPositionX()) * gridScale)
-							- (this.visualGrid.getVisualVertexSize() / 2),
+							- (VisualVertex.PIXELS_PER_SIDE / 2),
 					((1 + vertex.getGridPoint().getPositionY()) * gridScale)
-							- (this.visualGrid.getVisualVertexSize() / 2), 
+							- (VisualVertex.PIXELS_PER_SIDE / 2), 
 							VisualVertex.PIXELS_PER_SIDE,
 							VisualVertex.PIXELS_PER_SIDE, null);
 

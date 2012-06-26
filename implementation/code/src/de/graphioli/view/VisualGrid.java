@@ -49,7 +49,7 @@ public class VisualGrid implements MouseListener {
 		this.graphCanvas = graphCanvas;
 		this.grid = this.parentGameWindow.getViewManager().getGameManager().getGameBoard().getGrid();
 		// default gridScale based on VertexSize for now
-		this.gridScale = (int) (VisualVertex.PIXELS_PER_SIDE + 5);
+		this.gridScale = (int) (VisualVertex.PIXELS_PER_SIDE * 1.8);
 	}
 	
 	
@@ -61,12 +61,12 @@ public class VisualGrid implements MouseListener {
 	 * @return GridPoint The {@link GridPoint} to the responsible mouse click coordinates
 	 */
 	public GridPoint parseCoordinates(int xCoord, int yCoord) {
-		int xpos = Math.round(xCoord / this.gridScale);
-		int ypos = Math.round(yCoord / this.gridScale);
-		if (((xpos * this.gridScale + VisualVertex.PIXELS_PER_SIDE) > xCoord) 
-				&& ((xpos * this.gridScale - VisualVertex.PIXELS_PER_SIDE) < xCoord)
-				&& ((ypos * this.gridScale + VisualVertex.PIXELS_PER_SIDE) > yCoord)
-				&& ((ypos * this.gridScale - VisualVertex.PIXELS_PER_SIDE) < yCoord)) {
+		int xpos = Math.round((xCoord - VisualVertex.PIXELS_PER_SIDE / 2) / this.gridScale) + 1;
+		int ypos = Math.round((yCoord - VisualVertex.PIXELS_PER_SIDE / 2) / this.gridScale) + 1;
+		if (((xpos * this.gridScale + VisualVertex.PIXELS_PER_SIDE / 2) > xCoord) 
+				&& ((xpos * this.gridScale - VisualVertex.PIXELS_PER_SIDE / 2) < xCoord)
+				&& ((ypos * this.gridScale + VisualVertex.PIXELS_PER_SIDE / 2) > yCoord)
+				&& ((ypos * this.gridScale - VisualVertex.PIXELS_PER_SIDE / 2) < yCoord)) {
 			return new GridPoint(xpos - 1, ypos - 1);
 		}
 		return null;
@@ -117,7 +117,10 @@ public class VisualGrid implements MouseListener {
 	 */
 	@Override
 	public void mouseClicked(MouseEvent event) {
-		this.parentGameWindow.getViewManager().onGridPointClick(this.parseCoordinates(event.getX(), event.getY())); 
+		GridPoint gridPointClicked = this.parseCoordinates(event.getX(), event.getY());
+		if (gridPointClicked != null) {
+			this.parentGameWindow.getViewManager().onGridPointClick(gridPointClicked); 
+		}
 	}
 
 	@Override
