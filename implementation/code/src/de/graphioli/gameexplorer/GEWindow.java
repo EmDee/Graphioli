@@ -2,12 +2,19 @@ package de.graphioli.gameexplorer;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.logging.Logger;
+
+import javax.imageio.ImageIO;
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JList;
@@ -60,8 +67,14 @@ public class GEWindow extends JFrame implements GEView, ActionListener, ListSele
 	 */
 	private int windowHeight = 500;
 
+	/**
+	 * Panel containing information about the currently selected game.
+	 */
+	private GEGameInformation visibleGameInformationPanel;
+
 
 	/**
+	 * Constructs a new instance of GEWindow.
 	 */
 	public GEWindow() {
 
@@ -251,6 +264,7 @@ public class GEWindow extends JFrame implements GEView, ActionListener, ListSele
 	private void selectGameDefinition(GameDefinition selectedGameDefinition) {
 
 		this.selectedGameDefinition = selectedGameDefinition;
+		this.updateGameInformation();
 
 	}
 
@@ -276,6 +290,61 @@ public class GEWindow extends JFrame implements GEView, ActionListener, ListSele
 
 
 	/**
+	 * Updates the information displayed in the game information panel.
+	 * 
+	 * @return <code>true</code> if the action was performed successfully, <code>false</code> otherwise
+	 */
+	private boolean updateGameInformation() {
+
+		if (this.visibleGameInformationPanel == null) {
+			return false;
+		}
+
+		// Set description
+		this.visibleGameInformationPanel.setDescription(this.selectedGameDefinition.getDescription());
+
+		// Create buffered image for screenshot
+		this.visibleGameInformationPanel.setScreenshot(this.getCurrentScreenshot());
+		
+		return true;
+
+	}
+
+
+	/**
+	 * Returns a BufferedImage containing the screenshot of the currently select game.
+	 * 
+	 * @return a BufferedImage containing the screenshot of the currently select game
+	 */
+	private BufferedImage getCurrentScreenshot() {
+
+		LOG.finer("GEWindow.<em>getCurrentScreenshot()</em> called.");
+
+		BufferedImage screenshot;
+		String screenshotPath = this.selectedGameDefinition.getScreenshotPath();
+
+		// Build image file path
+		URL screenshotURL = this.getClass().getClassLoader().getResource(screenshotPath); 
+
+		if (screenshotURL == null) {
+			LOG.severe("Could not convert screenshot path to URL: '" + screenshotPath + "'.");
+			return null;
+		}
+
+		// Try creating buffered image from path
+		try {
+			screenshot = ImageIO.read(screenshotURL);
+		} catch (IOException e) {
+			LOG.severe("Could not read file '" + screenshotURL.toString() + "'.");
+			return null;
+		}
+
+		return screenshot;
+
+	}
+
+
+	/**
 	 * Generates the visible window consisting of several swing components.
 	 */
 	private void generateWindow() {
@@ -293,6 +362,9 @@ public class GEWindow extends JFrame implements GEView, ActionListener, ListSele
 
 		// Generate button panel
 		this.generateButtonPanel();
+
+		// Generate game information panel
+		this.generateGameInformationPanel();
 
 		// Show window
 		this.setVisible(true);
@@ -317,10 +389,14 @@ public class GEWindow extends JFrame implements GEView, ActionListener, ListSele
 		JScrollPane visibleGameDefinitionListPane = new JScrollPane(visibleGameDefinitionList);
 
 		// Style list pane
-		visibleGameDefinitionListPane.setBackground(Color.BLACK);
+		visibleGameDefinitionListPane.setPreferredSize(new Dimension(this.windowWidth / 2, this.windowHeight - 70));
+		visibleGameDefinitionListPane.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+
+		JPanel visibleGameDefinitionListPaneBox = new JPanel();
+		visibleGameDefinitionListPaneBox.add(visibleGameDefinitionListPane);
 
 		// Add list pane to window
-		this.add(visibleGameDefinitionListPane, BorderLayout.LINE_START);
+		this.add(visibleGameDefinitionListPaneBox, BorderLayout.LINE_START);
 
 	}
 
@@ -349,6 +425,22 @@ public class GEWindow extends JFrame implements GEView, ActionListener, ListSele
 
 		// Add button panel to window
 		this.add(visibleButtonPanel, BorderLayout.PAGE_END);
+
+	}
+
+
+	/**
+	 * Generates the panels that show information about the currently selected game.
+	 */
+	private void generateGameInformationPanel() {
+
+		this.visibleGameInformationPanel = new GEGameInformation();
+
+		// Add information
+		this.updateGameInformation();
+
+		// Add information panel to window
+		this.add(this.visibleGameInformationPanel, BorderLayout.CENTER);
 
 	}
 
