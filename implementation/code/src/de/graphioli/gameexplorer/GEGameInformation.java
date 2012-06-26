@@ -45,36 +45,82 @@ public class GEGameInformation extends JPanel {
 	 */
 	public GEGameInformation() {
 
-		// Create screenshot label
+		// Generate screenshot label
+		this.generateScreenshotLabel();
+
+		// Generate description title label
+		this.generateDescriptionTitleLabel();
+
+		// Generate description label
+		this.generateDescriptionLabel();
+
+	}
+
+
+	/**
+	 * Generates the screenshot label
+	 */
+	private void generateScreenshotLabel() {
+
 		this.screenshotLabel = new JLabel();
+
+		// Style screenshot label
 		this.screenshotLabel.setPreferredSize(new Dimension(380, 250));
 		this.screenshotLabel.setBackground(Color.WHITE);
 		this.screenshotLabel.setOpaque(true);
 		this.screenshotLabel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		this.screenshotLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		this.screenshotLabel.setText("No screenshot provided.");
 
-		// Create description title panel
+		// Add default text
+		this.screenshotLabel.setText("No screenshot provided.");
+		
+		// Add screenshot label to parent panel
+		this.add(this.screenshotLabel);
+
+	}
+
+
+	/**
+	 * Generates the description title label
+	 */
+	private void generateDescriptionTitleLabel() {
+
 		JLabel descriptionTitleLabel = new JLabel();
-		descriptionTitleLabel.setText("Description");
+
+		// Style description title label
 		Font boldFont = new Font(descriptionTitleLabel.getFont().getName(),
 				Font.BOLD,
 				descriptionTitleLabel.getFont().getSize());  
 		descriptionTitleLabel.setFont(boldFont);
 		descriptionTitleLabel.setPreferredSize(new Dimension(380, 30));
 
-		// Create description panel
+		// Add title text
+		descriptionTitleLabel.setText("Description");
+
+		// Add description title label to parent panel
+		this.add(descriptionTitleLabel);
+
+	}
+
+
+	/**
+	 * Generates the description label
+	 */
+	private void generateDescriptionLabel() {
+
 		this.descriptionLabel = new JTextArea();
-		this.descriptionLabel.setText("No description provided.");
+
+		// Style description label
 		this.descriptionLabel.setPreferredSize(new Dimension(380, 140));
 		this.descriptionLabel.setWrapStyleWord(true);
 		this.descriptionLabel.setLineWrap(true);
 		this.descriptionLabel.setEditable(false);
 		this.descriptionLabel.setOpaque(false);
 
-		// Add components to information panel
-		this.add(this.screenshotLabel);
-		this.add(descriptionTitleLabel);
+		// Add default text
+		this.descriptionLabel.setText("No description provided.");
+
+		// Add description label to parent panel
 		this.add(this.descriptionLabel);
 
 	}

@@ -1,8 +1,13 @@
 package de.graphioli.gameexplorer;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JPanel;
 
+/**
+ * 
+ * @author Graphioli
+ */
 public class GEButtonPanel extends JPanel implements ActionListener {
 
 	/**

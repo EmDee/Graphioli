@@ -3,7 +3,6 @@ package de.graphioli.gameexplorer;
 import java.util.ArrayList;
 import java.util.logging.Logger;
 import javax.swing.AbstractListModel;
-import de.graphioli.controller.GameManager;
 
 /**
  * Represents a data model that provides the {@link JList} with its content.

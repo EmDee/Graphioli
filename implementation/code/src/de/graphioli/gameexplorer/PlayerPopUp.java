@@ -1,12 +1,10 @@
 package de.graphioli.gameexplorer;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.logging.Logger;
-
 import javax.swing.JFrame;
-
-import de.graphioli.controller.GameManager;
 import de.graphioli.model.LocalPlayer;
 import de.graphioli.model.Player;
 
