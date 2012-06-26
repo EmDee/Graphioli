@@ -1,5 +1,6 @@
 package de.graphioli.games;
 
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.logging.Logger;
 
@@ -50,10 +51,14 @@ public class VisualVertexTestGame extends Game {
 		 * Set up graph
 		 */
 
-		GridPoint gridPointA = new GridPoint(3, 3);
-		GridPoint gridPointB = new GridPoint(6, 7);
+		GridPoint gridPointA = new GridPoint(2, 2);
+		GridPoint gridPointB = new GridPoint(4, 4);
 		SimpleVisualVertex simpleVisualVertexA = new SimpleVisualVertex(gridPointA);
 		SimpleVisualVertex simpleVisualVertexB = new SimpleVisualVertex(gridPointB);
+		
+		simpleVisualVertexA.setStrokeWeight(2);
+		simpleVisualVertexB.setStrokeWeight(1);
+		simpleVisualVertexA.setFillColor(Color.GREEN);
 
 		ArrayList<VisualVertex> simpleVisualVertecies = new ArrayList<VisualVertex>();
 		simpleVisualVertecies.add(simpleVisualVertexA);
