@@ -56,6 +56,7 @@ public class GraphCanvas extends JPanel {
 	 *         <code>false</code> otherwise
 	 */
 	public boolean updateCanvas() {
+		this.updateUI();
 		return true;
 	}
 

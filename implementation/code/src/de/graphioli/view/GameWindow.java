@@ -166,7 +166,7 @@ public class GameWindow extends JFrame implements View {
 	 */
 	@Override
 	public boolean redrawGraph() {
-		return true;
+		return this.graphCanvas.updateCanvas();
 	}
 
 	/**
