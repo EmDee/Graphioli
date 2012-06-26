@@ -39,19 +39,34 @@ public class GameWindow extends JFrame implements View {
 	private StatusBar statusBar;
 
 	/**
+	 * The {@link VisualGrid} associated with this {@link GameWindow}.
+	 */
+	private VisualGrid visualGrid;
+
+	/**
 	 * Constructs a {@link GameWindow} including {@link GraphCanvas},
 	 * {@link StatusBar} and {@link MenuBar}.
 	 */
 	public GameWindow(ViewManager viewManager) {
 		this.registerController(viewManager);
-		this.menuBar = new MenuBar(this);
-		this.graphCanvas = new GraphCanvas(this);
-		this.statusBar = new StatusBar();
-		this.add(this.menuBar);
-		this.add(this.graphCanvas);
-		this.add(this.statusBar);
 		this.setSize(500, 500);
+		
+		// Initialize and add MenuBar
+		this.menuBar = new MenuBar(this);
+		this.add(this.menuBar);
+		
+		// Initialize and add GraphCanvas and ViusalGrid
+		this.graphCanvas = new GraphCanvas(this);
+		this.add(this.graphCanvas);
+		this.setSize(500, 300);
+		this.visualGrid = new VisualGrid(this.graphCanvas, this);
+		this.graphCanvas.addMouseListener(this.visualGrid);
+		
+		// Initialize and add StatusBar
+		this.statusBar = new StatusBar();
+		this.add(this.statusBar);
 		this.statusBar.setSize(500, 100);
+		
 		this.setResizable(false);
 		this.setVisible(true);
 		
@@ -155,10 +170,19 @@ public class GameWindow extends JFrame implements View {
 	/**
 	 * Returns the {@link ViewManager} associated with the {@link GameWindow}.
 	 * 
-	 * @return viewManager The associated {@link ViewManager}
+	 * @return The associated {@link ViewManager}
 	 */
 	public ViewManager getViewManager() {
 		return viewManager;
+	}
+
+	/**
+	 * Returns the {@link VisualGrid} associated with the {@link GameWindow}
+	 * 
+	 * @return The associated {@link ViusalGrid}
+	 */
+	public VisualGrid getVisualGrid() {
+		return visualGrid;
 	}
 
 	/**
@@ -176,7 +200,7 @@ public class GameWindow extends JFrame implements View {
 	/**
 	 * Opens a load file dialog.
 	 * 
-	 * @return File The file of saved game to load
+	 * @return The file of saved game to load
 	 */
 	public File openFileDialog() {
 		return null;
@@ -186,7 +210,7 @@ public class GameWindow extends JFrame implements View {
 	/**
 	 * Opens a save file dialog.
 	 * 
-	 * @return File The file the game should be saved
+	 * @return The file the game should be saved
 	 */
 	public File saveFileDialog() {
 		return null;
