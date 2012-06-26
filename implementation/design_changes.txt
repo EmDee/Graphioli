@@ -4,6 +4,9 @@
 
 == GameDefinition
 - changed 'fullyQualifiedClassName' to 'className'
+- no constructor
+- removed screenshot
+- removed localization
 
 == GameManager
 - added private attribute 'gamePackagePath'
@@ -28,3 +31,10 @@
 == New Classes ==
 - GraphioliLogFormatter
 - GraphioliLogger
+- VertexState
+
+== New libraries ==
+- GSON
+
+== GameExplorer ==
+- scanGameFolder doesn't return anything, but scans and creates game definitions
