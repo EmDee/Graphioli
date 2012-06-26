@@ -58,6 +58,49 @@ public class GEGameInformation extends JPanel {
 
 
 	/**
+	 * Updates the display of the description about the currently selected game.
+	 * 
+	 * @param description The new description to display
+	 * @return <code>true</code> if the action was performed successfully, <code>false</code> otherwise
+	 */
+	public boolean setDescription(String description) {
+
+		LOG.finer("GEGameInformation.<em>setDescription([...])</em> called.");
+
+		this.descriptionLabel.setText(description);
+
+		LOG.fine("Display of description updated.");
+		return false;
+
+	}
+
+
+	/**
+	 * Updates the display of the screenshot of the currently selected game.
+	 * 
+	 * @param screenshot The new screenshot to display
+	 * @return <code>true</code> if the action was performed successfully, <code>false</code> otherwise
+	 */
+	public boolean setScreenshot(BufferedImage screenshot) {
+
+		LOG.finer("GEGameInformation.<em>setScreenshot([...])</em> called.");
+
+		if (screenshot != null) {
+			this.screenshotLabel.setIcon(new ImageIcon(screenshot));
+		} else {
+			// Remove image
+			this.screenshotLabel.setIcon(null);
+		}
+
+		this.screenshotLabel.revalidate();
+
+		LOG.fine("Display of screenshot updated.");
+		return false;
+
+	}
+
+
+	/**
 	 * Generates the screenshot label
 	 */
 	private void generateScreenshotLabel() {
@@ -122,49 +165,6 @@ public class GEGameInformation extends JPanel {
 
 		// Add description label to parent panel
 		this.add(this.descriptionLabel);
-
-	}
-
-
-	/**
-	 * Updates the display of the description about the currently selected game.
-	 * 
-	 * @param description The new description to display
-	 * @return <code>true</code> if the action was performed successfully, <code>false</code> otherwise
-	 */
-	public boolean setDescription(String description) {
-
-		LOG.finer("GEGameInformation.<em>setDescription([...])</em> called.");
-
-		this.descriptionLabel.setText(description);
-
-		LOG.fine("Display of description updated.");
-		return false;
-
-	}
-
-
-	/**
-	 * Updates the display of the screenshot of the currently selected game.
-	 * 
-	 * @param screenshot The new screenshot to display
-	 * @return <code>true</code> if the action was performed successfully, <code>false</code> otherwise
-	 */
-	public boolean setScreenshot(BufferedImage screenshot) {
-
-		LOG.finer("GEGameInformation.<em>setScreenshot([...])</em> called.");
-
-		if (screenshot != null) {
-			this.screenshotLabel.setIcon(new ImageIcon(screenshot));
-		} else {
-			// Remove image
-			this.screenshotLabel.setIcon(null);
-		}
-
-		this.screenshotLabel.revalidate();
-
-		LOG.fine("Display of screenshot updated.");
-		return false;
 
 	}
 
