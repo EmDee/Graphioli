@@ -8,10 +8,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.logging.Logger;
 
@@ -323,7 +321,8 @@ public class GEWindow extends JFrame implements GEView, ActionListener, ListSele
 		LOG.finer("GEWindow.<em>getCurrentScreenshot()</em> called.");
 
 		BufferedImage screenshot;
-		String screenshotPath = "../games/" + this.selectedGameDefinition.getScreenshotPath();
+		String screenshotPath = "../../../games/"
+				+ this.selectedGameDefinition.getFullyQualifiedClassName() + "/screenshot.jpg";
 		InputStream screenshotInputStream = getClass().getResourceAsStream(screenshotPath);
 
 		// Try creating buffered image from path

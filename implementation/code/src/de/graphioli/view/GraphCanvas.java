@@ -39,9 +39,6 @@ public class GraphCanvas extends JPanel {
 	 */
 	public GraphCanvas(GameWindow parentGameWindow) {
 		this.parentGameWindow = parentGameWindow;
-		this.setSize(500, 300);
-		this.visualGrid = new VisualGrid(this, this.parentGameWindow);
-		this.addMouseListener(visualGrid);
 	}
 
 	/**
@@ -51,7 +48,6 @@ public class GraphCanvas extends JPanel {
 	 *         <code>false</code> otherwise
 	 */
 	public boolean updateCanvas() {
-		paintComponent(null);
 		return true;
 	}
 
@@ -63,19 +59,23 @@ public class GraphCanvas extends JPanel {
 
 		Graph graph = this.parentGameWindow.getViewManager().getGameManager().getGameBoard().getGraph();
 
-		int horizontalGridScale = this.visualGrid.getHorizontalGridScale();
-		int verticalGridScale = this.visualGrid.getVerticalGridScale();
+		/*
+		 * visualGrid in GameWindow after Canvas initiated 
+		 * but paintComponent already in canvas constructor used
+		 * --> can't set next line in canvas constructor...
+		 */
+		this.visualGrid = this.parentGameWindow.getVisualGrid();
+		int gridScale = this.visualGrid.getGridScale();
 		
+		// Drawing vertices
 		for (Vertex v : graph.getVertices()) {
-			/*
-			 * on grid
-			 */
+			
 			VisualVertex vertex = (VisualVertex) v;
 			g2d.drawImage(
 					vertex.getBufferedImage(),
-					((1 + vertex.getGridPoint().getPositionX()) * horizontalGridScale)
+					((1 + vertex.getGridPoint().getPositionX()) * gridScale)
 							- (this.visualGrid.getVisualVertexSize() / 2),
-					((1 + vertex.getGridPoint().getPositionY()) * verticalGridScale)
+					((1 + vertex.getGridPoint().getPositionY()) * gridScale)
 							- (this.visualGrid.getVisualVertexSize() / 2), 
 							VisualVertex.PIXELS_PER_SIDE,
 							VisualVertex.PIXELS_PER_SIDE, null);

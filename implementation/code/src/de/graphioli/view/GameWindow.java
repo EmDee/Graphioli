@@ -1,6 +1,9 @@
 package de.graphioli.view;
 
 import de.graphioli.controller.ViewManager;
+
+import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.io.File;
 import javax.swing.JFrame;
 
@@ -49,6 +52,8 @@ public class GameWindow extends JFrame implements View {
 	 */
 	public GameWindow(ViewManager viewManager) {
 		this.registerController(viewManager);
+		
+		this.setLayout(new BorderLayout());
 		this.setSize(500, 500);
 		
 		// Initialize and add MenuBar
@@ -58,14 +63,14 @@ public class GameWindow extends JFrame implements View {
 		// Initialize and add GraphCanvas and ViusalGrid
 		this.graphCanvas = new GraphCanvas(this);
 		this.add(this.graphCanvas);
-		this.setSize(500, 300);
+		this.graphCanvas.setSize(500, 300);
 		this.visualGrid = new VisualGrid(this.graphCanvas, this);
 		this.graphCanvas.addMouseListener(this.visualGrid);
-		
+
 		// Initialize and add StatusBar
 		this.statusBar = new StatusBar();
-		this.add(this.statusBar);
-		this.statusBar.setSize(500, 100);
+		this.add(this.statusBar, BorderLayout.SOUTH);
+		this.statusBar.setPreferredSize(new Dimension(this.getWidth(), 25));
 		
 		this.setResizable(false);
 		this.setVisible(true);

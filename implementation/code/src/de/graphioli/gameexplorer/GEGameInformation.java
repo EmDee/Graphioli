@@ -29,7 +29,14 @@ public class GEGameInformation extends JPanel {
 	 */
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * Component for displaying the screenshot of the currently selected game.
+	 */
 	private JLabel screenshotLabel;
+
+	/**
+	 * Component for displaying the description of the currently selected game.
+	 */
 	private JTextArea descriptionLabel;
 
 
@@ -37,9 +44,6 @@ public class GEGameInformation extends JPanel {
 	 * Constructs a new instance of GEGameInformation.
 	 */
 	public GEGameInformation() {
-
-		// Style panel
-		//this.setLayout();
 
 		// Create screenshot label
 		this.screenshotLabel = new JLabel();

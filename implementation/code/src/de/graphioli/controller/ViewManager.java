@@ -57,10 +57,14 @@ public class ViewManager {
 	 * 
 	 * @param gridPoint The GridPoint that was clicked
 	 * @return <code>true</code> if the action was performed successfully, <code>false</code> otherwise
-	 * @todo Implement
 	 */
 	public boolean onGridPointClick(GridPoint gridPoint) {
-		return false;
+		if (this.gameManager.getGameBoard().getGrid().getVisualVertexAtGridPoint(gridPoint) == null) {
+			this.gameManager.getGame().onEmptyGridPointClick(gridPoint);
+		} else {
+			this.gameManager.getGame().onVertexClick(this.gameManager.getGameBoard().getGrid().getVisualVertexAtGridPoint(gridPoint));
+		}
+		return true;
 	}
 
 
