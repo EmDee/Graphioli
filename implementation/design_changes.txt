@@ -1,5 +1,6 @@
 == Vertex ==
 - added vertexState as attribute and VertexState class
+- changed access modifiers of add and remove methods to default
 
 == GameManager
 - added private attribute 'gamePackagePath'
@@ -10,9 +11,17 @@
 
 == Graph
 - added public Edge getEdge(vertexA, vertexB)
+- changed signature of addEdge
 
 == VisualEdge
 - added private attribute 'visible'
 
+== VisualVertex
+- added PIXELS_PER_SIDE
+
 == VisualGrid
 - added attribute GraphCanvas to constructor to get the size of the canvas
+
+== New Classes ==
+- GraphioliLogFormatter
+- GraphioliLoggeer
