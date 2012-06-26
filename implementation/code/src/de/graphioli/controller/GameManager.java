@@ -287,6 +287,15 @@ public class GameManager {
 	}
 	
 	/**
+	 * Returns the {@link Game} associated with this {@link GameManager}.
+	 * 
+	 * @return The Game
+	 */
+	public Game getGame() {
+		return this.game;
+	}
+	
+	/**
 	 * Starts the logging for the framework.
 	 * 
 	 * @return {@code false} when logging could not be started
