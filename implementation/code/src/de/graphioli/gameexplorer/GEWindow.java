@@ -8,7 +8,9 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.logging.Logger;
@@ -321,21 +323,17 @@ public class GEWindow extends JFrame implements GEView, ActionListener, ListSele
 		LOG.finer("GEWindow.<em>getCurrentScreenshot()</em> called.");
 
 		BufferedImage screenshot;
-		String screenshotPath = this.selectedGameDefinition.getScreenshotPath();
-
-		// Build image file path
-		URL screenshotURL = this.getClass().getClassLoader().getResource(screenshotPath); 
-
-		if (screenshotURL == null) {
-			LOG.severe("Could not convert screenshot path to URL: '" + screenshotPath + "'.");
-			return null;
-		}
+		String screenshotPath = "../games/" + this.selectedGameDefinition.getScreenshotPath();
+		InputStream screenshotInputStream = getClass().getResourceAsStream(screenshotPath);
 
 		// Try creating buffered image from path
 		try {
-			screenshot = ImageIO.read(screenshotURL);
+			screenshot = ImageIO.read(screenshotInputStream);
+		} catch (IllegalArgumentException e) {
+			LOG.severe("File does not exist: '" + screenshotPath + "'.");
+			return null;
 		} catch (IOException e) {
-			LOG.severe("Could not read file '" + screenshotURL.toString() + "'.");
+			LOG.severe("Could not read file: '" + screenshotPath + "'.");
 			return null;
 		}
 
@@ -356,6 +354,7 @@ public class GEWindow extends JFrame implements GEView, ActionListener, ListSele
 		// Style window
 		this.setSize(this.windowWidth, this.windowHeight);
 		this.setLayout(new BorderLayout());
+		this.setResizable(false);
 
 		// Generate list pane
 		this.generateListPane();
