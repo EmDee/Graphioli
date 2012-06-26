@@ -76,7 +76,7 @@ public class GameWindow extends JFrame implements View {
 		this.graphCanvas.setSize(500, 300);
 		this.visualGrid = new VisualGrid(this.graphCanvas, this);
 		this.graphCanvas.addMouseListener(this.visualGrid);
-		
+
 		// Initialize and add StatusBar
 		this.statusBar = new StatusBar();
 		this.add(this.statusBar, BorderLayout.SOUTH);

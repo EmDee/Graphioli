@@ -2,6 +2,7 @@ package de.graphioli.view;
 
 import de.graphioli.model.Grid;
 import de.graphioli.model.GridPoint;
+import de.graphioli.model.VisualVertex;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -34,14 +35,9 @@ public class VisualGrid implements MouseListener {
 	private int visualVertexSize;
 	
 	/**
-	 * The horizontal distance of two {@link GridPoint}s in the {@link GraphCanvas}
+	 * The distance of two {@link GridPoint}s in the {@link GraphCanvas}
 	 */
-	private int horizontalGridScale;
-
-	/**
-	 * The vertical distance of two {@link GridPoint}s in the {@link GraphCanvas}
-	 */
-	private int verticalGridScale;
+	private int gridScale;
 	
 	/**
 	 * Creates a {@link VisualGrid} and registers its parent {@link GameWindow}.
@@ -52,8 +48,8 @@ public class VisualGrid implements MouseListener {
 		this.parentGameWindow = parentGameWindow;
 		this.graphCanvas = graphCanvas;
 		this.grid = this.parentGameWindow.getViewManager().getGameManager().getGameBoard().getGrid();
-		this.horizontalGridScale = this.graphCanvas.getWidth() / (this.grid.getHorizontalGridPoints() + 1);
-		this.verticalGridScale = this.graphCanvas.getHeight() / (this.grid.getVerticalGridPoints() + 1);
+		// default gridScale based on VertexSize for now
+		this.gridScale = (int) (VisualVertex.PIXELS_PER_SIDE + 5);
 	}
 	
 	
@@ -65,8 +61,14 @@ public class VisualGrid implements MouseListener {
 	 * @return GridPoint The {@link GridPoint} to the responsible mouse click coordinates
 	 */
 	public GridPoint parseCoordinates(int xCoord, int yCoord) {
-		int xpos = (int) ((xCoord / this.horizontalGridScale) - 1);
-		int ypos = (int) ((yCoord / this.verticalGridScale) - 1);
+		int xpos = Math.round(xCoord / this.gridScale);
+		int ypos = Math.round(yCoord / this.gridScale);
+		if (((xpos * this.gridScale + VisualVertex.PIXELS_PER_SIDE) > xCoord) 
+				&& ((xpos * this.gridScale - VisualVertex.PIXELS_PER_SIDE) < xCoord)
+				&& ((ypos * this.gridScale + VisualVertex.PIXELS_PER_SIDE) > yCoord)
+				&& ((ypos * this.gridScale - VisualVertex.PIXELS_PER_SIDE) < yCoord)) {
+			return new GridPoint(xpos - 1, ypos - 1);
+		}
 		return null;
 	}
 
@@ -77,19 +79,7 @@ public class VisualGrid implements MouseListener {
 	 * @return <code>true</code> if the action was performed successfully, <code>false</code> otherwise
 	 */
 	public boolean setVisualVertexSize(int size) {
-		if (this.horizontalGridScale < this.verticalGridScale) {
-			if (size >= this.horizontalGridScale) {
-				return false;
-			} else {
-				this.visualVertexSize = size;
-			}
-		} else {
-			if (size >= this.verticalGridScale) {
-				return false;
-			} else {
-				this.visualVertexSize = size;
-			}
-		}
+		this.visualVertexSize = size;
 		return true;
 	}
 	
@@ -112,21 +102,12 @@ public class VisualGrid implements MouseListener {
 	}
 
 	/**
-	 * Returns the horizontal grid scale
+	 * Returns the gridScale
 	 * 
-	 * @return int horizontalGridScale
+	 * @return The gridScale
 	 */
-	public int getHorizontalGridScale() {
-		return horizontalGridScale;
-	}
-
-	/**
-	 * Returns the vertical grid scale
-	 * 
-	 * @return int The verticalGridScale
-	 */
-	public int getVerticalGridScale() {
-		return verticalGridScale;
+	public int getGridScale() {
+		return gridScale;
 	}
 
 	/**
