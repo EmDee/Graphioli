@@ -69,7 +69,7 @@ public class GameWindow extends JFrame implements View {
 		
 		// Initialize and add MenuBar
 		this.menuBar = new MenuBar(this);
-		this.add(this.menuBar);
+		this.setJMenuBar(this.menuBar);
 		
 		// Initialize and add GraphCanvas and ViusalGrid
 		this.graphCanvas = new GraphCanvas(this);
