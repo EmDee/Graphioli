@@ -1,8 +1,14 @@
 package de.graphioli.gameexplorer;
 
-import java.net.URI;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.logging.Logger;
+
+import com.google.gson.Gson;
+import com.google.gson.JsonIOException;
+import com.google.gson.JsonSyntaxException;
 
 import de.graphioli.controller.GameManager;
 import de.graphioli.model.Player;
@@ -10,7 +16,8 @@ import de.graphioli.model.Player;
 /**
  * This has mock-up functionalities!
  * 
- * The GameExplorer lists the available games and enables the user to select and start one of it.
+ * The GameExplorer lists the available games and enables the user to select and
+ * start one of it.
  * 
  * @author Graphioli
  */
@@ -32,30 +39,23 @@ public class GameExplorer {
 	private ArrayList<GameDefinition> gameDefinitions = new ArrayList<GameDefinition>();
 
 	/**
-	 * The implementation of the {@link GEView} interface that this GameExplorer uses.
+	 * The implementation of the {@link GEView} interface that this GameExplorer
+	 * uses.
 	 */
 	private GEView view;
-
 
 	/**
 	 * Creates a new {@link GameExplorer}.
 	 * 
-	 * @param gameManager The controlling {@link GameManager} for this GameExplorer.
+	 * @param gameManager
+	 *            The controlling {@link GameManager} for this GameExplorer.
 	 */
 	public GameExplorer(GameManager gameManager) {
 
 		this.gameManager = gameManager;
 
-		// Instantiate mock-up GameDefinition
-		GameDefinition gameDefinition1 = new GameDefinition("VisualVertexTestGame", 1, 2, "dummy/path/to/game.class",
-				"Fake description for test game", "VisualVertexTestGame", "screenshot1.jpg",
-				"dummy/path/to/localization/file.txt", URI.create("http://supergame.io/help.html"), 8, 8, true);
-		this.gameDefinitions.add(gameDefinition1);
-
-		GameDefinition gameDefinition2 = new GameDefinition("Test Game 2", 1, 2, "dummy/path/to/game.class",
-				"Fake description for test game 2", "GameTest", "screenshot2.jpg",
-				"dummy/path/to/localization/file.txt", URI.create("http://supergame2.io/help.html"), 8, 8, true);
-		this.gameDefinitions.add(gameDefinition2);
+		// scan game folder and create GameDefinitions
+		this.scanGameFolderAndCreateGameDefinitions();
 
 		// Initialize GEWindow (implementation of GEView)
 		this.view = new GEWindow();
@@ -64,47 +64,85 @@ public class GameExplorer {
 
 	}
 
-
 	/**
-	 * Parses a {@link GameDefinition} from a specified JSONObject.
+	 * Creates {@link GameDefinition} from a given path to the json file.
 	 * 
-	 * @param jsonData
-	 * @return the parsed GameDefinition
+	 * @param jsonPath
+	 *            path to the json file
+	 * @return the {@link GameDefinition}
 	 */
-	//private GameDefinition createGameDefinitionFromJSON(JSONObject jsonData) {}
-
+	private GameDefinition createGameDefinitionFromJSON(String jsonPath) {
+		File json = new File(jsonPath);
+		GameDefinition gameDefinition = null;
+		try {
+			gameDefinition = new Gson().fromJson(new FileReader(json), GameDefinition.class);
+		} catch (JsonSyntaxException e) {
+			LOG.severe("JsonSyntaxException: " + e.getMessage());
+			e.printStackTrace();
+		} catch (JsonIOException e) {
+			LOG.severe("JsonIOException: " + e.getMessage());
+			e.printStackTrace();
+		} catch (FileNotFoundException e) {
+			LOG.severe("FileNotFoundException: " + e.getMessage());
+			e.printStackTrace();
+		}
+		return gameDefinition;
+	}
 
 	/**
-	 * Scans the game folder for games and returns the {@link GameDefinition}s of the games in it.
+	 * Scans the game folder for games, creates {@link GameDefinition}s and adds
+	 * these to the gameDefinition's list.
 	 * 
 	 * @return {@link GameDefinition}s of the games in the parsed folder.
 	 */
-	//private ArrayList<GameDefinition> scanGameFolder() {}
+	private void scanGameFolderAndCreateGameDefinitions() {
 
+		File gamesDirectory = new File("src/games/");
+		System.out.println("gamesDirectory: " + gamesDirectory);
+		String pathToPropertyFile = new String();
+		GameDefinition gameDefinition;
+
+		// TODO: Different path for different environments
+		for (File tmpGame : gamesDirectory.listFiles()) {
+			if (tmpGame.isDirectory()) {
+				System.out.println("tmpGame: " + tmpGame.getName());
+				pathToPropertyFile = (tmpGame.getName() + "/properties.json");
+				gameDefinition = this.createGameDefinitionFromJSON("src/games/" + pathToPropertyFile);
+				if (gameDefinition != null) {
+					this.gameDefinitions.add(gameDefinition);
+				}
+			}
+		}
+	}
 
 	/**
-	 * Calls the {@link GameManager} to start the game of the given {@link GameDefinition} and
-	 * with the given {@link Player}s.
+	 * Calls the {@link GameManager} to start the game of the given
+	 * {@link GameDefinition} and with the given {@link Player}s.
 	 * 
-	 * @param gameDefinition The GameDefinition of the selected game.
-	 * @param players The list of players.
-	 * @return <code>true</code> if the action was performed successfully, <code>false</code> otherwise
+	 * @param gameDefinition
+	 *            The GameDefinition of the selected game.
+	 * @param players
+	 *            The list of players.
+	 * @return <code>true</code> if the action was performed successfully,
+	 *         <code>false</code> otherwise
 	 */
 	public boolean selectGame(GameDefinition gameDefinition, ArrayList<Player> players) {
 
 		LOG.finer("GameExplorer.<em>selectGame([...])</em> called.");
 
-		// Forward call to GameManager with the selected GameDefinition and Players
+		// Forward call to GameManager with the selected GameDefinition and
+		// Players
 		return this.gameManager.startGame(gameDefinition, players);
 
 	}
 
-
 	/**
 	 * Opens the help file of the given {@link GameDefinition}.
 	 * 
-	 * @param gameDefinition The selected GameDefinition
-	 * @return <code>true</code> if the action was performed successfully, <code>false</code> otherwise
+	 * @param gameDefinition
+	 *            The selected GameDefinition
+	 * @return <code>true</code> if the action was performed successfully,
+	 *         <code>false</code> otherwise
 	 */
 	public boolean openHelpFile(GameDefinition gameDefinition) {
 		// TODO implementation
@@ -116,7 +154,6 @@ public class GameExplorer {
 
 	}
 
-
 	/**
 	 * Returns the list of {@link GameDefinition}s of this {@link GameExplorer}.
 	 * 
@@ -126,11 +163,12 @@ public class GameExplorer {
 		return this.gameDefinitions;
 	}
 
-
 	/**
-	 * Returns the {@link GameDefinition} at the specific index in the list of GameDefinitions.
+	 * Returns the {@link GameDefinition} at the specific index in the list of
+	 * GameDefinitions.
 	 * 
-	 * @param index The index of the GameDefinition in the list
+	 * @param index
+	 *            The index of the GameDefinition in the list
 	 * @return the {@link GameDefinition} at the specific index
 	 */
 	public GameDefinition getGameDefinitionAtIndex(int index) {

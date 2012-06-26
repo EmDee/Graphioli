@@ -93,35 +93,7 @@ public class GameDefinition {
 	 * @param verticalGridPointCount The number of vertical grid points
 	 * @param isDirectedGraph Whether the {@link Graph} of the game is directed or not
 	 */
-	public GameDefinition(String name,
-			int minPlayerCount,
-			int maxPlayerCount,
-			String gamePath,
-			String description,
-			String className,
-			String screenshotPath,
-			String localizationFilePath,
-			URI helpFile,
-			//ArrayList<MenuItem> menu,
-			int horizontalGridPointCount,
-			int verticalGridPointCount,
-			boolean isDirectedGraph) {
-
-		this.name = name;
-		this.minPlayerCount = minPlayerCount;
-		this.maxPlayerCount = maxPlayerCount;
-		this.gamePath = gamePath;
-		this.description = description;
-		this.className = className;
-		this.screenshotPath = screenshotPath;
-		this.localizationFilePath = localizationFilePath;
-		this.helpFile = helpFile;
-		//this.menu = menu;
-		this.horizontalGridPointCount = horizontalGridPointCount;
-		this.verticalGridPointCount = verticalGridPointCount;
-		this.isDirectedGraph = isDirectedGraph;
-
-	}
+	private GameDefinition() { };
 
 
 	/**
