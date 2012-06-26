@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 
 /**
  * The {@link MenuBar} contains the game menu, options menu and help menu. It is
@@ -43,9 +44,7 @@ public class MenuBar extends JMenuBar implements ActionListener {
 	 */
 	public MenuBar(GameWindow parentGameWindow) {
 		this.parentGameWindow = parentGameWindow;
-		this.gameMenu = new JMenu();
-		this.optionsMenu = new JMenu();
-		this.helpMenu = new JMenu();
+		this.createMenus();
 		// TODO create menus...
 	}
 
@@ -56,6 +55,22 @@ public class MenuBar extends JMenuBar implements ActionListener {
 	 *         <code>false</code> otherwise
 	 */
 	private boolean createMenus() {
+		this.gameMenu = new JMenu("Game");
+		this.optionsMenu = new JMenu("Options");
+		this.helpMenu = new JMenu("Help");
+		
+		JMenuItem saveItem = new JMenuItem("Save");
+		JMenuItem loadItem = new JMenuItem("Load");
+		JMenuItem quitItem = new JMenuItem("Quit");
+		
+		this.gameMenu.add(saveItem);
+		this.gameMenu.add(loadItem);
+		this.gameMenu.add(quitItem);
+		
+		this.add(gameMenu);
+		this.add(optionsMenu);
+		this.add(helpMenu);
+		
 		return true;
 	}
 
