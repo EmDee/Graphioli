@@ -42,9 +42,15 @@ public class SimpleVisualVertex extends VisualVertex {
 	protected boolean draw(Graphics2D graphics) {
 		graphics.setStroke(stroke);
 		graphics.setColor(fillColor);
-		graphics.fillOval(0, 0, 74, 74);
+		graphics.fillOval(0, 0, PIXELS_PER_SIDE - 1, PIXELS_PER_SIDE - 1);
+		
+		// Draw Stroke
 		graphics.setColor(strokeColor);
-		graphics.drawOval(0, 0, 74, 74);
+		graphics.drawOval(0 + (strokeWeight - 1) / 2,
+				0 + (strokeWeight - 1) / 2,
+				(PIXELS_PER_SIDE - 1) - (strokeWeight - 1) ,
+				(PIXELS_PER_SIDE - 1) - (strokeWeight - 1) );
+		
 		return true;
 	}
 
