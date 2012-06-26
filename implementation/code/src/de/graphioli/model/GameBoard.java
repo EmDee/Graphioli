@@ -42,9 +42,10 @@ public class GameBoard {
 	}
 
 	/**
+	 * Adds the given {@link VisualVertex} to the {@link Graph} and the {@link Grid}.
 	 * 
-	 * @param visualVertex
-	 * @return
+	 * @param visualVertex the VisualVertex to be added
+	 * @return {@code true} if the adding was successful
 	 */
 	public boolean addVisualVertex(VisualVertex visualVertex) {
 		if (this.grid.addVisualVertexToGrid(visualVertex)) {
@@ -58,9 +59,10 @@ public class GameBoard {
 	
 	
 	/**
+	 * Adds the given VisualVertices to the {@link Graph} and the {@link Grid}.
 	 * 
-	 * @param visualVertices
-	 * @return
+	 * @param visualVertices an ArrayList of the VisualVertices to be added
+	 * @return {@code true} if the adding was successful
 	 */
 	public boolean addVisualVertices(ArrayList<VisualVertex> visualVertices) {
 		for (VisualVertex vertex : visualVertices) {
@@ -72,10 +74,11 @@ public class GameBoard {
 	}
 	
 	/**
+	 * Creates the {@link VisualEdge} with the given vertices and adds it to the {@link Graph} and the {@link Grid}.
 	 * 
-	 * @param vertexA
-	 * @param vertexB
-	 * @return
+	 * @param vertexA one of the the vertices for the VisualEdge
+	 * @param vertexB the other vertex for the VisualEdge
+	 * @return the created {@link VisualEdge}
 	 */
 	public VisualEdge addVisualEdge(VisualVertex vertexA, VisualVertex vertexB) {
 		SimpleVisualEdge edgeToAdd = new SimpleVisualEdge(vertexA, vertexB);
@@ -96,9 +99,10 @@ public class GameBoard {
 	}
 	
 	/**
+	 * Removes the {@link VisualVertex} from the the {@link Graph} and the {@link Grid}.
 	 * 
-	 * @param visualVertex
-	 * @return
+	 * @param visualVertex the {@link VisualVertex} to be removed
+	 * @return {@code true} if the removing was successful
 	 */
 	public boolean removeVisualVertex(VisualVertex visualVertex) {
 		if (this.grid.removeVisualVertexAtGridPoint(visualVertex.getGridPoint())) {
@@ -111,9 +115,10 @@ public class GameBoard {
 	}
 	
 	/**
+	 * Removes the given {@link VisualEdge} from the the {@link Graph} and the {@link Grid}.
 	 * 
-	 * @param visualEdge
-	 * @return
+	 * @param visualEdge the {@link VisualEdge} to be removed
+	 * @return {@code true} if the removing was successful
 	 */
 	public boolean removeVisualEdge(VisualEdge visualEdge) {
 		if (this.graph.removeEdge(visualEdge)) {
@@ -132,10 +137,12 @@ public class GameBoard {
 	}
 	
 	/**
+	 * Returns the {@link VisualEdge} with vertexA as origin and vertexB as target vertex
+	 * In an undirected graph, it returns visible one of the twin edges
 	 * 
-	 * @param vertexA
-	 * @param vertexB
-	 * @return
+	 * @param vertexA the origin vertex of the edge to get
+	 * @param vertexB the target vertex of the edge to get
+	 * @return the edge from vertexA to vertexB (resp. in an undirected graph, the visible one of the twin edges
 	 */
 	public VisualEdge getVisualEdge(VisualVertex vertexA, VisualVertex vertexB) {
 		VisualEdge edge = (VisualEdge) this.graph.getEdge(vertexA, vertexB);
