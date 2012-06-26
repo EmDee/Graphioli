@@ -320,6 +320,8 @@ public class GEWindow extends JFrame implements GEView, ActionListener, ListSele
 		LOG.finer("GEWindow.<em>getCurrentScreenshot()</em> called.");
 
 		BufferedImage screenshot;
+
+		// TODO Get path (currently ../../../games/) from environment (eg. production and development)
 		String screenshotPath = "../../../games/"
 				+ this.selectedGameDefinition.getClassName() + "/screenshot.jpg";
 		InputStream screenshotInputStream = getClass().getResourceAsStream(screenshotPath);

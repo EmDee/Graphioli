@@ -153,6 +153,7 @@ public class GameManager {
 			}
 
 			// Create jarBall file pointer to specific game class
+			// TODO Get path (currently /src/games/) from environment (eg. production and development)
 			File jarBall = new File(canonicalPath + "/src/games/" + gameDefinition.getClassName() + "/");
 			URL[] urls = new URL[1];
 
