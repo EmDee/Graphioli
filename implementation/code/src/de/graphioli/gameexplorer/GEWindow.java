@@ -4,17 +4,18 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.logging.Logger;
-
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-import de.graphioli.controller.GameManager;
 import de.graphioli.model.Player;
 
 /**
@@ -91,6 +92,8 @@ public class GEWindow extends JFrame implements GEView, ActionListener, ListSele
 		LOG.finer("GEWindow.<em>generateView()</em> called.");
 
 		if (!this.isGameExplorerRegistered()) {
+			LOG.severe("Cannot generate view: No GameExplorer registered. Please call "
+					+ "<em>registerController([...])</em> first.");
 			return false;
 		}
 
@@ -98,48 +101,12 @@ public class GEWindow extends JFrame implements GEView, ActionListener, ListSele
 		this.gameDefinitionList = new GameDefinitionListModel(gameDefinitions);
 
 		if (this.gameDefinitionList.getSize() < 1) {
+			LOG.severe("Cannot generate view: Empty list of GameDefinitions.");
 			return false;
 		}
 
-		// Show window
-		this.setSize(this.windowWidth, this.windowHeight);
-		this.setLayout(new BorderLayout());
-
-		// Add scrollable list of GameDefinitions
-		JList visibleGameDefinitionList = new JList(this.gameDefinitionList);
-		visibleGameDefinitionList.addListSelectionListener(this);
-		JScrollPane visibleGameDefinitionListPane = new JScrollPane(visibleGameDefinitionList);
-		visibleGameDefinitionListPane.setBackground(Color.BLACK);
-		this.add(visibleGameDefinitionListPane, BorderLayout.LINE_START);
-
-
-		/*
-		 * Button Panel
-		 */
-		JPanel visibleButtonPanel = new JPanel();
-		
-		// Button: Start
-		JButton startButton = new JButton("Start");
-		startButton.addActionListener(this);
-		visibleButtonPanel.add(startButton);
-
-		// Button: Help
-		JButton helpButton = new JButton("Help");
-		helpButton.addActionListener(this);
-		visibleButtonPanel.add(helpButton);
-
-		// Button: Quit
-		JButton quitButton = new JButton("Quit");
-		quitButton.addActionListener(this);
-		visibleButtonPanel.add(quitButton);
-
-		this.add(visibleButtonPanel, BorderLayout.PAGE_END);
-
-
-		/*
-		 * Show window
-		 */
-		this.setVisible(true);
+		// Generate visual window
+		this.generateWindow();
 
 		return true;
 
@@ -159,7 +126,9 @@ public class GEWindow extends JFrame implements GEView, ActionListener, ListSele
 
 		// Get new selected GameDefinition
 		JList sourceList = (JList) event.getSource();
-		this.selectedGameDefinition = (GameDefinition) sourceList.getSelectedValue();
+
+		// Notify relevant dependencies about the selection
+		this.selectGameDefinition((GameDefinition) sourceList.getSelectedValue());
 
 		LOG.fine("New GameDefinition '" + this.selectedGameDefinition.toString() + "' selected.");
 
@@ -182,29 +151,19 @@ public class GEWindow extends JFrame implements GEView, ActionListener, ListSele
 
 		LOG.fine("Button '" + sourceButton.getText() + "' clicked.");
 
+		// Choose button action
+		// TODO find nicer way than comparing button text (eg. inherited buttons)
 		if (sourceButton.getText().equals("Start")) {
 
-			if (this.isGameDefinitionSelected()) {
-				this.openPlayerPopUp();
-			} else {
-				// TODO fallback dialog
-				System.out.println("Please select a game from the list.");
-			}
+			this.openPlayerPopUp();
 
 		} else if (sourceButton.getText().equals("Help")) {
 
-			if (this.isGameDefinitionSelected()) {
-				this.openHelpFile();
-			} else {
-				// TODO fallback dialog
-				System.out.println("Please select a game from the list.");
-			}
+			this.openHelpFile();
 
 		} else if (sourceButton.getText().equals("Quit")) {
 
-			// TODO implement GameExplorer#quit()
-			//this.quitGameExplorer();
-			System.exit(0);
+			this.closeGameExplorer();
 
 		}
 
@@ -221,10 +180,11 @@ public class GEWindow extends JFrame implements GEView, ActionListener, ListSele
 	 */
 	public boolean openHelpFile() {
 
-		LOG.info("GEWindow.<em>openHelpFile()</em> called.");
+		LOG.fine("GEWindow.<em>openHelpFile()</em> called.");
 
 		if (!isGameDefinitionSelected()
 				|| !this.isGameExplorerRegistered()) {
+			LOG.severe("Cannot open help file: No GameExplorer registered or no GameDefinition selected.");
 			return false;
 		}
 
@@ -270,6 +230,7 @@ public class GEWindow extends JFrame implements GEView, ActionListener, ListSele
 				|| players.isEmpty()
 				|| !this.isGameDefinitionSelected()
 				|| !this.isGameExplorerRegistered()) {
+			LOG.severe("Cannot start game: No GameExplorer registered or no valid players committed.");
 			return false;
 		}
 
@@ -283,7 +244,20 @@ public class GEWindow extends JFrame implements GEView, ActionListener, ListSele
 
 
 	/**
+	 * Performs the required steps after a GameDefinition has been selected from the list.
+	 * 
+	 * @param selectedGameDefinition The newly selected GameDefinition
+	 */
+	private void selectGameDefinition(GameDefinition selectedGameDefinition) {
+
+		this.selectedGameDefinition = selectedGameDefinition;
+
+	}
+
+
+	/**
 	 * Returns <code>true</code> if a {@link GameDefinition} is currently selected.
+	 * 
 	 * @return <code>true</code> if a {@link GameDefinition} is currently selected, <code>false</code> otherwise
 	 */
 	private boolean isGameDefinitionSelected() {
@@ -293,10 +267,124 @@ public class GEWindow extends JFrame implements GEView, ActionListener, ListSele
 
 	/**
 	 * Returns <code>true</code> if a controlling {@link GameExplorer} is registered.
+	 * 
 	 * @return <code>true</code> if a controlling {@link GameExplorer} is registered, <code>false</code> otherwise
 	 */
 	private boolean isGameExplorerRegistered() {
 		return this.gameExplorer != null;
+	}
+
+
+	/**
+	 * Generates the visible window consisting of several swing components.
+	 */
+	private void generateWindow() {
+
+		// Add window listener for closing attempts
+		this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE); 
+		this.addWindowListener(new CloseListener());
+
+		// Style window
+		this.setSize(this.windowWidth, this.windowHeight);
+		this.setLayout(new BorderLayout());
+
+		// Generate list pane
+		this.generateListPane();
+
+		// Generate button panel
+		this.generateButtonPanel();
+
+		// Show window
+		this.setVisible(true);
+
+	}
+
+
+	/**
+	 * Generates the list pane that shows the available GameDefinitions.
+	 */
+	private void generateListPane() {
+
+		JList visibleGameDefinitionList = new JList(this.gameDefinitionList);
+		visibleGameDefinitionList.addListSelectionListener(this);
+
+		// Set list selection mode to 'single selection'
+		visibleGameDefinitionList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
+		// Make first index selected
+		visibleGameDefinitionList.setSelectedIndex(0);
+
+		JScrollPane visibleGameDefinitionListPane = new JScrollPane(visibleGameDefinitionList);
+
+		// Style list pane
+		visibleGameDefinitionListPane.setBackground(Color.BLACK);
+
+		// Add list pane to window
+		this.add(visibleGameDefinitionListPane, BorderLayout.LINE_START);
+
+	}
+
+
+	/**
+	 * Generates the buttons that allow to start a game, show the help file or quit the GameExplorer.
+	 */
+	private void generateButtonPanel() {
+
+		JPanel visibleButtonPanel = new JPanel();
+		
+		// Button: Start
+		JButton startButton = new JButton("Start");
+		startButton.addActionListener(this);
+		visibleButtonPanel.add(startButton);
+
+		// Button: Help
+		JButton helpButton = new JButton("Help");
+		helpButton.addActionListener(this);
+		visibleButtonPanel.add(helpButton);
+
+		// Button: Quit
+		JButton quitButton = new JButton("Quit");
+		quitButton.addActionListener(this);
+		visibleButtonPanel.add(quitButton);
+
+		// Add button panel to window
+		this.add(visibleButtonPanel, BorderLayout.PAGE_END);
+
+	}
+
+
+	/**
+	 * Closes this GameExplorer window.
+	 */
+	private void closeGameExplorer() {
+		// TODO implement
+
+		LOG.finer("GEWindow.<em>closeGameExplorer()</em> called.");
+
+		System.out.println("Exit GameExplorer...");
+
+		LOG.fine("Closing GameExplorer window.");
+
+		System.exit(0);
+
+	}
+
+
+	/**
+	 * Listens for closing attempts performed by the main GEWindow.
+	 * 
+	 * @author Graphioli
+	 */
+	private class CloseListener extends WindowAdapter {
+
+		/**
+		 * Acts on closing attempts performed by the main GEWindow.
+		 */
+		@Override
+		public void windowClosing(WindowEvent e) { 
+			GEWindow.this.closeGameExplorer();
+		}
+
 	}
 
 }
