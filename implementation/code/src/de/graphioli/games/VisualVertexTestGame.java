@@ -32,7 +32,6 @@ public class VisualVertexTestGame extends Game {
 	@Override
 	protected boolean onVertexClick(VisualVertex vertex) {
 		((SimpleVisualVertex) vertex).setFillColor(Color.BLUE);
-		System.out.println("vertex modified");
 		return true;
 	}
 
@@ -41,7 +40,6 @@ public class VisualVertexTestGame extends Game {
 		SimpleVisualVertex simple = new SimpleVisualVertex(gridPoint);
 		simple.setFillColor(Color.BLACK);
 		this.getGameManager().getGameBoard().addVisualVertex(simple);
-		System.out.println("empty grid point modified");
 		return true;
 	}
 
