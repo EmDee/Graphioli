@@ -6,6 +6,7 @@ import java.awt.Font;
 import java.awt.image.BufferedImage;
 import java.util.logging.Logger;
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
@@ -103,7 +104,14 @@ public class GEGameInformation extends JPanel {
 
 		LOG.finer("GEGameInformation.<em>setScreenshot([...])</em> called.");
 
-		// TODO implement
+		if (screenshot != null) {
+			this.screenshotLabel.setIcon(new ImageIcon(screenshot));
+		} else {
+			// Remove image
+			this.screenshotLabel.setIcon(null);
+		}
+
+		this.screenshotLabel.revalidate();
 
 		LOG.fine("Display of screenshot updated.");
 		return false;
