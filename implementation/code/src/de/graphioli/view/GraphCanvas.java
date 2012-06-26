@@ -77,11 +77,11 @@ public class GraphCanvas extends JPanel {
 							- (this.visualGrid.getVisualVertexSize() / 2),
 					((1 + vertex.getGridPoint().getPositionY()) * verticalGridScale)
 							- (this.visualGrid.getVisualVertexSize() / 2), 
-							this.visualGrid.getVisualVertexSize(),
-							this.visualGrid.getVisualVertexSize(), null);
+							VisualVertex.PIXELS_PER_SIDE,
+							VisualVertex.PIXELS_PER_SIDE, null);
 
 		}
-		
+		/*
 		// Drawing edges of the graph
 		for(Edge edge: graph.getEdges()) {
 			
@@ -113,8 +113,8 @@ public class GraphCanvas extends JPanel {
 			}
 			
 			// Draw VisualEdge
-			g2d.drawImage(((VisualEdge) edge).getBufferedImage(), xpos, ypos, xsize, ysize, null);
+			g2d.drawImage(((VisualEdge) edge).getBufferedImage(), xpos, ypos, xsize, ysize, null); 
 
-		}
+		} */
 	}
 }
