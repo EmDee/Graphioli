@@ -10,3 +10,6 @@
 
 == Graph
 - added public Edge getEdge(vertexA, vertexB)
+
+== VisualEdge
+- added private attribute 'visible'
