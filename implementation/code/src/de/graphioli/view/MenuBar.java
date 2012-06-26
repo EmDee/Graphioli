@@ -63,6 +63,10 @@ public class MenuBar extends JMenuBar implements ActionListener {
 		JMenuItem loadItem = new JMenuItem("Load");
 		JMenuItem quitItem = new JMenuItem("Quit");
 		
+		saveItem.addActionListener(this);
+		loadItem.addActionListener(this);
+		quitItem.addActionListener(this);
+		
 		this.gameMenu.add(saveItem);
 		this.gameMenu.add(loadItem);
 		this.gameMenu.add(quitItem);
@@ -83,7 +87,20 @@ public class MenuBar extends JMenuBar implements ActionListener {
 	 */
 	@Override
 	public void actionPerformed(ActionEvent event) {
-		// TODO Auto-generated method stub
+		
+		JMenuItem sourceItem = (JMenuItem) event.getSource();
+		
+		if (sourceItem.getText().equals("Save")) {
+			this.parentGameWindow.saveFileDialog();
+		}
+		
+		if (sourceItem.getText().equals("Load")) {
+			this.parentGameWindow.openFileDialog();
+		}
+		
+		if (sourceItem.getText().equals("Quit")) {
+			
+		}
 
 	}
 

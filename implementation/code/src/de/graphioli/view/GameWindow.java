@@ -8,6 +8,7 @@ import java.io.File;
 import java.util.logging.Logger;
 
 import javax.swing.JFrame;
+import javax.swing.JFileChooser;
 
 import de.graphioli.model.Player;
 
@@ -218,6 +219,12 @@ public class GameWindow extends JFrame implements View {
 	 * @return The file of saved game to load
 	 */
 	public File openFileDialog() {
+		JFileChooser fc = new JFileChooser();
+		int returnVal = fc.showOpenDialog(this);
+		if (returnVal == JFileChooser.APPROVE_OPTION) {
+			LOG.info("Selected file to load: " + fc.getSelectedFile().getName());
+			return fc.getSelectedFile();
+		}
 		return null;
 
 	}
@@ -228,6 +235,12 @@ public class GameWindow extends JFrame implements View {
 	 * @return The file the game should be saved
 	 */
 	public File saveFileDialog() {
+		JFileChooser fc = new JFileChooser();
+		int returnVal = fc.showSaveDialog(this);
+		if (returnVal == JFileChooser.APPROVE_OPTION) {
+			LOG.info("Selected file to save: " + fc.getSelectedFile().getName());
+			return fc.getSelectedFile();
+		}
 		return null;
 
 	}
