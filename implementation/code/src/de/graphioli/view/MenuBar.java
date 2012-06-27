@@ -17,6 +17,11 @@ import javax.swing.JMenuItem;
 public class MenuBar extends JMenuBar implements ActionListener {
 
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
 	 * The game menu
 	 */
 	private JMenu gameMenu;
@@ -63,13 +68,18 @@ public class MenuBar extends JMenuBar implements ActionListener {
 		JMenuItem loadItem = new JMenuItem("Load");
 		JMenuItem quitItem = new JMenuItem("Quit");
 		
+		JMenuItem helpFile = new JMenuItem("Open Help File");
+		
 		saveItem.addActionListener(this);
 		loadItem.addActionListener(this);
 		quitItem.addActionListener(this);
+		helpFile.addActionListener(this);
 		
 		this.gameMenu.add(saveItem);
 		this.gameMenu.add(loadItem);
 		this.gameMenu.add(quitItem);
+		
+		this.helpMenu.add(helpFile);
 		
 		this.add(gameMenu);
 		this.add(optionsMenu);
@@ -100,6 +110,10 @@ public class MenuBar extends JMenuBar implements ActionListener {
 		
 		if (sourceItem.getText().equals("Quit")) {
 			this.parentGameWindow.getViewManager().getGameManager().closeGame();
+		}
+		
+		if (sourceItem.getText().equals("Open Help File")) {
+			this.parentGameWindow.getViewManager().getGameManager().openHelpFile();
 		}
 
 	}
