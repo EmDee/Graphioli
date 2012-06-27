@@ -125,7 +125,7 @@ public class PlayerPopUp extends JFrame {
 			// Only accept valid player names
 			if (playerName != null
 					&& !playerName.isEmpty()
-					&& Validation.isValidPlayerName(playerName)) {
+					&& Validation.isValidPlayerName(inputPlayerName)) {
 				playerName = inputPlayerName;
 			} else {
 				JOptionPane.showMessageDialog(this,
