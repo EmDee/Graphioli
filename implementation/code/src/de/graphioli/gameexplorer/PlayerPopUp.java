@@ -203,12 +203,12 @@ public class PlayerPopUp extends JFrame {
 
 		// Ask for user input
 		String input = (String) JOptionPane.showInputDialog(this,
-                message,
-                "Game Explorer",
-                JOptionPane.PLAIN_MESSAGE,
-                null,
-                availableOptions,
-                selectedOption);
+				message,
+				this.geWindow.getTitle(),
+				JOptionPane.PLAIN_MESSAGE,
+				null,
+				availableOptions,
+				selectedOption);
 
 		return input;
 
@@ -224,9 +224,9 @@ public class PlayerPopUp extends JFrame {
 	private boolean showConfirmDialog(String message) {
 
 		int confirmChoice = JOptionPane.showConfirmDialog(this,
-			    message,
-			    "Game Explorer",
-			    JOptionPane.YES_NO_OPTION);
+				message,
+				this.geWindow.getTitle(),
+				JOptionPane.YES_NO_OPTION);
 
 		// confirmChoice == 0: Yes
 		// confirmChoice == 1: No
@@ -242,9 +242,9 @@ public class PlayerPopUp extends JFrame {
 	 */
 	private void showMessageDialog(String message) {
 		JOptionPane.showMessageDialog(this,
-			    message,
-			    "Game Explorer",
-			    JOptionPane.WARNING_MESSAGE);
+				message,
+				this.geWindow.getTitle(),
+				JOptionPane.WARNING_MESSAGE);
 	}
 
 }
