@@ -1,12 +1,12 @@
 {
 
-   "name":"GameTest",
+   "name":"GraphColoring",
 
    "className":"GameTest",
 
-   "description":"This is a first game",
+   "description":"This is the description for the GraphColoring game.",
 
-   "helpFile":"../helpFile.pdf",
+   "helpFile":"http://en.wikipedia.org/wiki/Graph_coloring",
 
    "maxPlayerCount":1,
 

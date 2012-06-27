@@ -1,12 +1,12 @@
 {
 
-   "name":"VisualVertexTestGame",
+   "name":"TwixT",
 
    "className":"VisualVertexTestGame",
 
-   "description":"This is a description for the another game",
+   "description":"This is the description for the TwixT game.",
 
-   "helpFile":"../helpFile.pdf",
+   "helpFile":"http://en.wikipedia.org/wiki/TwixT",
 
    "maxPlayerCount":1,
 

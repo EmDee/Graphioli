@@ -3,6 +3,7 @@ package de.graphioli.gameexplorer;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.Logger;
 
@@ -12,7 +13,6 @@ import com.google.gson.JsonSyntaxException;
 
 import de.graphioli.controller.GameManager;
 import de.graphioli.model.Player;
-
 
 /**
  * This has mock-up functionalities!
@@ -52,7 +52,6 @@ public class GameExplorer {
 	 *            The controlling {@link GameManager} for this GameExplorer.
 	 */
 	public GameExplorer(GameManager gameManager) {
-
 		this.gameManager = gameManager;
 
 		// scan game folder and create GameDefinitions
@@ -62,7 +61,6 @@ public class GameExplorer {
 		this.view = new GEWindow();
 		view.registerController(this);
 		view.generateView();
-
 	}
 
 	/**
@@ -97,7 +95,6 @@ public class GameExplorer {
 	 * @return {@link GameDefinition}s of the games in the parsed folder.
 	 */
 	private void scanGameFolderAndCreateGameDefinitions() {
-
 		File gamesDirectory = new File("src/games/");
 		String pathToPropertyFile = new String();
 		GameDefinition gameDefinition;
@@ -126,13 +123,11 @@ public class GameExplorer {
 	 *         <code>false</code> otherwise
 	 */
 	public boolean selectGame(GameDefinition gameDefinition, ArrayList<Player> players) {
-
 		LOG.finer("GameExplorer.<em>selectGame([...])</em> called.");
 
 		// Forward call to GameManager with the selected GameDefinition and
 		// Players
 		return this.gameManager.startGame(gameDefinition, players);
-
 	}
 
 	/**
@@ -144,13 +139,18 @@ public class GameExplorer {
 	 *         <code>false</code> otherwise
 	 */
 	public boolean openHelpFile(GameDefinition gameDefinition) {
-		// TODO implementation
+		// TODO: getDesktop().browse only works for Java 6
 
 		LOG.info("GameExplorer.<em>openHelpFile([...])</em> called.");
 
-		System.out.println("URI to help file: " + gameDefinition.getHelpFile().toString());
+		String url = gameDefinition.getHelpFile().toString();
+		try {
+			java.awt.Desktop.getDesktop().browse(java.net.URI.create(url));
+		} catch (IOException e) {
+			LOG.severe("IOException: " + e.getMessage());
+			e.printStackTrace();
+		}
 		return true;
-
 	}
 
 	/**
