@@ -68,17 +68,18 @@ public class ViewManager {
 	 */
 	public boolean onGridPointClick(GridPoint gridPoint) {
 		if (this.gameManager.getGameBoard().getGrid().getVisualVertexAtGridPoint(gridPoint) == null) {
+			LOG.fine("OnEmptyGridPointClick " + gridPoint);
 			if (this.gameManager.getGame().onEmptyGridPointClick(gridPoint)) {
-				LOG.fine("OnEmptyGridPointClick " + gridPoint);
 				this.view.redrawGraph();
 			}
 
 		} else {
+			LOG.fine("OnVertexClick (at GridPoint "
+					+ this.gameManager.getGameBoard().getGrid().getVisualVertexAtGridPoint(gridPoint)
+							.getGridPoint() + ")");
 			if (this.gameManager.getGame().onVertexClick(
 					this.gameManager.getGameBoard().getGrid().getVisualVertexAtGridPoint(gridPoint))) {
-				LOG.fine("OnVertexClick (at GridPoint "
-						+ this.gameManager.getGameBoard().getGrid().getVisualVertexAtGridPoint(gridPoint)
-								.getGridPoint() + ")");
+				
 				this.view.redrawGraph();
 			}
 		}
