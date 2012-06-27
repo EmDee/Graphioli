@@ -7,10 +7,17 @@
    "description":"This is the description for the TwixT game.",
 
    "helpFile":"http://en.wikipedia.org/wiki/TwixT",
+<<<<<<< HEAD
    
    "minPlayerCount":1,
    
    "maxPlayerCount":4,
+=======
+
+   "minPlayerCount":1,
+
+   "maxPlayerCount":2,
+>>>>>>> Corrected properties files.
 
    "menuItem":[
 

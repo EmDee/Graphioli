@@ -9,7 +9,11 @@
    "helpFile":"http://en.wikipedia.org/wiki/Graph_coloring",
 
    "minPlayerCount":1,
+<<<<<<< HEAD
    
+=======
+
+>>>>>>> Corrected properties files.
    "maxPlayerCount":4,
 
    "menuItem":[
