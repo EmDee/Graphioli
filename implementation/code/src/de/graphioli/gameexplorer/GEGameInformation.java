@@ -12,6 +12,8 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
 
+import de.graphioli.utils.Localization;
+
 /**
  * Displays information about the currently selected game.
  * 
@@ -115,7 +117,7 @@ public class GEGameInformation extends JPanel {
 		this.screenshotLabel.setHorizontalAlignment(SwingConstants.CENTER);
 
 		// Add default text
-		this.screenshotLabel.setText("No screenshot provided.");
+		this.screenshotLabel.setText(Localization.getLanguageString("ge_screenshotlabel"));
 		
 		// Add screenshot label to parent panel
 		this.add(this.screenshotLabel);
@@ -138,7 +140,7 @@ public class GEGameInformation extends JPanel {
 		descriptionTitleLabel.setPreferredSize(new Dimension(380, 30));
 
 		// Add title text
-		descriptionTitleLabel.setText("Description");
+		descriptionTitleLabel.setText(Localization.getLanguageString("ge_description"));
 
 		// Add description title label to parent panel
 		this.add(descriptionTitleLabel);
@@ -161,7 +163,7 @@ public class GEGameInformation extends JPanel {
 		this.descriptionLabel.setOpaque(false);
 
 		// Add default text
-		this.descriptionLabel.setText("No description provided.");
+		this.descriptionLabel.setText(Localization.getLanguageString("ge_description_error"));
 
 		// Add description label to parent panel
 		this.add(this.descriptionLabel);

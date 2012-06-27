@@ -23,6 +23,7 @@ import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import de.graphioli.model.Player;
+import de.graphioli.utils.Localization;
 
 /**
  * This class represents the main window of the {@link GameExplorer}.
@@ -71,6 +72,12 @@ public class GEWindow extends JFrame implements GEView, ActionListener, ListSele
 	 */
 	private GEGameInformation visibleGameInformationPanel;
 
+	/**
+	 * Buttons for the GameExplorer
+	 */
+	private JButton startButton;
+	private JButton helpButton;
+	private JButton quitButton;
 
 	/**
 	 * Constructs a new instance of GEWindow.
@@ -81,7 +88,6 @@ public class GEWindow extends JFrame implements GEView, ActionListener, ListSele
 		LOG.info("GEWindow instantiated.");
 
 	}
-
 
 	/** {@inheritDoc} */
 	@Override
@@ -95,7 +101,6 @@ public class GEWindow extends JFrame implements GEView, ActionListener, ListSele
 		return true;
 
 	}
-
 
 	/** {@inheritDoc} */
 	@Override
@@ -124,12 +129,12 @@ public class GEWindow extends JFrame implements GEView, ActionListener, ListSele
 
 	}
 
-
 	/**
 	 * Called by the {@link JList} when its selection has changed to update the
 	 * remaining graphical elements of this {@link GEWindow}.
 	 * 
-	 * @param event The ListSelectionEvent
+	 * @param event
+	 *            The ListSelectionEvent
 	 */
 	@Override
 	public void valueChanged(ListSelectionEvent event) {
@@ -146,101 +151,68 @@ public class GEWindow extends JFrame implements GEView, ActionListener, ListSele
 
 	}
 
-
 	/**
-	 * Called by the {@link JButton}s when they are clicked in order to perform further actions
-	 * with the previously selected {@link GameDefinition}.
+	 * Calls {@link GameExplorer#openHelpFile(GameDefinition gameDef)} with the
+	 * selected {@link GameDefinition}.
 	 * 
-	 * @param event The ActionEvent
-	 */
-	@Override
-	public void actionPerformed(ActionEvent event) {
-
-		LOG.finer("GEWindow.<em>actionPerformed([...])</em> called.");
-
-		// Get clicked button
-		JButton sourceButton = (JButton) event.getSource();
-
-		LOG.fine("Button '" + sourceButton.getText() + "' clicked.");
-
-		// Choose button action
-		// TODO find nicer way than comparing button text (eg. inherited buttons)
-		if (sourceButton.getText().equals("Start")) {
-
-			this.openPlayerPopUp();
-
-		} else if (sourceButton.getText().equals("Help")) {
-
-			this.openHelpFile();
-
-		} else if (sourceButton.getText().equals("Quit")) {
-
-			this.closeGameExplorer();
-
-		}
-
-	}
-
-
-	/**
-	 * Calls {@link GameExplorer#openHelpFile(GameDefinition gameDef)} with the selected {@link GameDefinition}.
+	 * For this method to perform its task successfully, a
+	 * {@link GameDefinition} must be selected from the list of available
+	 * definitions.
 	 * 
-	 * For this method to perform its task successfully, a {@link GameDefinition} must be selected from
-	 * the list of available definitions.
-	 * 
-	 * @return <code>true</code> if the action was performed successfully, <code>false</code> otherwise
+	 * @return <code>true</code> if the action was performed successfully,
+	 *         <code>false</code> otherwise
 	 */
 	public boolean openHelpFile() {
 
 		LOG.fine("GEWindow.<em>openHelpFile()</em> called.");
 
-		if (!isGameDefinitionSelected()
-				|| !this.isGameExplorerRegistered()) {
+		if (!isGameDefinitionSelected() || !this.isGameExplorerRegistered()) {
 			LOG.severe("Cannot open help file: No GameExplorer registered or no GameDefinition selected.");
 			return false;
 		}
 
-		// Forward call to GameExplorer with the currently selected GameDefinition
+		// Forward call to GameExplorer with the currently selected
+		// GameDefinition
 		return this.gameExplorer.openHelpFile(this.selectedGameDefinition);
 
 	}
 
-
 	/**
 	 * Creates and shows a {@link PlayerPopUp} for {@link Player} selection.
 	 * 
-	 * @return <code>true</code> if the action was performed successfully, <code>false</code> otherwise
+	 * @return <code>true</code> if the action was performed successfully,
+	 *         <code>false</code> otherwise
 	 */
 	public boolean openPlayerPopUp() {
 
 		LOG.fine("GEWindow.<em>openPlayerPopUp()</em> called.");
 
 		// Create new Player pop-up (will call onPlayerPopUpReturn)
-		new PlayerPopUp(this,
-				this.selectedGameDefinition.getMinPlayerCount(),
+		new PlayerPopUp(this, this.selectedGameDefinition.getMinPlayerCount(),
 				this.selectedGameDefinition.getMaxPlayerCount());
 
 		return true;
 
 	}
 
-
 	/**
-	 * Called by the {@link PlayerPopUp} when it has finished and triggers the start of the {@link Game}.
+	 * Called by the {@link PlayerPopUp} when it has finished and triggers the
+	 * start of the {@link Game}.
 	 * 
-	 * For this method to perform its task successfully, a {@link GameDefinition} must be selected from
-	 * the list of available definitions.
+	 * For this method to perform its task successfully, a
+	 * {@link GameDefinition} must be selected from the list of available
+	 * definitions.
 	 * 
-	 * @param players The created players
-	 * @return <code>true</code> if the action was performed successfully, <code>false</code> otherwise
+	 * @param players
+	 *            The created players
+	 * @return <code>true</code> if the action was performed successfully,
+	 *         <code>false</code> otherwise
 	 */
 	public boolean onPlayerPopUpReturn(ArrayList<Player> players) {
 
 		LOG.finer("GEWindow.<em>onPlayerPopUpReturn([...])</em> called.");
 
-		if (players == null
-				|| players.isEmpty()
-				|| !this.isGameDefinitionSelected()
+		if (players == null || players.isEmpty() || !this.isGameDefinitionSelected()
 				|| !this.isGameExplorerRegistered()) {
 			LOG.severe("Cannot start game: No GameExplorer registered or no valid players committed.");
 			return false;
@@ -254,11 +226,12 @@ public class GEWindow extends JFrame implements GEView, ActionListener, ListSele
 
 	}
 
-
 	/**
-	 * Performs the required steps after a GameDefinition has been selected from the list.
+	 * Performs the required steps after a GameDefinition has been selected from
+	 * the list.
 	 * 
-	 * @param selectedGameDefinition The newly selected GameDefinition
+	 * @param selectedGameDefinition
+	 *            The newly selected GameDefinition
 	 */
 	private void selectGameDefinition(GameDefinition selectedGameDefinition) {
 
@@ -267,31 +240,33 @@ public class GEWindow extends JFrame implements GEView, ActionListener, ListSele
 
 	}
 
-
 	/**
-	 * Returns <code>true</code> if a {@link GameDefinition} is currently selected.
+	 * Returns <code>true</code> if a {@link GameDefinition} is currently
+	 * selected.
 	 * 
-	 * @return <code>true</code> if a {@link GameDefinition} is currently selected, <code>false</code> otherwise
+	 * @return <code>true</code> if a {@link GameDefinition} is currently
+	 *         selected, <code>false</code> otherwise
 	 */
 	private boolean isGameDefinitionSelected() {
 		return this.selectedGameDefinition != null;
 	}
 
-
 	/**
-	 * Returns <code>true</code> if a controlling {@link GameExplorer} is registered.
+	 * Returns <code>true</code> if a controlling {@link GameExplorer} is
+	 * registered.
 	 * 
-	 * @return <code>true</code> if a controlling {@link GameExplorer} is registered, <code>false</code> otherwise
+	 * @return <code>true</code> if a controlling {@link GameExplorer} is
+	 *         registered, <code>false</code> otherwise
 	 */
 	private boolean isGameExplorerRegistered() {
 		return this.gameExplorer != null;
 	}
 
-
 	/**
 	 * Updates the information displayed in the game information panel.
 	 * 
-	 * @return <code>true</code> if the action was performed successfully, <code>false</code> otherwise
+	 * @return <code>true</code> if the action was performed successfully,
+	 *         <code>false</code> otherwise
 	 */
 	private boolean updateGameInformation() {
 
@@ -304,16 +279,17 @@ public class GEWindow extends JFrame implements GEView, ActionListener, ListSele
 
 		// Create buffered image for screenshot
 		this.visibleGameInformationPanel.setScreenshot(this.getCurrentScreenshot());
-		
+
 		return true;
 
 	}
 
-
 	/**
-	 * Returns a BufferedImage containing the screenshot of the currently select game.
+	 * Returns a BufferedImage containing the screenshot of the currently select
+	 * game.
 	 * 
-	 * @return a BufferedImage containing the screenshot of the currently select game
+	 * @return a BufferedImage containing the screenshot of the currently select
+	 *         game
 	 */
 	private BufferedImage getCurrentScreenshot() {
 
@@ -321,9 +297,10 @@ public class GEWindow extends JFrame implements GEView, ActionListener, ListSele
 
 		BufferedImage screenshot;
 
-		// TODO Get path (currently ../../../games/) from environment (eg. production and development)
-		String screenshotPath = "../../../games/"
-				+ this.selectedGameDefinition.getClassName() + "/screenshot.jpg";
+		// TODO Get path (currently ../../../games/) from environment (eg.
+		// production and development)
+		String screenshotPath = "../../../games/" + this.selectedGameDefinition.getClassName()
+				+ "/screenshot.jpg";
 		InputStream screenshotInputStream = getClass().getResourceAsStream(screenshotPath);
 
 		// Try creating buffered image from path
@@ -341,14 +318,13 @@ public class GEWindow extends JFrame implements GEView, ActionListener, ListSele
 
 	}
 
-
 	/**
 	 * Generates the visible window consisting of several swing components.
 	 */
 	private void generateWindow() {
 
 		// Add window listener for closing attempts
-		this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE); 
+		this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 		this.addWindowListener(new CloseListener());
 
 		// Style window
@@ -370,7 +346,6 @@ public class GEWindow extends JFrame implements GEView, ActionListener, ListSele
 
 	}
 
-
 	/**
 	 * Generates the list pane that shows the available GameDefinitions.
 	 */
@@ -388,7 +363,8 @@ public class GEWindow extends JFrame implements GEView, ActionListener, ListSele
 		JScrollPane visibleGameDefinitionListPane = new JScrollPane(visibleGameDefinitionList);
 
 		// Style list pane
-		visibleGameDefinitionListPane.setPreferredSize(new Dimension(this.windowWidth / 2, this.windowHeight - 70));
+		visibleGameDefinitionListPane.setPreferredSize(new Dimension(this.windowWidth / 2,
+				this.windowHeight - 70));
 		visibleGameDefinitionListPane.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
 		JPanel visibleGameDefinitionListPaneBox = new JPanel();
@@ -399,37 +375,37 @@ public class GEWindow extends JFrame implements GEView, ActionListener, ListSele
 
 	}
 
-
 	/**
-	 * Generates the buttons that allow to start a game, show the help file or quit the GameExplorer.
+	 * Generates the buttons that allow to start a game, show the help file or
+	 * quit the GameExplorer.
 	 */
 	private void generateButtonPanel() {
 
 		JPanel visibleButtonPanel = new JPanel();
-		
+
 		// Button: Start
-		JButton startButton = new JButton("Start");
-		startButton.addActionListener(this);
-		visibleButtonPanel.add(startButton);
+		this.startButton = new JButton(Localization.getLanguageString("gew_start"));
+		this.startButton.addActionListener(this);
+		visibleButtonPanel.add(this.startButton);
 
 		// Button: Help
-		JButton helpButton = new JButton("Help");
-		helpButton.addActionListener(this);
-		visibleButtonPanel.add(helpButton);
+		this.helpButton = new JButton(Localization.getLanguageString("gew_help"));
+		this.helpButton.addActionListener(this);
+		visibleButtonPanel.add(this.helpButton);
 
 		// Button: Quit
-		JButton quitButton = new JButton("Quit");
-		quitButton.addActionListener(this);
-		visibleButtonPanel.add(quitButton);
+		this.quitButton = new JButton(Localization.getLanguageString("gew_quit"));
+		this.quitButton.addActionListener(this);
+		visibleButtonPanel.add(this.quitButton);
 
 		// Add button panel to window
 		this.add(visibleButtonPanel, BorderLayout.PAGE_END);
 
 	}
 
-
 	/**
-	 * Generates the panels that show information about the currently selected game.
+	 * Generates the panels that show information about the currently selected
+	 * game.
 	 */
 	private void generateGameInformationPanel() {
 
@@ -442,7 +418,6 @@ public class GEWindow extends JFrame implements GEView, ActionListener, ListSele
 		this.add(this.visibleGameInformationPanel, BorderLayout.CENTER);
 
 	}
-
 
 	/**
 	 * Closes this GameExplorer window.
@@ -460,7 +435,6 @@ public class GEWindow extends JFrame implements GEView, ActionListener, ListSele
 
 	}
 
-
 	/**
 	 * Listens for closing attempts performed by the main GEWindow.
 	 * 
@@ -472,10 +446,44 @@ public class GEWindow extends JFrame implements GEView, ActionListener, ListSele
 		 * Acts on closing attempts performed by the main GEWindow.
 		 */
 		@Override
-		public void windowClosing(WindowEvent e) { 
+		public void windowClosing(WindowEvent e) {
 			GEWindow.this.closeGameExplorer();
 		}
 
 	}
 
+	/**
+	 * Called by the {@link JButton}s when they are clicked in order to perform
+	 * further actions with the previously selected {@link GameDefinition}.
+	 * 
+	 * @param event
+	 *            The ActionEvent
+	 */
+	@Override
+	public void actionPerformed(ActionEvent event) {
+
+		LOG.finer("GEWindow.<em>actionPerformed([...])</em> called.");
+
+		// Get clicked button
+		JButton sourceButton = (JButton) event.getSource();
+
+		LOG.fine("Button '" + sourceButton.getText() + "' clicked.");
+
+		// Choose button action
+		// TODO find nicer way than comparing button text (eg. inherited
+		// buttons)
+		if (sourceButton.equals(this.startButton)) {
+
+			this.openPlayerPopUp();
+
+		} else if (sourceButton.equals(this.helpButton)) {
+
+			this.openHelpFile();
+
+		} else if (sourceButton.equals(this.quitButton)) {
+
+			this.closeGameExplorer();
+
+		}
+	}
 }

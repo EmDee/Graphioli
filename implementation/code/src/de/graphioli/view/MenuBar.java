@@ -7,6 +7,8 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
+import de.graphioli.utils.Localization;
+
 /**
  * The {@link MenuBar} contains the game menu, options menu and help menu. It is
  * displayed at the top of the {@link GameWindow} and starts the standard menu
@@ -40,7 +42,13 @@ public class MenuBar extends JMenuBar implements ActionListener {
 	 * The parent {@link GameWindow} associated with this @ MenuBar}
 	 */
 	private GameWindow parentGameWindow;
-
+	
+	private JMenuItem saveItem;
+	private JMenuItem loadItem;
+	private JMenuItem quitItem;
+	private JMenuItem helpItem;
+	
+	
 	/**
 	 * Creates the {@link MenuBar} and registers its parent {@link GameWindow}.
 	 * 
@@ -60,26 +68,29 @@ public class MenuBar extends JMenuBar implements ActionListener {
 	 *         <code>false</code> otherwise
 	 */
 	private boolean createMenus() {
-		this.gameMenu = new JMenu("Game");
-		this.optionsMenu = new JMenu("Options");
-		this.helpMenu = new JMenu("Help");
+//		this.saveItem = Localization.getLanguageString("menu_item_save");
+//		this.loadItem = Localization.getLanguageString("menu_item_load");
+//		this.quitItem = Localization.getLanguageString("menu_item_quit");
+//		this.helpItem = Localization.getLanguageString("menu_item_help");
 		
-		JMenuItem saveItem = new JMenuItem("Save");
-		JMenuItem loadItem = new JMenuItem("Load");
-		JMenuItem quitItem = new JMenuItem("Quit");
+		this.gameMenu = new JMenu(Localization.getLanguageString("menu_game"));
+		this.optionsMenu = new JMenu(Localization.getLanguageString("menu_options"));
+		this.helpMenu = new JMenu(Localization.getLanguageString("menu_help"));
 		
-		JMenuItem helpFile = new JMenuItem("Open Help File");
+		this.saveItem = new JMenuItem(Localization.getLanguageString("menu_item_save"));
+		this.loadItem = new JMenuItem(Localization.getLanguageString("menu_item_load"));
+		this.quitItem = new JMenuItem(Localization.getLanguageString("menu_item_quit"));
+		this.helpItem = new JMenuItem(Localization.getLanguageString("menu_item_help"));
 		
-		saveItem.addActionListener(this);
-		loadItem.addActionListener(this);
-		quitItem.addActionListener(this);
-		helpFile.addActionListener(this);
+		this.saveItem.addActionListener(this);
+		this.loadItem.addActionListener(this);
+		this.quitItem.addActionListener(this);
+		this.helpItem.addActionListener(this);
 		
-		this.gameMenu.add(saveItem);
-		this.gameMenu.add(loadItem);
-		this.gameMenu.add(quitItem);
-		
-		this.helpMenu.add(helpFile);
+		this.gameMenu.add(this.saveItem);
+		this.gameMenu.add(this.loadItem);
+		this.gameMenu.add(this.quitItem);
+		this.helpMenu.add(this.helpItem);
 		
 		this.add(gameMenu);
 		this.add(optionsMenu);
@@ -100,19 +111,19 @@ public class MenuBar extends JMenuBar implements ActionListener {
 		
 		JMenuItem sourceItem = (JMenuItem) event.getSource();
 		
-		if (sourceItem.getText().equals("Save")) {
+		if (sourceItem.equals(this.saveItem)) {
 			this.parentGameWindow.saveFileDialog();
 		}
 		
-		if (sourceItem.getText().equals("Load")) {
+		if (sourceItem.equals(this.loadItem)) {
 			this.parentGameWindow.openFileDialog();
 		}
 		
-		if (sourceItem.getText().equals("Quit")) {
+		if (sourceItem.equals(this.quitItem)) {
 			this.parentGameWindow.getViewManager().getGameManager().closeGame();
 		}
 		
-		if (sourceItem.getText().equals("Open Help File")) {
+		if (sourceItem.equals(this.helpItem)) {
 			this.parentGameWindow.getViewManager().getGameManager().openHelpFile();
 		}
 
