@@ -82,6 +82,8 @@ public class PlayerPopUp extends JFrame implements ActionListener {
 		// TODO Auto-generated method stub
 	}
 
+	// TODO Javadoc
+	// TODO Validator
 	private int askForPlayerCount(int minPlayer, int maxPlayer) {
 
 		if (minPlayer >= maxPlayer) {
@@ -106,6 +108,8 @@ public class PlayerPopUp extends JFrame implements ActionListener {
 
 	}
 
+	// TODO Javadoc
+	// TODO Validator
 	private String askForPlayerName(int playerCount) {
 
 		String[] ordinaryText = {"", "first", "second", "third", "fourth"};
