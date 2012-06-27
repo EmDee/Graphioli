@@ -8,7 +8,6 @@ import java.net.URLClassLoader;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import de.graphioli.gameexplorer.GameDefinition;
 import de.graphioli.gameexplorer.GameExplorer;
 import de.graphioli.model.GameBoard;
