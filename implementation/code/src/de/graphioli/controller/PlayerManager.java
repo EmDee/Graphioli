@@ -30,6 +30,7 @@ public class PlayerManager {
 	 * Constructs a PlayerManager with the given set of {@link Player}s.
 	 * 
 	 * @param players The set of players
+	 * @param gameManager The controlling {@link GameManager}
 	 */
 	public PlayerManager(ArrayList<Player> players, GameManager gameManager) {
 
