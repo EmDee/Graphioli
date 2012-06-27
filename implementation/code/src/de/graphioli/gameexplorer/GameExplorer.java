@@ -3,7 +3,6 @@ package de.graphioli.gameexplorer;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.Logger;
 import com.google.gson.Gson;
@@ -41,11 +40,11 @@ public class GameExplorer {
 	 */
 	private GEView view;
 
-
 	/**
 	 * Creates a new {@link GameExplorer}.
 	 * 
-	 * @param gameManager The controlling {@link GameManager} for this GameExplorer.
+	 * @param gameManager
+	 *            The controlling {@link GameManager} for this GameExplorer.
 	 */
 	public GameExplorer(GameManager gameManager) {
 		this.gameManager = gameManager;
@@ -59,11 +58,11 @@ public class GameExplorer {
 		view.generateView();
 	}
 
-
 	/**
 	 * Creates {@link GameDefinition} from a given path to the json file.
 	 * 
-	 * @param jsonPath path to the json file
+	 * @param jsonPath
+	 *            path to the json file
 	 * @return the {@link GameDefinition}
 	 */
 	private GameDefinition createGameDefinitionFromJSON(String jsonPath) {
@@ -87,7 +86,6 @@ public class GameExplorer {
 		return gameDefinition;
 
 	}
-
 
 	/**
 	 * Scans the game folder for games, creates {@link GameDefinition}s and adds
@@ -119,46 +117,42 @@ public class GameExplorer {
 
 	}
 
-
 	/**
 	 * Calls the {@link GameManager} to start the game of the given
 	 * {@link GameDefinition} and with the given {@link Player}s.
 	 * 
-	 * @param gameDefinition The GameDefinition of the selected game.
-	 * @param players The list of players.
-	 * @return <code>true</code> if the action was performed successfully, <code>false</code> otherwise
+	 * @param gameDefinition
+	 *            The GameDefinition of the selected game.
+	 * @param players
+	 *            The list of players.
+	 * @return <code>true</code> if the action was performed successfully,
+	 *         <code>false</code> otherwise
 	 */
 	public boolean selectGame(GameDefinition gameDefinition, ArrayList<Player> players) {
 
 		LOG.finer("GameExplorer.<em>selectGame([...])</em> called.");
 
-		// Forward call to GameManager with the selected GameDefinition and Players
+		// Forward call to GameManager with the selected GameDefinition and
+		// Players
 		return this.gameManager.startGame(gameDefinition, players);
 
 	}
 
-
 	/**
 	 * Opens the help file of the given {@link GameDefinition}.
 	 * 
-	 * @param gameDefinition The selected GameDefinition
-	 * @return <code>true</code> if the action was performed successfully, <code>false</code> otherwise
+	 * @param gameDefinition
+	 *            The selected GameDefinition
+	 * @return <code>true</code> if the action was performed successfully,
+	 *         <code>false</code> otherwise
 	 */
 	public boolean openHelpFile(GameDefinition gameDefinition) {
-		// TODO: getDesktop().browse only works for Java 6
-
 		LOG.info("GameExplorer.<em>openHelpFile([...])</em> called.");
 
-		String url = gameDefinition.getHelpFile().toString();
-		try {
-			java.awt.Desktop.getDesktop().browse(java.net.URI.create(url));
-		} catch (IOException e) {
-			LOG.severe("IOException: " + e.getMessage());
-			e.printStackTrace();
-		}
+		this.gameManager.openHelpFile(gameDefinition);
+
 		return true;
 	}
-
 
 	/**
 	 * Returns the list of {@link GameDefinition}s of this {@link GameExplorer}.
@@ -169,12 +163,12 @@ public class GameExplorer {
 		return this.gameDefinitions;
 	}
 
-
 	/**
 	 * Returns the {@link GameDefinition} at the specific index in the list of
 	 * GameDefinitions.
 	 * 
-	 * @param index The index of the GameDefinition in the list
+	 * @param index
+	 *            The index of the GameDefinition in the list
 	 * @return the {@link GameDefinition} at the specific index
 	 */
 	public GameDefinition getGameDefinitionAtIndex(int index) {
