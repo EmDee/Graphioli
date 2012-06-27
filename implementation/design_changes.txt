@@ -10,6 +10,7 @@
 
 == GameManager
 - added private attribute 'gamePackagePath'
+- added public method 'openHelpFile' and 'openHelpFile(GameDefinition gameDefinition)'
 
 == PlayerPopUp
 - does not further implement ActionListener
@@ -43,3 +44,4 @@
 
 == GameExplorer ==
 - scanGameFolder doesn't return anything, but scans and creates game definitions
+- 'openHelpFile' uses the 'openHelpFile' in GameManager
