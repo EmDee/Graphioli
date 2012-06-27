@@ -17,7 +17,7 @@ public abstract class VisualVertex extends Vertex {
 	/**
 	 * The length of a side in pixels.
 	 */
-	public static final int PIXELS_PER_SIDE = 45;
+	public static final int PIXELS_PER_SIDE = 25;
 
 	/**
 	 * Constructs a {@code VisualVertex} with the given {@link GridPoint},
