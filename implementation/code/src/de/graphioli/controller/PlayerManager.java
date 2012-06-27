@@ -9,6 +9,11 @@ import de.graphioli.model.Player;
  * @author Graphioli
  */
 public class PlayerManager {
+	
+	/**
+	 * The associated {@link GameManager}
+	 */
+	private GameManager gameManager;
 
 	/**
 	 * Set of {@link Player}s.
@@ -26,10 +31,10 @@ public class PlayerManager {
 	 * 
 	 * @param players The set of players
 	 */
-	public PlayerManager(ArrayList<Player> players) {
+	public PlayerManager(ArrayList<Player> players, GameManager gameManager) {
 
 		this.players = players;
-
+		this.gameManager = gameManager;
 		// Set first player to active
 		this.activePlayer = players.get(0);
 
@@ -42,7 +47,8 @@ public class PlayerManager {
 	 * @return <code>true</code> if the action was performed successfully, <code>false</code> otherwise
 	 */
 	public boolean initializePlayers() {
-		return false;
+		gameManager.getViewManager().updatePlayerStatus(activePlayer);
+		return true;
 	}
 
 
@@ -81,6 +87,8 @@ public class PlayerManager {
 		} else {
 			this.activePlayer = this.players.get(activeIndex + 1);
 		}
+		
+		gameManager.getViewManager().updatePlayerStatus(activePlayer);
 
 		// Return the newly set active player
 		return this.activePlayer;
