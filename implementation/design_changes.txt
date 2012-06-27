@@ -28,6 +28,9 @@
 == VisualGrid
 - added attribute GraphCanvas to constructor to get the size of the canvas
 
+== PlayerManager
+- Added reference to GameManager
+
 == New Classes ==
 - GraphioliLogFormatter
 - GraphioliLogger

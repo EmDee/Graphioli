@@ -126,9 +126,7 @@ public class GameManager {
 
 		LOG.info("<em>startGame()</em> called.");
 
-		// Create PlayerManager instance
-		this.playerManager = new PlayerManager(players);
-
+		
 		// Create GameBoard
 		this.gameBoard = new GameBoard(gameDefinition.isDirectedGraph(),
 				gameDefinition.getHorizontalGridPointCount(),
@@ -136,6 +134,12 @@ public class GameManager {
 
 		// Create ViewManager instance
 		this.viewManager = new ViewManager(this);
+		
+		// Create PlayerManager instance
+		this.playerManager = new PlayerManager(players, this);
+		
+		this.playerManager.initializePlayers();
+
 
 		// Facultative: Create MenuItems here
 
@@ -194,7 +198,7 @@ public class GameManager {
 		
 		if (game.onGameInit()) {
 			LOG.fine("<em>onGameInit()</em> returned <em>true</em>.");
-			
+			viewManager.displayErrorMessage("Running...");
 			LOG.finer("Calling <em>onGameStart()</em>.");
 			
 			if (game.onGameStart()) {
