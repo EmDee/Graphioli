@@ -54,12 +54,16 @@ public class PlayerPopUp extends JFrame {
 		// Get number of players
 		int playerCount = this.askForPlayerCount(minPlayer, maxPlayer);
 
+		LOG.fine("Number of players chosen: " + playerCount);
+
 		// Instantiate players
 		for (int i = 0; i < playerCount; i++) {
 
 			String playerName = this.askForPlayerName(i + 1);
 			Player player = new LocalPlayer(playerName);
 			this.players.add(player);
+
+			LOG.fine("Player " + (i + 1) + " instantiated: '" + playerName + "'");
 
 		}
 
@@ -123,8 +127,8 @@ public class PlayerPopUp extends JFrame {
 	                "");
 	
 			// Only accept valid player names
-			if (playerName != null
-					&& !playerName.isEmpty()
+			if (inputPlayerName != null
+					&& !inputPlayerName.isEmpty()
 					&& Validation.isValidPlayerName(inputPlayerName)) {
 				playerName = inputPlayerName;
 			} else {
