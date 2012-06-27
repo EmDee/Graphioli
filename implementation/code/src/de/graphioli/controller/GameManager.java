@@ -356,6 +356,7 @@ public class GameManager {
 		LOG.info("GameManager.<em>openHelpFile([...])</em> called.");
 
 		// TODO: getDesktop().browse only works for Java 6
+		// TODO: currently it doesn't load local help files; find correct path
 
 		String url = gameDefinition.getHelpFile().toString();
 		try {
