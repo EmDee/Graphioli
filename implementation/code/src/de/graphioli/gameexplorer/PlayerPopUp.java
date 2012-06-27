@@ -54,12 +54,25 @@ public class PlayerPopUp extends JFrame {
 		// Get number of players
 		int playerCount = this.askForPlayerCount(minPlayer, maxPlayer);
 
+		// If user pressed 'Cancel', close window
+		if (playerCount == 0) {
+			LOG.fine("User cancelled game initialization.");
+			return;
+		}
+
 		LOG.fine("Number of players chosen: " + playerCount);
 
 		// Instantiate players
 		for (int i = 0; i < playerCount; i++) {
 
 			String playerName = this.askForPlayerName(i + 1);
+
+			// If user pressed 'Cancel', close window
+			if (playerName == null) {
+				LOG.fine("User cancelled game initialization.");
+				return;
+			}
+
 			Player player = new LocalPlayer(playerName);
 			this.players.add(player);
 
@@ -86,20 +99,39 @@ public class PlayerPopUp extends JFrame {
 		}
 
 		String[] playerStrings = {"", "One player", "Two players", "Three players", "Four players"};
+		int playerCount = 0;
 
-		String playerCount = (String) JOptionPane.showInputDialog(this,
-		                    "Please choose the number of players:",
-		                    "Game Explorer",
-		                    JOptionPane.PLAIN_MESSAGE,
-		                    null,
-		                    Arrays.copyOfRange(playerStrings, minPlayer, maxPlayer + 1),
-		                    playerStrings[minPlayer]);
+		while (playerCount == 0) {
 
-		if (playerCount == null || playerCount.isEmpty()) {
-		    return minPlayer;
+			// Ask for player number
+			String inputPlayerCount = this.showInputDialog("Please choose the number of players:",
+					Arrays.copyOfRange(playerStrings, minPlayer, maxPlayer + 1));
+
+			// User pressed 'Cancel'
+			if (inputPlayerCount == null) {
+
+				// Ask user, if he really wants to cancel
+				boolean choice = this.showConfirmDialog("Are you sure you want to cancel starting the game?");
+
+				if (choice) {
+					return 0;
+				}
+
+			// User entered invalid number of players
+			} else if (inputPlayerCount.isEmpty()) {
+
+				return minPlayer;
+
+			// User entered valid number of players
+			} else {
+
+				playerCount = Arrays.asList(playerStrings).indexOf(inputPlayerCount);
+
+			}
+
 		}
 
-		return Arrays.asList(playerStrings).indexOf(playerCount);
+		return playerCount;
 
 	}
 
@@ -118,24 +150,30 @@ public class PlayerPopUp extends JFrame {
 
 		while (playerName.equals("")) {
 
-			inputPlayerName = (String) JOptionPane.showInputDialog(this,
-	                "Please enter a name for the " + ordinaryText[playerCount] + " player:",
-	                "Game Explorer",
-	                JOptionPane.PLAIN_MESSAGE,
-	                null,
-	                null,
-	                "");
-	
-			// Only accept valid player names
-			if (inputPlayerName != null
-					&& !inputPlayerName.isEmpty()
-					&& Validation.isValidPlayerName(inputPlayerName)) {
-				playerName = inputPlayerName;
+			// Ask for player name
+			inputPlayerName = this.showInputDialog("Please enter a name for the "
+					+ ordinaryText[playerCount] + " player:", null);
+
+			// User pressed 'Cancel'
+			if (inputPlayerName == null) {
+
+				// Ask user, if he really wants to cancel
+				boolean choice = this.showConfirmDialog("Are you sure you want to cancel starting the game?");
+
+				if (choice) {
+					return null;
+				}
+
+			// User entered invalid or empty player name (prompts again)
+			} else if (inputPlayerName.isEmpty() || !Validation.isValidPlayerName(inputPlayerName)) {
+
+				this.showMessageDialog("Please enter a valid player name.");
+
+			// User entered valid player name
 			} else {
-				JOptionPane.showMessageDialog(this,
-					    "Please enter a valid player name.",
-					    "Game Explorer",
-					    JOptionPane.WARNING_MESSAGE);
+
+				playerName = inputPlayerName;
+
 			}
 
 		}
@@ -144,4 +182,48 @@ public class PlayerPopUp extends JFrame {
 
 	}
 
+
+	private String showInputDialog(String message, Object[] availableOptions) {
+
+		Object selectedOption = "";
+
+		// If options are provided, chose first as default
+		if (availableOptions != null) {
+			selectedOption = availableOptions[0];
+		}
+
+		// Ask for user input
+		String input = (String) JOptionPane.showInputDialog(this,
+                message,
+                "Game Explorer",
+                JOptionPane.PLAIN_MESSAGE,
+                null,
+                availableOptions,
+                selectedOption);
+
+		return input;
+
+	}
+
+
+	private boolean showConfirmDialog(String message) {
+
+		int confirmChoice = JOptionPane.showConfirmDialog(this,
+			    message,
+			    "Game Explorer",
+			    JOptionPane.YES_NO_OPTION);
+
+		// confirmChoice == 0: Yes
+		// confirmChoice == 1: No
+		return confirmChoice == 0;
+
+	}
+
+
+	private void showMessageDialog(String message) {
+		JOptionPane.showMessageDialog(this,
+			    message,
+			    "Game Explorer",
+			    JOptionPane.WARNING_MESSAGE);
+	}
 }
