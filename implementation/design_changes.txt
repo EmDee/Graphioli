@@ -13,10 +13,13 @@
 
 == GameManager
 - added private attribute 'gamePackagePath'
+- added public method 'openHelpFile' and 'openHelpFile(GameDefinition gameDefinition)'
 
 == PlayerPopUp
+- does not further implement ActionListener
 - added private attribute 'geWindow'
 - changed constructor signature to 'public PlayerPopUp(GEWindow geWindow, int minPlayer, int maxPlayer)'
+- removed method actionPerformed([...])
 
 == Graph
 - added public Edge getEdge(vertexA, vertexB)
@@ -44,3 +47,4 @@
 
 == GameExplorer ==
 - scanGameFolder doesn't return anything, but scans and creates game definitions
+- 'openHelpFile' uses the 'openHelpFile' in GameManager

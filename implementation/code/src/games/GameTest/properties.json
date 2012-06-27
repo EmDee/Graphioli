@@ -8,9 +8,9 @@
 
    "helpFile":"http://en.wikipedia.org/wiki/Graph_coloring",
 
-   "maxPlayerCount":1,
+   "minPlayerCount":1,
 
-   "minPlayerCount":4,
+   "maxPlayerCount":4,
 
    "menuItem":[
 

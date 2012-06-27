@@ -379,6 +379,7 @@ public class GameManager {
 	 *         <code>false</code> otherwise
 	 */
 	public boolean openHelpFile() {
+		LOG.info("GameManager.<em>openHelpFile()</em> within game called.");
 		return this.openHelpFile(this.currentGameDefinition);
 	}
 

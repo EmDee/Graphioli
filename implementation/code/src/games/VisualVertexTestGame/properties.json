@@ -8,9 +8,9 @@
 
    "helpFile":"http://en.wikipedia.org/wiki/TwixT",
 
-   "maxPlayerCount":1,
+   "minPlayerCount":1,
 
-   "minPlayerCount":4,
+   "maxPlayerCount":2,
 
    "menuItem":[
 
