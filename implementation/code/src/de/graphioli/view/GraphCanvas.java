@@ -6,8 +6,10 @@ import de.graphioli.model.Vertex;
 import de.graphioli.model.VisualEdge;
 import de.graphioli.model.VisualVertex;
 
+import java.awt.BasicStroke;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Stroke;
 import java.util.logging.Logger;
 
 import javax.swing.JPanel;
@@ -19,6 +21,9 @@ import javax.swing.JPanel;
  * 
  */
 public class GraphCanvas extends JPanel {
+	
+	private Stroke gridStroke;
+	private Stroke edgeStroke;
 
 	private static final long serialVersionUID = 1L;
 	
@@ -47,6 +52,8 @@ public class GraphCanvas extends JPanel {
 	public GraphCanvas(GameWindow parentGameWindow) {
 		LOG.fine("GraphCanvas instantiated");
 		this.parentGameWindow = parentGameWindow;
+		gridStroke = new BasicStroke(1);
+		edgeStroke = new BasicStroke(3);
 	}
 
 	/**
@@ -77,7 +84,20 @@ public class GraphCanvas extends JPanel {
 		int gridScale = this.visualGrid.getGridScale();
 		
 		// Drawing grid lines
+		g2d.setStroke(gridStroke);
 		this.visualGrid.draw(g2d);
+		
+		// Drawing edges of the graph from the canvas
+		g2d.setStroke(edgeStroke);
+		for (Edge edge : graph.getEdges()) {
+			VisualVertex originVertex = (VisualVertex) edge.getOriginVertex();
+			VisualVertex targetVertex = (VisualVertex) edge.getTargetVertex();
+			
+			g2d.drawLine((originVertex.getGridPoint().getPositionX() + 1) * gridScale, 
+					(originVertex.getGridPoint().getPositionY() + 1) * gridScale, 
+					(targetVertex.getGridPoint().getPositionX() + 1) * gridScale, 
+					(targetVertex.getGridPoint().getPositionY() + 1) * gridScale);
+		}
 		
 		// Drawing vertices
 		for (Vertex v : graph.getVertices()) {
