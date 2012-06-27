@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.logging.Logger;
 import de.graphioli.controller.Game;
 import de.graphioli.model.GridPoint;
+import de.graphioli.model.SimpleVisualEdge;
 import de.graphioli.model.SimpleVisualVertex;
 import de.graphioli.model.VisualVertex;
 
@@ -26,14 +27,27 @@ public class VisualVertexTestGame extends Game {
 		LOG.fine("GameTest class instantiated.");
 	}
 
+	private VisualVertex firstSelectedVisualVertex;
+	
 	@Override
 	protected boolean onVertexClick(VisualVertex vertex) {
-		((SimpleVisualVertex) vertex).setFillColor(Color.BLUE);
+		SimpleVisualVertex vex = (SimpleVisualVertex) vertex;
+		if (vex.getFillColor() == Color.BLUE) {
+			if ((this.firstSelectedVisualVertex != null) 
+					&& (this.firstSelectedVisualVertex != vex)) {
+				this.getGameManager().getGameBoard().addVisualEdge(firstSelectedVisualVertex, vex);
+			}
+			this.firstSelectedVisualVertex = vex;
+			return true;
+		}
+		vex.setFillColor(Color.BLUE);
+		this.firstSelectedVisualVertex = null;
 		return true;
 	}
 
 	@Override
 	protected boolean onEmptyGridPointClick(GridPoint gridPoint) {
+		this.firstSelectedVisualVertex = null;
 		SimpleVisualVertex simple = new SimpleVisualVertex(gridPoint);
 		simple.setFillColor(Color.BLACK);
 		this.getGameManager().getGameBoard().addVisualVertex(simple);
@@ -60,13 +74,15 @@ public class VisualVertexTestGame extends Game {
 		simpleVisualVertexA.setStrokeWeight(2);
 		simpleVisualVertexB.setStrokeWeight(1);
 		simpleVisualVertexA.setFillColor(Color.GREEN);
-
+		
 		ArrayList<VisualVertex> simpleVisualVertecies = new ArrayList<VisualVertex>();
 		simpleVisualVertecies.add(simpleVisualVertexA);
 		simpleVisualVertecies.add(simpleVisualVertexB);
-
+		
+		
 		this.getGameManager().getGameBoard().addVisualVertices(simpleVisualVertecies);
-
+		this.getGameManager().getGameBoard().addVisualEdge(simpleVisualVertexA, simpleVisualVertexB);
+		
 		return true;
 	}
 }
