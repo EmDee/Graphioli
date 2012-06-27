@@ -183,6 +183,15 @@ public class PlayerPopUp extends JFrame {
 	}
 
 
+	/**
+	 * Shows an input dialog.
+	 * <br />
+	 * If availableOptions is <code>null</code>, the user may enter any text.
+	 * 
+	 * @param message The message to display
+	 * @param availableOptions Array of available options
+	 * @return The user input or choice
+	 */
 	private String showInputDialog(String message, Object[] availableOptions) {
 
 		Object selectedOption = "";
@@ -206,6 +215,12 @@ public class PlayerPopUp extends JFrame {
 	}
 
 
+	/**
+	 * Shows a confirmation dialog.
+	 * 
+	 * @param message The message to display
+	 * @return <code>true</code> if the user confirmed, <code>false</code> otherwise
+	 */
 	private boolean showConfirmDialog(String message) {
 
 		int confirmChoice = JOptionPane.showConfirmDialog(this,
@@ -220,10 +235,16 @@ public class PlayerPopUp extends JFrame {
 	}
 
 
+	/**
+	 * Shows a message dialog.
+	 * 
+	 * @param message The message to display
+	 */
 	private void showMessageDialog(String message) {
 		JOptionPane.showMessageDialog(this,
 			    message,
 			    "Game Explorer",
 			    JOptionPane.WARNING_MESSAGE);
 	}
+
 }
