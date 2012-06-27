@@ -7,10 +7,12 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import de.graphioli.model.LocalPlayer;
 import de.graphioli.model.Player;
+import de.graphioli.utils.Localization;
 import de.graphioli.utils.Validation;
 
 /**
- * Represents a pop-up window that is used to select the the number of players and their names for a {@link Game}.
+ * Represents a pop-up window that is used to select the the number of players
+ * and their names for a {@link Game}.
  * 
  * @author Graphioli
  */
@@ -36,13 +38,15 @@ public class PlayerPopUp extends JFrame {
 	 */
 	private ArrayList<Player> players = new ArrayList<Player>();
 
-
 	/**
 	 * Creates a PlayerPopUp.
 	 * 
-	 * @param geWindow The controlling {@link GEWindow}
-	 * @param minPlayer The minimum number of players required
-	 * @param maxPlayer The maximum number of players required
+	 * @param geWindow
+	 *            The controlling {@link GEWindow}
+	 * @param minPlayer
+	 *            The minimum number of players required
+	 * @param maxPlayer
+	 *            The maximum number of players required
 	 */
 	public PlayerPopUp(GEWindow geWindow, int minPlayer, int maxPlayer) {
 
@@ -84,12 +88,13 @@ public class PlayerPopUp extends JFrame {
 
 	}
 
-
 	/**
 	 * Prompts for the number of players to initialize.
 	 * 
-	 * @param minPlayer The minimum number of players required
-	 * @param maxPlayer The maximum number of players allowed
+	 * @param minPlayer
+	 *            The minimum number of players required
+	 * @param maxPlayer
+	 *            The maximum number of players allowed
 	 * @return The chosen number of players
 	 */
 	private int askForPlayerCount(int minPlayer, int maxPlayer) {
@@ -98,31 +103,33 @@ public class PlayerPopUp extends JFrame {
 			return maxPlayer;
 		}
 
-		String[] playerStrings = {"", "One player", "Two players", "Three players", "Four players"};
+		String[] playerStrings = { "", "One player", "Two players", "Three players", "Four players" };
 		int playerCount = 0;
 
 		while (playerCount == 0) {
 
 			// Ask for player number
-			String inputPlayerCount = this.showInputDialog("Please choose the number of players:",
+			String inputPlayerCount = this.showInputDialog(Localization
+					.getLanguageString("player_pop_up_count"),
 					Arrays.copyOfRange(playerStrings, minPlayer, maxPlayer + 1));
 
 			// User pressed 'Cancel'
 			if (inputPlayerCount == null) {
 
 				// Ask user, if he really wants to cancel
-				boolean choice = this.showConfirmDialog("Are you sure you want to cancel starting the game?");
+				boolean choice = this.showConfirmDialog(Localization
+						.getLanguageString("player_pop_up_choice"));
 
 				if (choice) {
 					return 0;
 				}
 
-			// User entered invalid number of players
+				// User entered invalid number of players
 			} else if (inputPlayerCount.isEmpty()) {
 
 				return minPlayer;
 
-			// User entered valid number of players
+				// User entered valid number of players
 			} else {
 
 				playerCount = Arrays.asList(playerStrings).indexOf(inputPlayerCount);
@@ -135,41 +142,41 @@ public class PlayerPopUp extends JFrame {
 
 	}
 
-
 	/**
 	 * Prompts for a name and returns the name for player initialization.
 	 * 
-	 * @param playerCount The number of the current player
+	 * @param playerCount
+	 *            The number of the current player
 	 * @return The chosen name
 	 */
 	private String askForPlayerName(int playerCount) {
 
-		String[] ordinaryText = {"", "first", "second", "third", "fourth"};
 		String playerName = "";
 		String inputPlayerName;
 
 		while (playerName.equals("")) {
 
 			// Ask for player name
-			inputPlayerName = this.showInputDialog("Please enter a name for the "
-					+ ordinaryText[playerCount] + " player:", null);
+			inputPlayerName = this.showInputDialog(
+					Localization.getLanguageString("player_pop_up_input_" + playerCount), null);
 
 			// User pressed 'Cancel'
 			if (inputPlayerName == null) {
 
 				// Ask user, if he really wants to cancel
-				boolean choice = this.showConfirmDialog("Are you sure you want to cancel starting the game?");
+				boolean choice = this.showConfirmDialog(Localization
+						.getLanguageString("player_pop_up_choice"));
 
 				if (choice) {
 					return null;
 				}
 
-			// User entered invalid or empty player name (prompts again)
+				// User entered invalid or empty player name (prompts again)
 			} else if (inputPlayerName.isEmpty() || !Validation.isValidPlayerName(inputPlayerName)) {
 
-				this.showMessageDialog("Please enter a valid player name.");
+				this.showMessageDialog(Localization.getLanguageString("player_pop_up_valid"));
 
-			// User entered valid player name
+				// User entered valid player name
 			} else {
 
 				playerName = inputPlayerName;
@@ -182,14 +189,14 @@ public class PlayerPopUp extends JFrame {
 
 	}
 
-
 	/**
-	 * Shows an input dialog.
-	 * <br />
+	 * Shows an input dialog. <br />
 	 * If availableOptions is <code>null</code>, the user may enter any text.
 	 * 
-	 * @param message The message to display
-	 * @param availableOptions Array of available options
+	 * @param message
+	 *            The message to display
+	 * @param availableOptions
+	 *            Array of available options
 	 * @return The user input or choice
 	 */
 	private String showInputDialog(String message, Object[] availableOptions) {
@@ -202,30 +209,24 @@ public class PlayerPopUp extends JFrame {
 		}
 
 		// Ask for user input
-		String input = (String) JOptionPane.showInputDialog(this,
-				message,
-				this.geWindow.getTitle(),
-				JOptionPane.PLAIN_MESSAGE,
-				null,
-				availableOptions,
-				selectedOption);
+		String input = (String) JOptionPane.showInputDialog(this, message, this.geWindow.getTitle(),
+				JOptionPane.PLAIN_MESSAGE, null, availableOptions, selectedOption);
 
 		return input;
 
 	}
 
-
 	/**
 	 * Shows a confirmation dialog.
 	 * 
-	 * @param message The message to display
-	 * @return <code>true</code> if the user confirmed, <code>false</code> otherwise
+	 * @param message
+	 *            The message to display
+	 * @return <code>true</code> if the user confirmed, <code>false</code>
+	 *         otherwise
 	 */
 	private boolean showConfirmDialog(String message) {
 
-		int confirmChoice = JOptionPane.showConfirmDialog(this,
-				message,
-				this.geWindow.getTitle(),
+		int confirmChoice = JOptionPane.showConfirmDialog(this, message, this.geWindow.getTitle(),
 				JOptionPane.YES_NO_OPTION);
 
 		// confirmChoice == 0: Yes
@@ -234,17 +235,14 @@ public class PlayerPopUp extends JFrame {
 
 	}
 
-
 	/**
 	 * Shows a message dialog.
 	 * 
-	 * @param message The message to display
+	 * @param message
+	 *            The message to display
 	 */
 	private void showMessageDialog(String message) {
-		JOptionPane.showMessageDialog(this,
-				message,
-				this.geWindow.getTitle(),
-				JOptionPane.WARNING_MESSAGE);
+		JOptionPane.showMessageDialog(this, message, this.geWindow.getTitle(), JOptionPane.WARNING_MESSAGE);
 	}
 
 }
