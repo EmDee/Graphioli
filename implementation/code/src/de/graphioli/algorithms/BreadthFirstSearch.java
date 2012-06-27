@@ -60,21 +60,46 @@ public final class BreadthFirstSearch {
 				}
 
 				/*
-				 * Only add new vertices to queue, if depth is 0 or higher
+				 * Only add new vertices to queue, if depth is higher or equal
+				 * to 0 and if there are still unvisited vertices left
 				 */
-				if (curDepth >= 0) {
+				if (curDepth >= 0 && isUnvisitedVertexLeft(graph)) {
 					for (Vertex curVertex : tmpVertex.getAdjacentVertices()) {
 						if (curVertex.getVertexState() != VertexState.VISITED && !queue.contains(curVertex)) {
 							queue.add(curVertex);
 						}
 					}
 					curDepth -= 1;
+				} else {
+					/*
+					 * either depth is -1 or there are no more unvisited
+					 * vertices; reset depth and queue
+					 */
+					curDepth = -1;
+					queue = new LinkedList<Vertex>();
 				}
 				tmpVertex.setVertexState(VertexState.VISITED);
 			}
 			return reachableVertex;
 		}
 		return null;
+	}
+
+	/**
+	 * Checks if there are any unvisited vertices left
+	 * 
+	 * @param graph
+	 *            given graph to check for unvisited vertices
+	 * @return <code>true</code> if there are unvisited vertices left,
+	 *         <code>false</code> otherwise
+	 */
+	private static boolean isUnvisitedVertexLeft(Graph graph) {
+		for (Vertex vertex : graph.getVertices()) {
+			if (vertex.getVertexState() == VertexState.UNVISITED) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	/**
