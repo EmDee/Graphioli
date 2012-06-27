@@ -84,7 +84,8 @@ public class GEWindow extends JFrame implements GEView, ActionListener, ListSele
 	 */
 	public GEWindow() {
 
-		super("Game Explorer");
+		this.setTitle("Game Explorer");
+
 		LOG.info("GEWindow instantiated.");
 
 	}
