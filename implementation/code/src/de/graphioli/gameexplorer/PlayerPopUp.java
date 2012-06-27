@@ -1,23 +1,20 @@
 package de.graphioli.gameexplorer;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-
 import de.graphioli.model.LocalPlayer;
 import de.graphioli.model.Player;
+import de.graphioli.utils.Validation;
 
 /**
  * Represents a pop-up window that is used to select the the number of players and their names for a {@link Game}.
  * 
  * @author Graphioli
  */
-public class PlayerPopUp extends JFrame implements ActionListener {
+public class PlayerPopUp extends JFrame {
 
 	/**
 	 * Logging instance
@@ -72,18 +69,12 @@ public class PlayerPopUp extends JFrame implements ActionListener {
 
 
 	/**
-	 * Callback method for the {@link JButtons}, that creates the {@link Player}s based on
-	 * the input and calls {@link GEWindow#onPlayerPopUpReturn(ArrayList)}.
+	 * Prompts for the number of players to initialize.
 	 * 
-	 * @param event The ActionEvent
+	 * @param minPlayer The minimum number of players required
+	 * @param maxPlayer The maximum number of players allowed
+	 * @return The chosen number of players
 	 */
-	@Override
-	public void actionPerformed(ActionEvent event) {
-		// TODO Auto-generated method stub
-	}
-
-	// TODO Javadoc
-	// TODO Validator
 	private int askForPlayerCount(int minPlayer, int maxPlayer) {
 
 		if (minPlayer >= maxPlayer) {
@@ -108,22 +99,41 @@ public class PlayerPopUp extends JFrame implements ActionListener {
 
 	}
 
-	// TODO Javadoc
-	// TODO Validator
+
+	/**
+	 * Prompts for a name and returns the name for player initialization.
+	 * 
+	 * @param playerCount The number of the current player
+	 * @return The chosen name
+	 */
 	private String askForPlayerName(int playerCount) {
 
 		String[] ordinaryText = {"", "first", "second", "third", "fourth"};
+		String playerName = "";
+		String inputPlayerName;
 
-		String playerName = (String) JOptionPane.showInputDialog(this,
-                "Please enter a name for the " + ordinaryText[playerCount] + " player:",
-                "Game Explorer",
-                JOptionPane.PLAIN_MESSAGE,
-                null,
-                null,
-                "");
+		while (playerName.equals("")) {
 
-		if (playerName == null || playerName.isEmpty()) {
-			return "";
+			inputPlayerName = (String) JOptionPane.showInputDialog(this,
+	                "Please enter a name for the " + ordinaryText[playerCount] + " player:",
+	                "Game Explorer",
+	                JOptionPane.PLAIN_MESSAGE,
+	                null,
+	                null,
+	                "");
+	
+			// Only accept valid player names
+			if (playerName != null
+					&& !playerName.isEmpty()
+					&& Validation.isValidPlayerName(playerName)) {
+				playerName = inputPlayerName;
+			} else {
+				JOptionPane.showMessageDialog(this,
+					    "Please enter a valid player name.",
+					    "Game Explorer",
+					    JOptionPane.WARNING_MESSAGE);
+			}
+
 		}
 
 		return playerName;
