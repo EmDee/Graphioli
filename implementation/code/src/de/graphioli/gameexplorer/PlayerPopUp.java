@@ -2,9 +2,13 @@ package de.graphioli.gameexplorer;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+
 import de.graphioli.model.LocalPlayer;
 import de.graphioli.model.Player;
 
@@ -45,16 +49,22 @@ public class PlayerPopUp extends JFrame implements ActionListener {
 	 */
 	public PlayerPopUp(GEWindow geWindow, int minPlayer, int maxPlayer) {
 
+		// Register controlling GEWindow
 		this.geWindow = geWindow;
 
 		LOG.info("PlayerPopUp instantiated.");
 
-		// Instantiate mock-up players
-		Player player1 = new LocalPlayer("Player 1");
-		Player player2 = new LocalPlayer("Player 2");
+		// Get number of players
+		int playerCount = this.askForPlayerCount(minPlayer, maxPlayer);
 
-		this.players.add(player1);
-		this.players.add(player2);
+		// Instantiate players
+		for (int i = 0; i < playerCount; i++) {
+
+			String playerName = this.askForPlayerName(i + 1);
+			Player player = new LocalPlayer(playerName);
+			this.players.add(player);
+
+		}
 
 		this.geWindow.onPlayerPopUpReturn(this.players);
 
@@ -70,6 +80,50 @@ public class PlayerPopUp extends JFrame implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent event) {
 		// TODO Auto-generated method stub
+	}
+
+	private int askForPlayerCount(int minPlayer, int maxPlayer) {
+
+		if (minPlayer >= maxPlayer) {
+			return maxPlayer;
+		}
+
+		String[] playerStrings = {"", "One player", "Two players", "Three players", "Four players"};
+
+		String playerCount = (String) JOptionPane.showInputDialog(this,
+		                    "Please choose the number of players:",
+		                    "Game Explorer",
+		                    JOptionPane.PLAIN_MESSAGE,
+		                    null,
+		                    Arrays.copyOfRange(playerStrings, minPlayer, maxPlayer + 1),
+		                    playerStrings[minPlayer]);
+
+		if (playerCount == null || playerCount.isEmpty()) {
+		    return minPlayer;
+		}
+
+		return Arrays.asList(playerStrings).indexOf(playerCount);
+
+	}
+
+	private String askForPlayerName(int playerCount) {
+
+		String[] ordinaryText = {"", "first", "second", "third", "fourth"};
+
+		String playerName = (String) JOptionPane.showInputDialog(this,
+                "Please enter a name for the " + ordinaryText[playerCount] + " player:",
+                "Game Explorer",
+                JOptionPane.PLAIN_MESSAGE,
+                null,
+                null,
+                "");
+
+		if (playerName == null || playerName.isEmpty()) {
+			return "";
+		}
+
+		return playerName;
+
 	}
 
 }
