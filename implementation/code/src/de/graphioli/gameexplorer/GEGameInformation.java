@@ -24,7 +24,7 @@ public class GEGameInformation extends JPanel {
 	/**
 	 * Logging instance
 	 */
-	private static final Logger LOG = Logger.getLogger(GEWindow.class.getName());
+	private static final Logger LOG = Logger.getLogger(GEGameInformation.class.getName());
 
 	/**
 	 * UID for serializing this object.
