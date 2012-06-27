@@ -67,8 +67,10 @@ public class GameExplorer {
 	 * @return the {@link GameDefinition}
 	 */
 	private GameDefinition createGameDefinitionFromJSON(String jsonPath) {
+
 		File json = new File(jsonPath);
 		GameDefinition gameDefinition = null;
+
 		try {
 			gameDefinition = new Gson().fromJson(new FileReader(json), GameDefinition.class);
 		} catch (JsonSyntaxException e) {
@@ -81,7 +83,9 @@ public class GameExplorer {
 			LOG.severe("FileNotFoundException: " + e.getMessage());
 			e.printStackTrace();
 		}
+
 		return gameDefinition;
+
 	}
 
 
@@ -92,20 +96,27 @@ public class GameExplorer {
 	 * @return {@link GameDefinition}s of the games in the parsed folder.
 	 */
 	private void scanGameFolderAndCreateGameDefinitions() {
+
 		File gamesDirectory = new File("src/games/");
 		String pathToPropertyFile = new String();
 		GameDefinition gameDefinition;
 
 		// TODO: Different path for different environments
 		for (File tmpGame : gamesDirectory.listFiles()) {
+
 			if (tmpGame.isDirectory()) {
+
 				pathToPropertyFile = (tmpGame.getName() + "/properties.json");
 				gameDefinition = this.createGameDefinitionFromJSON("src/games/" + pathToPropertyFile);
+
 				if (gameDefinition != null) {
 					this.gameDefinitions.add(gameDefinition);
 				}
+
 			}
+
 		}
+
 	}
 
 
@@ -118,11 +129,12 @@ public class GameExplorer {
 	 * @return <code>true</code> if the action was performed successfully, <code>false</code> otherwise
 	 */
 	public boolean selectGame(GameDefinition gameDefinition, ArrayList<Player> players) {
+
 		LOG.finer("GameExplorer.<em>selectGame([...])</em> called.");
 
-		// Forward call to GameManager with the selected GameDefinition and
-		// Players
+		// Forward call to GameManager with the selected GameDefinition and Players
 		return this.gameManager.startGame(gameDefinition, players);
+
 	}
 
 
