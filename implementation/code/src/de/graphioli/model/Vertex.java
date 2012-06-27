@@ -15,7 +15,6 @@ public class Vertex {
 	private UUID uuid;
 	private ArrayList<Edge> incomingEdges = new ArrayList<Edge>();
 	private ArrayList<Edge> outgoingEdges = new ArrayList<Edge>();
-	private VertexState vertexState = VertexState.UNVISITED;
 
 	/**
 	 * Creates a new {@link Vertex} with an UID.
@@ -158,27 +157,6 @@ public class Vertex {
 		}
 
 		return false;
-	}
-
-	/**
-	 * Gets the state of this {@link Vertex} according to {@link VertexState}.
-	 * 
-	 * @return the vertexState of this {@link Vertex}
-	 */
-	public VertexState getVertexState() {
-		return vertexState;
-	}
-
-	/**
-	 * Sets the state of this {@link Vertex}. Default is
-	 * <code>VertexState.UNVISITED</code>. See {@link VertexState} for all the
-	 * different states.
-	 * 
-	 * @param vertexState
-	 *            the vertexState to set
-	 */
-	public void setVertexState(VertexState vertexState) {
-		this.vertexState = vertexState;
 	}
 
 	/*

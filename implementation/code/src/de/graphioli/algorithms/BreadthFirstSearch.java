@@ -5,7 +5,6 @@ import java.util.LinkedList;
 
 import de.graphioli.model.Graph;
 import de.graphioli.model.Vertex;
-import de.graphioli.model.VertexState;
 
 /**
  * This class performs the breadth-first-search algorithm.
@@ -37,80 +36,43 @@ public final class BreadthFirstSearch {
 	 * @return list of all vertices that can be reached within the given depth
 	 */
 	public static ArrayList<Vertex> performAlgorithm(Graph graph, Vertex vertex, int depth) {
+		
 		int curDepth = depth;
-		if (graph != null && vertex != null && curDepth > -1) {
-			resetStatesOfVertices(graph);
+		if (graph != null && vertex != null 
+				&& graph.getVertices().contains(vertex) && curDepth > -1) {
 			reachableVertex = new ArrayList<Vertex>();
 			queue = new LinkedList<Vertex>();
-
-			Vertex tmpVertex = graph.getVertices().get(graph.getVertices().indexOf(vertex));
-
+			LinkedList<Vertex> nextQueue = new LinkedList<Vertex>();
+			
+			Vertex tmpVertex = vertex;
 			queue.add(tmpVertex);
-			while (curDepth >= 0 || !queue.isEmpty()) {
-				/*
-				 * If depth is below 0, but the queue still has previous added
-				 * vertices to add to reachableVertices list
-				 */
-				if (!queue.isEmpty()) {
-					tmpVertex = queue.pop();
-					tmpVertex.setVertexState(VertexState.ACTIVE);
-					if (!tmpVertex.equals(vertex) && !reachableVertex.contains(tmpVertex)) {
-						reachableVertex.add(tmpVertex);
+			
+			// Goes through the queue until the given depth is reached
+			while (curDepth > 0) {
+				Vertex queueVertex = queue.pop();
+				
+				// Adds the adjacent vertices to the queue and list of reachable vertices
+				for (Vertex adjacentVertex : queueVertex.getAdjacentVertices()) {
+					if (!reachableVertex.contains(adjacentVertex)) {
+						nextQueue.add(adjacentVertex);
+						reachableVertex.add(adjacentVertex);
 					}
 				}
-
-				/*
-				 * Only add new vertices to queue, if depth is higher or equal
-				 * to 0 and if there are still unvisited vertices left
-				 */
-				if (curDepth >= 0 && isUnvisitedVertexLeft(graph)) {
-					for (Vertex curVertex : tmpVertex.getAdjacentVertices()) {
-						if (curVertex.getVertexState() != VertexState.VISITED && !queue.contains(curVertex)) {
-							queue.add(curVertex);
-						}
+				
+				if (queue.isEmpty()) {
+					if (nextQueue.isEmpty()) {
+						return reachableVertex;
 					}
-					curDepth -= 1;
-				} else {
-					/*
-					 * either depth is -1 or there are no more unvisited
-					 * vertices; reset depth and queue
-					 */
-					curDepth = -1;
-					queue = new LinkedList<Vertex>();
+					// Next layer starts
+					for (Vertex copy: nextQueue) {
+						queue.add(copy);
+					}
+					nextQueue.clear();
+					curDepth--;
 				}
-				tmpVertex.setVertexState(VertexState.VISITED);
 			}
 			return reachableVertex;
 		}
 		return null;
-	}
-
-	/**
-	 * Checks if there are any unvisited vertices left
-	 * 
-	 * @param graph
-	 *            given graph to check for unvisited vertices
-	 * @return <code>true</code> if there are unvisited vertices left,
-	 *         <code>false</code> otherwise
-	 */
-	private static boolean isUnvisitedVertexLeft(Graph graph) {
-		for (Vertex vertex : graph.getVertices()) {
-			if (vertex.getVertexState() == VertexState.UNVISITED) {
-				return true;
-			}
-		}
-		return false;
-	}
-
-	/**
-	 * Resets the state of all vertices in a given graph to 'UNVISITED'.
-	 * 
-	 * @param graph
-	 *            given graph with vertices to reset
-	 */
-	private static void resetStatesOfVertices(Graph graph) {
-		for (Vertex vertex : graph.getVertices()) {
-			vertex.setVertexState(VertexState.UNVISITED);
-		}
 	}
 }
