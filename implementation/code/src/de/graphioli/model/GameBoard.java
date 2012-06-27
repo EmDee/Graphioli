@@ -1,6 +1,7 @@
 package de.graphioli.model;
 
 import java.util.ArrayList;
+import java.util.logging.Logger;
 
 /**
  * This class represents the game board of a {@link Game}. The GameBoard combines the logical
@@ -9,6 +10,12 @@ import java.util.ArrayList;
  * @author Graphioli
  */
 public class GameBoard {
+	
+	/**
+	 * Logging instance
+	 */
+	private final static Logger LOG = Logger.getLogger(GameBoard.class
+			.getName());
 
 	/**
 	 * Whether the {@link Graph} of this GameBoard is directed or not
@@ -50,6 +57,7 @@ public class GameBoard {
 	public boolean addVisualVertex(VisualVertex visualVertex) {
 		if (this.grid.addVisualVertexToGrid(visualVertex)) {
 			if (this.graph.addVertex(visualVertex)) {
+				LOG.finer("Added VisualVertex at position " + visualVertex.getGridPoint() + ".");
 				return true;
 			}
 			this.grid.removeVisualVertexAtGridPoint(visualVertex.getGridPoint());
@@ -107,8 +115,10 @@ public class GameBoard {
 	public boolean removeVisualVertex(VisualVertex visualVertex) {
 		if (this.grid.removeVisualVertexAtGridPoint(visualVertex.getGridPoint())) {
 			if (this.graph.removeVertex(visualVertex)) {
+				LOG.finer("Removed VisualVertex from position " + visualVertex.getGridPoint() + ".");
 				return true;
 			}
+			// Removing failed, add to grid again.
 			this.grid.addVisualVertexToGrid(visualVertex);
 		}
 		return false;
@@ -178,6 +188,17 @@ public class GameBoard {
 	 */
 	public Grid getGrid() {
 		return this.grid;
+	}
+	
+	/**
+	 * Resets this GameBoard to an empty state.
+	 */
+	public void flush() {
+		this.graph = new Graph();
+		int horizontalGridPoints = grid.getHorizontalGridPoints();
+		int verticalGridPoints = grid.getVerticalGridPoints();
+		this.grid = new Grid(horizontalGridPoints, verticalGridPoints);	
+		LOG.fine("GameBoard flushed.");
 	}
 
 }

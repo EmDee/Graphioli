@@ -8,6 +8,9 @@
 - removed screenshot
 - removed localization
 
+== GameBoard
+- added flush method
+
 == GameManager
 - added private attribute 'gamePackagePath'
 
