@@ -15,11 +15,16 @@ import java.util.logging.LogRecord;
  */
 public class GraphioliLogFormatter extends Formatter {
 
+	/**
+	 * The initial size of the string buffer.
+	 */
+	private static final int BUFFER_SIZE = 750;
+
 	/** {@inheritDoc} */
 	@Override
 	public String format(LogRecord rec) {
 
-		StringBuffer buf = new StringBuffer(750);
+		StringBuffer buf = new StringBuffer(BUFFER_SIZE);
 
 		int level = rec.getLevel().intValue();
 
@@ -41,10 +46,12 @@ public class GraphioliLogFormatter extends Formatter {
 			buf.append("<tr BGCOLOR=\"#D0D0D0\"><td>???");
 		}
 
-		buf.append("</td>\n");
-		buf.append("<td>" + generateTimeStamp() + "</td>\n");
-		buf.append("<td>" + rec.getLoggerName() + "</td>\n");
-		buf.append("<td>" + formatMessage(rec) + "</td>\n");
+		final String tdBegin = "<td>";
+		final String tdEnd = "</td>\n";
+		buf.append(tdEnd);
+		buf.append(tdBegin + generateTimeStamp() + tdEnd);
+		buf.append(tdBegin + rec.getLoggerName() + tdEnd);
+		buf.append(tdBegin + formatMessage(rec) + tdEnd);
 		buf.append("</tr>\n\n");
 
 		return buf.toString();
@@ -54,8 +61,10 @@ public class GraphioliLogFormatter extends Formatter {
 	/** {@inheritDoc} */
 	@Override
 	public String getHead(Handler h) {
-		String headString = "<!DOCTYPE html><html><body><h2>Graphioli Log</h2><p>\n" + "Logging started on "
-				+ generateTimeStamp() + ".<br>\n"
+		String headString = "<!DOCTYPE html><html><body><h2>Graphioli Log</h2><p>\n"
+				+ "Logging started on "
+				+ generateTimeStamp()
+				+ ".<br>\n"
 				+ "<table border=\"1\"><tr><th>Level</th><th>Time</th><th>Class</th><th>Message</th></tr>";
 		return headString;
 	}
@@ -63,7 +72,10 @@ public class GraphioliLogFormatter extends Formatter {
 	/** {@inheritDoc} */
 	@Override
 	public String getTail(Handler h) {
-		String tailString = "</table> </p><p>\n" + "Logging finished on " + generateTimeStamp() + ".\n"
+		String tailString = "</table> </p><p>\n"
+				+ "Logging finished on "
+				+ generateTimeStamp()
+				+ ".\n"
 				+ "</p></body></html>";
 		return tailString;
 	}

@@ -1,8 +1,7 @@
 package de.graphioli.utils;
 
-import java.io.File;
-
 import de.graphioli.model.GridPoint;
+import java.io.File;
 
 /**
  * This class provides static methods for checking the validity of given values.
@@ -54,12 +53,10 @@ public final class Validation {
 	public static boolean isValidGridPoint(GridPoint gridPoint, int horizontalGridPoints, int verticalGridPoints) {
 
 		// Check if specified GridPoint is in bounds of Grid
-		if (gridPoint == null || gridPoint.getPositionX() < 0 || gridPoint.getPositionX() >= horizontalGridPoints
-				|| gridPoint.getPositionY() < 0 || gridPoint.getPositionY() >= verticalGridPoints) {
-			return false;
-		}
-
-		return true;
+		return !(gridPoint == null
+				|| gridPoint.getPositionX() < 0
+				|| gridPoint.getPositionX() >= horizontalGridPoints
+				|| gridPoint.getPositionY() < 0 || gridPoint.getPositionY() >= verticalGridPoints);
 
 	}
 }

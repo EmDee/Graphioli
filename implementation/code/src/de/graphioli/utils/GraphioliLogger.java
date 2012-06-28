@@ -15,7 +15,7 @@ import java.util.logging.Logger;
 public final class GraphioliLogger {
 
 	/**
-	 * Path to loggin file
+	 * Path to logging file.
 	 */
 	private static final String FILENAME = "log.html";
 
