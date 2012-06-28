@@ -1,7 +1,8 @@
 package de.graphioli.controller;
 
-import java.util.ArrayList;
 import de.graphioli.model.Player;
+import java.util.ArrayList;
+
 
 /**
  * This class is responsible for keeping information about a game's
@@ -12,7 +13,7 @@ import de.graphioli.model.Player;
 public class PlayerManager {
 
 	/**
-	 * The associated {@link GameManager}
+	 * The associated {@link GameManager}.
 	 */
 	private GameManager gameManager;
 
@@ -50,7 +51,7 @@ public class PlayerManager {
 	 *         <code>false</code> otherwise
 	 */
 	public boolean initializePlayers() {
-		gameManager.getViewManager().updatePlayerStatus(activePlayer);
+		this.gameManager.getViewManager().updatePlayerStatus(this.activePlayer);
 		return true;
 	}
 
@@ -89,7 +90,7 @@ public class PlayerManager {
 			this.activePlayer = this.players.get(activeIndex + 1);
 		}
 
-		gameManager.getViewManager().updatePlayerStatus(activePlayer);
+		this.gameManager.getViewManager().updatePlayerStatus(this.activePlayer);
 
 		// Return the newly set active player
 		return this.activePlayer;

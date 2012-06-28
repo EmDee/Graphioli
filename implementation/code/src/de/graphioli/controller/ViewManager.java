@@ -1,11 +1,12 @@
 package de.graphioli.controller;
 
-import java.util.logging.Logger;
+
 
 import de.graphioli.model.GridPoint;
 import de.graphioli.model.Player;
 import de.graphioli.view.GameWindow;
 import de.graphioli.view.View;
+import java.util.logging.Logger;
 
 /**
  * This class acts as an interface between the graphical user interface (GUI)
@@ -17,7 +18,7 @@ import de.graphioli.view.View;
 public class ViewManager {
 
 	/**
-	 * Logging instance
+	 * Logging instance.
 	 */
 	private static final Logger LOG = Logger.getLogger(ViewManager.class.getName());
 
@@ -172,7 +173,7 @@ public class ViewManager {
 	}
 
 	/**
-	 * Closes the View and all its components
+	 * Closes the View and all its components.
 	 * 
 	 * @return {@code true} if the disposal was successful
 	 */

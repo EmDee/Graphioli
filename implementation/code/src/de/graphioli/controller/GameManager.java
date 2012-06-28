@@ -1,5 +1,10 @@
 package de.graphioli.controller;
 
+import de.graphioli.gameexplorer.GameDefinition;
+import de.graphioli.gameexplorer.GameExplorer;
+import de.graphioli.model.GameBoard;
+import de.graphioli.model.Player;
+import de.graphioli.utils.GraphioliLogger;
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -8,11 +13,6 @@ import java.net.URLClassLoader;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import de.graphioli.gameexplorer.GameDefinition;
-import de.graphioli.gameexplorer.GameExplorer;
-import de.graphioli.model.GameBoard;
-import de.graphioli.model.Player;
-import de.graphioli.utils.GraphioliLogger;
 
 /**
  * This is the framework's central class, connecting the actual game with the
@@ -24,7 +24,7 @@ import de.graphioli.utils.GraphioliLogger;
 public class GameManager {
 
 	/**
-	 * Logging instance
+	 * Logging instance.
 	 */
 	private static final Logger LOG = Logger.getLogger(GameManager.class.getName());
 
@@ -59,6 +59,13 @@ public class GameManager {
 	private GameDefinition currentGameDefinition;
 
 	/**
+	 * Creates a new instance of {@link GameManager}.
+	 */
+	public GameManager() {
+		LOG.info("GameManager instantiated.");
+	}
+
+	/**
 	 * Initializes the GameManager to start the whole application.
 	 * 
 	 * @param args
@@ -73,7 +80,7 @@ public class GameManager {
 		}
 
 		// Create controller
-		GameManager gameManager = new GameManager();
+		final GameManager gameManager = new GameManager();
 
 		// Open GameExplorer to select a game
 		// This will cause GameExplorer to call startGame()
@@ -81,13 +88,6 @@ public class GameManager {
 
 		LOG.fine("<em>main</em> method finished");
 
-	}
-
-	/**
-	 * Creates a new instance of {@link GameManager}.
-	 */
-	public GameManager() {
-		LOG.info("GameManager instantiated.");
 	}
 
 	/**
@@ -194,18 +194,18 @@ public class GameManager {
 			return false;
 		}
 
-		game.registerController(this);
+		this.game.registerController(this);
 
 		// Start Game
 
 		LOG.finer("Calling <em>onGameInit()</em>.");
 
-		if (game.onGameInit()) {
+		if (this.game.onGameInit()) {
 			LOG.fine("<em>onGameInit()</em> returned <em>true</em>.");
-			viewManager.displayErrorMessage("Running...");
+			this.viewManager.displayErrorMessage("Running...");
 			LOG.finer("Calling <em>onGameStart()</em>.");
 
-			if (game.onGameStart()) {
+			if (this.game.onGameStart()) {
 				LOG.info("<em>onGameStart()</em> returned <em>true</em>. Game started.");
 			} else {
 				LOG.warning("<em>onGameStart()</em> returned <em>false</em>.");

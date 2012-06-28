@@ -1,8 +1,8 @@
 package de.graphioli.controller;
 
-import java.util.logging.Logger;
 import de.graphioli.model.GridPoint;
 import de.graphioli.model.VisualVertex;
+import java.util.logging.Logger;
 
 /**
  * This is the class that every game has to inherit from, when using the
@@ -14,7 +14,7 @@ import de.graphioli.model.VisualVertex;
 public abstract class Game {
 
 	/**
-	 * Logging instance
+	 * Logging instance.
 	 */
 	private static final Logger LOG = Logger.getLogger(Game.class.getName());
 
