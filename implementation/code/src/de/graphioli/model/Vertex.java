@@ -8,7 +8,6 @@ import de.graphioli.utils.UIDManager;
  * This class represents a logical vertex.
  * 
  * @author Graphioli
- * 
  */
 public class Vertex {
 
@@ -58,9 +57,6 @@ public class Vertex {
 	}
 
 	/**
-	 * 
-	 * 
-	 * 
 	 * Adds an incoming {@link Edge} to the list of incoming {@link Edge}s.
 	 * 
 	 * @param edge
@@ -161,7 +157,6 @@ public class Vertex {
 
 	/*
 	 * (non-Javadoc)
-	 * 
 	 * @see java.lang.Object#hashCode()
 	 */
 	@Override

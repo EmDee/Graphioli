@@ -109,16 +109,14 @@ public class PlayerPopUp extends JFrame {
 		while (playerCount == 0) {
 
 			// Ask for player number
-			String inputPlayerCount = this.showInputDialog(Localization
-					.getLanguageString("player_pop_up_count"),
+			String inputPlayerCount = this.showInputDialog(Localization.getLanguageString("player_pop_up_count"),
 					Arrays.copyOfRange(playerStrings, minPlayer, maxPlayer + 1));
 
 			// User pressed 'Cancel'
 			if (inputPlayerCount == null) {
 
 				// Ask user, if he really wants to cancel
-				boolean choice = this.showConfirmDialog(Localization
-						.getLanguageString("player_pop_up_choice"));
+				boolean choice = this.showConfirmDialog(Localization.getLanguageString("player_pop_up_choice"));
 
 				if (choice) {
 					return 0;
@@ -164,8 +162,7 @@ public class PlayerPopUp extends JFrame {
 			if (inputPlayerName == null) {
 
 				// Ask user, if he really wants to cancel
-				boolean choice = this.showConfirmDialog(Localization
-						.getLanguageString("player_pop_up_choice"));
+				boolean choice = this.showConfirmDialog(Localization.getLanguageString("player_pop_up_choice"));
 
 				if (choice) {
 					return null;

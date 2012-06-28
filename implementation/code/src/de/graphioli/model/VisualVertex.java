@@ -8,8 +8,7 @@ import java.util.logging.Logger;
 
 public abstract class VisualVertex extends Vertex {
 
-	private final static Logger LOG = Logger.getLogger(VisualVertex.class
-			.getName());
+	private final static Logger LOG = Logger.getLogger(VisualVertex.class.getName());
 
 	private GridPoint gridPoint;
 	protected BufferedImage bufferedImage;
@@ -28,8 +27,7 @@ public abstract class VisualVertex extends Vertex {
 	 */
 	public VisualVertex(GridPoint gridPoint) {
 		this.gridPoint = gridPoint;
-		bufferedImage = new BufferedImage(PIXELS_PER_SIDE, PIXELS_PER_SIDE,
-				BufferedImage.TYPE_4BYTE_ABGR);
+		bufferedImage = new BufferedImage(PIXELS_PER_SIDE, PIXELS_PER_SIDE, BufferedImage.TYPE_4BYTE_ABGR);
 		init();
 		update();
 	}
@@ -64,15 +62,13 @@ public abstract class VisualVertex extends Vertex {
 		Graphics2D g2d = bufferedImage.createGraphics();
 
 		// Use anti-aliasing
-		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-				RenderingHints.VALUE_ANTIALIAS_ON);
+		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
 		return draw(g2d);
 	}
 
 	/**
 	 * Returns the graphic representation of this {@code VisualVertex}.
-	 * 
 	 * 
 	 * @return the graphic representation.
 	 */
@@ -91,14 +87,12 @@ public abstract class VisualVertex extends Vertex {
 	}
 
 	/**
-	 * 
 	 * @param gridPoint
 	 *            the gridPoint to set
 	 */
 	public void setGridPoint(GridPoint gridPoint) {
 		// TODO: Take out this method?
-		LOG.warning("Resetting the position of a VisualVertex from "
-				+ this.gridPoint + " to " + gridPoint
+		LOG.warning("Resetting the position of a VisualVertex from " + this.gridPoint + " to " + gridPoint
 				+ ". This might lead to inconsistencies!");
 		this.gridPoint = gridPoint;
 	}

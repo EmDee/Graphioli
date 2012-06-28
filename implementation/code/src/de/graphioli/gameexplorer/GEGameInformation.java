@@ -41,7 +41,6 @@ public class GEGameInformation extends JPanel {
 	 */
 	private JTextArea descriptionLabel;
 
-
 	/**
 	 * Constructs a new instance of GEGameInformation.
 	 */
@@ -58,12 +57,13 @@ public class GEGameInformation extends JPanel {
 
 	}
 
-
 	/**
 	 * Updates the display of the description about the currently selected game.
 	 * 
-	 * @param description The new description to display
-	 * @return <code>true</code> if the action was performed successfully, <code>false</code> otherwise
+	 * @param description
+	 *            The new description to display
+	 * @return <code>true</code> if the action was performed successfully,
+	 *         <code>false</code> otherwise
 	 */
 	public boolean setDescription(String description) {
 
@@ -76,12 +76,13 @@ public class GEGameInformation extends JPanel {
 
 	}
 
-
 	/**
 	 * Updates the display of the screenshot of the currently selected game.
 	 * 
-	 * @param screenshot The new screenshot to display
-	 * @return <code>true</code> if the action was performed successfully, <code>false</code> otherwise
+	 * @param screenshot
+	 *            The new screenshot to display
+	 * @return <code>true</code> if the action was performed successfully,
+	 *         <code>false</code> otherwise
 	 */
 	public boolean setScreenshot(BufferedImage screenshot) {
 
@@ -101,7 +102,6 @@ public class GEGameInformation extends JPanel {
 
 	}
 
-
 	/**
 	 * Generates the screenshot label
 	 */
@@ -118,12 +118,11 @@ public class GEGameInformation extends JPanel {
 
 		// Add default text
 		this.screenshotLabel.setText(Localization.getLanguageString("ge_screenshotlabel"));
-		
+
 		// Add screenshot label to parent panel
 		this.add(this.screenshotLabel);
 
 	}
-
 
 	/**
 	 * Generates the description title label
@@ -133,9 +132,8 @@ public class GEGameInformation extends JPanel {
 		JLabel descriptionTitleLabel = new JLabel();
 
 		// Style description title label
-		Font boldFont = new Font(descriptionTitleLabel.getFont().getName(),
-				Font.BOLD,
-				descriptionTitleLabel.getFont().getSize());  
+		Font boldFont = new Font(descriptionTitleLabel.getFont().getName(), Font.BOLD, descriptionTitleLabel.getFont()
+				.getSize());
 		descriptionTitleLabel.setFont(boldFont);
 		descriptionTitleLabel.setPreferredSize(new Dimension(380, 30));
 
@@ -146,7 +144,6 @@ public class GEGameInformation extends JPanel {
 		this.add(descriptionTitleLabel);
 
 	}
-
 
 	/**
 	 * Generates the description label

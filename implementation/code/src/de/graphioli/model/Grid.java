@@ -24,12 +24,13 @@ public class Grid {
 	 */
 	private VisualVertex[][] grid;
 
-
 	/**
 	 * Creates a new {@link Grid} with the specified parameters.
 	 * 
-	 * @param horizontalGridPoints The number of horizontal grid points
-	 * @param verticalGridPoints The number of vertical grid points
+	 * @param horizontalGridPoints
+	 *            The number of horizontal grid points
+	 * @param verticalGridPoints
+	 *            The number of vertical grid points
 	 */
 	public Grid(int horizontalGridPoints, int verticalGridPoints) {
 
@@ -39,22 +40,25 @@ public class Grid {
 
 	}
 
-
 	/**
 	 * Adds the specified {@link VisualVertex} to the Grid.
 	 * 
-	 * @param visualVertex The VisualVertex to add
-	 * @return <code>true</code> if the VisualVertex was added successfully to this Grid, <code>false</code> otherwise
+	 * @param visualVertex
+	 *            The VisualVertex to add
+	 * @return <code>true</code> if the VisualVertex was added successfully to
+	 *         this Grid, <code>false</code> otherwise
 	 */
 	public boolean addVisualVertexToGrid(VisualVertex visualVertex) {
 
 		// Early negative return if specified GridPoint is invalid
-		if (!Validation.isValidGridPoint(visualVertex.getGridPoint(), this.horizontalGridPoints, this.verticalGridPoints)) {
+		if (!Validation.isValidGridPoint(visualVertex.getGridPoint(), this.horizontalGridPoints,
+				this.verticalGridPoints)) {
 			return false;
 		}
 
 		// Get VisualVertex at specified GridPoint
-		VisualVertex visualVertexAtGridPoint = this.grid[visualVertex.getGridPoint().getPositionX()][visualVertex.getGridPoint().getPositionY()];
+		VisualVertex visualVertexAtGridPoint = this.grid[visualVertex.getGridPoint().getPositionX()][visualVertex
+				.getGridPoint().getPositionY()];
 
 		// Return false if GridPoint is not empty
 		if (visualVertexAtGridPoint != null) {
@@ -68,12 +72,14 @@ public class Grid {
 
 	}
 
-
 	/**
-	 * Removes the {@link VisualVertex} from the specified {@link GridPoint} on the Grid.
+	 * Removes the {@link VisualVertex} from the specified {@link GridPoint} on
+	 * the Grid.
 	 * 
-	 * @param gridPoint The GridPoint from which the VisualVertex will be removed
-	 * @return <code>true</code> if a VisualVertex was removed from this GridPoint on the Grid, <code>false</code> otherwise
+	 * @param gridPoint
+	 *            The GridPoint from which the VisualVertex will be removed
+	 * @return <code>true</code> if a VisualVertex was removed from this
+	 *         GridPoint on the Grid, <code>false</code> otherwise
 	 */
 	public boolean removeVisualVertexAtGridPoint(GridPoint gridPoint) {
 
@@ -97,12 +103,13 @@ public class Grid {
 
 	}
 
-
 	/**
 	 * Returns the {@link VisualVertex} at the specified {@link GridPoint}.
 	 * 
-	 * @param gridPoint the GridPoint of the VisualVertex to return
-	 * @return the VisualVertex at the specified GridPoint or <code>null</code> if the GridPoint is empty
+	 * @param gridPoint
+	 *            the GridPoint of the VisualVertex to return
+	 * @return the VisualVertex at the specified GridPoint or <code>null</code>
+	 *         if the GridPoint is empty
 	 */
 	public VisualVertex getVisualVertexAtGridPoint(GridPoint gridPoint) {
 
@@ -118,11 +125,9 @@ public class Grid {
 
 	}
 
-
 	public int getHorizontalGridPoints() {
 		return horizontalGridPoints;
 	}
-
 
 	public int getVerticalGridPoints() {
 		return verticalGridPoints;

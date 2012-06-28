@@ -4,12 +4,13 @@ import java.util.ArrayList;
 import de.graphioli.model.Player;
 
 /**
- * This class is responsible for keeping information about a game's {@link Player}s.
+ * This class is responsible for keeping information about a game's
+ * {@link Player}s.
  * 
  * @author Graphioli
  */
 public class PlayerManager {
-	
+
 	/**
 	 * The associated {@link GameManager}
 	 */
@@ -25,12 +26,13 @@ public class PlayerManager {
 	 */
 	private Player activePlayer;
 
-
 	/**
 	 * Constructs a PlayerManager with the given set of {@link Player}s.
 	 * 
-	 * @param players The set of players
-	 * @param gameManager The controlling {@link GameManager}
+	 * @param players
+	 *            The set of players
+	 * @param gameManager
+	 *            The controlling {@link GameManager}
 	 */
 	public PlayerManager(ArrayList<Player> players, GameManager gameManager) {
 
@@ -41,17 +43,16 @@ public class PlayerManager {
 
 	}
 
-
 	/**
 	 * Initializes registered {@link Player}s.
 	 * 
-	 * @return <code>true</code> if the action was performed successfully, <code>false</code> otherwise
+	 * @return <code>true</code> if the action was performed successfully,
+	 *         <code>false</code> otherwise
 	 */
 	public boolean initializePlayers() {
 		gameManager.getViewManager().updatePlayerStatus(activePlayer);
 		return true;
 	}
-
 
 	/**
 	 * Returns the list of {@link Player}s managed by this instance.
@@ -62,7 +63,6 @@ public class PlayerManager {
 		return this.players;
 	}
 
-
 	/**
 	 * Returns the {@link Player} who is currently active.
 	 * 
@@ -71,7 +71,6 @@ public class PlayerManager {
 	public Player getActivePlayer() {
 		return this.activePlayer;
 	}
-
 
 	/**
 	 * Sets the next {@link Player} in the list to active.
@@ -82,13 +81,14 @@ public class PlayerManager {
 
 		int activeIndex = this.players.indexOf(this.activePlayer);
 
-		// Set next active player (first one, if currently active player is last entry in the list)
+		// Set next active player (first one, if currently active player is last
+		// entry in the list)
 		if (activeIndex == this.players.size() - 1) {
 			this.activePlayer = this.players.get(0);
 		} else {
 			this.activePlayer = this.players.get(activeIndex + 1);
 		}
-		
+
 		gameManager.getViewManager().updatePlayerStatus(activePlayer);
 
 		// Return the newly set active player

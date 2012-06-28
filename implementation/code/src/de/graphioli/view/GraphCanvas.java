@@ -18,20 +18,18 @@ import javax.swing.JPanel;
  * This class represents the canvas where the {@link Graph} will be drawn on.
  * 
  * @author Graphioli
- * 
  */
 public class GraphCanvas extends JPanel {
-	
+
 	private Stroke gridStroke;
 	private Stroke edgeStroke;
 
 	private static final long serialVersionUID = 1L;
-	
+
 	/**
 	 * Logging instance
 	 */
-	private final static Logger LOG = Logger.getLogger(GraphCanvas.class
-			.getName());
+	private final static Logger LOG = Logger.getLogger(GraphCanvas.class.getName());
 
 	/**
 	 * The parent {@link GameWindow} associated with this @ GraphCanvas}
@@ -76,77 +74,65 @@ public class GraphCanvas extends JPanel {
 		Graph graph = this.parentGameWindow.getViewManager().getGameManager().getGameBoard().getGraph();
 
 		/*
-		 * visualGrid in GameWindow after Canvas initiated 
-		 * but paintComponent already in canvas constructor used
-		 * --> can't set next line in canvas constructor...
+		 * visualGrid in GameWindow after Canvas initiated but paintComponent
+		 * already in canvas constructor used --> can't set next line in canvas
+		 * constructor...
 		 */
 		this.visualGrid = this.parentGameWindow.getVisualGrid();
 		int gridScale = this.visualGrid.getGridScale();
-		
+
 		// Drawing grid lines
 		g2d.setStroke(gridStroke);
 		this.visualGrid.draw(g2d);
-		
+
 		// Drawing edges of the graph from the canvas
 		g2d.setStroke(edgeStroke);
 		for (Edge edge : graph.getEdges()) {
 			VisualVertex originVertex = (VisualVertex) edge.getOriginVertex();
 			VisualVertex targetVertex = (VisualVertex) edge.getTargetVertex();
-			
-			g2d.drawLine((originVertex.getGridPoint().getPositionX() + 1) * gridScale, 
-					(originVertex.getGridPoint().getPositionY() + 1) * gridScale, 
-					(targetVertex.getGridPoint().getPositionX() + 1) * gridScale, 
+
+			g2d.drawLine((originVertex.getGridPoint().getPositionX() + 1) * gridScale, (originVertex.getGridPoint()
+					.getPositionY() + 1) * gridScale, (targetVertex.getGridPoint().getPositionX() + 1) * gridScale,
 					(targetVertex.getGridPoint().getPositionY() + 1) * gridScale);
 		}
-		
+
 		// Drawing vertices
 		for (Vertex v : graph.getVertices()) {
-			
+
 			VisualVertex vertex = (VisualVertex) v;
-			g2d.drawImage(
-					vertex.getBufferedImage(),
-					((1 + vertex.getGridPoint().getPositionX()) * gridScale)
-							- (VisualVertex.PIXELS_PER_SIDE / 2),
-					((1 + vertex.getGridPoint().getPositionY()) * gridScale)
-							- (VisualVertex.PIXELS_PER_SIDE / 2), 
-							VisualVertex.PIXELS_PER_SIDE,
-							VisualVertex.PIXELS_PER_SIDE, null);
+			g2d.drawImage(vertex.getBufferedImage(), ((1 + vertex.getGridPoint().getPositionX()) * gridScale)
+					- (VisualVertex.PIXELS_PER_SIDE / 2), ((1 + vertex.getGridPoint().getPositionY()) * gridScale)
+					- (VisualVertex.PIXELS_PER_SIDE / 2), VisualVertex.PIXELS_PER_SIDE, VisualVertex.PIXELS_PER_SIDE,
+					null);
 
 		}
 		/*
-		// Drawing edges of the graph
-		for(Edge edge: graph.getEdges()) {
-			
-			// Size of the VisualEdge
-			int xsize = 0;
-			int ysize = 0;
-
-			
-			// Positioning of the VisualEdge
-			int xpos = 0;
-			int ypos = 0;
-
-			VisualVertex originVertex = (VisualVertex) edge.getOriginVertex();
-			VisualVertex targetVertex = (VisualVertex) edge.getTargetVertex();
-			
-			if((originVertex.getGridPoint().getPositionX() > targetVertex.getGridPoint().getPositionX())) {
-				xsize = (originVertex.getGridPoint().getPositionX() - targetVertex.getGridPoint().getPositionX()) * horizontalGridScale;
-				xpos = ((1 + targetVertex.getGridPoint().getPositionX()) * horizontalGridScale);
-			} else {
-				xsize = (targetVertex.getGridPoint().getPositionX() - originVertex.getGridPoint().getPositionX()) * horizontalGridScale;
-				xpos = ((1 + originVertex.getGridPoint().getPositionX()) * horizontalGridScale);
-			}
-			if((originVertex.getGridPoint().getPositionY() > targetVertex.getGridPoint().getPositionY())) {
-				ysize = (originVertex.getGridPoint().getPositionY() - targetVertex.getGridPoint().getPositionY()) * verticalGridScale;
-				xpos = ((1 + targetVertex.getGridPoint().getPositionY()) * verticalGridScale);
-			} else {
-				ysize = (targetVertex.getGridPoint().getPositionY() - originVertex.getGridPoint().getPositionY()) * verticalGridScale;
-				xpos = ((1 + originVertex.getGridPoint().getPositionY()) * verticalGridScale);
-			}
-			
-			// Draw VisualEdge
-			g2d.drawImage(((VisualEdge) edge).getBufferedImage(), xpos, ypos, xsize, ysize, null); 
-
-		} */
+		 * // Drawing edges of the graph for(Edge edge: graph.getEdges()) { //
+		 * Size of the VisualEdge int xsize = 0; int ysize = 0; // Positioning
+		 * of the VisualEdge int xpos = 0; int ypos = 0; VisualVertex
+		 * originVertex = (VisualVertex) edge.getOriginVertex(); VisualVertex
+		 * targetVertex = (VisualVertex) edge.getTargetVertex();
+		 * if((originVertex.getGridPoint().getPositionX() >
+		 * targetVertex.getGridPoint().getPositionX())) { xsize =
+		 * (originVertex.getGridPoint().getPositionX() -
+		 * targetVertex.getGridPoint().getPositionX()) * horizontalGridScale;
+		 * xpos = ((1 + targetVertex.getGridPoint().getPositionX()) *
+		 * horizontalGridScale); } else { xsize =
+		 * (targetVertex.getGridPoint().getPositionX() -
+		 * originVertex.getGridPoint().getPositionX()) * horizontalGridScale;
+		 * xpos = ((1 + originVertex.getGridPoint().getPositionX()) *
+		 * horizontalGridScale); }
+		 * if((originVertex.getGridPoint().getPositionY() >
+		 * targetVertex.getGridPoint().getPositionY())) { ysize =
+		 * (originVertex.getGridPoint().getPositionY() -
+		 * targetVertex.getGridPoint().getPositionY()) * verticalGridScale; xpos
+		 * = ((1 + targetVertex.getGridPoint().getPositionY()) *
+		 * verticalGridScale); } else { ysize =
+		 * (targetVertex.getGridPoint().getPositionY() -
+		 * originVertex.getGridPoint().getPositionY()) * verticalGridScale; xpos
+		 * = ((1 + originVertex.getGridPoint().getPositionY()) *
+		 * verticalGridScale); } // Draw VisualEdge g2d.drawImage(((VisualEdge)
+		 * edge).getBufferedImage(), xpos, ypos, xsize, ysize, null); }
+		 */
 	}
 }

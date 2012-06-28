@@ -21,12 +21,13 @@ public abstract class Player {
 	 */
 	private String name;
 
-
 	/**
 	 * Creates a new {@link Player} with the specified name.
 	 * 
-	 * @param name The player's name
-	 * @throws IllegalArgumentException if param <code>name</code> is invalid
+	 * @param name
+	 *            The player's name
+	 * @throws IllegalArgumentException
+	 *             if param <code>name</code> is invalid
 	 * @see Validator#isvalidPlayerName
 	 */
 	public Player(String name) {
@@ -42,18 +43,18 @@ public abstract class Player {
 
 	}
 
-
 	/**
 	 * Returns the unique ID of this {@link Player}.
+	 * 
 	 * @return the unique ID of this player.
 	 */
 	public UUID getUID() {
 		return this.uid;
 	}
 
-
 	/**
 	 * Returns the player's name.
+	 * 
 	 * @return the player's name
 	 */
 	public String getName() {

@@ -9,7 +9,6 @@ import de.graphioli.model.Vertex;
  * This class can check if a path between two given vertices exists.
  * 
  * @author Graphioli
- * 
  */
 public final class FindPath {
 

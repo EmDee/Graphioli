@@ -28,13 +28,12 @@ public class VisualVertexTestGame extends Game {
 	}
 
 	private VisualVertex firstSelectedVisualVertex;
-	
+
 	@Override
 	protected boolean onVertexClick(VisualVertex vertex) {
 		SimpleVisualVertex vex = (SimpleVisualVertex) vertex;
 		if (vex.getFillColor() == Color.BLUE) {
-			if ((this.firstSelectedVisualVertex != null) 
-					&& (this.firstSelectedVisualVertex != vex)) {
+			if ((this.firstSelectedVisualVertex != null) && (this.firstSelectedVisualVertex != vex)) {
 				this.getGameManager().getGameBoard().addVisualEdge(firstSelectedVisualVertex, vex);
 			}
 			this.firstSelectedVisualVertex = vex;
@@ -70,19 +69,18 @@ public class VisualVertexTestGame extends Game {
 		GridPoint gridPointB = new GridPoint(4, 4);
 		SimpleVisualVertex simpleVisualVertexA = new SimpleVisualVertex(gridPointA);
 		SimpleVisualVertex simpleVisualVertexB = new SimpleVisualVertex(gridPointB);
-		
+
 		simpleVisualVertexA.setStrokeWeight(2);
 		simpleVisualVertexB.setStrokeWeight(1);
 		simpleVisualVertexA.setFillColor(Color.GREEN);
-		
+
 		ArrayList<VisualVertex> simpleVisualVertecies = new ArrayList<VisualVertex>();
 		simpleVisualVertecies.add(simpleVisualVertexA);
 		simpleVisualVertecies.add(simpleVisualVertexB);
-		
-		
+
 		this.getGameManager().getGameBoard().addVisualVertices(simpleVisualVertecies);
 		this.getGameManager().getGameBoard().addVisualEdge(simpleVisualVertexA, simpleVisualVertexB);
-		
+
 		return true;
 	}
 }

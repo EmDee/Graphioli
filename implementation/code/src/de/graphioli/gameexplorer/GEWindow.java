@@ -154,11 +154,9 @@ public class GEWindow extends JFrame implements GEView, ActionListener, ListSele
 
 	/**
 	 * Calls {@link GameExplorer#openHelpFile(GameDefinition gameDef)} with the
-	 * selected {@link GameDefinition}.
-	 * 
-	 * For this method to perform its task successfully, a
-	 * {@link GameDefinition} must be selected from the list of available
-	 * definitions.
+	 * selected {@link GameDefinition}. For this method to perform its task
+	 * successfully, a {@link GameDefinition} must be selected from the list of
+	 * available definitions.
 	 * 
 	 * @return <code>true</code> if the action was performed successfully,
 	 *         <code>false</code> otherwise
@@ -198,11 +196,9 @@ public class GEWindow extends JFrame implements GEView, ActionListener, ListSele
 
 	/**
 	 * Called by the {@link PlayerPopUp} when it has finished and triggers the
-	 * start of the {@link Game}.
-	 * 
-	 * For this method to perform its task successfully, a
-	 * {@link GameDefinition} must be selected from the list of available
-	 * definitions.
+	 * start of the {@link Game}. For this method to perform its task
+	 * successfully, a {@link GameDefinition} must be selected from the list of
+	 * available definitions.
 	 * 
 	 * @param players
 	 *            The created players
@@ -300,8 +296,7 @@ public class GEWindow extends JFrame implements GEView, ActionListener, ListSele
 
 		// TODO Get path (currently ../../../games/) from environment (eg.
 		// production and development)
-		String screenshotPath = "../../../games/" + this.selectedGameDefinition.getClassName()
-				+ "/screenshot.jpg";
+		String screenshotPath = "../../../games/" + this.selectedGameDefinition.getClassName() + "/screenshot.jpg";
 		InputStream screenshotInputStream = getClass().getResourceAsStream(screenshotPath);
 
 		// Try creating buffered image from path
@@ -364,8 +359,7 @@ public class GEWindow extends JFrame implements GEView, ActionListener, ListSele
 		JScrollPane visibleGameDefinitionListPane = new JScrollPane(visibleGameDefinitionList);
 
 		// Style list pane
-		visibleGameDefinitionListPane.setPreferredSize(new Dimension(this.windowWidth / 2,
-				this.windowHeight - 70));
+		visibleGameDefinitionListPane.setPreferredSize(new Dimension(this.windowWidth / 2, this.windowHeight - 70));
 		visibleGameDefinitionListPane.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
 		JPanel visibleGameDefinitionListPaneBox = new JPanel();

@@ -26,11 +26,12 @@ public class GameDefinitionListModel extends AbstractListModel {
 	 */
 	private ArrayList<GameDefinition> gameDefinitions;
 
-
 	/**
-	 * Creates a new GameDefinitionListModel with the given {@link GameDefinition}s.
+	 * Creates a new GameDefinitionListModel with the given
+	 * {@link GameDefinition}s.
 	 * 
-	 * @param gameDefinitions The list of {@link GameDefinition}s in this ListModel
+	 * @param gameDefinitions
+	 *            The list of {@link GameDefinition}s in this ListModel
 	 */
 	public GameDefinitionListModel(ArrayList<GameDefinition> gameDefinitions) {
 
@@ -39,18 +40,18 @@ public class GameDefinitionListModel extends AbstractListModel {
 
 	}
 
-
 	/**
-	 * Returns the name of the {@link GameDefinition} at the given index so the {@link JList} can display it.
+	 * Returns the name of the {@link GameDefinition} at the given index so the
+	 * {@link JList} can display it.
 	 * 
-	 * @param index The index position
+	 * @param index
+	 *            The index position
 	 * @return GameDefinition The GameDefintion at the specified index position
 	 */
 	@Override
 	public GameDefinition getElementAt(int index) {
 		return this.gameDefinitions.get(index);
 	}
-
 
 	/** {@inheritDoc} */
 	@Override

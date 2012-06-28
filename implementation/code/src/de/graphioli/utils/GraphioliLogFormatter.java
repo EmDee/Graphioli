@@ -8,7 +8,8 @@ import java.util.logging.Level;
 import java.util.logging.LogRecord;
 
 /**
- * This class is used by the {@link GraphioliLogger} to generate HTML formatted log messages.
+ * This class is used by the {@link GraphioliLogger} to generate HTML formatted
+ * log messages.
  * 
  * @author Graphioli
  */
@@ -53,23 +54,19 @@ public class GraphioliLogFormatter extends Formatter {
 	/** {@inheritDoc} */
 	@Override
 	public String getHead(Handler h) {
-		String headString = "<!DOCTYPE html><html><body><h2>Graphioli Log</h2><p>\n"
-				+ "Logging started on "
-				+ generateTimeStamp()
-				+ ".<br>\n"
+		String headString = "<!DOCTYPE html><html><body><h2>Graphioli Log</h2><p>\n" + "Logging started on "
+				+ generateTimeStamp() + ".<br>\n"
 				+ "<table border=\"1\"><tr><th>Level</th><th>Time</th><th>Class</th><th>Message</th></tr>";
 		return headString;
 	}
 
-
 	/** {@inheritDoc} */
 	@Override
 	public String getTail(Handler h) {
-		String tailString = "</table> </p><p>\n" + "Logging finished on "
-				+ generateTimeStamp() + ".\n" + "</p></body></html>";
+		String tailString = "</table> </p><p>\n" + "Logging finished on " + generateTimeStamp() + ".\n"
+				+ "</p></body></html>";
 		return tailString;
 	}
-
 
 	/**
 	 * Generates a formatted date string of the time this method was called.

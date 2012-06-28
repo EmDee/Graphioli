@@ -5,11 +5,9 @@ import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
 /**
- * 
  * This class is responsible for loading the correct localization file.
  * 
  * @author Graphioli
- * 
  */
 public final class Localization {
 	// TODO: load localization from game definition

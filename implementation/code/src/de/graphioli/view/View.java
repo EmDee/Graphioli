@@ -32,8 +32,10 @@ public interface View {
 	/**
 	 * Adds a custom {@link MenuItem} to the menu.
 	 * 
-	 * @param item The MenuItem to add
-	 * @return <code>true</code> if the action was performed successfully, <code>false</code> otherwise
+	 * @param item
+	 *            The MenuItem to add
+	 * @return <code>true</code> if the action was performed successfully,
+	 *         <code>false</code> otherwise
 	 * @todo Facultative
 	 */
 	//public boolean addCustomMenuItem(MenuItem item);

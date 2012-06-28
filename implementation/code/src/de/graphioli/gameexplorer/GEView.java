@@ -11,16 +11,18 @@ public interface GEView {
 	/**
 	 * Registers the controller for the {@link GameExplorer} user interface.
 	 * 
-	 * @param gameExplorer The controlling GameExplorer
-	 * @return <code>true</code> if the action was performed successfully, <code>false</code> otherwise
+	 * @param gameExplorer
+	 *            The controlling GameExplorer
+	 * @return <code>true</code> if the action was performed successfully,
+	 *         <code>false</code> otherwise
 	 */
 	boolean registerController(GameExplorer gameExplorer);
-
 
 	/**
 	 * Generates the user interface of the {@link GameExplorer}.
 	 * 
-	 * @return <code>true</code> if the action was performed successfully, <code>false</code> otherwise
+	 * @return <code>true</code> if the action was performed successfully,
+	 *         <code>false</code> otherwise
 	 */
 	boolean generateView();
 

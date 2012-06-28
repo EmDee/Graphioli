@@ -36,21 +36,18 @@ public class SimpleVisualVertex extends VisualVertex {
 	/**
 	 * Draws this {@code SimpleVisualVertex} according to its fill color, stroke
 	 * color and stroke weight.
-	 *  
 	 */
 	@Override
 	protected boolean draw(Graphics2D graphics) {
 		graphics.setStroke(stroke);
 		graphics.setColor(fillColor);
 		graphics.fillOval(0, 0, PIXELS_PER_SIDE - 1, PIXELS_PER_SIDE - 1);
-		
+
 		// Draw Stroke
 		graphics.setColor(strokeColor);
-		graphics.drawOval(0 + (strokeWeight - 1) / 2,
-				0 + (strokeWeight - 1) / 2,
-				(PIXELS_PER_SIDE - 1) - (strokeWeight - 1) ,
-				(PIXELS_PER_SIDE - 1) - (strokeWeight - 1) );
-		
+		graphics.drawOval(0 + (strokeWeight - 1) / 2, 0 + (strokeWeight - 1) / 2, (PIXELS_PER_SIDE - 1)
+				- (strokeWeight - 1), (PIXELS_PER_SIDE - 1) - (strokeWeight - 1));
+
 		return true;
 	}
 
@@ -98,7 +95,8 @@ public class SimpleVisualVertex extends VisualVertex {
 	 *            the strokeWeight to set
 	 */
 	public void setStrokeWeight(int strokeWeight) {
-		// Stroke Weight has to be an uneven number internally to prevent edges being cut off.
+		// Stroke Weight has to be an uneven number internally to prevent edges
+		// being cut off.
 		this.strokeWeight = 2 * strokeWeight - 1;
 		this.stroke = new BasicStroke(this.strokeWeight);
 		this.update();

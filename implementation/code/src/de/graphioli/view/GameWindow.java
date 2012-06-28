@@ -13,17 +13,14 @@ import javax.swing.JFileChooser;
 import de.graphioli.model.Player;
 
 /**
- * 
- * 
  * @author Graphioli
  */
 public class GameWindow extends JFrame implements View {
-	
+
 	/**
 	 * Logging instance
 	 */
-	private final static Logger LOG = Logger.getLogger(GameWindow.class
-			.getName());
+	private final static Logger LOG = Logger.getLogger(GameWindow.class.getName());
 
 	/**
 	 * UID for serializing this object
@@ -60,17 +57,17 @@ public class GameWindow extends JFrame implements View {
 	 * {@link StatusBar} and {@link MenuBar}.
 	 */
 	public GameWindow(ViewManager viewManager) {
-		
+
 		LOG.info("GameWindow instantiated.");
 		this.registerController(viewManager);
-		
+
 		this.setLayout(new BorderLayout());
 		this.setSize(500, 500);
-		
+
 		// Initialize and add MenuBar
 		this.menuBar = new MenuBar(this);
 		this.setJMenuBar(this.menuBar);
-		
+
 		// Initialize and add GraphCanvas and ViusalGrid
 		this.graphCanvas = new GraphCanvas(this);
 		this.add(this.graphCanvas);
@@ -82,10 +79,10 @@ public class GameWindow extends JFrame implements View {
 		this.statusBar = new StatusBar();
 		this.add(this.statusBar, BorderLayout.SOUTH);
 		this.statusBar.setPreferredSize(new Dimension(this.getWidth(), 25));
-		
+
 		this.setResizable(false);
 		this.setVisible(true);
-		
+
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 
@@ -200,13 +197,12 @@ public class GameWindow extends JFrame implements View {
 	public VisualGrid getVisualGrid() {
 		return visualGrid;
 	}
-	
-	
+
 	/**
 	 * Disposes all components of the GameWindow
 	 */
 	public boolean closeView() {
-		//TODO implement
+		// TODO implement
 		this.dispose();
 		return true;
 	}

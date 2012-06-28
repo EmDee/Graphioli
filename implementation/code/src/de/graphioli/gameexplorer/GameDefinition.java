@@ -2,7 +2,7 @@ package de.graphioli.gameexplorer;
 
 import java.net.URI;
 
-//import java.util.ArrayList;
+// import java.util.ArrayList;
 
 /**
  * This class represents the game’s definition, containing crucial information

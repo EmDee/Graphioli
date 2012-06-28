@@ -4,18 +4,18 @@ import java.util.ArrayList;
 import java.util.logging.Logger;
 
 /**
- * This class represents the game board of a {@link Game}. The GameBoard combines the logical
- * {@link Graph} with the {@link Grid} and has access to both of them.
+ * This class represents the game board of a {@link Game}. The GameBoard
+ * combines the logical {@link Graph} with the {@link Grid} and has access to
+ * both of them.
  * 
  * @author Graphioli
  */
 public class GameBoard {
-	
+
 	/**
 	 * Logging instance
 	 */
-	private final static Logger LOG = Logger.getLogger(GameBoard.class
-			.getName());
+	private final static Logger LOG = Logger.getLogger(GameBoard.class.getName());
 
 	/**
 	 * Whether the {@link Graph} of this GameBoard is directed or not
@@ -32,12 +32,12 @@ public class GameBoard {
 	 */
 	private Grid grid;
 
-
 	/**
-	 * Creates a new {@link GameBoard} with the specified option whether the {@link Graph} of
-	 * the GameBoard is directed or not.
+	 * Creates a new {@link GameBoard} with the specified option whether the
+	 * {@link Graph} of the GameBoard is directed or not.
 	 * 
-	 * @param isDirectedGraph Whether the graph of the game is directed or not
+	 * @param isDirectedGraph
+	 *            Whether the graph of the game is directed or not
 	 */
 	public GameBoard(boolean isDirectedGraph, int horizontalGridPoints, int verticalGridPoints) {
 
@@ -49,9 +49,11 @@ public class GameBoard {
 	}
 
 	/**
-	 * Adds the given {@link VisualVertex} to the {@link Graph} and the {@link Grid}.
+	 * Adds the given {@link VisualVertex} to the {@link Graph} and the
+	 * {@link Grid}.
 	 * 
-	 * @param visualVertex the VisualVertex to be added
+	 * @param visualVertex
+	 *            the VisualVertex to be added
 	 * @return {@code true} if the adding was successful
 	 */
 	public boolean addVisualVertex(VisualVertex visualVertex) {
@@ -64,12 +66,12 @@ public class GameBoard {
 		}
 		return false;
 	}
-	
-	
+
 	/**
 	 * Adds the given VisualVertices to the {@link Graph} and the {@link Grid}.
 	 * 
-	 * @param visualVertices an ArrayList of the VisualVertices to be added
+	 * @param visualVertices
+	 *            an ArrayList of the VisualVertices to be added
 	 * @return {@code true} if the adding was successful
 	 */
 	public boolean addVisualVertices(ArrayList<VisualVertex> visualVertices) {
@@ -80,12 +82,15 @@ public class GameBoard {
 		}
 		return true;
 	}
-	
+
 	/**
-	 * Creates the {@link VisualEdge} with the given vertices and adds it to the {@link Graph} and the {@link Grid}.
+	 * Creates the {@link VisualEdge} with the given vertices and adds it to the
+	 * {@link Graph} and the {@link Grid}.
 	 * 
-	 * @param vertexA one of the the vertices for the VisualEdge
-	 * @param vertexB the other vertex for the VisualEdge
+	 * @param vertexA
+	 *            one of the the vertices for the VisualEdge
+	 * @param vertexB
+	 *            the other vertex for the VisualEdge
 	 * @return the created {@link VisualEdge}
 	 */
 	public VisualEdge addVisualEdge(VisualVertex vertexA, VisualVertex vertexB) {
@@ -105,11 +110,13 @@ public class GameBoard {
 		}
 		return null;
 	}
-	
+
 	/**
-	 * Removes the {@link VisualVertex} from the the {@link Graph} and the {@link Grid}.
+	 * Removes the {@link VisualVertex} from the the {@link Graph} and the
+	 * {@link Grid}.
 	 * 
-	 * @param visualVertex the {@link VisualVertex} to be removed
+	 * @param visualVertex
+	 *            the {@link VisualVertex} to be removed
 	 * @return {@code true} if the removing was successful
 	 */
 	public boolean removeVisualVertex(VisualVertex visualVertex) {
@@ -123,11 +130,13 @@ public class GameBoard {
 		}
 		return false;
 	}
-	
+
 	/**
-	 * Removes the given {@link VisualEdge} from the the {@link Graph} and the {@link Grid}.
+	 * Removes the given {@link VisualEdge} from the the {@link Graph} and the
+	 * {@link Grid}.
 	 * 
-	 * @param visualEdge the {@link VisualEdge} to be removed
+	 * @param visualEdge
+	 *            the {@link VisualEdge} to be removed
 	 * @return {@code true} if the removing was successful
 	 */
 	public boolean removeVisualEdge(VisualEdge visualEdge) {
@@ -145,14 +154,18 @@ public class GameBoard {
 		}
 		return false;
 	}
-	
+
 	/**
-	 * Returns the {@link VisualEdge} with vertexA as origin and vertexB as target vertex
-	 * In an undirected graph, it returns visible one of the twin edges
+	 * Returns the {@link VisualEdge} with vertexA as origin and vertexB as
+	 * target vertex In an undirected graph, it returns visible one of the twin
+	 * edges
 	 * 
-	 * @param vertexA the origin vertex of the edge to get
-	 * @param vertexB the target vertex of the edge to get
-	 * @return the edge from vertexA to vertexB (resp. in an undirected graph, the visible one of the twin edges
+	 * @param vertexA
+	 *            the origin vertex of the edge to get
+	 * @param vertexB
+	 *            the target vertex of the edge to get
+	 * @return the edge from vertexA to vertexB (resp. in an undirected graph,
+	 *         the visible one of the twin edges
 	 */
 	public VisualEdge getVisualEdge(VisualVertex vertexA, VisualVertex vertexB) {
 		VisualEdge edge = (VisualEdge) this.graph.getEdge(vertexA, vertexB);
@@ -163,33 +176,34 @@ public class GameBoard {
 		}
 	}
 
-
 	/**
 	 * Returns whether the graph of this GameBoard is directed or not.
-	 * @return <code>true</code> if the graph of this GameBoard is directed, <code>false</code> otherwise
+	 * 
+	 * @return <code>true</code> if the graph of this GameBoard is directed,
+	 *         <code>false</code> otherwise
 	 */
 	public boolean isDirectedGraph() {
 		return this.isDirectedGraph;
 	}
 
-
 	/**
 	 * Returns the {@link Graph} of this GameBoard.
+	 * 
 	 * @return the Graph of this GameBoard
 	 */
 	public Graph getGraph() {
 		return this.graph;
 	}
 
-
 	/**
 	 * Returns the {@link Grid} of this GameBoard.
+	 * 
 	 * @return the Grid of this GameBoard
 	 */
 	public Grid getGrid() {
 		return this.grid;
 	}
-	
+
 	/**
 	 * Resets this GameBoard to an empty state.
 	 */
@@ -197,7 +211,7 @@ public class GameBoard {
 		this.graph = new Graph();
 		int horizontalGridPoints = grid.getHorizontalGridPoints();
 		int verticalGridPoints = grid.getVerticalGridPoints();
-		this.grid = new Grid(horizontalGridPoints, verticalGridPoints);	
+		this.grid = new Grid(horizontalGridPoints, verticalGridPoints);
 		LOG.fine("GameBoard flushed.");
 	}
 

@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
-
 public class Graph {
 
 	private final static Logger LOG = Logger.getLogger(Graph.class.getName());
@@ -34,9 +33,8 @@ public class Graph {
 		if (edge.getOriginVertex().equals(edge.getTargetVertex())) {
 			return false;
 		}
-		
-		if (!(vertexList.contains(edge.getOriginVertex()) && vertexList
-				.contains(edge.getTargetVertex()))) {
+
+		if (!(vertexList.contains(edge.getOriginVertex()) && vertexList.contains(edge.getTargetVertex()))) {
 			return false;
 		}
 
@@ -59,14 +57,13 @@ public class Graph {
 	 *            the vertex to add
 	 * @return {@code true} if adding was successful.
 	 */
-	
+
 	public boolean addVertex(Vertex vertex) {
 		if (vertexList.contains(vertex)) {
 			return false;
 		}
-	
-		if (vertex.getIncomingEdges().size() == 0
-				&& vertex.getOutgoingEdges().size() == 0) {
+
+		if (vertex.getIncomingEdges().size() == 0 && vertex.getOutgoingEdges().size() == 0) {
 			vertexList.add(vertex);
 			return true;
 		} else {
@@ -84,25 +81,25 @@ public class Graph {
 	 */
 	public boolean removeVertex(Vertex vertex) {
 		int index = vertexList.indexOf(vertex);
-	
+
 		if (index == -1) {
 			// Vertex not in list
 			return false;
 		} else {
-	
+
 			// Remove edges connected to it
 			for (Edge edge : vertex.getIncomingEdges()) {
 				if (!edgeList.remove(edge)) {
 					LOG.severe("Graph inconsistency in removeVertex method!");
 				}
 			}
-	
+
 			for (Edge edge : vertex.getOutgoingEdges()) {
 				if (!edgeList.remove(edge)) {
 					LOG.severe("Graph inconsistency in removeVertex method!");
 				}
 			}
-	
+
 			vertexList.remove(index);
 			return true;
 		}
@@ -117,21 +114,20 @@ public class Graph {
 	 */
 	public boolean removeEdge(Edge edge) {
 		int index = edgeList.indexOf(edge);
-	
+
 		if (index == -1) {
 			// Edge not in list
 			return false;
 		} else {
 			edgeList.remove(index);
-	
-			if (!edge.getOriginVertex().removeOutgoingEdge(edge)
-					|| !edge.getTargetVertex().removeIncomingEdge(edge)) {
+
+			if (!edge.getOriginVertex().removeOutgoingEdge(edge) || !edge.getTargetVertex().removeIncomingEdge(edge)) {
 				LOG.severe("Graph inconsistency in removeEdge method!");
 			}
 			return true;
 		}
 	}
-	
+
 	public Edge getEdge(Vertex origin, Vertex target) {
 		for (Edge edge : origin.getOutgoingEdges()) {
 			if (edge.getTargetVertex().equals(target)) {
@@ -140,11 +136,11 @@ public class Graph {
 		}
 		return null;
 	}
-	
+
 	public List<Vertex> getVertices() {
 		return vertexList;
 	}
-	
+
 	public List<Edge> getEdges() {
 		return edgeList;
 	}

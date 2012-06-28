@@ -7,7 +7,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * This class is used to create a HTML formatted log file for the Graphioli framework.
+ * This class is used to create a HTML formatted log file for the Graphioli
+ * framework.
  * 
  * @author Graphioli
  */
@@ -21,12 +22,13 @@ public final class GraphioliLogger {
 	private GraphioliLogger() {
 	}
 
-
 	/**
 	 * Creates the log file and registers this logger.
 	 * 
-	 * @param logLevel The initial logging level
-	 * @throws IOException when unable to write to the log file
+	 * @param logLevel
+	 *            The initial logging level
+	 * @throws IOException
+	 *             when unable to write to the log file
 	 */
 	public static void startLog(Level logLevel) throws IOException {
 

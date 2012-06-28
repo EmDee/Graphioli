@@ -4,7 +4,6 @@ package de.graphioli.model;
  * This class represents a logical {@link Edge}.
  * 
  * @author Graphioli
- * 
  */
 public class Edge {
 	private final Vertex originVertex;
@@ -43,7 +42,6 @@ public class Edge {
 	}
 
 	/**
-	 * 
 	 * Returns the weight of this {@link Edge}.
 	 * 
 	 * @return the weight of this {@link Edge}
@@ -53,7 +51,6 @@ public class Edge {
 	}
 
 	/**
-	 * 
 	 * Sets the weight of this Edge.
 	 * 
 	 * @param weight
@@ -64,22 +61,22 @@ public class Edge {
 		return true;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
 	 * @see java.lang.Object#hashCode()
 	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result
-				+ ((originVertex == null) ? 0 : originVertex.hashCode());
-		result = prime * result
-				+ ((targetVertex == null) ? 0 : targetVertex.hashCode());
+		result = prime * result + ((originVertex == null) ? 0 : originVertex.hashCode());
+		result = prime * result + ((targetVertex == null) ? 0 : targetVertex.hashCode());
 		return result;
 	}
 
 	/**
-	 * Two edges are equal if their respective target and origin vertices are equal.
+	 * Two edges are equal if their respective target and origin vertices are
+	 * equal.
 	 */
 	@Override
 	public boolean equals(Object obj) {
@@ -102,7 +99,5 @@ public class Edge {
 			return false;
 		return true;
 	}
-	
-	
 
 }

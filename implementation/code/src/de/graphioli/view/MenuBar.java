@@ -42,13 +42,12 @@ public class MenuBar extends JMenuBar implements ActionListener {
 	 * The parent {@link GameWindow} associated with this @ MenuBar}
 	 */
 	private GameWindow parentGameWindow;
-	
+
 	private JMenuItem saveItem;
 	private JMenuItem loadItem;
 	private JMenuItem quitItem;
 	private JMenuItem helpItem;
-	
-	
+
 	/**
 	 * Creates the {@link MenuBar} and registers its parent {@link GameWindow}.
 	 * 
@@ -68,34 +67,34 @@ public class MenuBar extends JMenuBar implements ActionListener {
 	 *         <code>false</code> otherwise
 	 */
 	private boolean createMenus() {
-//		this.saveItem = Localization.getLanguageString("menu_item_save");
-//		this.loadItem = Localization.getLanguageString("menu_item_load");
-//		this.quitItem = Localization.getLanguageString("menu_item_quit");
-//		this.helpItem = Localization.getLanguageString("menu_item_help");
-		
+		// this.saveItem = Localization.getLanguageString("menu_item_save");
+		// this.loadItem = Localization.getLanguageString("menu_item_load");
+		// this.quitItem = Localization.getLanguageString("menu_item_quit");
+		// this.helpItem = Localization.getLanguageString("menu_item_help");
+
 		this.gameMenu = new JMenu(Localization.getLanguageString("menu_game"));
 		this.optionsMenu = new JMenu(Localization.getLanguageString("menu_options"));
 		this.helpMenu = new JMenu(Localization.getLanguageString("menu_help"));
-		
+
 		this.saveItem = new JMenuItem(Localization.getLanguageString("menu_item_save"));
 		this.loadItem = new JMenuItem(Localization.getLanguageString("menu_item_load"));
 		this.quitItem = new JMenuItem(Localization.getLanguageString("menu_item_quit"));
 		this.helpItem = new JMenuItem(Localization.getLanguageString("menu_item_help"));
-		
+
 		this.saveItem.addActionListener(this);
 		this.loadItem.addActionListener(this);
 		this.quitItem.addActionListener(this);
 		this.helpItem.addActionListener(this);
-		
+
 		this.gameMenu.add(this.saveItem);
 		this.gameMenu.add(this.loadItem);
 		this.gameMenu.add(this.quitItem);
 		this.helpMenu.add(this.helpItem);
-		
+
 		this.add(gameMenu);
 		this.add(optionsMenu);
 		this.add(helpMenu);
-		
+
 		return true;
 	}
 
@@ -108,21 +107,21 @@ public class MenuBar extends JMenuBar implements ActionListener {
 	 */
 	@Override
 	public void actionPerformed(ActionEvent event) {
-		
+
 		JMenuItem sourceItem = (JMenuItem) event.getSource();
-		
+
 		if (sourceItem.equals(this.saveItem)) {
 			this.parentGameWindow.saveFileDialog();
 		}
-		
+
 		if (sourceItem.equals(this.loadItem)) {
 			this.parentGameWindow.openFileDialog();
 		}
-		
+
 		if (sourceItem.equals(this.quitItem)) {
 			this.parentGameWindow.getViewManager().getGameManager().closeGame();
 		}
-		
+
 		if (sourceItem.equals(this.helpItem)) {
 			this.parentGameWindow.getViewManager().getGameManager().openHelpFile();
 		}

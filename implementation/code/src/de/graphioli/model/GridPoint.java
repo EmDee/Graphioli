@@ -18,38 +18,41 @@ public class GridPoint {
 	 */
 	private int positionY;
 
-
 	/**
-	 * Creates a new GridPoint with the specified positions positionX and positionY.
+	 * Creates a new GridPoint with the specified positions positionX and
+	 * positionY.
 	 * 
-	 * @param positionX The x coordinate of the GridPoint
-	 * @param positionY The y coordinate of the GridPoint
+	 * @param positionX
+	 *            The x coordinate of the GridPoint
+	 * @param positionY
+	 *            The y coordinate of the GridPoint
 	 */
 	public GridPoint(int positionX, int positionY) {
 		this.positionX = positionX;
 		this.positionY = positionY;
 	}
 
-
 	/**
 	 * Returns the x coordinate of the {@link GridPoint}.
+	 * 
 	 * @return the x coordinate of the GridPoint
 	 */
 	public int getPositionX() {
 		return this.positionX;
 	}
 
-
 	/**
 	 * Returns the y coordinate of the {@link GridPoint}.
+	 * 
 	 * @return the y coordinate of the GridPoint
 	 */
 	public int getPositionY() {
 		return this.positionY;
 	}
-	
+
 	/**
-	 * Returns a string representation of this grid point in form of "(PositionX, PositionY)". 
+	 * Returns a string representation of this grid point in form of
+	 * "(PositionX, PositionY)".
 	 */
 	@Override
 	public String toString() {

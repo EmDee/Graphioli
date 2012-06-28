@@ -5,7 +5,6 @@ import java.awt.event.ActionListener;
 import javax.swing.JPanel;
 
 /**
- * 
  * @author Graphioli
  */
 public class GEButtonPanel extends JPanel implements ActionListener {

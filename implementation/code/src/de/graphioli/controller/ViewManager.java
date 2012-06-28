@@ -75,11 +75,11 @@ public class ViewManager {
 
 		} else {
 			LOG.fine("OnVertexClick (at GridPoint "
-					+ this.gameManager.getGameBoard().getGrid().getVisualVertexAtGridPoint(gridPoint)
-							.getGridPoint() + ")");
+					+ this.gameManager.getGameBoard().getGrid().getVisualVertexAtGridPoint(gridPoint).getGridPoint()
+					+ ")");
 			if (this.gameManager.getGame().onVertexClick(
 					this.gameManager.getGameBoard().getGrid().getVisualVertexAtGridPoint(gridPoint))) {
-				
+
 				this.view.redrawGraph();
 			}
 		}
