@@ -1,5 +1,4 @@
 == Vertex ==
-- added vertexState as attribute and VertexState class
 - changed access modifiers of add and remove methods to default
 
 == GameDefinition
@@ -40,7 +39,7 @@
 == New Classes ==
 - GraphioliLogFormatter
 - GraphioliLogger
-- VertexState
+- Localization
 
 == New libraries ==
 - GSON
