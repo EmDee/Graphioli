@@ -5,7 +5,7 @@
     This configuration file was written by the eclipse-cs plugin configuration editor
 -->
 <!--
-    Checkstyle-Configuration: Graphioli-CS
+    Checkstyle-Configuration: Graphioli
     Description: none
 -->
 <module name="Checker">
@@ -103,7 +103,6 @@
     </module>
     <module name="MissingOverride"/>
     <module name="JavadocStyle"/>
-    <module name="AbstractClassName"/>
     <module name="ImportOrder"/>
     <module name="LineLength">
       <property name="max" value="120"/>
@@ -120,7 +119,9 @@
       <property name="ignoreHashCodeMethod" value="true"/>
     </module>
     <module name="ModifiedControlVariable"/>
-    <module name="MultipleStringLiterals"/>
+    <module name="MultipleStringLiterals">
+      <property name="allowedDuplicates" value="3"/>
+    </module>
     <module name="NestedForDepth">
       <property name="max" value="4"/>
     </module>
@@ -139,12 +140,10 @@
     </module>
     <module name="Indentation"/>
     <module name="OuterTypeFilename"/>
-    <module name="FinalLocalVariable"/>
   </module>
   <module name="Translation"/>
   <module name="FileLength"/>
   <module name="StrictDuplicateCode">
     <property name="min" value="10"/>
   </module>
-  <module name="FileTabCharacter"/>
 </module>
