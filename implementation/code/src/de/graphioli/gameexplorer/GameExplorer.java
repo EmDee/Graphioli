@@ -1,15 +1,16 @@
 package de.graphioli.gameexplorer;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.util.ArrayList;
-import java.util.logging.Logger;
 import com.google.gson.Gson;
 import com.google.gson.JsonIOException;
 import com.google.gson.JsonSyntaxException;
 import de.graphioli.controller.GameManager;
 import de.graphioli.model.Player;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.util.ArrayList;
+import java.util.logging.Logger;
+
 
 /**
  * The GameExplorer lists the available games and enables the user to select and
@@ -20,7 +21,7 @@ import de.graphioli.model.Player;
 public class GameExplorer {
 
 	/**
-	 * Logging instance
+	 * Logging instance.
 	 */
 	private static final Logger LOG = Logger.getLogger(GameExplorer.class.getName());
 
@@ -54,8 +55,8 @@ public class GameExplorer {
 
 		// Initialize GEWindow (implementation of GEView)
 		this.view = new GEWindow();
-		view.registerController(this);
-		view.generateView();
+		this.view.registerController(this);
+		this.view.generateView();
 	}
 
 	/**
@@ -104,7 +105,7 @@ public class GameExplorer {
 
 			if (tmpGame.isDirectory()) {
 
-				pathToPropertyFile = (tmpGame.getName() + "/properties.json");
+				pathToPropertyFile = tmpGame.getName() + "/properties.json";
 				gameDefinition = this.createGameDefinitionFromJSON("src/games/" + pathToPropertyFile);
 
 				if (gameDefinition != null) {

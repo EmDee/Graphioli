@@ -1,5 +1,7 @@
 package de.graphioli.gameexplorer;
 
+import de.graphioli.model.Player;
+import de.graphioli.utils.Localization;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -22,8 +24,6 @@ import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-import de.graphioli.model.Player;
-import de.graphioli.utils.Localization;
 
 /**
  * This class represents the main window of the {@link GameExplorer}.
@@ -33,9 +33,24 @@ import de.graphioli.utils.Localization;
 public class GEWindow extends JFrame implements GEView, ActionListener, ListSelectionListener {
 
 	/**
-	 * Logging instance
+	 * Logging instance.
 	 */
 	private static final Logger LOG = Logger.getLogger(GEWindow.class.getName());
+
+	/**
+	 * The initial width of this window.
+	 */
+	private static final int INIT_WINDOW_WIDTH = 800;
+
+	/**
+	 * The initial height of this window.
+	 */
+	private static final int INIT_WINDOW_HEIGHT = 500;
+
+	/**
+	 * Margin between the bottom of the list pane and the bottom of the window.
+	 */
+	private static final int LIST_PANE_BOTTOM_MARGIN = 70;
 
 	/**
 	 * UID for serializing this object.
@@ -58,22 +73,12 @@ public class GEWindow extends JFrame implements GEView, ActionListener, ListSele
 	private GameDefinitionListModel gameDefinitionList;
 
 	/**
-	 * The initial width of this window.
-	 */
-	private int windowWidth = 800;
-
-	/**
-	 * The initial height of this window.
-	 */
-	private int windowHeight = 500;
-
-	/**
 	 * Panel containing information about the currently selected game.
 	 */
 	private GEGameInformation visibleGameInformationPanel;
 
 	/**
-	 * Buttons for the GameExplorer
+	 * Buttons for the GameExplorer.
 	 */
 	private JButton startButton;
 	private JButton helpButton;
@@ -209,7 +214,9 @@ public class GEWindow extends JFrame implements GEView, ActionListener, ListSele
 
 		LOG.finer("GEWindow.<em>onPlayerPopUpReturn([...])</em> called.");
 
-		if (players == null || players.isEmpty() || !this.isGameDefinitionSelected()
+		if (players == null
+				|| players.isEmpty()
+				|| !this.isGameDefinitionSelected()
 				|| !this.isGameExplorerRegistered()) {
 			LOG.severe("Cannot start game: No GameExplorer registered or no valid players committed.");
 			return false;
@@ -324,7 +331,7 @@ public class GEWindow extends JFrame implements GEView, ActionListener, ListSele
 		this.addWindowListener(new CloseListener());
 
 		// Style window
-		this.setSize(this.windowWidth, this.windowHeight);
+		this.setSize(INIT_WINDOW_WIDTH, INIT_WINDOW_HEIGHT);
 		this.setLayout(new BorderLayout());
 		this.setResizable(false);
 
@@ -359,7 +366,8 @@ public class GEWindow extends JFrame implements GEView, ActionListener, ListSele
 		JScrollPane visibleGameDefinitionListPane = new JScrollPane(visibleGameDefinitionList);
 
 		// Style list pane
-		visibleGameDefinitionListPane.setPreferredSize(new Dimension(this.windowWidth / 2, this.windowHeight - 70));
+		visibleGameDefinitionListPane.setPreferredSize(new Dimension(INIT_WINDOW_WIDTH / 2, INIT_WINDOW_HEIGHT
+				- LIST_PANE_BOTTOM_MARGIN));
 		visibleGameDefinitionListPane.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
 		JPanel visibleGameDefinitionListPaneBox = new JPanel();
@@ -431,23 +439,6 @@ public class GEWindow extends JFrame implements GEView, ActionListener, ListSele
 	}
 
 	/**
-	 * Listens for closing attempts performed by the main GEWindow.
-	 * 
-	 * @author Graphioli
-	 */
-	private class CloseListener extends WindowAdapter {
-
-		/**
-		 * Acts on closing attempts performed by the main GEWindow.
-		 */
-		@Override
-		public void windowClosing(WindowEvent e) {
-			GEWindow.this.closeGameExplorer();
-		}
-
-	}
-
-	/**
 	 * Called by the {@link JButton}s when they are clicked in order to perform
 	 * further actions with the previously selected {@link GameDefinition}.
 	 * 
@@ -480,5 +471,22 @@ public class GEWindow extends JFrame implements GEView, ActionListener, ListSele
 			this.closeGameExplorer();
 
 		}
+	}
+
+	/**
+	 * Listens for closing attempts performed by the main GEWindow.
+	 * 
+	 * @author Graphioli
+	 */
+	private class CloseListener extends WindowAdapter {
+
+		/**
+		 * Acts on closing attempts performed by the main GEWindow.
+		 */
+		@Override
+		public void windowClosing(WindowEvent e) {
+			GEWindow.this.closeGameExplorer();
+		}
+
 	}
 }

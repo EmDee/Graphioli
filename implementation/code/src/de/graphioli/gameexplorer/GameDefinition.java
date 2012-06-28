@@ -13,37 +13,37 @@ import java.net.URI;
 public final class GameDefinition {
 
 	/**
-	 * The name of the game
+	 * The name of the game.
 	 */
 	private String name;
 
 	/**
-	 * The minimum number of players allowed
+	 * The minimum number of players allowed.
 	 */
 	private int minPlayerCount;
 
 	/**
-	 * The maximum number of players allowed
+	 * The maximum number of players allowed.
 	 */
 	private int maxPlayerCount;
 
 	/**
-	 * The path to the game class file
+	 * The path to the game class file.
 	 */
 	private String gamePath;
 
 	/**
-	 * The description of the game
+	 * The description of the game.
 	 */
 	private String description;
 
 	/**
-	 * The name of the game class
+	 * The name of the game class.
 	 */
 	private String className;
 
 	/**
-	 * The URI to the help file of the game
+	 * The URI to the help file of the game.
 	 */
 	private URI helpFile;
 
@@ -53,17 +53,17 @@ public final class GameDefinition {
 	// private ArrayList<MenuItem> menu;
 
 	/**
-	 * The number of horizontal grid points
+	 * The number of horizontal grid points.
 	 */
 	private int horizontalGridPointCount;
 
 	/**
-	 * The number of vertical grid points
+	 * The number of vertical grid points.
 	 */
 	private int verticalGridPointCount;
 
 	/**
-	 * Whether the {@link Graph} of the game is directed or not
+	 * Whether the {@link Graph} of the game is directed or not.
 	 */
 	private boolean isDirectedGraph;
 

@@ -1,5 +1,6 @@
 package de.graphioli.gameexplorer;
 
+import de.graphioli.utils.Localization;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -12,8 +13,6 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
 
-import de.graphioli.utils.Localization;
-
 /**
  * Displays information about the currently selected game.
  * 
@@ -22,9 +21,39 @@ import de.graphioli.utils.Localization;
 public class GEGameInformation extends JPanel {
 
 	/**
-	 * Logging instance
+	 * Logging instance.
 	 */
 	private static final Logger LOG = Logger.getLogger(GEGameInformation.class.getName());
+
+	/**
+	 * The width of the screenshot label in pixels.
+	 */
+	private static final int SCREENSHOT_LABEL_WIDTH = 380;
+
+	/**
+	 * The height of the screenshot label in pixels.
+	 */
+	private static final int SCREENSHOT_LABEL_HEIGHT = 250;
+
+	/**
+	 * The width of the description title in pixels.
+	 */
+	private static final int DESCRIPTION_TITLE_WIDTH = 380;
+
+	/**
+	 * The height of the description title in pixels.
+	 */
+	private static final int DESCRIPTION_TITLE_HEIGHT = 30;
+
+	/**
+	 * The width of the description label in pixels.
+	 */
+	private static final int DESCRIPTION_LABEL_WIDTH = 380;
+
+	/**
+	 * The height of the description label in pixels.
+	 */
+	private static final int DESCRIPTION_LABEL_HEIGHT = 140;
 
 	/**
 	 * UID for serializing this object.
@@ -103,14 +132,14 @@ public class GEGameInformation extends JPanel {
 	}
 
 	/**
-	 * Generates the screenshot label
+	 * Generates the screenshot label.
 	 */
 	private void generateScreenshotLabel() {
 
 		this.screenshotLabel = new JLabel();
 
 		// Style screenshot label
-		this.screenshotLabel.setPreferredSize(new Dimension(380, 250));
+		this.screenshotLabel.setPreferredSize(new Dimension(SCREENSHOT_LABEL_WIDTH, SCREENSHOT_LABEL_HEIGHT));
 		this.screenshotLabel.setBackground(Color.WHITE);
 		this.screenshotLabel.setOpaque(true);
 		this.screenshotLabel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
@@ -125,7 +154,7 @@ public class GEGameInformation extends JPanel {
 	}
 
 	/**
-	 * Generates the description title label
+	 * Generates the description title label.
 	 */
 	private void generateDescriptionTitleLabel() {
 
@@ -135,7 +164,7 @@ public class GEGameInformation extends JPanel {
 		Font boldFont = new Font(descriptionTitleLabel.getFont().getName(), Font.BOLD, descriptionTitleLabel.getFont()
 				.getSize());
 		descriptionTitleLabel.setFont(boldFont);
-		descriptionTitleLabel.setPreferredSize(new Dimension(380, 30));
+		descriptionTitleLabel.setPreferredSize(new Dimension(DESCRIPTION_TITLE_WIDTH, DESCRIPTION_TITLE_HEIGHT));
 
 		// Add title text
 		descriptionTitleLabel.setText(Localization.getLanguageString("ge_description"));
@@ -146,14 +175,14 @@ public class GEGameInformation extends JPanel {
 	}
 
 	/**
-	 * Generates the description label
+	 * Generates the description label.
 	 */
 	private void generateDescriptionLabel() {
 
 		this.descriptionLabel = new JTextArea();
 
 		// Style description label
-		this.descriptionLabel.setPreferredSize(new Dimension(380, 140));
+		this.descriptionLabel.setPreferredSize(new Dimension(DESCRIPTION_LABEL_WIDTH, DESCRIPTION_LABEL_HEIGHT));
 		this.descriptionLabel.setWrapStyleWord(true);
 		this.descriptionLabel.setLineWrap(true);
 		this.descriptionLabel.setEditable(false);

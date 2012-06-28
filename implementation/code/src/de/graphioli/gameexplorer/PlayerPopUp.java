@@ -1,14 +1,14 @@
 package de.graphioli.gameexplorer;
 
+import de.graphioli.model.LocalPlayer;
+import de.graphioli.model.Player;
+import de.graphioli.utils.Localization;
+import de.graphioli.utils.Validation;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import de.graphioli.model.LocalPlayer;
-import de.graphioli.model.Player;
-import de.graphioli.utils.Localization;
-import de.graphioli.utils.Validation;
 
 /**
  * Represents a pop-up window that is used to select the the number of players
@@ -19,7 +19,7 @@ import de.graphioli.utils.Validation;
 public class PlayerPopUp extends JFrame {
 
 	/**
-	 * Logging instance
+	 * Logging instance.
 	 */
 	private static final Logger LOG = Logger.getLogger(PlayerPopUp.class.getName());
 

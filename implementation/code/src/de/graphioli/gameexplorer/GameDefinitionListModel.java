@@ -12,7 +12,7 @@ import javax.swing.AbstractListModel;
 public class GameDefinitionListModel extends AbstractListModel {
 
 	/**
-	 * Logging instance
+	 * Logging instance.
 	 */
 	private static final Logger LOG = Logger.getLogger(GameDefinitionListModel.class.getName());
 
