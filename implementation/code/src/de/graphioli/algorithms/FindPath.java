@@ -1,9 +1,8 @@
 package de.graphioli.algorithms;
 
-import java.util.ArrayList;
-
 import de.graphioli.model.Graph;
 import de.graphioli.model.Vertex;
+import java.util.ArrayList;
 
 /**
  * This class can check if a path between two given vertices exists.
@@ -11,6 +10,11 @@ import de.graphioli.model.Vertex;
  * @author Graphioli
  */
 public final class FindPath {
+
+	/**
+	 * Defines the maximum length of a path.
+	 */
+	public static final int MAX_DEPTH = 1000;
 
 	/**
 	 * Private empty constructor, to ensure that no instance is being created.
@@ -32,7 +36,7 @@ public final class FindPath {
 	 *         vertices, <code>false</code> otherwise.
 	 */
 	public static boolean performAlgorithm(Graph graph, Vertex vertexA, Vertex vertexB) {
-		ArrayList<Vertex> reachableVertices = BreadthFirstSearch.performAlgorithm(graph, vertexA, 1000);
+		ArrayList<Vertex> reachableVertices = BreadthFirstSearch.performAlgorithm(graph, vertexA, MAX_DEPTH);
 		if (reachableVertices.contains(vertexB)) {
 			return true;
 		}

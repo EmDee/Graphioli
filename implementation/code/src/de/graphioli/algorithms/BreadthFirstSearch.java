@@ -1,10 +1,9 @@
 package de.graphioli.algorithms;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-
 import de.graphioli.model.Graph;
 import de.graphioli.model.Vertex;
+import java.util.ArrayList;
+import java.util.LinkedList;
 
 /**
  * This class performs the breadth-first-search algorithm.
