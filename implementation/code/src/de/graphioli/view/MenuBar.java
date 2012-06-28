@@ -1,13 +1,13 @@
 package de.graphioli.view;
 
+import de.graphioli.utils.Localization;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-
-import de.graphioli.utils.Localization;
 
 /**
  * The {@link MenuBar} contains the game menu, options menu and help menu. It is
@@ -24,22 +24,22 @@ public class MenuBar extends JMenuBar implements ActionListener {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * The game menu
+	 * The game menu.
 	 */
 	private JMenu gameMenu;
 
 	/**
-	 * The help menu
+	 * The help menu.
 	 */
 	private JMenu helpMenu;
 
 	/**
-	 * The options menu
+	 * The options menu.
 	 */
 	private JMenu optionsMenu;
 
 	/**
-	 * The parent {@link GameWindow} associated with this @ MenuBar}
+	 * The parent {@link GameWindow} associated with this @ MenuBar}.
 	 */
 	private GameWindow parentGameWindow;
 
@@ -91,9 +91,9 @@ public class MenuBar extends JMenuBar implements ActionListener {
 		this.gameMenu.add(this.quitItem);
 		this.helpMenu.add(this.helpItem);
 
-		this.add(gameMenu);
-		this.add(optionsMenu);
-		this.add(helpMenu);
+		this.add(this.gameMenu);
+		this.add(this.optionsMenu);
+		this.add(this.helpMenu);
 
 		return true;
 	}

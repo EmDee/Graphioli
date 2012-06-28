@@ -10,8 +10,10 @@ import java.awt.event.KeyEvent;
  */
 public class CustomKeyDispatcher implements KeyEventDispatcher {
 
+	//TODO: Implement
+	
 	/**
-	 * The associated {@link GameWindow} that uses this
+	 * The associated {@link GameWindow} that uses this.
 	 * {@link CustomKeyDispatcher}
 	 */
 	private GameWindow gameWindow;

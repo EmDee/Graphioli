@@ -1,18 +1,15 @@
 package de.graphioli.view;
 
+import de.graphioli.model.Player;
+
 import java.awt.BorderLayout;
-import java.awt.Dimension;
 import java.util.logging.Logger;
 
 import javax.swing.BoxLayout;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.BevelBorder;
-
-import de.graphioli.model.Player;
-import de.graphioli.model.VisualVertex;
 
 /**
  * The StatusBar displays which Player is currently active and a short status or
@@ -23,40 +20,35 @@ import de.graphioli.model.VisualVertex;
 public class StatusBar extends JPanel {
 
 	/**
-	 * Logging instance
+	 * Default serial version UID.
 	 */
-	private final static Logger LOG = Logger.getLogger(StatusBar.class.getName());
+	private static final long serialVersionUID = 1L;
 
 	/**
-	 * The error message that is currently displayed
+	 * Logging instance.
 	 */
-	private String errorMessage;
-
-	/**
-	 * The {@link Player} that is currently displayed as active
-	 */
-	private Player playerStatus;
+	private static final Logger LOG = Logger.getLogger(StatusBar.class.getName());
 
 	private JTextField statusLabel;
 	private JTextField playerLabel;
 
 	/**
 	 * Constructs a {@link StatusBar} responsible for displaying the
-	 * playerStatus and errorMessages
+	 * playerStatus and errorMessages.
 	 */
 	public StatusBar() {
 		LOG.fine("StatusBar created.");
 		this.setLayout(new BorderLayout());
 		this.setBorder(new BevelBorder(BevelBorder.LOWERED));
 		this.setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
-		statusLabel = new JTextField("status");
-		statusLabel.setEditable(false);
-		statusLabel.setHorizontalAlignment(SwingConstants.LEFT);
-		add(statusLabel, BorderLayout.WEST);
-		playerLabel = new JTextField("player");
-		playerLabel.setEditable(false);
-		playerLabel.setHorizontalAlignment(SwingConstants.RIGHT);
-		add(playerLabel, BorderLayout.EAST);
+		this.statusLabel = new JTextField("status");
+		this.statusLabel.setEditable(false);
+		this.statusLabel.setHorizontalAlignment(SwingConstants.LEFT);
+		add(this.statusLabel, BorderLayout.WEST);
+		this.playerLabel = new JTextField("player");
+		this.playerLabel.setEditable(false);
+		this.playerLabel.setHorizontalAlignment(SwingConstants.RIGHT);
+		add(this.playerLabel, BorderLayout.EAST);
 	}
 
 	/**
@@ -68,8 +60,7 @@ public class StatusBar extends JPanel {
 	 *         <code>false</code> otherwise
 	 */
 	public boolean updatePlayerStatus(Player player) {
-		this.playerStatus = player;
-		playerLabel.setText(player.getName());
+		this.playerLabel.setText(player.getName());
 		return true;
 	}
 
@@ -82,8 +73,7 @@ public class StatusBar extends JPanel {
 	 *         <code>false</code> otherwise
 	 */
 	public boolean displayErrorMessage(String errorMessage) {
-		this.errorMessage = errorMessage;
-		statusLabel.setText(errorMessage);
+		this.statusLabel.setText(errorMessage);
 		return true;
 	}
 

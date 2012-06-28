@@ -1,16 +1,13 @@
 package de.graphioli.view;
 
 import de.graphioli.controller.ViewManager;
-
+import de.graphioli.model.Player;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.io.File;
 import java.util.logging.Logger;
-
-import javax.swing.JFrame;
 import javax.swing.JFileChooser;
-
-import de.graphioli.model.Player;
+import javax.swing.JFrame;
 
 /**
  * @author Graphioli
@@ -18,14 +15,39 @@ import de.graphioli.model.Player;
 public class GameWindow extends JFrame implements View {
 
 	/**
-	 * Logging instance
+	 * Logging instance.
 	 */
-	private final static Logger LOG = Logger.getLogger(GameWindow.class.getName());
+	private static final Logger LOG = Logger.getLogger(GameWindow.class.getName());
 
 	/**
-	 * UID for serializing this object
+	 * UID for serializing this object.
 	 */
 	private static final long serialVersionUID = 1L;
+
+	/**
+	 * The initial width of the window.
+	 */
+	private static final int WINDOW_WIDTH = 500;
+
+	/**
+	 * The initial height of the window.
+	 */
+	private static final int WINDOW_HEIGHT = 500;
+
+	/**
+	 * The initial width of the graph canvas.
+	 */
+	private static final int CANVAS_WIDTH = 500;
+
+	/**
+	 * The initial height of the graph canvas.
+	 */
+	private static final int CANVAS_HEIGHT = 300;
+
+	/**
+	 * The height of the status bar.
+	 */
+	private static final int STATUSBAR_HEIGHT = 25;
 
 	/**
 	 * The controlling {@link ViewManager} of this class.
@@ -55,6 +77,9 @@ public class GameWindow extends JFrame implements View {
 	/**
 	 * Constructs a {@link GameWindow} including {@link GraphCanvas},
 	 * {@link StatusBar} and {@link MenuBar}.
+	 * 
+	 * @param viewManager
+	 *            the {@link ViewManager} this window is assigned to.
 	 */
 	public GameWindow(ViewManager viewManager) {
 
@@ -62,7 +87,7 @@ public class GameWindow extends JFrame implements View {
 		this.registerController(viewManager);
 
 		this.setLayout(new BorderLayout());
-		this.setSize(500, 500);
+		this.setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
 
 		// Initialize and add MenuBar
 		this.menuBar = new MenuBar(this);
@@ -71,14 +96,14 @@ public class GameWindow extends JFrame implements View {
 		// Initialize and add GraphCanvas and ViusalGrid
 		this.graphCanvas = new GraphCanvas(this);
 		this.add(this.graphCanvas);
-		this.graphCanvas.setSize(500, 300);
+		this.graphCanvas.setSize(CANVAS_WIDTH, CANVAS_HEIGHT);
 		this.visualGrid = new VisualGrid(this.graphCanvas, this);
 		this.graphCanvas.addMouseListener(this.visualGrid);
 
 		// Initialize and add StatusBar
 		this.statusBar = new StatusBar();
 		this.add(this.statusBar, BorderLayout.SOUTH);
-		this.statusBar.setPreferredSize(new Dimension(this.getWidth(), 25));
+		this.statusBar.setPreferredSize(new Dimension(this.getWidth(), STATUSBAR_HEIGHT));
 
 		this.setResizable(false);
 		this.setVisible(true);
@@ -186,20 +211,22 @@ public class GameWindow extends JFrame implements View {
 	 * @return The associated {@link ViewManager}
 	 */
 	public ViewManager getViewManager() {
-		return viewManager;
+		return this.viewManager;
 	}
 
 	/**
-	 * Returns the {@link VisualGrid} associated with the {@link GameWindow}
+	 * Returns the {@link VisualGrid} associated with the {@link GameWindow}.
 	 * 
 	 * @return The associated {@link ViusalGrid}
 	 */
 	public VisualGrid getVisualGrid() {
-		return visualGrid;
+		return this.visualGrid;
 	}
 
 	/**
-	 * Disposes all components of the GameWindow
+	 * Disposes all components of the GameWindow.
+	 * 
+	 * @return {@code true} when closing was successful.
 	 */
 	public boolean closeView() {
 		// TODO implement

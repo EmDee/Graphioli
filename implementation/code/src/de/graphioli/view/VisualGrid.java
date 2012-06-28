@@ -17,34 +17,40 @@ import java.awt.event.MouseListener;
 public class VisualGrid implements MouseListener {
 
 	/**
-	 * The parent {@link GameWindow} associated with this {@link VisualGrid}
+	 * The ratio of the gaps between to vertices to the size of the vertices.
+	 */
+	private static final float GAP_SCALE = 1.8F;
+
+	/**
+	 * The parent {@link GameWindow} associated with this {@link VisualGrid}.
 	 */
 	private GameWindow parentGameWindow;
 
 	/**
-	 * The {@link GraphCanvas} associated with this {@link VisualGrid}
+	 * The {@link GraphCanvas} associated with this {@link VisualGrid}.
 	 */
 	private GraphCanvas graphCanvas;
 
 	/**
-	 * The {@link Grid} associated with this {@link VisualGrid}
+	 * The {@link Grid} associated with this {@link VisualGrid}.
 	 */
 	private Grid grid;
 
 	/**
 	 * The size of the {@link VisualVertex}es displayed in the
-	 * {@link GraphCanvas}
+	 * {@link GraphCanvas}.
 	 */
 	private int visualVertexSize;
 
 	/**
-	 * The distance of two {@link GridPoint}s in the {@link GraphCanvas}
+	 * The distance of two {@link GridPoint}s in the {@link GraphCanvas}.
 	 */
 	private int gridScale;
 
-	/**
+/**
 	 * Creates a {@link VisualGrid} and registers its parent {@link GameWindow}.
 	 * 
+	 * @param graphCanvas the {@link GraphCanvas this visual grid is associated to.
 	 * @param parentGameWindow
 	 *            The {@link GameWindow} that contains the {@link GraphCanvas}
 	 *            to this {@link VisualGrid}
@@ -54,7 +60,7 @@ public class VisualGrid implements MouseListener {
 		this.graphCanvas = graphCanvas;
 		this.grid = this.parentGameWindow.getViewManager().getGameManager().getGameBoard().getGrid();
 		// default gridScale based on VertexSize for now
-		this.gridScale = (int) (VisualVertex.PIXELS_PER_SIDE * 1.8);
+		this.gridScale = (int) (VisualVertex.PIXELS_PER_SIDE * GAP_SCALE);
 	}
 
 	/**
@@ -84,14 +90,20 @@ public class VisualGrid implements MouseListener {
 	 * Draws the grid on the given Graphics2D Object.
 	 * 
 	 * @param g2d
+	 *            the Graphics object to draw this grid on.
 	 */
 	public void draw(Graphics2D g2d) {
 		// Drawing grid
+		int xScaled;
+		int yScaled;
+
 		for (int xPoints = 0; xPoints < this.grid.getHorizontalGridPoints(); xPoints++) {
-			g2d.drawLine((xPoints + 1) * gridScale, 0, (xPoints + 1) * gridScale, this.graphCanvas.getHeight());
+			xScaled = (xPoints + 1) * this.gridScale;
+			g2d.drawLine(xScaled, 0, xScaled, this.graphCanvas.getHeight());
 		}
 		for (int yPoints = 0; yPoints < this.grid.getVerticalGridPoints(); yPoints++) {
-			g2d.drawLine(0, (yPoints + 1) * gridScale, this.graphCanvas.getWidth(), (yPoints + 1) * gridScale);
+			yScaled = (yPoints + 1) * this.gridScale;
+			g2d.drawLine(0, yScaled, this.graphCanvas.getWidth(), yScaled);
 		}
 	}
 
@@ -128,12 +140,12 @@ public class VisualGrid implements MouseListener {
 	}
 
 	/**
-	 * Returns the gridScale
+	 * Returns the gridScale.
 	 * 
 	 * @return The gridScale
 	 */
 	public int getGridScale() {
-		return gridScale;
+		return this.gridScale;
 	}
 
 	/**
