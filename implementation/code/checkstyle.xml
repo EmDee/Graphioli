@@ -5,7 +5,7 @@
     This configuration file was written by the eclipse-cs plugin configuration editor
 -->
 <!--
-    Checkstyle-Configuration: SWT 1 2010
+    Checkstyle-Configuration: Graphioli-CS
     Description: none
 -->
 <module name="Checker">
@@ -18,7 +18,6 @@
     <module name="JavadocMethod">
       <property name="scope" value="package"/>
       <property name="allowUndeclaredRTE" value="true"/>
-      <property name="logLoadErrors" value="true"/>
       <property name="suppressLoadErrors" value="true"/>
     </module>
     <module name="JavadocVariable">
@@ -102,10 +101,50 @@
       <property name="max" value="120"/>
       <property name="tabWidth" value="4"/>
     </module>
+    <module name="MissingOverride"/>
+    <module name="JavadocStyle"/>
+    <module name="AbstractClassName"/>
+    <module name="ImportOrder"/>
+    <module name="LineLength">
+      <property name="max" value="120"/>
+    </module>
+    <module name="MethodCount">
+      <property name="maxTotal" value="20"/>
+    </module>
+    <module name="GenericWhitespace"/>
+    <module name="EmptyForInitializerPad"/>
+    <module name="DeclarationOrder"/>
+    <module name="EqualsHashCode"/>
+    <module name="FallThrough"/>
+    <module name="MagicNumber">
+      <property name="ignoreHashCodeMethod" value="true"/>
+    </module>
+    <module name="ModifiedControlVariable"/>
+    <module name="MultipleStringLiterals"/>
+    <module name="NestedForDepth">
+      <property name="max" value="4"/>
+    </module>
+    <module name="NestedIfDepth">
+      <property name="max" value="4"/>
+    </module>
+    <module name="NestedTryDepth">
+      <property name="max" value="2"/>
+    </module>
+    <module name="RequireThis"/>
+    <module name="UnnecessaryParentheses"/>
+    <module name="OneStatementPerLine"/>
+    <module name="InnerTypeLast"/>
+    <module name="BooleanExpressionComplexity">
+      <property name="max" value="4"/>
+    </module>
+    <module name="Indentation"/>
+    <module name="OuterTypeFilename"/>
+    <module name="FinalLocalVariable"/>
   </module>
   <module name="Translation"/>
   <module name="FileLength"/>
   <module name="StrictDuplicateCode">
     <property name="min" value="10"/>
   </module>
+  <module name="FileTabCharacter"/>
 </module>
