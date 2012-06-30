@@ -246,14 +246,13 @@ public class GameManager {
 	}
 
 	/**
-	 * Finishes the game and displays a default pop-up for single player games.
+	 * Finishes the game and displays the active player as winner.
 	 * 
 	 * @return <code>true</code> if the action was performed successfully,
 	 *         <code>false</code> otherwise TODO Implement
 	 */
 	public boolean finishGame() {
-		this.killGame();
-		return false;
+		return this.finishGame(this.playerManager.getActivePlayer());
 	}
 
 	/**
@@ -265,6 +264,7 @@ public class GameManager {
 	 *         <code>false</code> otherwise TODO Implement
 	 */
 	public boolean finishGame(Player winner) {
+		LOG.info("Finishing game.");
 		return false;
 	}
 
