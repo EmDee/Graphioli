@@ -1,8 +1,8 @@
 {
 
-   "name":"GameTest",
+   "name":"GraphColoring",
 
-   "className":"GameTest",
+   "className":"GraphColoring",
 
    "description":"This is the description for the GraphColoring game.",
 
