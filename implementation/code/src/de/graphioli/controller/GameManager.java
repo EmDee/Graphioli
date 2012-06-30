@@ -265,6 +265,7 @@ public class GameManager {
 	 */
 	public boolean finishGame(Player winner) {
 		LOG.info("Finishing game.");
+		this.killGame();
 		return false;
 	}
 
