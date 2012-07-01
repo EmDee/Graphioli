@@ -96,7 +96,10 @@ public class ViewManager {
 	 *         <code>false</code> otherwise
 	 */
 	public boolean onKeyRelease(int keyCode) {
-		// TODO: Implement
+		if (this.gameManager.getGame().onKeyRelease(keyCode)) {
+			this.view.redrawGraph();
+			return true;
+		}
 		return false;
 	}
 

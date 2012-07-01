@@ -4,10 +4,12 @@ import de.graphioli.controller.ViewManager;
 import de.graphioli.model.Player;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.KeyboardFocusManager;
 import java.io.File;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+
 
 /**
  * @author Graphioli
@@ -105,6 +107,11 @@ public class GameWindow extends JFrame implements View {
 		this.add(this.statusBar, BorderLayout.SOUTH);
 		this.statusBar.setPreferredSize(new Dimension(this.getWidth(), STATUSBAR_HEIGHT));
 
+		// Initialize CustomKeyDispatcher
+		KeyboardFocusManager manager = KeyboardFocusManager.getCurrentKeyboardFocusManager();
+		manager.addKeyEventDispatcher(new CustomKeyDispatcher(this));
+		
+		
 		this.setResizable(false);
 		this.setVisible(true);
 
@@ -243,7 +250,7 @@ public class GameWindow extends JFrame implements View {
 	 *         <code>false</code> otherwise
 	 */
 	public boolean onKeyRelease(int keyCode) {
-		return true;
+		return this.viewManager.onKeyRelease(keyCode);
 	}
 
 	/**

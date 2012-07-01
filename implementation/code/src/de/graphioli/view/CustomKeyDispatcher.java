@@ -9,8 +9,6 @@ import java.awt.event.KeyEvent;
  * @author Graphioli
  */
 public class CustomKeyDispatcher implements KeyEventDispatcher {
-
-	//TODO: Implement
 	
 	/**
 	 * The associated {@link GameWindow} that uses this.
@@ -26,7 +24,7 @@ public class CustomKeyDispatcher implements KeyEventDispatcher {
 	 *            The {@link GameWindow} using this {@link CustomKeyDispatcher}
 	 */
 	public CustomKeyDispatcher(GameWindow gameWindow) {
-
+		this.gameWindow = gameWindow;
 	}
 
 	/**
@@ -39,8 +37,10 @@ public class CustomKeyDispatcher implements KeyEventDispatcher {
 	 */
 	@Override
 	public boolean dispatchKeyEvent(KeyEvent event) {
-		// TODO Auto-generated method stub
-		return true;
+		if (event.getID() == KeyEvent.KEY_RELEASED) {
+        	return gameWindow.onKeyRelease(event.getKeyCode());
+        }
+        return false;
 	}
 
 }
