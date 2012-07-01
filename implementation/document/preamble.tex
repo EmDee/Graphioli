@@ -1,0 +1,32 @@
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{ae}
+\usepackage[pdftex,bookmarks=true,bookmarksnumbered,colorlinks=true]{hyperref} % http://ctan.org/pkg/hyperref
+\usepackage{nameref}
+\usepackage{xparse}
+\usepackage{parskip}
+\usepackage{comment} % for block commenting
+\usepackage{longtable} % longtable breaks longer tables to different pages
+\usepackage[table,usenames,dvipsnames]{xcolor} % has to be loaded before tikZ
+\usepackage{array}
+\usepackage{etoolbox} % to set table rows to 0
+%%%%%%% package for sequence diagrams
+\usepackage{tikz}
+\usetikzlibrary{arrows,shadows}
+\usepackage{../../materials/resources/pgf-umlsd}
+%%%%%%%
+\usepackage{float}
+\graphicspath{{../materials/images/implementation/}}
+\usepackage{todonotes} % use temporary for todo notes
+% \usepackage{lineno} % temporary use for correcting
+\usepackage{xspace}
+% \linenumbers
+\usepackage{lipsum} % just to generate some text
+\usepackage{../../materials/resources/dashrule} % for dashed rules
+
+\setlength{\parindent}{0cm}
+\setlength{\parskip}{8pt}
+
+\widowpenalty=10000 % Prevent single line after pagebreak
+\clubpenalty=10000  % Prevent single line before pagebreak
