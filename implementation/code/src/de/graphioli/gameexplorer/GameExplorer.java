@@ -5,12 +5,12 @@ import com.google.gson.JsonIOException;
 import com.google.gson.JsonSyntaxException;
 import de.graphioli.controller.GameManager;
 import de.graphioli.model.Player;
+import de.graphioli.utils.JarParser;
+
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
+import java.io.Reader;
 import java.util.ArrayList;
 import java.util.logging.Logger;
-
 
 /**
  * The GameExplorer lists the available games and enables the user to select and
@@ -60,62 +60,51 @@ public class GameExplorer {
 	}
 
 	/**
-	 * Creates {@link GameDefinition} from a given path to the json file.
-	 * 
-	 * @param jsonPath
-	 *            path to the json file
-	 * @return the {@link GameDefinition}
-	 */
-	private GameDefinition createGameDefinitionFromJSON(String jsonPath) {
-
-		File json = new File(jsonPath);
-		GameDefinition gameDefinition = null;
-
-		try {
-			gameDefinition = new Gson().fromJson(new FileReader(json), GameDefinition.class);
-		} catch (JsonSyntaxException e) {
-			LOG.severe("JsonSyntaxException: " + e.getMessage());
-			e.printStackTrace();
-		} catch (JsonIOException e) {
-			LOG.severe("JsonIOException: " + e.getMessage());
-			e.printStackTrace();
-		} catch (FileNotFoundException e) {
-			LOG.severe("FileNotFoundException: " + e.getMessage());
-			e.printStackTrace();
-		}
-
-		return gameDefinition;
-
-	}
-
-	/**
 	 * Scans the game folder for games, creates {@link GameDefinition}s and adds
 	 * these to the gameDefinition's list.
 	 * 
 	 * @return {@link GameDefinition}s of the games in the parsed folder.
 	 */
 	private void scanGameFolderAndCreateGameDefinitions() {
-
-		File gamesDirectory = new File("src/games/");
-		String pathToPropertyFile = new String();
+		File gamesDirectory = new File("games/");
 		GameDefinition gameDefinition;
+		Reader propertyFile;
 
 		// TODO: Different path for different environments
 		for (File tmpGame : gamesDirectory.listFiles()) {
-
 			if (tmpGame.isDirectory()) {
-
-				pathToPropertyFile = tmpGame.getName() + "/properties.json";
-				gameDefinition = this.createGameDefinitionFromJSON("src/games/" + pathToPropertyFile);
+				propertyFile = JarParser.getPropertyFileFromJar(tmpGame.getName());
+				gameDefinition = this.createGameDefinitionFromJSON(propertyFile);
 
 				if (gameDefinition != null) {
 					this.gameDefinitions.add(gameDefinition);
 				}
-
 			}
+		}
+	}
 
+	/**
+	 * Creates {@link GameDefinition} from a given path to the json file.
+	 * 
+	 * @param jsonPath
+	 *            path to the json file
+	 * @return the {@link GameDefinition}
+	 */
+	private GameDefinition createGameDefinitionFromJSON(Reader jsonStream) {
+		GameDefinition gameDefinition = null;
+
+		try {
+			gameDefinition = new Gson().fromJson(jsonStream, GameDefinition.class);
+			System.out.println("game definitions: " + gameDefinition);
+		} catch (JsonSyntaxException e) {
+			LOG.severe("JsonSyntaxException: " + e.getMessage());
+			e.printStackTrace();
+		} catch (JsonIOException e) {
+			LOG.severe("JsonIOException: " + e.getMessage());
+			e.printStackTrace();
 		}
 
+		return gameDefinition;
 	}
 
 	/**
