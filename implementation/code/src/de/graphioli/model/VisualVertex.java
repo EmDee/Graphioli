@@ -6,9 +6,14 @@ import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 import java.util.logging.Logger;
 
+/**
+ * This class represents a {@link Vertex} with its graphical representation.
+ * 
+ * @author Graphioli
+ */
 public abstract class VisualVertex extends Vertex {
 
-	private final static Logger LOG = Logger.getLogger(VisualVertex.class.getName());
+	private static final Logger LOG = Logger.getLogger(VisualVertex.class.getName());
 
 	private GridPoint gridPoint;
 	protected BufferedImage bufferedImage;
@@ -19,6 +24,11 @@ public abstract class VisualVertex extends Vertex {
 	public static final int PIXELS_PER_SIDE = 25;
 
 	/**
+	 * The default color value for a {@link VisualVertex}.
+	 */
+	private static final int DEFAULT_COLOR = 255;
+
+	/**
 	 * Constructs a {@code VisualVertex} with the given {@link GridPoint},
 	 * initializes and updates it.
 	 * 
@@ -27,7 +37,7 @@ public abstract class VisualVertex extends Vertex {
 	 */
 	public VisualVertex(GridPoint gridPoint) {
 		this.gridPoint = gridPoint;
-		bufferedImage = new BufferedImage(PIXELS_PER_SIDE, PIXELS_PER_SIDE, BufferedImage.TYPE_4BYTE_ABGR);
+		this.bufferedImage = new BufferedImage(PIXELS_PER_SIDE, PIXELS_PER_SIDE, BufferedImage.TYPE_4BYTE_ABGR);
 		init();
 		update();
 	}
@@ -59,12 +69,12 @@ public abstract class VisualVertex extends Vertex {
 		LOG.finer("Updating VisualVertex at position " + getGridPoint() + ".");
 
 		clearBufferedImage();
-		Graphics2D g2d = bufferedImage.createGraphics();
+		Graphics2D g2d = this.bufferedImage.createGraphics();
 
 		// Use anti-aliasing
 		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
-		return draw(g2d);
+		return this.draw(g2d);
 	}
 
 	/**
@@ -83,7 +93,7 @@ public abstract class VisualVertex extends Vertex {
 	 * @return the grid point.
 	 */
 	public GridPoint getGridPoint() {
-		return gridPoint;
+		return this.gridPoint;
 	}
 
 	/**
@@ -92,7 +102,10 @@ public abstract class VisualVertex extends Vertex {
 	 */
 	public void setGridPoint(GridPoint gridPoint) {
 		// TODO: Take out this method?
-		LOG.warning("Resetting the position of a VisualVertex from " + this.gridPoint + " to " + gridPoint
+		LOG.warning("Resetting the position of a VisualVertex from "
+				+ this.gridPoint
+				+ " to "
+				+ gridPoint
 				+ ". This might lead to inconsistencies!");
 		this.gridPoint = gridPoint;
 	}
@@ -101,9 +114,10 @@ public abstract class VisualVertex extends Vertex {
 	 * Resets the buffered image of this {@code VisualVertex} to a completely
 	 * transparent state.
 	 */
-	private final void clearBufferedImage() {
-		Graphics2D g2d = bufferedImage.createGraphics();
-		g2d.setBackground(new Color(255, 255, 255, 0));
+	private void clearBufferedImage() {
+		Graphics2D g2d = this.bufferedImage.createGraphics();
+		g2d.setBackground(new Color(VisualVertex.DEFAULT_COLOR, VisualVertex.DEFAULT_COLOR, VisualVertex.DEFAULT_COLOR,
+				0));
 		g2d.clearRect(0, 0, PIXELS_PER_SIDE, PIXELS_PER_SIDE);
 	}
 }

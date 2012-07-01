@@ -4,9 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
+/**
+ * This class represents the logical graph.
+ * 
+ * @author Graphioli
+ */
 public class Graph {
 
-	private final static Logger LOG = Logger.getLogger(Graph.class.getName());
+	private static final Logger LOG = Logger.getLogger(Graph.class.getName());
 
 	private final List<Vertex> vertexList;
 	private final List<Edge> edgeList;
@@ -15,8 +20,8 @@ public class Graph {
 	 * Creates a new, empty {link Graph}.
 	 */
 	public Graph() {
-		vertexList = new ArrayList<Vertex>();
-		edgeList = new ArrayList<Edge>();
+		this.vertexList = new ArrayList<Vertex>();
+		this.edgeList = new ArrayList<Edge>();
 	}
 
 	/**
@@ -34,14 +39,14 @@ public class Graph {
 			return false;
 		}
 
-		if (!(vertexList.contains(edge.getOriginVertex()) && vertexList.contains(edge.getTargetVertex()))) {
+		if (!(this.vertexList.contains(edge.getOriginVertex()) && this.vertexList.contains(edge.getTargetVertex()))) {
 			return false;
 		}
 
-		if (edgeList.contains(edge)) {
+		if (this.edgeList.contains(edge)) {
 			return false;
 		} else {
-			edgeList.add(edge);
+			this.edgeList.add(edge);
 			edge.getOriginVertex().addOutgoingEdge(edge);
 			edge.getTargetVertex().addIncomingEdge(edge);
 			return true;
@@ -59,12 +64,12 @@ public class Graph {
 	 */
 
 	public boolean addVertex(Vertex vertex) {
-		if (vertexList.contains(vertex)) {
+		if (this.vertexList.contains(vertex)) {
 			return false;
 		}
 
 		if (vertex.getIncomingEdges().size() == 0 && vertex.getOutgoingEdges().size() == 0) {
-			vertexList.add(vertex);
+			this.vertexList.add(vertex);
 			return true;
 		} else {
 			return false;
@@ -80,7 +85,7 @@ public class Graph {
 	 * @return {@code true} if the vertex was in this graph
 	 */
 	public boolean removeVertex(Vertex vertex) {
-		int index = vertexList.indexOf(vertex);
+		int index = this.vertexList.indexOf(vertex);
 
 		if (index == -1) {
 			// Vertex not in list
@@ -89,18 +94,18 @@ public class Graph {
 
 			// Remove edges connected to it
 			for (Edge edge : vertex.getIncomingEdges()) {
-				if (!edgeList.remove(edge)) {
+				if (!this.edgeList.remove(edge)) {
 					LOG.severe("Graph inconsistency in removeVertex method!");
 				}
 			}
 
 			for (Edge edge : vertex.getOutgoingEdges()) {
-				if (!edgeList.remove(edge)) {
+				if (!this.edgeList.remove(edge)) {
 					LOG.severe("Graph inconsistency in removeVertex method!");
 				}
 			}
 
-			vertexList.remove(index);
+			this.vertexList.remove(index);
 			return true;
 		}
 	}
@@ -113,13 +118,13 @@ public class Graph {
 	 * @return {@code true} if the edge was in this graph
 	 */
 	public boolean removeEdge(Edge edge) {
-		int index = edgeList.indexOf(edge);
+		int index = this.edgeList.indexOf(edge);
 
 		if (index == -1) {
 			// Edge not in list
 			return false;
 		} else {
-			edgeList.remove(index);
+			this.edgeList.remove(index);
 
 			if (!edge.getOriginVertex().removeOutgoingEdge(edge) || !edge.getTargetVertex().removeIncomingEdge(edge)) {
 				LOG.severe("Graph inconsistency in removeEdge method!");
@@ -128,6 +133,16 @@ public class Graph {
 		}
 	}
 
+	/**
+	 * Returns the {@link Edge} between two given vertices.
+	 * 
+	 * @param origin
+	 *            starting {@link Vertex}.
+	 * @param target
+	 *            end {@link Vertex}.
+	 * @return the {@link Edge} between the two vertices, if one exists, else
+	 *         <code>null</code>/
+	 */
 	public Edge getEdge(Vertex origin, Vertex target) {
 		for (Edge edge : origin.getOutgoingEdges()) {
 			if (edge.getTargetVertex().equals(target)) {
@@ -137,12 +152,18 @@ public class Graph {
 		return null;
 	}
 
+	/**
+	 * @return the list of vertices in this {@code Graph}.
+	 */
 	public List<Vertex> getVertices() {
-		return vertexList;
+		return this.vertexList;
 	}
 
+	/**
+	 * @return the list of {@link Edge}s in this {@code Graph}.
+	 */
 	public List<Edge> getEdges() {
-		return edgeList;
+		return this.edgeList;
 	}
 
 }

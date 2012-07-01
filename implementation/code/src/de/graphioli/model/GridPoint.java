@@ -4,17 +4,17 @@ package de.graphioli.model;
  * This class represents the grid, on which the {@link Graph} will be located.
  * 
  * @author Graphioli
- * @todo Implement ValidParameters checkings
  */
+// TODO Implement ValidParameters checkings.
 public class GridPoint {
 
 	/**
-	 * The x coordinate of the GridPoint
+	 * The x coordinate of the GridPoint.
 	 */
 	private int positionX;
 
 	/**
-	 * The y coordinate of the GridPoint
+	 * The y coordinate of the GridPoint.
 	 */
 	private int positionY;
 
@@ -53,10 +53,12 @@ public class GridPoint {
 	/**
 	 * Returns a string representation of this grid point in form of
 	 * "(PositionX, PositionY)".
+	 * 
+	 * @return a string with the coordinates of this {@link GridPoint}
 	 */
 	@Override
 	public String toString() {
-		return "(" + positionX + ", " + positionY + ")";
+		return "(" + this.positionX + ", " + this.positionY + ")";
 	}
 
 }

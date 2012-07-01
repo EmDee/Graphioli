@@ -10,12 +10,12 @@ import java.awt.Image;
 public abstract class VisualEdge extends Edge {
 
 	/**
-	 * Information if the VisualEdge is visible or not (for undirected graphs)
+	 * Information if the VisualEdge is visible or not (for undirected graphs).
 	 */
 	private boolean visible;
 
 	/**
-	 * Creates a new VisualEdge between the given vertices
+	 * Creates a new VisualEdge between the given vertices.
 	 * 
 	 * @param vertexA
 	 *            the origin vertex
@@ -29,7 +29,7 @@ public abstract class VisualEdge extends Edge {
 	}
 
 	/**
-	 * @return
+	 * @return the image of this {@code VisualEdge}
 	 */
 	public Image getBufferedImage() {
 		// TODO Auto-generated method stub
@@ -37,7 +37,7 @@ public abstract class VisualEdge extends Edge {
 	}
 
 	/**
-	 * Returns whether or not this VisualEdge is visible
+	 * Returns whether or not this VisualEdge is visible.
 	 * 
 	 * @return {@code true} if the VisualEdge is visible
 	 */
@@ -46,7 +46,7 @@ public abstract class VisualEdge extends Edge {
 	}
 
 	/**
-	 * Sets the VisualEdge (in)visible
+	 * Sets the VisualEdge (in)visible.
 	 * 
 	 * @param visible
 	 *            {@code true} should be set visible

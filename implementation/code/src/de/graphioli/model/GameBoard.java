@@ -13,22 +13,22 @@ import java.util.logging.Logger;
 public class GameBoard {
 
 	/**
-	 * Logging instance
+	 * Logging instance.
 	 */
-	private final static Logger LOG = Logger.getLogger(GameBoard.class.getName());
+	private static final Logger LOG = Logger.getLogger(GameBoard.class.getName());
 
 	/**
-	 * Whether the {@link Graph} of this GameBoard is directed or not
+	 * Whether the {@link Graph} of this GameBoard is directed or not.
 	 */
 	private boolean isDirectedGraph;
 
 	/**
-	 * The {@link Graph} of this GameBoard
+	 * The {@link Graph} of this GameBoard.
 	 */
 	private Graph graph;
 
 	/**
-	 * The {@link Grid} of this GameBoard
+	 * The {@link Grid} of this GameBoard.
 	 */
 	private Grid grid;
 
@@ -38,6 +38,10 @@ public class GameBoard {
 	 * 
 	 * @param isDirectedGraph
 	 *            Whether the graph of the game is directed or not
+	 * @param horizontalGridPoints
+	 *            the width of this {@code GameBoard}.
+	 * @param verticalGridPoints
+	 *            the height of this {@code GameBoard}.
 	 */
 	public GameBoard(boolean isDirectedGraph, int horizontalGridPoints, int verticalGridPoints) {
 
@@ -158,7 +162,7 @@ public class GameBoard {
 	/**
 	 * Returns the {@link VisualEdge} with vertexA as origin and vertexB as
 	 * target vertex In an undirected graph, it returns visible one of the twin
-	 * edges
+	 * edges.
 	 * 
 	 * @param vertexA
 	 *            the origin vertex of the edge to get
@@ -209,8 +213,8 @@ public class GameBoard {
 	 */
 	public void flush() {
 		this.graph = new Graph();
-		int horizontalGridPoints = grid.getHorizontalGridPoints();
-		int verticalGridPoints = grid.getVerticalGridPoints();
+		int horizontalGridPoints = this.grid.getHorizontalGridPoints();
+		int verticalGridPoints = this.grid.getVerticalGridPoints();
 		this.grid = new Grid(horizontalGridPoints, verticalGridPoints);
 		LOG.fine("GameBoard flushed.");
 	}

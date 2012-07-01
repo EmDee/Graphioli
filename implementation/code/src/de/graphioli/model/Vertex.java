@@ -1,8 +1,8 @@
 package de.graphioli.model;
 
+import de.graphioli.utils.UIDManager;
 import java.util.ArrayList;
 import java.util.UUID;
-import de.graphioli.utils.UIDManager;
 
 /**
  * This class represents a logical vertex.
@@ -19,7 +19,7 @@ public class Vertex {
 	 * Creates a new {@link Vertex} with an UID.
 	 */
 	public Vertex() {
-		uuid = UIDManager.generateUniqueID();
+		this.uuid = UIDManager.generateUniqueID();
 	}
 
 	/**
@@ -146,7 +146,7 @@ public class Vertex {
 	 *         {@link Vertex}, <code>false</code> otherwise.
 	 */
 	public boolean isAdjacentTo(Vertex vertex) {
-		for (Edge edge : outgoingEdges) {
+		for (Edge edge : this.outgoingEdges) {
 			if (edge.getTargetVertex().equals(vertex)) {
 				return true;
 			}
@@ -163,27 +163,36 @@ public class Vertex {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((uuid == null) ? 0 : uuid.hashCode());
+		result = prime * result + ((this.uuid == null) ? 0 : this.uuid.hashCode());
 		return result;
 	}
 
 	/**
 	 * Two vertices are equal, if their {@link UUID} is equal.
+	 * 
+	 * @param obj
+	 *            given {@code Vertex} to compare to
+	 * @return <code>true</code> if a given {@link Vertex} is equal to this
+	 *         {@link Vertex}, <code>false</code> otherwise
 	 */
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
 		Vertex other = (Vertex) obj;
-		if (uuid == null) {
-			if (other.uuid != null)
-				return false;
-		} else if (!uuid.equals(other.uuid))
+		if (this == obj) {
+			return true;
+		}
+
+		if (obj == null || getClass() != obj.getClass()) {
 			return false;
+		}
+
+		if (this.uuid == null) {
+			if (other.uuid != null) {
+				return false;
+			}
+		} else if (!this.uuid.equals(other.uuid)) {
+			return false;
+		}
 		return true;
 	}
 }

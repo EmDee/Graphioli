@@ -5,6 +5,12 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Stroke;
 
+/**
+ * This class represents a simple {@link VisualVertex} with predefined
+ * attributes.
+ * 
+ * @author Graphioli
+ */
 public class SimpleVisualVertex extends VisualVertex {
 
 	private Color fillColor;
@@ -14,7 +20,11 @@ public class SimpleVisualVertex extends VisualVertex {
 	private Stroke stroke;
 
 	/**
-	 * {@inheritDoc}
+	 * Creates an instance of this {@code SimpleVisualVertex} with a given
+	 * {@link GridPoint}.
+	 * 
+	 * @param gridPoint
+	 *            {@link GridPoint}, on which this vertex is located on.
 	 */
 	public SimpleVisualVertex(GridPoint gridPoint) {
 		super(gridPoint);
@@ -24,29 +34,32 @@ public class SimpleVisualVertex extends VisualVertex {
 	 * Sets the fill color of this {@code SimpleVisualVertex} to {@code WHITE},
 	 * the stroke color to {@code BLACK} and the stroke weight to {@code 1}.
 	 */
-
 	@Override
 	protected void init() {
-		fillColor = Color.WHITE;
-		strokeColor = Color.BLACK;
-		strokeWeight = 1;
-		stroke = new BasicStroke(this.strokeWeight);
+		this.fillColor = Color.WHITE;
+		this.strokeColor = Color.BLACK;
+		this.strokeWeight = 1;
+		this.stroke = new BasicStroke(this.strokeWeight);
 	}
 
 	/**
 	 * Draws this {@code SimpleVisualVertex} according to its fill color, stroke
 	 * color and stroke weight.
+	 * 
+	 * @param graphics
+	 *            given graphics to draw
+	 * @return <code>true</code> when the drawing is doen
 	 */
 	@Override
 	protected boolean draw(Graphics2D graphics) {
-		graphics.setStroke(stroke);
-		graphics.setColor(fillColor);
+		graphics.setStroke(this.stroke);
+		graphics.setColor(this.fillColor);
 		graphics.fillOval(0, 0, PIXELS_PER_SIDE - 1, PIXELS_PER_SIDE - 1);
 
 		// Draw Stroke
-		graphics.setColor(strokeColor);
-		graphics.drawOval(0 + (strokeWeight - 1) / 2, 0 + (strokeWeight - 1) / 2, (PIXELS_PER_SIDE - 1)
-				- (strokeWeight - 1), (PIXELS_PER_SIDE - 1) - (strokeWeight - 1));
+		graphics.setColor(this.strokeColor);
+		graphics.drawOval(0 + (this.strokeWeight - 1) / 2, 0 + (this.strokeWeight - 1) / 2, (PIXELS_PER_SIDE - 1)
+				- (this.strokeWeight - 1), (PIXELS_PER_SIDE - 1) - (this.strokeWeight - 1));
 
 		return true;
 	}
@@ -55,7 +68,7 @@ public class SimpleVisualVertex extends VisualVertex {
 	 * @return the fillColor
 	 */
 	public Color getFillColor() {
-		return fillColor;
+		return this.fillColor;
 	}
 
 	/**
@@ -71,7 +84,7 @@ public class SimpleVisualVertex extends VisualVertex {
 	 * @return the strokeColor
 	 */
 	public Color getStrokeColor() {
-		return strokeColor;
+		return this.strokeColor;
 	}
 
 	/**
@@ -87,7 +100,7 @@ public class SimpleVisualVertex extends VisualVertex {
 	 * @return the strokeWeight
 	 */
 	public int getStrokeWeight() {
-		return (strokeWeight + 1) / 2;
+		return (this.strokeWeight + 1) / 2;
 	}
 
 	/**

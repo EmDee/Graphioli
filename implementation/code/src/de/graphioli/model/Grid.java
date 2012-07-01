@@ -10,17 +10,17 @@ import de.graphioli.utils.Validation;
 public class Grid {
 
 	/**
-	 * The number of horizontal grid points
+	 * The number of horizontal grid points.
 	 */
 	private int horizontalGridPoints;
 
 	/**
-	 * The number of vertical grid points
+	 * The number of vertical grid points.
 	 */
 	private int verticalGridPoints;
 
 	/**
-	 * Array-based representation of the grid
+	 * Array-based representation of the grid.
 	 */
 	private VisualVertex[][] grid;
 
@@ -49,6 +49,8 @@ public class Grid {
 	 *         this Grid, <code>false</code> otherwise
 	 */
 	public boolean addVisualVertexToGrid(VisualVertex visualVertex) {
+		int positionX = visualVertex.getGridPoint().getPositionX();
+		int positionY = visualVertex.getGridPoint().getPositionY();
 
 		// Early negative return if specified GridPoint is invalid
 		if (!Validation.isValidGridPoint(visualVertex.getGridPoint(), this.horizontalGridPoints,
@@ -57,8 +59,7 @@ public class Grid {
 		}
 
 		// Get VisualVertex at specified GridPoint
-		VisualVertex visualVertexAtGridPoint = this.grid[visualVertex.getGridPoint().getPositionX()][visualVertex
-				.getGridPoint().getPositionY()];
+		VisualVertex visualVertexAtGridPoint = this.grid[positionX][positionY];
 
 		// Return false if GridPoint is not empty
 		if (visualVertexAtGridPoint != null) {
@@ -66,7 +67,8 @@ public class Grid {
 		}
 
 		// Add VisualVertex
-		this.grid[visualVertex.getGridPoint().getPositionX()][visualVertex.getGridPoint().getPositionY()] = visualVertex;
+
+		this.grid[positionX][positionY] = visualVertex;
 
 		return true;
 
@@ -125,12 +127,18 @@ public class Grid {
 
 	}
 
+	/**
+	 * @return horizontalGridPoints.
+	 */
 	public int getHorizontalGridPoints() {
-		return horizontalGridPoints;
+		return this.horizontalGridPoints;
 	}
 
+	/**
+	 * @return verticalGridPoints
+	 */
 	public int getVerticalGridPoints() {
-		return verticalGridPoints;
+		return this.verticalGridPoints;
 	}
 
 }
