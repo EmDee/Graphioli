@@ -72,6 +72,20 @@ public class PlayerManager {
 	public Player getActivePlayer() {
 		return this.activePlayer;
 	}
+	
+	/**
+	 * Sets the active {@link Player} to the given {@link Player} if is in the list of players of this game.
+	 * 
+	 * @param player the new active player
+	 * @return {@code true} if the given Player is in the players list
+	 */
+	public boolean setActivePlayer(Player player) {
+		if (this.players.contains(player)) {
+			this.activePlayer = player;
+			return true;
+		}
+		return false;
+	}
 
 	/**
 	 * Sets the next {@link Player} in the list to active.
