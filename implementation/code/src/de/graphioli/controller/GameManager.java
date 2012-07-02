@@ -4,9 +4,15 @@ import de.graphioli.gameexplorer.GameDefinition;
 import de.graphioli.gameexplorer.GameExplorer;
 import de.graphioli.model.GameBoard;
 import de.graphioli.model.Player;
+import de.graphioli.model.GameCapsule;
 import de.graphioli.utils.GraphioliLogger;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
@@ -258,7 +264,31 @@ public class GameManager {
 	 *         <code>false</code> otherwise TODO: Implement
 	 */
 	public boolean loadGame(File savegame) {
-		return false;
+		try {
+			FileInputStream fis = new FileInputStream(savegame);
+			ObjectInputStream in = new ObjectInputStream(fis);
+			GameCapsule capsule = (GameCapsule) in.readObject();
+			in.close();
+			//this.gameBoard = capsule.getBoard();
+			//this.playerManager = new PlayerManager(capsule.getPlayers(), this);
+			//this.playerManager.setActivePlayer(capsule.getActivePlayer());
+			
+			//TODO what to do with the capsule (onGameStart)
+			
+		} catch (FileNotFoundException e) {
+			LOG.severe("FileNotFoundException: " + e.getMessage());
+			e.printStackTrace();
+			return false;
+		} catch (IOException e) {
+			LOG.severe("IOException: " + e.getMessage());
+			e.printStackTrace();
+			return false;
+		} catch (ClassNotFoundException e) {
+			LOG.severe("ClassNotFoundException: " + e.getMessage());
+			e.printStackTrace();
+			return false;
+		}
+		return true;
 	}
 
 	/**
@@ -271,7 +301,24 @@ public class GameManager {
 	 *         <code>false</code> otherwise TODO Implement
 	 */
 	public boolean saveGame(File savegame) {
-		return false;
+		GameCapsule capsule = new GameCapsule(this.gameBoard, this.playerManager.getPlayers(),
+				this.playerManager.getActivePlayer());
+		try {
+			FileOutputStream fos = new FileOutputStream(savegame);
+			ObjectOutputStream out = new ObjectOutputStream(fos);
+			out.writeObject(capsule);
+			out.flush();
+			out.close();
+		} catch (FileNotFoundException e) {
+			LOG.severe("FileNotFoundException: " + e.getMessage());
+			e.printStackTrace();
+			return false;
+		} catch (IOException e) {
+			LOG.severe("IOException: " + e.getMessage());
+			e.printStackTrace();
+			return false;
+		}
+		return true;
 	}
 
 	/**
