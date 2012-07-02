@@ -29,50 +29,42 @@ public final class JarParser {
 	}
 
 	/**
-	 * Gets the property file within the jar and returns it as a {@link Reader}.
+	 * Gets a file in a game's jar as {@link InputStream}.
 	 * 
-	 * @param path
-	 *            path to root folder of the game folder, where the property
-	 *            file is
-	 * @return the property file as {@link Reader}
+	 * @param gameName
+	 *            name of the game to get the file from
+	 * @param fileName
+	 *            the file to get
+	 * @return an {@link InputStream} of the file
 	 */
-	public static Reader getPropertyFileFromJar(String path) {
-		LOG.finer("JarParser.<em>getPropertyFileFromJar()</em> called.");
-
-		InputStream inputStream = null;
-		Reader fileReader = null;
-
-		try {
-			jarFile = new JarFile("games/" + path + "/" + path + ".jar");
-			inputStream = jarFile.getInputStream(jarFile.getJarEntry("properties.json"));
-			fileReader = new InputStreamReader(inputStream);
-		} catch (IOException e) {
-			LOG.severe("No InputStream generated");
-		}
-
-		return fileReader;
-	}
-
-	/**
-	 * Gets an {@link InputStream} of the screenshot of a specific game.
-	 * 
-	 * @param path
-	 *            path to root folder of the game folder, where the screenshot
-	 *            is
-	 * @return {@link InputStream} of the screenshot
-	 */
-	public static InputStream getImageInputStream(String path) {
+	public static InputStream getFileAsInputStream(String gameName, String fileName) {
 		LOG.finer("JarParser.<em>getImageURL()</em> called.");
 
-		InputStream imageURL = null;
+		InputStream inputStream = null;
 		try {
-			jarFile = new JarFile("games/" + path + "/" + path + ".jar");
-			imageURL = jarFile.getInputStream(jarFile.getJarEntry("screenshot.jpg"));
+			jarFile = new JarFile("games/" + gameName + "/" + gameName + ".jar");
+			inputStream = jarFile.getInputStream(jarFile.getJarEntry(fileName));
 		} catch (IOException e) {
-			LOG.severe("Path does not exist: '" + imageURL + "'.");
+			LOG.severe("Path does not exist: '" + inputStream + "'.");
 			return null;
 		}
 
-		return imageURL;
+		return inputStream;
+	}
+
+	/**
+	 * Returns the property file of a given game as {@link Reader}.
+	 * 
+	 * @param gameName
+	 *            name of the game to get the property file from
+	 * @return the property file as {@link Reader}
+	 */
+	public static Reader getPropertyFile(String gameName) {
+		LOG.finer("JarParser.<em>getPropertyFileFromJar()</em> called.");
+
+		InputStream inputStream = getFileAsInputStream(gameName, "properties.json");
+		Reader fileReader = new InputStreamReader(inputStream);
+
+		return fileReader;
 	}
 }

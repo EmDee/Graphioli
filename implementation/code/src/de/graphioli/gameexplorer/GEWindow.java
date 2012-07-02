@@ -315,7 +315,8 @@ public class GEWindow extends JFrame implements GEView, ListSelectionListener, K
 		LOG.finer("GEWindow.<em>getCurrentScreenshot()</em> called.");
 
 		BufferedImage screenshot;
-		InputStream screenshotInputStream = JarParser.getImageInputStream(this.selectedGameDefinition.getName());
+		InputStream screenshotInputStream = JarParser.getFileAsInputStream(this.selectedGameDefinition.getName(),
+				"screenshot.jpg");
 
 		// Try creating buffered image from path
 		try {
