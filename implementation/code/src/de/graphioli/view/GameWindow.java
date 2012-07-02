@@ -114,14 +114,14 @@ public class GameWindow extends JFrame implements View {
 		KeyboardFocusManager manager = KeyboardFocusManager.getCurrentKeyboardFocusManager();
 		manager.addKeyEventDispatcher(new CustomKeyDispatcher(this));
 		
-		
 		this.setResizable(false);
 		this.setVisible(true);
+		// Center window
+		this.setLocationRelativeTo(null);
 
 		// Add window listener for closing attempts
 		this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 		this.addWindowListener(new CloseListener());
-
 	}
 
 	/**

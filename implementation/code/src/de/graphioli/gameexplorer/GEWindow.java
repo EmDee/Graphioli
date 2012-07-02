@@ -346,6 +346,8 @@ public class GEWindow extends JFrame implements GEView, ListSelectionListener, K
 		this.setSize(INIT_WINDOW_WIDTH, INIT_WINDOW_HEIGHT);
 		this.setLayout(new BorderLayout());
 		this.setResizable(false);
+		// Center window
+		this.setLocationRelativeTo(null);
 
 		// Generate list pane
 		this.generateListPane();
