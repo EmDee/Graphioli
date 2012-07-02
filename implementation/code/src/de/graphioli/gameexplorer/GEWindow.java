@@ -1,12 +1,9 @@
 package de.graphioli.gameexplorer;
 
 import de.graphioli.model.Player;
-import de.graphioli.utils.Localization;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
@@ -16,7 +13,6 @@ import java.util.ArrayList;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JList;
 import javax.swing.JPanel;
@@ -30,7 +26,7 @@ import javax.swing.event.ListSelectionListener;
  * 
  * @author Graphioli
  */
-public class GEWindow extends JFrame implements GEView, ActionListener, ListSelectionListener {
+public class GEWindow extends JFrame implements GEView, ListSelectionListener {
 
 	/**
 	 * Logging instance.
@@ -76,13 +72,6 @@ public class GEWindow extends JFrame implements GEView, ActionListener, ListSele
 	 * Panel containing information about the currently selected game.
 	 */
 	private GEGameInformation visibleGameInformationPanel;
-
-	/**
-	 * Buttons for the GameExplorer.
-	 */
-	private JButton startButton;
-	private JButton helpButton;
-	private JButton quitButton;
 
 	/**
 	 * Constructs a new instance of GEWindow.
@@ -384,22 +373,7 @@ public class GEWindow extends JFrame implements GEView, ActionListener, ListSele
 	 */
 	private void generateButtonPanel() {
 
-		JPanel visibleButtonPanel = new JPanel();
-
-		// Button: Start
-		this.startButton = new JButton(Localization.getLanguageString("gew_start"));
-		this.startButton.addActionListener(this);
-		visibleButtonPanel.add(this.startButton);
-
-		// Button: Help
-		this.helpButton = new JButton(Localization.getLanguageString("gew_help"));
-		this.helpButton.addActionListener(this);
-		visibleButtonPanel.add(this.helpButton);
-
-		// Button: Quit
-		this.quitButton = new JButton(Localization.getLanguageString("gew_quit"));
-		this.quitButton.addActionListener(this);
-		visibleButtonPanel.add(this.quitButton);
+		JPanel visibleButtonPanel = new GEButtonPanel(this);
 
 		// Add button panel to window
 		this.add(visibleButtonPanel, BorderLayout.PAGE_END);
@@ -425,7 +399,7 @@ public class GEWindow extends JFrame implements GEView, ActionListener, ListSele
 	/**
 	 * Closes this GameExplorer window.
 	 */
-	private void closeGameExplorer() {
+	public void closeGameExplorer() {
 		// TODO implement
 
 		LOG.finer("GEWindow.<em>closeGameExplorer()</em> called.");
@@ -436,41 +410,6 @@ public class GEWindow extends JFrame implements GEView, ActionListener, ListSele
 
 		System.exit(0);
 
-	}
-
-	/**
-	 * Called by the {@link JButton}s when they are clicked in order to perform
-	 * further actions with the previously selected {@link GameDefinition}.
-	 * 
-	 * @param event
-	 *            The ActionEvent
-	 */
-	@Override
-	public void actionPerformed(ActionEvent event) {
-
-		LOG.finer("GEWindow.<em>actionPerformed([...])</em> called.");
-
-		// Get clicked button
-		JButton sourceButton = (JButton) event.getSource();
-
-		LOG.fine("Button '" + sourceButton.getText() + "' clicked.");
-
-		// Choose button action
-		// TODO find nicer way than comparing button text (eg. inherited
-		// buttons)
-		if (sourceButton.equals(this.startButton)) {
-
-			this.openPlayerPopUp();
-
-		} else if (sourceButton.equals(this.helpButton)) {
-
-			this.openHelpFile();
-
-		} else if (sourceButton.equals(this.quitButton)) {
-
-			this.closeGameExplorer();
-
-		}
 	}
 
 	/**
@@ -489,4 +428,5 @@ public class GEWindow extends JFrame implements GEView, ActionListener, ListSele
 		}
 
 	}
+
 }
