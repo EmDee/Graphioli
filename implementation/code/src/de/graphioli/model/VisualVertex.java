@@ -16,7 +16,7 @@ public abstract class VisualVertex extends Vertex {
 	private static final Logger LOG = Logger.getLogger(VisualVertex.class.getName());
 
 	private GridPoint gridPoint;
-	protected BufferedImage bufferedImage;
+	protected transient BufferedImage bufferedImage;
 
 	/**
 	 * The length of a side in pixels.
