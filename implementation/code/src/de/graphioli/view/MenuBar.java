@@ -4,6 +4,7 @@ import de.graphioli.utils.Localization;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -111,11 +112,17 @@ public class MenuBar extends JMenuBar implements ActionListener {
 		JMenuItem sourceItem = (JMenuItem) event.getSource();
 
 		if (sourceItem.equals(this.saveItem)) {
-			this.parentGameWindow.saveFileDialog();
+			File fileToSave = this.parentGameWindow.saveFileDialog();
+			if (fileToSave != null) {
+				this.parentGameWindow.getViewManager().getGameManager().saveGame(fileToSave);
+			}
 		}
 
 		if (sourceItem.equals(this.loadItem)) {
-			this.parentGameWindow.openFileDialog();
+			File fileToLoad = this.parentGameWindow.openFileDialog();
+			if (fileToLoad != null) {
+				this.parentGameWindow.getViewManager().getGameManager().loadGame(fileToLoad);
+			}
 		}
 
 		if (sourceItem.equals(this.quitItem)) {
