@@ -315,17 +315,17 @@ public class GEWindow extends JFrame implements GEView, ListSelectionListener, K
 		LOG.finer("GEWindow.<em>getCurrentScreenshot()</em> called.");
 
 		BufferedImage screenshot;
-		InputStream screenshotInputStream = JarParser.getFileAsInputStream(this.selectedGameDefinition.getName(),
+		InputStream screenshotInputStream = JarParser.getFileAsInputStream(this.selectedGameDefinition.getClassName(),
 				"screenshot.jpg");
 
 		// Try creating buffered image from path
 		try {
 			screenshot = ImageIO.read(screenshotInputStream);
 		} catch (IllegalArgumentException e) {
-			LOG.severe("File does not exist: Screenshot for " + this.selectedGameDefinition.getName());
+			LOG.severe("File does not exist: Screenshot for " + this.selectedGameDefinition.getClassName());
 			return null;
 		} catch (IOException e) {
-			LOG.severe("Could not read file: Screenshot for " + this.selectedGameDefinition.getName());
+			LOG.severe("Could not read file: Screenshot for " + this.selectedGameDefinition.getClassName());
 			return null;
 		}
 
