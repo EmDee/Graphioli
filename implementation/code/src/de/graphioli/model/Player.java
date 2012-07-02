@@ -61,5 +61,19 @@ public abstract class Player implements Serializable {
 	public String getName() {
 		return this.name;
 	}
+	
+	/**
+	 * Compares this player to the given object.
+	 * 
+	 * @param player the player to compare this one to
+	 * @return {@code true} if the object is a Player and its UID equals this player's UID.
+	 */
+	public boolean equals(Object o) {
+		if (o instanceof Player) {
+			Player player = (Player) o;
+			return player.getUID().equals(this.uid);
+		}
+		return false;
+	}
 
 }
