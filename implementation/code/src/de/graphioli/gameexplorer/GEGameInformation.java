@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.image.BufferedImage;
+import java.util.HashMap;
 import java.util.logging.Logger;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -61,6 +62,11 @@ public class GEGameInformation extends JPanel {
 	private static final long serialVersionUID = 1L;
 
 	/**
+	 * The controlling GEWindow.
+	 */
+	private GEWindow geWindow;
+
+	/**
 	 * Component for displaying the screenshot of the currently selected game.
 	 */
 	private JLabel screenshotLabel;
@@ -71,9 +77,19 @@ public class GEGameInformation extends JPanel {
 	private JTextArea descriptionLabel;
 
 	/**
-	 * Constructs a new instance of GEGameInformation.
+	 * Caching hash map for the screenshot images.
 	 */
-	public GEGameInformation() {
+	private HashMap<String, ImageIcon> screenshotCache = new HashMap<String, ImageIcon>();
+
+	/**
+	 * Constructs a new instance of GEGameInformation.
+	 * 
+	 * @param geWindow
+	 *            The controlling GEWindow
+	 */
+	public GEGameInformation(GEWindow geWindow) {
+
+		this.geWindow = geWindow;
 
 		// Generate screenshot label
 		this.generateScreenshotLabel();
@@ -110,22 +126,42 @@ public class GEGameInformation extends JPanel {
 	/**
 	 * Updates the display of the screenshot of the currently selected game.
 	 * 
-	 * @param screenshot
-	 *            The new screenshot to display
+	 * @param className
+	 *            The class name of the game, which screenshot is to display
 	 * @return <code>true</code> if the action was performed successfully,
 	 *         <code>false</code> otherwise
 	 */
-	public boolean setScreenshot(BufferedImage screenshot) {
+	public boolean setScreenshot(String className) {
 
 		LOG.finer("GEGameInformation.<em>setScreenshot([...])</em> called.");
 
-		if (screenshot != null) {
-			this.screenshotLabel.setIcon(new ImageIcon(screenshot));
+		ImageIcon screenshot;
+
+		// Check if screenshot is already in cache
+		if (this.screenshotCache.containsKey(className)) {
+
+			screenshot = this.screenshotCache.get(className);
+			LOG.fine("Screenshot read from cache: " + className);
+
 		} else {
-			// Remove image
-			this.screenshotLabel.setIcon(null);
+
+			BufferedImage screenshotBuffer = this.geWindow.getCurrentScreenshot();
+			
+			if (screenshotBuffer != null) {
+				screenshot = new ImageIcon(this.geWindow.getCurrentScreenshot());
+			} else {
+				// Remove image
+				screenshot = null;
+			}
+
+			// Add screenshot to cache
+			this.screenshotCache.put(className, screenshot);
+			LOG.fine("New screenshot added to cache: " + className);
+
 		}
 
+		// Display screenshot
+		this.screenshotLabel.setIcon(screenshot);
 		this.screenshotLabel.revalidate();
 
 		LOG.fine("Display of screenshot updated.");

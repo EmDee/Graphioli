@@ -272,7 +272,7 @@ public class GEWindow extends JFrame implements GEView, ListSelectionListener {
 		this.visibleGameInformationPanel.setDescription(this.selectedGameDefinition.getDescription());
 
 		// Create buffered image for screenshot
-		this.visibleGameInformationPanel.setScreenshot(this.getCurrentScreenshot());
+		this.visibleGameInformationPanel.setScreenshot(this.selectedGameDefinition.getClassName());
 
 		return true;
 
@@ -285,7 +285,7 @@ public class GEWindow extends JFrame implements GEView, ListSelectionListener {
 	 * @return a BufferedImage containing the screenshot of the currently select
 	 *         game
 	 */
-	private BufferedImage getCurrentScreenshot() {
+	public BufferedImage getCurrentScreenshot() {
 
 		LOG.finer("GEWindow.<em>getCurrentScreenshot()</em> called.");
 
@@ -383,7 +383,7 @@ public class GEWindow extends JFrame implements GEView, ListSelectionListener {
 	 */
 	private void generateGameInformationPanel() {
 
-		this.visibleGameInformationPanel = new GEGameInformation();
+		this.visibleGameInformationPanel = new GEGameInformation(this);
 
 		// Add information
 		this.updateGameInformation();
