@@ -1,6 +1,6 @@
 package de.graphioli.model;
 
-import java.awt.Image;
+import java.awt.Graphics2D;
 
 /**
  * This class represents an {@link Edge} with its visual representation.
@@ -29,14 +29,6 @@ public abstract class VisualEdge extends Edge {
 	}
 
 	/**
-	 * @return the image of this {@code VisualEdge}
-	 */
-	public Image getBufferedImage() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	/**
 	 * Returns whether or not this VisualEdge is visible.
 	 * 
 	 * @return {@code true} if the VisualEdge is visible
@@ -54,5 +46,16 @@ public abstract class VisualEdge extends Edge {
 	public void setVisible(boolean visible) {
 		this.visible = visible;
 	}
+	
+	/**
+	 * Draws this edge onto the given {@code Graphics2D} object.
+	 * 
+	 * @param g2d the {@code Graphics2D} object to draw on.
+	 * @param originX the x coordinate of the origin vertex.
+	 * @param originY the y coordinate of the origin vertex.
+	 * @param targetX the x coordinate of the target vertex.
+	 * @param targetY the y coordinate of the target vertex.
+	 */
+	public abstract void draw(Graphics2D g2d, int originX, int originY, int targetX, int targetY);
 
 }

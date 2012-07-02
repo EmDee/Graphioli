@@ -3,6 +3,7 @@ package de.graphioli.view;
 import de.graphioli.model.Edge;
 import de.graphioli.model.Graph;
 import de.graphioli.model.Vertex;
+import de.graphioli.model.VisualEdge;
 import de.graphioli.model.VisualVertex;
 
 import java.awt.BasicStroke;
@@ -104,9 +105,9 @@ public class GraphCanvas extends JPanel {
 			VisualVertex originVertex = (VisualVertex) edge.getOriginVertex();
 			VisualVertex targetVertex = (VisualVertex) edge.getTargetVertex();
 
-			g2d.drawLine((originVertex.getGridPoint().getPositionX() + 1) * gridScale, (originVertex.getGridPoint()
-					.getPositionY() + 1) * gridScale, (targetVertex.getGridPoint().getPositionX() + 1) * gridScale,
-					(targetVertex.getGridPoint().getPositionY() + 1) * gridScale);
+			((VisualEdge) edge).draw(g2d, (originVertex.getGridPoint().getPositionX() + 1) * gridScale, (originVertex
+					.getGridPoint().getPositionY() + 1) * gridScale, (targetVertex.getGridPoint().getPositionX() + 1)
+					* gridScale, (targetVertex.getGridPoint().getPositionY() + 1) * gridScale);
 		}
 
 		// Drawing vertices
