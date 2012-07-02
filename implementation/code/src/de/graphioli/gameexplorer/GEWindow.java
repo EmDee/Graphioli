@@ -296,10 +296,10 @@ public class GEWindow extends JFrame implements GEView, ListSelectionListener {
 		try {
 			screenshot = ImageIO.read(screenshotInputStream);
 		} catch (IllegalArgumentException e) {
-			LOG.severe("File does not exist.");
+			LOG.severe("File does not exist: Screenshot for " + this.selectedGameDefinition.getName());
 			return null;
 		} catch (IOException e) {
-			LOG.severe("Could not read file.");
+			LOG.severe("Could not read file: Screenshot for " + this.selectedGameDefinition.getName());
 			return null;
 		}
 
