@@ -5,6 +5,8 @@ import de.graphioli.model.Player;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.KeyboardFocusManager;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.File;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
@@ -116,7 +118,10 @@ public class GameWindow extends JFrame implements View {
 		this.setResizable(false);
 		this.setVisible(true);
 
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		// Add window listener for closing attempts
+		this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+		this.addWindowListener(new CloseListener());
+
 	}
 
 	/**
@@ -286,4 +291,35 @@ public class GameWindow extends JFrame implements View {
 		return null;
 
 	}
+
+	/**
+	 * Closes this Game window.
+	 */
+	public void closeGame() {
+
+		LOG.finer("GameWindow.<em>closeGame()</em> called.");
+		LOG.fine("Forwarding call to GameManager.");
+
+		// Forward call to GameManager
+		this.getViewManager().getGameManager().closeGame();
+
+	}
+
+	/**
+	 * Listens for closing attempts performed by the main GameWindow.
+	 * 
+	 * @author Graphioli
+	 */
+	private class CloseListener extends WindowAdapter {
+
+		/**
+		 * Acts on closing attempts performed by the main GameWindow.
+		 */
+		@Override
+		public void windowClosing(WindowEvent e) {
+			GameWindow.this.closeGame();
+		}
+
+	}
+
 }
