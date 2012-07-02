@@ -1,6 +1,7 @@
 package de.graphioli.gameexplorer;
 
 import de.graphioli.model.Player;
+import de.graphioli.utils.JarParser;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -289,20 +290,16 @@ public class GEWindow extends JFrame implements GEView, ListSelectionListener {
 		LOG.finer("GEWindow.<em>getCurrentScreenshot()</em> called.");
 
 		BufferedImage screenshot;
-
-		// TODO Get path (currently ../../../games/) from environment (eg.
-		// production and development)
-		String screenshotPath = "../../../games/" + this.selectedGameDefinition.getClassName() + "/screenshot.jpg";
-		InputStream screenshotInputStream = getClass().getResourceAsStream(screenshotPath);
+		InputStream screenshotInputStream = JarParser.getImageURL(this.selectedGameDefinition.getName());
 
 		// Try creating buffered image from path
 		try {
 			screenshot = ImageIO.read(screenshotInputStream);
 		} catch (IllegalArgumentException e) {
-			LOG.severe("File does not exist: '" + screenshotPath + "'.");
+			LOG.severe("File does not exist.");
 			return null;
 		} catch (IOException e) {
-			LOG.severe("Could not read file: '" + screenshotPath + "'.");
+			LOG.severe("Could not read file.");
 			return null;
 		}
 

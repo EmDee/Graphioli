@@ -95,7 +95,6 @@ public class GameExplorer {
 
 		try {
 			gameDefinition = new Gson().fromJson(jsonStream, GameDefinition.class);
-			System.out.println("game definitions: " + gameDefinition);
 		} catch (JsonSyntaxException e) {
 			LOG.severe("JsonSyntaxException: " + e.getMessage());
 			e.printStackTrace();
