@@ -84,6 +84,8 @@ public class GEGameInformation extends JPanel {
 		// Generate description label
 		this.generateDescriptionLabel();
 
+		LOG.finer("GEGameInformation instantiated.");
+
 	}
 
 	/**

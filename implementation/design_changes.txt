@@ -1,6 +1,9 @@
 == Vertex ==
 - changed access modifiers of add and remove methods to default
 
+== Game
+- added 'call' methods
+
 == GameDefinition
 - changed 'fullyQualifiedClassName' to 'className'
 - no constructor

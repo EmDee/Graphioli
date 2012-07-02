@@ -6,6 +6,8 @@ import de.graphioli.model.GridPoint;
 import de.graphioli.model.Player;
 import de.graphioli.view.GameWindow;
 import de.graphioli.view.View;
+
+import java.util.concurrent.TimeoutException;
 import java.util.logging.Logger;
 
 /**
@@ -68,9 +70,10 @@ public class ViewManager {
 	 *         <code>false</code> otherwise
 	 */
 	public boolean onGridPointClick(GridPoint gridPoint) {
+		try {
 		if (this.gameManager.getGameBoard().getGrid().getVisualVertexAtGridPoint(gridPoint) == null) {
 			LOG.fine("OnEmptyGridPointClick " + gridPoint);
-			if (this.gameManager.getGame().onEmptyGridPointClick(gridPoint)) {
+			if (this.gameManager.getGame().callOnEmptyGridPointClick(gridPoint)) {
 				this.view.redrawGraph();
 			}
 
@@ -78,11 +81,15 @@ public class ViewManager {
 			LOG.fine("OnVertexClick (at GridPoint "
 					+ this.gameManager.getGameBoard().getGrid().getVisualVertexAtGridPoint(gridPoint).getGridPoint()
 					+ ")");
-			if (this.gameManager.getGame().onVertexClick(
+			if (this.gameManager.getGame().callOnVertexClick(
 					this.gameManager.getGameBoard().getGrid().getVisualVertexAtGridPoint(gridPoint))) {
 
 				this.view.redrawGraph();
 			}
+		}
+		} catch (TimeoutException toe) {
+			this.displayPopUp("Game timed out. Closing.");
+			this.gameManager.closeGame();
 		}
 		return true;
 	}
@@ -96,9 +103,14 @@ public class ViewManager {
 	 *         <code>false</code> otherwise
 	 */
 	public boolean onKeyRelease(int keyCode) {
-		if (this.gameManager.getGame().onKeyRelease(keyCode)) {
-			this.view.redrawGraph();
-			return true;
+		try {
+			if (this.gameManager.getGame().callOnKeyRelease(keyCode)) {
+				this.view.redrawGraph();
+				return true;
+			}
+		} catch (TimeoutException e) {
+			this.displayPopUp("Game timed out. Closing.");
+			this.gameManager.closeGame();
 		}
 		return false;
 	}

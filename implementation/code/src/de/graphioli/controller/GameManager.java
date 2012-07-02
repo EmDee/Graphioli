@@ -11,6 +11,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.ArrayList;
+import java.util.concurrent.TimeoutException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -129,25 +130,9 @@ public class GameManager {
 	 */
 	public boolean startGame(GameDefinition gameDefinition, ArrayList<Player> players) {
 
-		LOG.info("<em>startGame()</em> called.");
+		LOG.info("Try starting game '" + gameDefinition.getClassName() + "'.");
 
-		// Create GameBoard
-		this.gameBoard = new GameBoard(gameDefinition.isDirectedGraph(), gameDefinition.getHorizontalGridPointCount(),
-				gameDefinition.getVerticalGridPointCount());
-
-		// Create ViewManager instance
-		this.viewManager = new ViewManager(this);
-
-		// Create PlayerManager instance
-		this.playerManager = new PlayerManager(players, this);
-
-		this.playerManager.initializePlayers();
-
-		this.currentGameDefinition = gameDefinition;
-
-		// Facultative: Create MenuItems here
-
-		LOG.fine("Try starting game '" + gameDefinition.getClassName() + "'.");
+		this.initializeFramework(gameDefinition, players);
 
 		// Instantiate game
 		try {
@@ -196,27 +181,71 @@ public class GameManager {
 
 		this.game.registerController(this);
 
-		// Start Game
-
-		LOG.finer("Calling <em>onGameInit()</em>.");
-
-		if (this.game.onGameInit()) {
-			LOG.fine("<em>onGameInit()</em> returned <em>true</em>.");
-			this.viewManager.displayErrorMessage("Running...");
-			LOG.finer("Calling <em>onGameStart()</em>.");
-
-			if (this.game.onGameStart()) {
-				LOG.info("<em>onGameStart()</em> returned <em>true</em>. Game started.");
-			} else {
-				LOG.warning("<em>onGameStart()</em> returned <em>false</em>.");
-			}
-
-		} else {
-			LOG.warning("<em>onGameInit()</em> returned <em>false</em>.");
+		if (!runGame()) {
+			this.viewManager.displayPopUp("Game initialization failed. Closing.");
+			this.closeGame();
 		}
 
 		return true;
 
+	}
+
+	/**
+	 * Creates the components of the framework.
+	 * 
+	 * @param gameDefinition
+	 *            The GameDefinition of the game to start
+	 * @param players
+	 *            The list of players for this game
+	 */
+	private void initializeFramework(GameDefinition gameDefinition, ArrayList<Player> players) {
+		// Create GameBoard
+		this.gameBoard = new GameBoard(gameDefinition.isDirectedGraph(), gameDefinition.getHorizontalGridPointCount(),
+				gameDefinition.getVerticalGridPointCount());
+
+		// Create ViewManager instance
+		this.viewManager = new ViewManager(this);
+
+		// Create PlayerManager instance
+		this.playerManager = new PlayerManager(players, this);
+
+		this.playerManager.initializePlayers();
+
+		this.currentGameDefinition = gameDefinition;
+
+		// Facultative: Create MenuItems here
+	}
+
+	/**
+	 * Does the first calls to the game.
+	 * 
+	 * @return {@code true} when calls succeeded.
+	 */
+	private boolean runGame() {
+		LOG.finer("Calling <em>onGameInit()</em>.");
+
+		try {
+			if (this.game.callOnGameInit()) {
+				LOG.fine("<em>onGameInit()</em> returned <em>true</em>.");
+				this.viewManager.displayErrorMessage("Running...");
+				LOG.finer("Calling <em>onGameStart()</em>.");
+
+				if (this.game.callOnGameStart()) {
+					LOG.info("<em>onGameStart()</em> returned <em>true</em>. Game started.");
+				} else {
+					LOG.warning("<em>onGameStart()</em> returned <em>false</em>.");
+					return false;
+				}
+
+			} else {
+				LOG.warning("<em>onGameInit()</em> returned <em>false</em>.");
+				return false;
+			}
+		} catch (TimeoutException toe) {
+			this.viewManager.displayPopUp("Game timed out. Closing.");
+			this.closeGame();
+		}
+		return true;
 	}
 
 	/**
@@ -287,6 +316,7 @@ public class GameManager {
 	 *         <code>false</code> otherwise TODO Implement
 	 */
 	public boolean closeGame() {
+		LOG.info("Closing game.");
 		this.viewManager.closeView();
 		this.openGameExplorer();
 		return true;

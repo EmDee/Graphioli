@@ -1,6 +1,7 @@
 package game;
 
 import java.awt.Color;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.logging.Logger;
 import de.graphioli.controller.Game;
@@ -81,6 +82,21 @@ public class VisualVertexTestGame extends Game {
 		this.getGameManager().getGameBoard().addVisualVertices(simpleVisualVertecies);
 		this.getGameManager().getGameBoard().addVisualEdge(simpleVisualVertexA, simpleVisualVertexB);
 
+		return true;
+	}
+
+	@Override
+	protected boolean onKeyRelease(int keycode) {
+		if (keycode == KeyEvent.VK_J) {
+			this.getGameManager().getViewManager().displayErrorMessage("It's ok");
+		} else if (keycode == KeyEvent.VK_K) {
+			this.getGameManager().getViewManager().displayErrorMessage("It's a trap!");
+
+			int x = 0;
+			while (x != 1) {
+				x = ~x;
+			}
+		}
 		return true;
 	}
 }
