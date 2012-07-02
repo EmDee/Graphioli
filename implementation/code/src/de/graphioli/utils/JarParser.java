@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
-import java.net.URL;
 import java.util.jar.JarFile;
 import java.util.logging.Logger;
 
@@ -16,7 +15,7 @@ import java.util.logging.Logger;
 public final class JarParser {
 
 	private static JarFile jarFile;
-	
+
 	/**
 	 * Logging instance.
 	 */
@@ -38,6 +37,8 @@ public final class JarParser {
 	 * @return the property file as {@link Reader}
 	 */
 	public static Reader getPropertyFileFromJar(String path) {
+		LOG.finer("JarParser.<em>getPropertyFileFromJar()</em> called.");
+
 		InputStream inputStream = null;
 		Reader fileReader = null;
 
@@ -53,18 +54,20 @@ public final class JarParser {
 	}
 
 	/**
-	 * Gets a {@link URL} to the screenshot of a specific game.
+	 * Gets an {@link InputStream} of the screenshot of a specific game.
 	 * 
 	 * @param path
 	 *            path to root folder of the game folder, where the screenshot
 	 *            is
-	 * @return {@link URL} of the screenshot
+	 * @return {@link InputStream} of the screenshot
 	 */
-	public static URL getImageURL(String path) {
-		URL imageURL = null;
+	public static InputStream getImageURL(String path) {
+		LOG.finer("JarParser.<em>getImageURL()</em> called.");
+
+		InputStream imageURL = null;
 		try {
 			jarFile = new JarFile("games/" + path + "/" + path + ".jar");
-			imageURL = jarFile.getClass().getResource("screenshot.png");
+			imageURL = jarFile.getInputStream(jarFile.getJarEntry("screenshot.jpg"));
 		} catch (IOException e) {
 			LOG.severe("Path does not exist: '" + imageURL + "'.");
 			return null;
