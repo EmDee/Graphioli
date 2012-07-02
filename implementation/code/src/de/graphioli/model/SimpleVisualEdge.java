@@ -13,7 +13,7 @@ import java.awt.Stroke;
  */
 public class SimpleVisualEdge extends VisualEdge {
 
-	private Stroke edgeStroke;
+	private transient Stroke edgeStroke;
 
 	private int strokeWeight;
 	private Color strokeColor;

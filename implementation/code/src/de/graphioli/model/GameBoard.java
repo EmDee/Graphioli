@@ -16,7 +16,7 @@ public class GameBoard implements Serializable {
 	/**
 	 * Logging instance.
 	 */
-	private static final Logger LOG = Logger.getLogger(GameBoard.class.getName());
+	private static final transient Logger LOG = Logger.getLogger(GameBoard.class.getName());
 
 	/**
 	 * Whether the {@link Graph} of this GameBoard is directed or not.
