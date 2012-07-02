@@ -1,5 +1,6 @@
 package de.graphioli.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
@@ -9,7 +10,7 @@ import java.util.logging.Logger;
  * 
  * @author Graphioli
  */
-public class Graph {
+public class Graph implements Serializable {
 
 	private static final Logger LOG = Logger.getLogger(Graph.class.getName());
 

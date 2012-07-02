@@ -1,5 +1,7 @@
 package de.graphioli.model;
 
+import java.io.Serializable;
+
 /**
  * This serializable class represents a GameCapsule that holds all the important
  * data about the game state. A savegame will be saved in such a
@@ -7,6 +9,6 @@ package de.graphioli.model;
  * 
  * @author Graphioli
  */
-public class GameCapsule {
+public class GameCapsule implements Serializable {
 
 }

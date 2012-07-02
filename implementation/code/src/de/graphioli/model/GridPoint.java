@@ -1,12 +1,14 @@
 package de.graphioli.model;
 
+import java.io.Serializable;
+
 /**
  * This class represents the grid, on which the {@link Graph} will be located.
  * 
  * @author Graphioli
  */
 // TODO Implement ValidParameters checkings.
-public class GridPoint {
+public class GridPoint implements Serializable {
 
 	/**
 	 * The x coordinate of the GridPoint.

@@ -1,6 +1,8 @@
 package de.graphioli.model;
 
 import de.graphioli.utils.UIDManager;
+
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.UUID;
 
@@ -9,7 +11,7 @@ import java.util.UUID;
  * 
  * @author Graphioli
  */
-public class Vertex {
+public class Vertex implements Serializable {
 
 	private UUID uuid;
 	private ArrayList<Edge> incomingEdges = new ArrayList<Edge>();

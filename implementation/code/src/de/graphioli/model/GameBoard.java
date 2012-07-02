@@ -1,5 +1,6 @@
 package de.graphioli.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.logging.Logger;
 
@@ -10,7 +11,7 @@ import java.util.logging.Logger;
  * 
  * @author Graphioli
  */
-public class GameBoard {
+public class GameBoard implements Serializable {
 
 	/**
 	 * Logging instance.

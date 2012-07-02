@@ -1,5 +1,6 @@
 package de.graphioli.model;
 
+import java.io.Serializable;
 import java.util.UUID;
 import de.graphioli.utils.UIDManager;
 import de.graphioli.utils.Validation;
@@ -9,7 +10,7 @@ import de.graphioli.utils.Validation;
  * 
  * @author Graphioli
  */
-public abstract class Player {
+public abstract class Player implements Serializable {
 
 	/**
 	 * The unique ID of this {@link Player}

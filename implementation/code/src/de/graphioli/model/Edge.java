@@ -1,11 +1,13 @@
 package de.graphioli.model;
 
+import java.io.Serializable;
+
 /**
  * This class represents a logical {@link Edge}.
  * 
  * @author Graphioli
  */
-public class Edge {
+public class Edge implements Serializable {
 	private final Vertex originVertex;
 	private final Vertex targetVertex;
 	private int weight;

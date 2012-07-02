@@ -1,5 +1,7 @@
 package de.graphioli.model;
 
+import java.io.Serializable;
+
 import de.graphioli.utils.Validation;
 
 /**
@@ -7,7 +9,7 @@ import de.graphioli.utils.Validation;
  * 
  * @author Graphioli
  */
-public class Grid {
+public class Grid implements Serializable {
 
 	/**
 	 * The number of horizontal grid points.
