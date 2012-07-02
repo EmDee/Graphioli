@@ -274,7 +274,8 @@ public class GameManager {
 			//this.playerManager.setActivePlayer(capsule.getActivePlayer());
 			
 			//TODO what to do with the capsule (onGameStart)
-			
+			LOG.info("Loaded GameCapsule from File: " + savegame.getName());
+			LOG.info("Just for testing: Name of the active player: " + capsule.getActivePlayer().getName());
 		} catch (FileNotFoundException e) {
 			LOG.severe("FileNotFoundException: " + e.getMessage());
 			e.printStackTrace();
@@ -309,6 +310,7 @@ public class GameManager {
 			out.writeObject(capsule);
 			out.flush();
 			out.close();
+			LOG.info("Saved game to file: " + savegame.getName());
 		} catch (FileNotFoundException e) {
 			LOG.severe("FileNotFoundException: " + e.getMessage());
 			e.printStackTrace();
