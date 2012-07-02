@@ -115,19 +115,14 @@ public class PlayerPopUp extends JFrame {
 			// User pressed 'Cancel'
 			if (inputPlayerCount == null) {
 
-				// Ask user, if he really wants to cancel
-				boolean choice = this.showConfirmDialog(Localization.getLanguageString("player_pop_up_choice"));
+				return 0;
 
-				if (choice) {
-					return 0;
-				}
-
-				// User entered invalid number of players
+			// User entered invalid number of players
 			} else if (inputPlayerCount.isEmpty()) {
 
 				return minPlayer;
 
-				// User entered valid number of players
+			// User entered valid number of players
 			} else {
 
 				playerCount = Arrays.asList(playerStrings).indexOf(inputPlayerCount);

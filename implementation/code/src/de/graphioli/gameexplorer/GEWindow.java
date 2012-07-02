@@ -5,6 +5,8 @@ import de.graphioli.utils.JarParser;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
@@ -27,7 +29,7 @@ import javax.swing.event.ListSelectionListener;
  * 
  * @author Graphioli
  */
-public class GEWindow extends JFrame implements GEView, ListSelectionListener {
+public class GEWindow extends JFrame implements GEView, ListSelectionListener, KeyListener {
 
 	/**
 	 * Logging instance.
@@ -145,6 +147,29 @@ public class GEWindow extends JFrame implements GEView, ListSelectionListener {
 
 		LOG.fine("New GameDefinition '" + this.selectedGameDefinition.toString() + "' selected.");
 
+	}
+
+	/** {@inheritDoc} */
+	@Override
+	public void keyPressed(KeyEvent e) {
+
+		// If key is 'Enter', start game
+		if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+			this.openPlayerPopUp();
+		}
+
+	}
+
+	/** {@inheritDoc} */
+	@Override
+	public void keyReleased(KeyEvent e) {
+		// Not needed
+	}
+
+	/** {@inheritDoc} */
+	@Override
+	public void keyTyped(KeyEvent e) {
+		// Not needed
 	}
 
 	/**
@@ -290,7 +315,8 @@ public class GEWindow extends JFrame implements GEView, ListSelectionListener {
 		LOG.finer("GEWindow.<em>getCurrentScreenshot()</em> called.");
 
 		BufferedImage screenshot;
-		InputStream screenshotInputStream = JarParser.getImageInputStream(this.selectedGameDefinition.getName());
+		InputStream screenshotInputStream = JarParser.getFileAsInputStream(this.selectedGameDefinition.getName(),
+				"screenshot.jpg");
 
 		// Try creating buffered image from path
 		try {
@@ -342,6 +368,7 @@ public class GEWindow extends JFrame implements GEView, ListSelectionListener {
 
 		JList visibleGameDefinitionList = new JList(this.gameDefinitionList);
 		visibleGameDefinitionList.addListSelectionListener(this);
+		visibleGameDefinitionList.addKeyListener(this);
 
 		// Set list selection mode to 'single selection'
 		visibleGameDefinitionList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);

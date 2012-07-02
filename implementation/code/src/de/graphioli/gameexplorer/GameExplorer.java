@@ -73,7 +73,7 @@ public class GameExplorer {
 		// TODO: Different path for different environments
 		for (File tmpGame : gamesDirectory.listFiles()) {
 			if (tmpGame.isDirectory()) {
-				propertyFile = JarParser.getPropertyFileFromJar(tmpGame.getName());
+				propertyFile = JarParser.getPropertyFile(tmpGame.getName());
 				gameDefinition = this.createGameDefinitionFromJSON(propertyFile);
 
 				if (gameDefinition != null) {
