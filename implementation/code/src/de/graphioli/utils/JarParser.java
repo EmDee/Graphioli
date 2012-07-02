@@ -61,7 +61,7 @@ public final class JarParser {
 	 *            is
 	 * @return {@link InputStream} of the screenshot
 	 */
-	public static InputStream getImageURL(String path) {
+	public static InputStream getImageInputStream(String path) {
 		LOG.finer("JarParser.<em>getImageURL()</em> called.");
 
 		InputStream imageURL = null;
