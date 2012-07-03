@@ -63,6 +63,12 @@ public class GameManager {
 	 * GameDefinition for the current played game.
 	 */
 	private GameDefinition currentGameDefinition;
+	
+	/**
+	 * {@code true} when the game is about to be finished.
+	 * Volatile because accessed from the game call thread.
+	 */
+	private volatile boolean finishFlag;
 
 	/**
 	 * Creates a new instance of {@link GameManager}.
@@ -185,6 +191,7 @@ public class GameManager {
 	 * @return {@code true} when calls succeeded.
 	 */
 	private boolean runGame() {
+		this.finishFlag = false;
 		LOG.finer("Calling <em>onGameInit()</em>.");
 
 		try {
@@ -282,26 +289,31 @@ public class GameManager {
 	}
 
 	/**
-	 * Finishes the game and displays the active player as winner.
+	 * Notifies this {@link GameManager}, that the game is supposed to be finished.
 	 * 
 	 * @return <code>true</code> if the action was performed successfully,
-	 *         <code>false</code> otherwise TODO Implement
+	 *         <code>false</code> otherwise.
 	 */
 	public boolean finishGame() {
-		return this.finishGame(this.playerManager.getActivePlayer());
+		this.finishFlag = true;
+		return true;
 	}
-
+	
+	
 	/**
-	 * Finishes the game and displays the winning {@link Player} in a pop-up.
-	 * 
-	 * @param winner
-	 *            The winning player
-	 * @return <code>true</code> if the action was performed successfully,
-	 *         <code>false</code> otherwise TODO Implement
+	 * Checks whether the finishFlag is set and if so closes the game with a winner Pop-up.
 	 */
-	public boolean finishGame(Player winner) {
-		LOG.info("Finishing game.");
-		return false;
+	public void checkFinished() {
+		if (this.finishFlag) {
+			if (this.playerManager.getWinningPlayer() == null) {
+				this.viewManager.displayPopUp("Draw.");
+			} else {
+				this.viewManager.displayPopUp(this.playerManager.getWinningPlayer().getName() + " wins.");
+			}
+			
+			//TODO: Restart prompt
+			this.closeGame();
+		}
 	}
 
 	/**

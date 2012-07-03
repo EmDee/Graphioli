@@ -91,6 +91,8 @@ public class ViewManager {
 			this.displayPopUp("Game timed out. Closing.");
 			this.gameManager.closeGame();
 		}
+		
+		this.gameManager.checkFinished();
 		return true;
 	}
 
@@ -106,6 +108,7 @@ public class ViewManager {
 		try {
 			if (this.gameManager.getGame().callOnKeyRelease(keyCode)) {
 				this.view.redrawGraph();
+				this.gameManager.checkFinished();
 				return true;
 			}
 		} catch (TimeoutException e) {
