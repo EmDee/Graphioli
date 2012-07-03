@@ -36,7 +36,7 @@ public final class Localization {
 		// Load resource bundle for Locale.UK locale. The resource
 		// bundle will load the MessagesBundle_en_GB.properties file.
 		try {
-			bundle = ResourceBundle.getBundle("lang");
+			bundle = ResourceBundle.getBundle("language/lang");
 			return bundle.getString(key);
 		} catch (MissingResourceException e) {
 			LOG.severe("Can't find locale file, switch to default language.");
