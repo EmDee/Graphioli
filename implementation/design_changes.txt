@@ -43,6 +43,7 @@
 - GraphioliLogFormatter
 - GraphioliLogger
 - Localization
+- JarParser
 
 == New libraries ==
 - GSON
