@@ -421,15 +421,10 @@ public class GEWindow extends JFrame implements GEView, ListSelectionListener, K
 	 * Closes this GameExplorer window.
 	 */
 	public void closeGameExplorer() {
-		// TODO implement
 
 		LOG.finer("GEWindow.<em>closeGameExplorer()</em> called.");
 
-		System.out.println("Exit GameExplorer...");
-
-		LOG.fine("Closing GameExplorer window.");
-
-		System.exit(0);
+		this.gameExplorer.close();
 
 	}
 
