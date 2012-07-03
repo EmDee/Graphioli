@@ -5,10 +5,13 @@ import de.graphioli.utils.Localization;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.IOException;
 
+import javax.swing.JFileChooser;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.filechooser.FileFilter;
 
 /**
  * The {@link MenuBar} contains the game menu, options menu and help menu. It is
@@ -112,15 +115,41 @@ public class MenuBar extends JMenuBar implements ActionListener {
 		JMenuItem sourceItem = (JMenuItem) event.getSource();
 
 		if (sourceItem.equals(this.saveItem)) {
-			File fileToSave = this.parentGameWindow.saveFileDialog();
-			if (fileToSave != null) {
+			String gameName = this.parentGameWindow.getViewManager().getGameManager().getGame().getClass().getName();
+			gameName = gameName.substring(gameName.indexOf('.') + 1, gameName.length());
+			JFileChooser fc = new JFileChooser(new File("games/" + gameName + "/"));
+			SaveGameFilter filter = new SaveGameFilter();
+			fc.setFileFilter(filter);
+			int returnVal = fc.showSaveDialog(this.parentGameWindow);
+			if (returnVal == JFileChooser.APPROVE_OPTION) {
+				File fileToSave = fc.getSelectedFile();
+				String filePath = fileToSave.getAbsolutePath();
+//				if (!filePath.endsWith(".save")) {
+//					fileToSave.delete();
+//					int seperatorIndex = filePath.indexOf('.');
+//					if (seperatorIndex == -1) {
+//						filePath = filePath + ".save";
+//					} else {
+//						filePath = filePath.substring(0, seperatorIndex) + ".save";
+//						fileToSave = new File(filePath);
+//						try {
+//							fileToSave.createNewFile();
+//						} catch (IOException e) {
+//							e.printStackTrace();
+//						}
+//					}
+//				}
 				this.parentGameWindow.getViewManager().getGameManager().saveGame(fileToSave);
 			}
 		}
 
 		if (sourceItem.equals(this.loadItem)) {
-			File fileToLoad = this.parentGameWindow.openFileDialog();
-			if (fileToLoad != null) {
+			JFileChooser fc = new JFileChooser();
+			SaveGameFilter filter = new SaveGameFilter();
+			fc.setFileFilter(filter);
+			int returnVal = fc.showOpenDialog(this.parentGameWindow);
+			if (returnVal == JFileChooser.APPROVE_OPTION) {
+				File fileToLoad = fc.getSelectedFile();
 				this.parentGameWindow.getViewManager().getGameManager().loadGame(fileToLoad);
 			}
 		}
@@ -133,6 +162,18 @@ public class MenuBar extends JMenuBar implements ActionListener {
 			this.parentGameWindow.getViewManager().getGameManager().openHelpFile();
 		}
 
+	}
+	
+	private class SaveGameFilter extends FileFilter {
+		
+		public boolean accept(File file) {
+			String filename = file.getName();
+	        return filename.endsWith(".save");
+		}
+		
+		public String getDescription() {
+			return "*.save";
+		}
 	}
 
 }
