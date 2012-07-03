@@ -17,7 +17,7 @@ public class SimpleVisualVertex extends VisualVertex {
 	private Color strokeColor;
 	private int strokeWeight;
 
-	private Stroke stroke;
+	private transient Stroke stroke;
 
 	/**
 	 * Creates an instance of this {@code SimpleVisualVertex} with a given

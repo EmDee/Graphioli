@@ -126,7 +126,7 @@ public class MenuBar extends JMenuBar implements ActionListener {
 		}
 
 		if (sourceItem.equals(this.quitItem)) {
-			this.parentGameWindow.getViewManager().getGameManager().closeGame();
+			this.parentGameWindow.closeGame();
 		}
 
 		if (sourceItem.equals(this.helpItem)) {

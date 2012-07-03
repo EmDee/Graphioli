@@ -16,6 +16,8 @@
 == GameManager
 - added private attribute 'gamePackagePath'
 - added public method 'openHelpFile' and 'openHelpFile(GameDefinition gameDefinition)'
+- added public method 'exit()'
+- removed public method 'killGame()'
 
 == PlayerPopUp
 - does not further implement ActionListener
@@ -44,6 +46,7 @@
 - GraphioliLogFormatter
 - GraphioliLogger
 - Localization
+- JarParser
 
 == New libraries ==
 - GSON
@@ -51,3 +54,4 @@
 == GameExplorer ==
 - scanGameFolder doesn't return anything, but scans and creates game definitions
 - 'openHelpFile' uses the 'openHelpFile' in GameManager
+- added public method 'close()'

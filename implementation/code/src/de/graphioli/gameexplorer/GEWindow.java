@@ -2,6 +2,8 @@ package de.graphioli.gameexplorer;
 
 import de.graphioli.model.Player;
 import de.graphioli.utils.JarParser;
+import de.graphioli.utils.Localization;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -81,7 +83,7 @@ public class GEWindow extends JFrame implements GEView, ListSelectionListener, K
 	 */
 	public GEWindow() {
 
-		this.setTitle("Game Explorer");
+		this.setTitle(Localization.getLanguageString("ge_title"));
 
 		LOG.info("GEWindow instantiated.");
 
@@ -346,14 +348,11 @@ public class GEWindow extends JFrame implements GEView, ListSelectionListener, K
 		this.setSize(INIT_WINDOW_WIDTH, INIT_WINDOW_HEIGHT);
 		this.setLayout(new BorderLayout());
 		this.setResizable(false);
+		// Center window
+		this.setLocationRelativeTo(null);
 
-		// Generate list pane
 		this.generateListPane();
-
-		// Generate button panel
 		this.generateButtonPanel();
-
-		// Generate game information panel
 		this.generateGameInformationPanel();
 
 		// Show window
@@ -424,15 +423,10 @@ public class GEWindow extends JFrame implements GEView, ListSelectionListener, K
 	 * Closes this GameExplorer window.
 	 */
 	public void closeGameExplorer() {
-		// TODO implement
 
 		LOG.finer("GEWindow.<em>closeGameExplorer()</em> called.");
 
-		System.out.println("Exit GameExplorer...");
-
-		LOG.fine("Closing GameExplorer window.");
-
-		System.exit(0);
+		this.gameExplorer.close();
 
 	}
 

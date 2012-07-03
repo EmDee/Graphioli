@@ -5,12 +5,13 @@ import de.graphioli.model.Player;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.KeyboardFocusManager;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.File;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-
 
 /**
  * @author Graphioli
@@ -89,6 +90,28 @@ public class GameWindow extends JFrame implements View {
 		LOG.info("GameWindow instantiated.");
 		this.registerController(viewManager);
 
+		this.generateView();
+		this.addEventListeners();
+	}
+
+	/**
+	 * Registers a {@link ViewManager} as the controller for the user interface.
+	 * 
+	 * @param viewManager
+	 *            The controlling ViewManager
+	 * @return <code>true</code> if the action was performed successfully,
+	 *         <code>false</code> otherwise
+	 */
+	@Override
+	public boolean registerController(ViewManager viewManager) {
+		this.viewManager = viewManager;
+		return true;
+	}
+
+	/**
+	 * Generates the view for the game window.
+	 */
+	private void generateView() {
 		this.setLayout(new BorderLayout());
 		this.setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
 
@@ -108,29 +131,23 @@ public class GameWindow extends JFrame implements View {
 		this.add(this.statusBar, BorderLayout.SOUTH);
 		this.statusBar.setPreferredSize(new Dimension(this.getWidth(), STATUSBAR_HEIGHT));
 
-		// Initialize CustomKeyDispatcher
-		KeyboardFocusManager manager = KeyboardFocusManager.getCurrentKeyboardFocusManager();
-		manager.addKeyEventDispatcher(new CustomKeyDispatcher(this));
-		
-		
 		this.setResizable(false);
 		this.setVisible(true);
-
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		// Center window
+		this.setLocationRelativeTo(null);
 	}
 
 	/**
-	 * Registers a {@link ViewManager} as the controller for the user interface.
-	 * 
-	 * @param viewManager
-	 *            The controlling ViewManager
-	 * @return <code>true</code> if the action was performed successfully,
-	 *         <code>false</code> otherwise
+	 * Adds CustomKeyDispatcher and window listener.
 	 */
-	@Override
-	public boolean registerController(ViewManager viewManager) {
-		this.viewManager = viewManager;
-		return true;
+	private void addEventListeners() {
+		// Initialize CustomKeyDispatcher
+		KeyboardFocusManager manager = KeyboardFocusManager.getCurrentKeyboardFocusManager();
+		manager.addKeyEventDispatcher(new CustomKeyDispatcher(this));
+
+		// Add window listener for closing attempts
+		this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+		this.addWindowListener(new CloseListener());
 	}
 
 	/**
@@ -286,4 +303,35 @@ public class GameWindow extends JFrame implements View {
 		return null;
 
 	}
+
+	/**
+	 * Closes this Game window.
+	 */
+	public void closeGame() {
+
+		LOG.finer("GameWindow.<em>closeGame()</em> called.");
+		LOG.fine("Forwarding call to GameManager.");
+
+		// Forward call to GameManager
+		this.getViewManager().getGameManager().closeGame();
+
+	}
+
+	/**
+	 * Listens for closing attempts performed by the main GameWindow.
+	 * 
+	 * @author Graphioli
+	 */
+	private class CloseListener extends WindowAdapter {
+
+		/**
+		 * Acts on closing attempts performed by the main GameWindow.
+		 */
+		@Override
+		public void windowClosing(WindowEvent e) {
+			GameWindow.this.closeGame();
+		}
+
+	}
+
 }

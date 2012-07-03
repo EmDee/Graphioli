@@ -1,6 +1,5 @@
 package de.graphioli.utils;
 
-import java.util.Locale;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
@@ -25,16 +24,16 @@ public final class Localization {
 	 * @return the string that corresponds to the key
 	 */
 	public static String getLanguageString(String key) {
-
+		ResourceBundle bundle = null;
 		//
 		// Load resource bundle for Locale.UK locale. The resource
 		// bundle will load the MessagesBundle_en_GB.properties file.
 		//
 		try {
-			ResourceBundle bundle = ResourceBundle.getBundle("lang", new Locale("de", "DE"));
+			bundle = ResourceBundle.getBundle("lang");
 			return bundle.getString(key);
 		} catch (MissingResourceException mre) {
-			System.out.println("Can't find locale file");
+			System.out.println("Can't find locale file, switch to default language.");
 		}
 
 		return "";
