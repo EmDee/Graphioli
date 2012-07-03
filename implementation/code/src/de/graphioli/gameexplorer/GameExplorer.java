@@ -164,4 +164,16 @@ public class GameExplorer {
 		return this.gameDefinitions.get(index);
 	}
 
+	/**
+	 * Closes this GameExplorer.
+	 */
+	public void close() {
+
+		LOG.finer("GameExplorer.<em>close()</em> called.");
+
+		// Exit whole program
+		this.gameManager.exit();
+
+	}
+
 }
