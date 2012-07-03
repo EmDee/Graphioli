@@ -8,7 +8,8 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 
 /**
- * This class represents the button panel in the main window of the {@link GameExplorer}.
+ * This class represents the button panel in the main window of the
+ * {@link GameExplorer}.
  * 
  * @author Graphioli
  */
@@ -45,11 +46,6 @@ public class GEButtonPanel extends JPanel implements ActionListener {
 	public GEButtonPanel(GEWindow geWindow) {
 		this.geWindow = geWindow;
 
-		// Button: Quit
-		this.quitButton = new JButton(Localization.getLanguageString("gew_quit"));
-		this.quitButton.addActionListener(this);
-		this.add(this.quitButton);
-		
 		// Button: Start
 		this.startButton = new JButton(Localization.getLanguageString("gew_start"));
 		this.startButton.addActionListener(this);
@@ -59,6 +55,11 @@ public class GEButtonPanel extends JPanel implements ActionListener {
 		this.helpButton = new JButton(Localization.getLanguageString("gew_help"));
 		this.helpButton.addActionListener(this);
 		this.add(this.helpButton);
+
+		// Button: Quit
+		this.quitButton = new JButton(Localization.getLanguageString("gew_quit"));
+		this.quitButton.addActionListener(this);
+		this.add(this.quitButton);
 
 		LOG.finer("GEButtonPanel instantiated.");
 	}
