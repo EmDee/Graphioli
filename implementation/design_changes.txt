@@ -59,3 +59,10 @@
 - scanGameFolder doesn't return anything, but scans and creates game definitions
 - 'openHelpFile' uses the 'openHelpFile' in GameManager
 - added public method 'close()'
+
+== GEWindow ==
+- added public method 'selectGameDefinition([...])'
+- outsourced all event and action listeners to GEWindowActions
+
+== GEWindowActions ==
+- class added
