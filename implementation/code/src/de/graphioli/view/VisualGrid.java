@@ -1,12 +1,16 @@
 package de.graphioli.view;
 
+
 import de.graphioli.model.Grid;
 import de.graphioli.model.GridPoint;
 import de.graphioli.model.VisualVertex;
 
+import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.logging.Logger;
+
 
 /**
  * This class handles mouse input, serves as a connector between {@link Grid}
@@ -15,11 +19,16 @@ import java.awt.event.MouseListener;
  * @author Graphioli
  */
 public class VisualGrid implements MouseListener {
+	
+	/**
+	 * Logging instance.
+	 */
+	private static final Logger LOG = Logger.getLogger(VisualGrid.class.getName());
 
 	/**
 	 * The ratio of the gaps between to vertices to the size of the vertices.
 	 */
-	private static final float GAP_SCALE = 1.8F;
+	private static final float GAP_SCALE = 1.7F;
 
 	/**
 	 * The parent {@link GameWindow} associated with this {@link VisualGrid}.
@@ -96,17 +105,21 @@ public class VisualGrid implements MouseListener {
 		// Drawing grid
 		int xScaled;
 		int yScaled;
+		
+		Dimension size = this.calculateSize();
+		int width = size.width;
+		int height = size.height;
 
 		for (int xPoints = 0; xPoints < this.grid.getHorizontalGridPoints(); xPoints++) {
 			xScaled = (xPoints + 1) * this.gridScale;
-			g2d.drawLine(xScaled, 0, xScaled, this.graphCanvas.getHeight());
+			g2d.drawLine(xScaled, 0, xScaled, height);
 		}
 		for (int yPoints = 0; yPoints < this.grid.getVerticalGridPoints(); yPoints++) {
 			yScaled = (yPoints + 1) * this.gridScale;
-			g2d.drawLine(0, yScaled, this.graphCanvas.getWidth(), yScaled);
+			g2d.drawLine(0, yScaled, width, yScaled);
 		}
 	}
-
+	
 	/**
 	 * Sets the size of the displayed {@link VisualVertex}es up to a
 	 * {@link Grid} specific maximum value.
@@ -146,6 +159,19 @@ public class VisualGrid implements MouseListener {
 	 */
 	public int getGridScale() {
 		return this.gridScale;
+	}
+	
+	
+	/**
+	 * Calculates the size of this grid.
+	 * 
+	 * @return the size in pixels.
+	 */
+	public Dimension calculateSize() {
+		int xCoord = (this.grid.getHorizontalGridPoints() + 1) * this.gridScale;
+		int yCoord = (this.grid.getHorizontalGridPoints() + 1) * this.gridScale;
+				
+		return new Dimension(Math.round(xCoord), Math.round(yCoord));
 	}
 
 	/**
