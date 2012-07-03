@@ -3,8 +3,10 @@ package de.graphioli.view;
 import de.graphioli.model.Player;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.util.logging.Logger;
 
+import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -37,18 +39,39 @@ public class StatusBar extends JPanel {
 	 * playerStatus and errorMessages.
 	 */
 	public StatusBar() {
-		LOG.fine("StatusBar created.");
+
+		// Style status bar
 		this.setLayout(new BorderLayout());
 		this.setBorder(new BevelBorder(BevelBorder.LOWERED));
 		this.setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
+		this.setBorder(BorderFactory.createMatteBorder(2, 0, 0, 0, Color.BLACK));
+
+		// Create status label
 		this.statusLabel = new JTextField("status");
+
+		// Style status label
 		this.statusLabel.setEditable(false);
 		this.statusLabel.setHorizontalAlignment(SwingConstants.LEFT);
+		this.statusLabel.setOpaque(false);
+		this.statusLabel.setBorder(null);
+
+		// Add status label to status bar
 		add(this.statusLabel, BorderLayout.WEST);
+
+		// Create player label
 		this.playerLabel = new JTextField("player");
+
+		// Style player label
 		this.playerLabel.setEditable(false);
 		this.playerLabel.setHorizontalAlignment(SwingConstants.RIGHT);
+		this.playerLabel.setOpaque(false);
+		this.playerLabel.setBorder(null);
+
+		// Add player label to status bar
 		add(this.playerLabel, BorderLayout.EAST);
+
+		LOG.fine("StatusBar created.");
+
 	}
 
 	/**
