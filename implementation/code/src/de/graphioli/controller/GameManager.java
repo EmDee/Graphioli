@@ -323,7 +323,10 @@ public class GameManager {
 	 *         <code>false</code> otherwise TODO Implement
 	 */
 	public boolean restartGame() {
-		return false;
+		this.getGameBoard().flush();
+		this.playerManager.initializePlayers();
+		this.runGame();
+		return true;
 	}
 
 	/**

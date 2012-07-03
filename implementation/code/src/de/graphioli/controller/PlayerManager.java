@@ -44,9 +44,7 @@ public class PlayerManager {
 
 		this.players = players;
 		this.gameManager = gameManager;
-		// Set first player to active
-		this.activePlayer = players.get(0);
-		this.winner = null;
+		
 
 	}
 
@@ -57,6 +55,9 @@ public class PlayerManager {
 	 *         <code>false</code> otherwise
 	 */
 	public boolean initializePlayers() {
+		// Set first player to active
+		this.activePlayer = this.players.get(0);
+		this.winner = null;
 		this.gameManager.getViewManager().updatePlayerStatus(this.activePlayer);
 		return true;
 	}

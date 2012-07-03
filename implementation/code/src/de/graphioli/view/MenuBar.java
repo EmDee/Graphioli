@@ -48,6 +48,7 @@ public class MenuBar extends JMenuBar implements ActionListener {
 	private JMenuItem loadItem;
 	private JMenuItem quitItem;
 	private JMenuItem helpItem;
+	private JMenuItem restartItem;
 
 	/**
 	 * Creates the {@link MenuBar} and registers its parent {@link GameWindow}.
@@ -77,18 +78,23 @@ public class MenuBar extends JMenuBar implements ActionListener {
 		this.optionsMenu = new JMenu(Localization.getLanguageString("menu_options"));
 		this.helpMenu = new JMenu(Localization.getLanguageString("menu_help"));
 
-		this.saveItem = new JMenuItem(Localization.getLanguageString("menu_item_save"));
-		this.loadItem = new JMenuItem(Localization.getLanguageString("menu_item_load"));
-		this.quitItem = new JMenuItem(Localization.getLanguageString("menu_item_quit"));
-		this.helpItem = new JMenuItem(Localization.getLanguageString("menu_item_help"));
+		this.saveItem 		= new JMenuItem(Localization.getLanguageString("menu_item_save"));
+		this.loadItem 		= new JMenuItem(Localization.getLanguageString("menu_item_load"));
+		this.quitItem		= new JMenuItem(Localization.getLanguageString("menu_item_quit"));
+		this.helpItem		= new JMenuItem(Localization.getLanguageString("menu_item_help"));
+		this.restartItem	= new JMenuItem(Localization.getLanguageString("menu_item_restart"));
 
 		this.saveItem.addActionListener(this);
 		this.loadItem.addActionListener(this);
 		this.quitItem.addActionListener(this);
 		this.helpItem.addActionListener(this);
+		this.restartItem.addActionListener(this);
 
+		this.gameMenu.add(this.restartItem);
+		this.gameMenu.addSeparator();
 		this.gameMenu.add(this.saveItem);
 		this.gameMenu.add(this.loadItem);
+		this.gameMenu.addSeparator();
 		this.gameMenu.add(this.quitItem);
 		this.helpMenu.add(this.helpItem);
 
@@ -132,6 +138,10 @@ public class MenuBar extends JMenuBar implements ActionListener {
 		if (sourceItem.equals(this.helpItem)) {
 			this.parentGameWindow.getViewManager().getGameManager().openHelpFile();
 		}
+		
+		if (sourceItem.equals(this.restartItem)) {
+			this.parentGameWindow.getViewManager().getGameManager().restartGame();
+		}		
 
 	}
 
