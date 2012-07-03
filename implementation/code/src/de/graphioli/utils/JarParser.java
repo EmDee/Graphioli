@@ -1,9 +1,13 @@
 package de.graphioli.utils;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLClassLoader;
 import java.util.jar.JarFile;
 import java.util.logging.Logger;
 
@@ -66,5 +70,38 @@ public final class JarParser {
 		Reader fileReader = new InputStreamReader(inputStream);
 
 		return fileReader;
+	}
+
+	/**
+	 * Returns the game's class file within the jar.
+	 * 
+	 * @param gamePackagePath
+	 *            the fully qualified class name
+	 * @param gameName
+	 *            name of the game
+	 * @return the game's class file
+	 */
+	public static Class<?> getClass(String gamePackagePath, String gameName) {
+		Class<?> classToLoad = null;
+		URL jarURL = null;
+
+		File myFile = new File("games/" + gameName + "/" + gameName + ".jar");
+		try {
+			jarURL = new URL("jar", "", "file:" + myFile.getAbsolutePath() + "!/");
+		} catch (MalformedURLException e) {
+			LOG.severe("MalformedURLException: " + e.getMessage());
+			return null;
+		}
+		URL[] classes = new URL[] { jarURL };
+
+		URLClassLoader classLoader = new URLClassLoader(classes);
+		try {
+			classToLoad = Class.forName(gamePackagePath + gameName, true, classLoader);
+		} catch (ClassNotFoundException e) {
+			LOG.severe("MalformedURLException: " + e.getMessage());
+			return null;
+		}
+
+		return classToLoad;
 	}
 }

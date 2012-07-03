@@ -9,7 +9,7 @@ import java.awt.event.KeyEvent;
  * @author Graphioli
  */
 public class CustomKeyDispatcher implements KeyEventDispatcher {
-	
+
 	/**
 	 * The associated {@link GameWindow} that uses this.
 	 * {@link CustomKeyDispatcher}
@@ -34,13 +34,15 @@ public class CustomKeyDispatcher implements KeyEventDispatcher {
 	 * @param event
 	 *            The {@link KeyEvent} containing the code of the key that was
 	 *            released
+	 * @return <code>true</code> if the action was performed successfully,
+	 *         <code>false</code> otherwise
 	 */
 	@Override
 	public boolean dispatchKeyEvent(KeyEvent event) {
 		if (event.getID() == KeyEvent.KEY_RELEASED) {
-        	return gameWindow.onKeyRelease(event.getKeyCode());
-        }
-        return false;
+			return this.gameWindow.onKeyRelease(event.getKeyCode());
+		}
+		return false;
 	}
 
 }
