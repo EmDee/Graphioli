@@ -3,8 +3,8 @@ package de.graphioli.controller;
 import de.graphioli.gameexplorer.GameDefinition;
 import de.graphioli.gameexplorer.GameExplorer;
 import de.graphioli.model.GameBoard;
-import de.graphioli.model.Player;
 import de.graphioli.model.GameCapsule;
+import de.graphioli.model.Player;
 import de.graphioli.utils.GraphioliLogger;
 import java.io.File;
 import java.io.FileInputStream;
@@ -112,16 +112,6 @@ public class GameManager {
 
 		return true;
 
-	}
-
-	/**
-	 * Kills the currently running game.
-	 * 
-	 * @return <code>true</code> if the action was performed successfully,
-	 *         <code>false</code> otherwise TODO: Implement
-	 */
-	private boolean killGame() {
-		return false;
 	}
 
 	/**
@@ -343,7 +333,6 @@ public class GameManager {
 	 */
 	public boolean finishGame(Player winner) {
 		LOG.info("Finishing game.");
-		this.killGame();
 		return false;
 	}
 
@@ -459,6 +448,17 @@ public class GameManager {
 	public boolean openHelpFile() {
 		LOG.info("GameManager.<em>openHelpFile()</em> within game called.");
 		return this.openHelpFile(this.currentGameDefinition);
+	}
+
+	/**
+	 * Exits the whole program.
+	 */
+	public void exit() {
+
+		LOG.finer("GameManager.<em>exit()</em> called.");
+
+		System.exit(0);
+
 	}
 
 }
