@@ -52,3 +52,4 @@
 == GameExplorer ==
 - scanGameFolder doesn't return anything, but scans and creates game definitions
 - 'openHelpFile' uses the 'openHelpFile' in GameManager
+- added public method 'close()'
