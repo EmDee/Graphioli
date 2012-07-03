@@ -6,6 +6,8 @@ import de.graphioli.model.GameBoard;
 import de.graphioli.model.GameCapsule;
 import de.graphioli.model.Player;
 import de.graphioli.utils.GraphioliLogger;
+import de.graphioli.utils.JarParser;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -13,9 +15,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLClassLoader;
 import java.util.ArrayList;
 import java.util.concurrent.TimeoutException;
 import java.util.logging.Level;
@@ -130,48 +129,17 @@ public class GameManager {
 
 		this.initializeFramework(gameDefinition, players);
 
+		// get game class from Jar
+		Class<?> classToLoad = JarParser.getClass(this.gamePackagePath, gameDefinition.getClassName());
+
 		// Instantiate game
 		try {
-
-			String fullyQualifiedClassName = this.gamePackagePath + gameDefinition.getClassName();
-			String canonicalPath;
-			try {
-				canonicalPath = new File(".").getCanonicalPath();
-			} catch (IOException e1) {
-				canonicalPath = ".";
-			}
-
-			// Create jarBall file pointer to specific game class
-			// TODO Get path (currently /src/games/) from environment (eg.
-			// production and development)
-			File jarBall = new File(canonicalPath + "/src/games/" + gameDefinition.getClassName() + "/");
-			URL[] urls = new URL[1];
-
-			// Format jarBall file pointer to proper URL
-			try {
-				urls[0] = jarBall.toURI().toURL();
-			} catch (MalformedURLException e) {
-				// Log exception
-				LOG.severe("MalformedURLException: " + e.getMessage());
-				return false;
-			}
-
-			URLClassLoader loader = new URLClassLoader(urls);
-			Class<?> gameClass = loader.loadClass(fullyQualifiedClassName);
-
-			this.game = (Game) gameClass.newInstance();
-
+			this.game = (Game) classToLoad.newInstance();
 		} catch (InstantiationException e) {
-			// Log exception
 			LOG.severe("InstantiationException: " + e.getMessage());
 			return false;
 		} catch (IllegalAccessException e) {
-			// Log exception
 			LOG.severe("IllegalAccessException: " + e.getMessage());
-			return false;
-		} catch (ClassNotFoundException e) {
-			// Log exception
-			LOG.severe("ClassNotFoundException: " + e.getMessage());
 			return false;
 		}
 
@@ -183,7 +151,6 @@ public class GameManager {
 		}
 
 		return true;
-
 	}
 
 	/**
@@ -259,11 +226,12 @@ public class GameManager {
 			ObjectInputStream in = new ObjectInputStream(fis);
 			GameCapsule capsule = (GameCapsule) in.readObject();
 			in.close();
-			//this.gameBoard = capsule.getBoard();
-			//this.playerManager = new PlayerManager(capsule.getPlayers(), this);
-			//this.playerManager.setActivePlayer(capsule.getActivePlayer());
-			
-			//TODO what to do with the capsule (onGameStart)
+			// this.gameBoard = capsule.getBoard();
+			// this.playerManager = new PlayerManager(capsule.getPlayers(),
+			// this);
+			// this.playerManager.setActivePlayer(capsule.getActivePlayer());
+
+			// TODO what to do with the capsule (onGameStart)
 			LOG.info("Loaded GameCapsule from File: " + savegame.getName());
 			LOG.info("Just for testing: Name of the active player: " + capsule.getActivePlayer().getName());
 		} catch (FileNotFoundException e) {
