@@ -18,6 +18,8 @@
 - added public method 'openHelpFile' and 'openHelpFile(GameDefinition gameDefinition)'
 - added public method 'exit()'
 - removed public method 'killGame()'
+- removed overloaded method finishGame(winner)
+- added checkFinished method
 
 == PlayerPopUp
 - does not further implement ActionListener
@@ -41,6 +43,8 @@
 
 == PlayerManager
 - Added reference to GameManager
+- added winner field
+- added setActivePlayerAsWinning()
 
 == New Classes ==
 - GraphioliLogFormatter

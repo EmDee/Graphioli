@@ -213,6 +213,7 @@ public class GraphColoring extends Game {
 	private void handleSingleplayerMove(GraphColoringVertex vtex) {
 		vtex.setColorID(this.selectedButton.getColorID());
 		if (this.isGraphColored()) {
+			this.getGameManager().getPlayerManager().setActivePlayerAsWinning();
 			this.getGameManager().finishGame();
 		}
 	}
@@ -233,6 +234,7 @@ public class GraphColoring extends Game {
 			vtex.setColorID(this.selectedButton.getColorID());
 			if (this.isGraphColored() || !this.isColoringPossible()) {
 				this.getGameManager().getViewManager().displayErrorMessage("Game over.");
+				this.getGameManager().getPlayerManager().setActivePlayerAsWinning();
 				this.getGameManager().finishGame();
 			} else {
 				this.getGameManager().getPlayerManager().nextPlayer();
