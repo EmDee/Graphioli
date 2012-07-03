@@ -2,13 +2,10 @@ package de.graphioli.gameexplorer;
 
 import de.graphioli.model.Player;
 import de.graphioli.utils.JarParser;
+import de.graphioli.utils.Localization;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
@@ -21,15 +18,13 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 
 /**
  * This class represents the main window of the {@link GameExplorer}.
  * 
  * @author Graphioli
  */
-public class GEWindow extends JFrame implements GEView, ListSelectionListener, KeyListener {
+public class GEWindow extends JFrame implements GEView {
 
 	/**
 	 * Logging instance.
@@ -77,11 +72,16 @@ public class GEWindow extends JFrame implements GEView, ListSelectionListener, K
 	private GEGameInformation visibleGameInformationPanel;
 
 	/**
+	 * The action and event listener.
+	 */
+	private GEWindowActions geWindowActions;
+
+	/**
 	 * Constructs a new instance of GEWindow.
 	 */
 	public GEWindow() {
 
-		this.setTitle("Game Explorer");
+		this.setTitle(Localization.getLanguageString("ge_title"));
 
 		LOG.info("GEWindow instantiated.");
 
@@ -125,51 +125,6 @@ public class GEWindow extends JFrame implements GEView, ListSelectionListener, K
 
 		return true;
 
-	}
-
-	/**
-	 * Called by the {@link JList} when its selection has changed to update the
-	 * remaining graphical elements of this {@link GEWindow}.
-	 * 
-	 * @param event
-	 *            The ListSelectionEvent
-	 */
-	@Override
-	public void valueChanged(ListSelectionEvent event) {
-
-		LOG.finer("GEWindow.<em>valueChanged([...])</em> called.");
-
-		// Get new selected GameDefinition
-		JList sourceList = (JList) event.getSource();
-
-		// Notify relevant dependencies about the selection
-		this.selectGameDefinition((GameDefinition) sourceList.getSelectedValue());
-
-		LOG.fine("New GameDefinition '" + this.selectedGameDefinition.toString() + "' selected.");
-
-	}
-
-	/** {@inheritDoc} */
-	@Override
-	public void keyPressed(KeyEvent e) {
-
-		// If key is 'Enter', start game
-		if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-			this.openPlayerPopUp();
-		}
-
-	}
-
-	/** {@inheritDoc} */
-	@Override
-	public void keyReleased(KeyEvent e) {
-		// Not needed
-	}
-
-	/** {@inheritDoc} */
-	@Override
-	public void keyTyped(KeyEvent e) {
-		// Not needed
 	}
 
 	/**
@@ -252,7 +207,7 @@ public class GEWindow extends JFrame implements GEView, ListSelectionListener, K
 	 * @param selectedGameDefinition
 	 *            The newly selected GameDefinition
 	 */
-	private void selectGameDefinition(GameDefinition selectedGameDefinition) {
+	public void selectGameDefinition(GameDefinition selectedGameDefinition) {
 
 		this.selectedGameDefinition = selectedGameDefinition;
 		this.updateGameInformation();
@@ -289,7 +244,8 @@ public class GEWindow extends JFrame implements GEView, ListSelectionListener, K
 	 */
 	private boolean updateGameInformation() {
 
-		if (this.visibleGameInformationPanel == null) {
+		if (this.visibleGameInformationPanel == null
+				|| this.selectedGameDefinition == null) {
 			return false;
 		}
 
@@ -338,9 +294,12 @@ public class GEWindow extends JFrame implements GEView, ListSelectionListener, K
 	 */
 	private void generateWindow() {
 
+		// Create window action and event listener
+		this.geWindowActions = new GEWindowActions(this);
+
 		// Add window listener for closing attempts
 		this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
-		this.addWindowListener(new CloseListener());
+		this.addWindowListener(this.geWindowActions);
 
 		// Style window
 		this.setSize(INIT_WINDOW_WIDTH, INIT_WINDOW_HEIGHT);
@@ -349,13 +308,8 @@ public class GEWindow extends JFrame implements GEView, ListSelectionListener, K
 		// Center window
 		this.setLocationRelativeTo(null);
 
-		// Generate list pane
 		this.generateListPane();
-
-		// Generate button panel
 		this.generateButtonPanel();
-
-		// Generate game information panel
 		this.generateGameInformationPanel();
 
 		// Show window
@@ -369,8 +323,9 @@ public class GEWindow extends JFrame implements GEView, ListSelectionListener, K
 	private void generateListPane() {
 
 		JList visibleGameDefinitionList = new JList(this.gameDefinitionList);
-		visibleGameDefinitionList.addListSelectionListener(this);
-		visibleGameDefinitionList.addKeyListener(this);
+		visibleGameDefinitionList.addListSelectionListener(this.geWindowActions);
+		visibleGameDefinitionList.addKeyListener(this.geWindowActions);
+		visibleGameDefinitionList.addMouseListener(this.geWindowActions);
 
 		// Set list selection mode to 'single selection'
 		visibleGameDefinitionList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -426,32 +381,10 @@ public class GEWindow extends JFrame implements GEView, ListSelectionListener, K
 	 * Closes this GameExplorer window.
 	 */
 	public void closeGameExplorer() {
-		// TODO implement
 
 		LOG.finer("GEWindow.<em>closeGameExplorer()</em> called.");
 
-		System.out.println("Exit GameExplorer...");
-
-		LOG.fine("Closing GameExplorer window.");
-
-		System.exit(0);
-
-	}
-
-	/**
-	 * Listens for closing attempts performed by the main GEWindow.
-	 * 
-	 * @author Graphioli
-	 */
-	private class CloseListener extends WindowAdapter {
-
-		/**
-		 * Acts on closing attempts performed by the main GEWindow.
-		 */
-		@Override
-		public void windowClosing(WindowEvent e) {
-			GEWindow.this.closeGameExplorer();
-		}
+		this.gameExplorer.close();
 
 	}
 

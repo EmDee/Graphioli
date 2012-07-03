@@ -20,7 +20,7 @@ public abstract class Game {
 	 */
 	private static final Logger LOG = Logger.getLogger(Game.class.getName());
 
-	private static final long CALL_TIMEOUT = 500;
+	private static final long CALL_TIMEOUT = 2000;
 
 	/**
 	 * The {@link GameManager} associated with this {@link Game}.
@@ -102,9 +102,10 @@ public abstract class Game {
 	/**
 	 * This method executes a {@code onEmptyGridPointClick} call.
 	 * 
-	 * @param GridPoint
+	 * @param gridPoint
 	 *            The {@link GridPoint} clicked on.
-	 * @return the result of the {@link Game#onEmptyGridPointClick(GridPoint)} method.
+	 * @return the result of the {@link Game#onEmptyGridPointClick(GridPoint)}
+	 *         method.
 	 * @throws TimeoutException
 	 *             when the call does not return in time.
 	 */
@@ -125,7 +126,7 @@ public abstract class Game {
 		LOG.finer("onEmptyGridPointClick returned in time.");
 		return callResult;
 	}
-	
+
 	/**
 	 * Called when a player clicks on a {@link GridPoint} that has no
 	 * {@link VisualVertex} on it.
@@ -160,7 +161,7 @@ public abstract class Game {
 		LOG.finer("onGameInit returned in time.");
 		return callResult;
 	}
-	
+
 	/**
 	 * Called after a {@link Game} has been instantiated.
 	 * 
@@ -193,7 +194,7 @@ public abstract class Game {
 		LOG.finer("onGameStart returned in time.");
 		return callResult;
 	}
-	
+
 	/**
 	 * Called immediately before a {@link Game} gets (re)started.
 	 * 

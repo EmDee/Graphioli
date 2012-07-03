@@ -1,7 +1,5 @@
 package de.graphioli.controller;
 
-
-
 import de.graphioli.model.GridPoint;
 import de.graphioli.model.Player;
 import de.graphioli.view.GameWindow;
@@ -71,26 +69,29 @@ public class ViewManager {
 	 */
 	public boolean onGridPointClick(GridPoint gridPoint) {
 		try {
-		if (this.gameManager.getGameBoard().getGrid().getVisualVertexAtGridPoint(gridPoint) == null) {
-			LOG.fine("OnEmptyGridPointClick " + gridPoint);
-			if (this.gameManager.getGame().callOnEmptyGridPointClick(gridPoint)) {
-				this.view.redrawGraph();
-			}
+			if (this.gameManager.getGameBoard().getGrid().getVisualVertexAtGridPoint(gridPoint) == null) {
+				LOG.fine("OnEmptyGridPointClick " + gridPoint);
+				if (this.gameManager.getGame().callOnEmptyGridPointClick(gridPoint)) {
+					this.view.redrawGraph();
+				}
 
-		} else {
-			LOG.fine("OnVertexClick (at GridPoint "
-					+ this.gameManager.getGameBoard().getGrid().getVisualVertexAtGridPoint(gridPoint).getGridPoint()
-					+ ")");
-			if (this.gameManager.getGame().callOnVertexClick(
-					this.gameManager.getGameBoard().getGrid().getVisualVertexAtGridPoint(gridPoint))) {
+			} else {
+				LOG.fine("OnVertexClick (at GridPoint "
+						+ this.gameManager.getGameBoard().getGrid().getVisualVertexAtGridPoint(gridPoint)
+								.getGridPoint()
+						+ ")");
+				if (this.gameManager.getGame().callOnVertexClick(
+						this.gameManager.getGameBoard().getGrid().getVisualVertexAtGridPoint(gridPoint))) {
 
-				this.view.redrawGraph();
+					this.view.redrawGraph();
+				}
 			}
-		}
 		} catch (TimeoutException toe) {
 			this.displayPopUp("Game timed out. Closing.");
 			this.gameManager.closeGame();
 		}
+
+		this.gameManager.checkFinished();
 		return true;
 	}
 
@@ -106,6 +107,7 @@ public class ViewManager {
 		try {
 			if (this.gameManager.getGame().callOnKeyRelease(keyCode)) {
 				this.view.redrawGraph();
+				this.gameManager.checkFinished();
 				return true;
 			}
 		} catch (TimeoutException e) {

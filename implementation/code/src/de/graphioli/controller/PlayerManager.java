@@ -26,6 +26,11 @@ public class PlayerManager {
 	 * Currently active {@link Player}.
 	 */
 	private Player activePlayer;
+	
+	/**
+	 * The player that is displayed as winner when the game is finished. ({@code null) for draw)
+	 */
+	private Player winner;
 
 	/**
 	 * Constructs a PlayerManager with the given set of {@link Player}s.
@@ -39,8 +44,7 @@ public class PlayerManager {
 
 		this.players = players;
 		this.gameManager = gameManager;
-		// Set first player to active
-		this.activePlayer = players.get(0);
+		
 
 	}
 
@@ -51,6 +55,9 @@ public class PlayerManager {
 	 *         <code>false</code> otherwise
 	 */
 	public boolean initializePlayers() {
+		// Set first player to active
+		this.activePlayer = this.players.get(0);
+		this.winner = null;
 		this.gameManager.getViewManager().updatePlayerStatus(this.activePlayer);
 		return true;
 	}
@@ -109,6 +116,31 @@ public class PlayerManager {
 		// Return the newly set active player
 		return this.activePlayer;
 
+	}
+
+	/**
+	 * Returns the player that is displayed as winner when the game is finished.
+	 * 
+	 * @return the player that is displayed as winner when the game is finished.
+	 */
+	public Player getWinningPlayer() {
+		return this.winner;
+	}
+
+	/**
+	 * Sets the player that is displayed as winner when the game is finished.
+	 * 
+	 * @param winningPlayer the winning player to set.
+	 */
+	public void setWinningPlayer(Player winningPlayer) {
+		this.winner = winningPlayer;
+	}
+	
+	/**
+	 * Defines the player currently active as the player currently winning.
+	 */
+	public void setActivePlayerAsWinning() {
+		this.winner = this.activePlayer;
 	}
 
 }

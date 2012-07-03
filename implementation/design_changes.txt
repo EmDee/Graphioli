@@ -16,6 +16,10 @@
 == GameManager
 - added private attribute 'gamePackagePath'
 - added public method 'openHelpFile' and 'openHelpFile(GameDefinition gameDefinition)'
+- added public method 'exit()'
+- removed public method 'killGame()'
+- removed overloaded method finishGame(winner)
+- added checkFinished method
 
 == PlayerPopUp
 - does not further implement ActionListener
@@ -32,17 +36,21 @@
 
 == VisualVertex
 - added PIXELS_PER_SIDE
+- made update() public
 
 == VisualGrid
 - added attribute GraphCanvas to constructor to get the size of the canvas
 
 == PlayerManager
 - Added reference to GameManager
+- added winner field
+- added setActivePlayerAsWinning()
 
 == New Classes ==
 - GraphioliLogFormatter
 - GraphioliLogger
 - Localization
+- JarParser
 
 == New libraries ==
 - GSON
@@ -50,3 +58,11 @@
 == GameExplorer ==
 - scanGameFolder doesn't return anything, but scans and creates game definitions
 - 'openHelpFile' uses the 'openHelpFile' in GameManager
+- added public method 'close()'
+
+== GEWindow ==
+- added public method 'selectGameDefinition([...])'
+- outsourced all event and action listeners to GEWindowActions
+
+== GEWindowActions ==
+- class added

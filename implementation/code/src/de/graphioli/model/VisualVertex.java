@@ -64,11 +64,16 @@ public abstract class VisualVertex extends Vertex {
 	 * 
 	 * @return {@code true} when updating was successful.
 	 */
-	protected final boolean update() {
+	public final boolean update() {
 
 		LOG.finer("Updating VisualVertex at position " + getGridPoint() + ".");
 
-		clearBufferedImage();
+		if (this.bufferedImage == null) {
+			this.bufferedImage = new BufferedImage(PIXELS_PER_SIDE, PIXELS_PER_SIDE, BufferedImage.TYPE_4BYTE_ABGR);
+		} else {
+			clearBufferedImage();
+		}
+		
 		Graphics2D g2d = this.bufferedImage.createGraphics();
 
 		// Use anti-aliasing

@@ -1,6 +1,7 @@
 package game;
 
 import java.awt.Color;
+import java.util.LinkedList;
 import java.util.logging.Logger;
 
 import de.graphioli.controller.Game;
@@ -24,10 +25,10 @@ public class GraphColoring extends Game {
 	/*
 	 * IDs for the colors.
 	 */
-	private static final int CLRID_RED = 0;
-	private static final int CLRID_GREEN = 1;
-	private static final int CLRID_BLUE = 2;
-	private static final int CLRID_BLANK = -1;
+	public static final int CLRID_RED = 0;
+	public static final int CLRID_GREEN = 1;
+	public static final int CLRID_BLUE = 2;
+	public static final int CLRID_BLANK = -1;
 
 	/**
 	 * Number of colors used.
@@ -53,11 +54,6 @@ public class GraphColoring extends Game {
 	 * Whether this is a singleplayer instance or not.
 	 */
 	private boolean singleplayer;
-
-	/**
-	 * Quick access to the game board.
-	 */
-	private GameBoard mBoard;
 
 	/**
 	 * {@inheritDoc}
@@ -96,18 +92,15 @@ public class GraphColoring extends Game {
 	@Override
 	protected boolean onGameInit() {
 
-		this.singleplayer = this.getGameManager().getPlayerManager().getPlayers().size() == 1;
-
-		this.mBoard = this.getGameManager().getGameBoard();
 		this.buttons = new GraphColoringButtonVertex[COLOR_COUNT];
 		for (int i = 0; i < COLOR_COUNT; i++) {
 			this.buttons[i] = new GraphColoringButtonVertex(new GridPoint(i + 1, 0));
 			this.buttons[i].setColorID(i);
-			this.mBoard.addVisualVertex(this.buttons[i]);
+
+			this.getGameManager().getGameBoard().addVisualVertex(this.buttons[i]);
 		}
 
-		this.selectedButton = this.buttons[0];
-		this.buttons[0].setHighlighted(true);
+		this.generateLevel();
 
 		return true;
 	}
@@ -117,7 +110,14 @@ public class GraphColoring extends Game {
 	 */
 	@Override
 	protected boolean onGameStart() {
-		this.generateLevel();
+		this.singleplayer = this.getGameManager().getPlayerManager().getPlayers().size() == 1;
+
+		if (this.buttons == null || this.vertices == null) {
+			this.reloadLevel();
+		}
+		this.selectedButton = this.buttons[0];
+		this.selectedButton.setHighlighted(true);
+
 		return true;
 	}
 
@@ -125,19 +125,19 @@ public class GraphColoring extends Game {
 	 * Builds a level for the game.
 	 */
 	private void generateLevel() {
+		final GameBoard mBoard = this.getGameManager().getGameBoard();
 		this.vertices = new GraphColoringVertex[4];
 		GridPoint tmpPoint;
 		for (int i = 0; i < 4; i++) {
 			tmpPoint = new GridPoint((i / 2) * 3 + 2, (i % 2) * 3 + 2);
 			this.vertices[i] = new GraphColoringVertex(tmpPoint);
-			this.mBoard.addVisualVertex(this.vertices[i]);
+			mBoard.addVisualVertex(this.vertices[i]);
 		}
 
-		
 		for (int i = 0; i < 4; i++) {
-			this.mBoard.addVisualEdge(this.vertices[i], this.vertices[(i + 1) % 4]);
+			mBoard.addVisualEdge(this.vertices[i], this.vertices[(i + 1) % 4]);
 		}
-		this.mBoard.addVisualEdge(this.vertices[0], this.vertices[2]);
+		mBoard.addVisualEdge(this.vertices[0], this.vertices[2]);
 
 	}
 
@@ -213,6 +213,7 @@ public class GraphColoring extends Game {
 	private void handleSingleplayerMove(GraphColoringVertex vtex) {
 		vtex.setColorID(this.selectedButton.getColorID());
 		if (this.isGraphColored()) {
+			this.getGameManager().getPlayerManager().setActivePlayerAsWinning();
 			this.getGameManager().finishGame();
 		}
 	}
@@ -233,6 +234,7 @@ public class GraphColoring extends Game {
 			vtex.setColorID(this.selectedButton.getColorID());
 			if (this.isGraphColored() || !this.isColoringPossible()) {
 				this.getGameManager().getViewManager().displayErrorMessage("Game over.");
+				this.getGameManager().getPlayerManager().setActivePlayerAsWinning();
 				this.getGameManager().finishGame();
 			} else {
 				this.getGameManager().getPlayerManager().nextPlayer();
@@ -243,110 +245,27 @@ public class GraphColoring extends Game {
 
 	}
 
-	/**
-	 * This class represents a vertex for the GraphColoring game.
-	 * 
-	 * @author Team Graphioli
-	 */
-	private class GraphColoringVertex extends SimpleVisualVertex {
+	private void reloadLevel() {
+		LinkedList<GraphColoringVertex> tmpVtices = new LinkedList<GraphColoringVertex>();
+		LinkedList<GraphColoringButtonVertex> tmpBtns = new LinkedList<GraphColoringButtonVertex>();
 
-		/**
-		 * The color ID of this vertex.
-		 */
-		private int colorID;
-
-		/**
-		 * Constructs a GraphColoringVertex with the given GridPoint.
-		 * 
-		 * @param gridPoint
-		 *            the GridPoint this vertex is located on.
-		 */
-		public GraphColoringVertex(GridPoint gridPoint) {
-			super(gridPoint);
-		}
-
-		/**
-		 * {@inheritDoc}
-		 */
-		@Override
-		protected void init() {
-			super.init();
-			setColorID(CLRID_BLANK);
-		}
-
-		/**
-		 * Returns the color ID.
-		 * 
-		 * @return the color ID:
-		 */
-		public int getColorID() {
-			return this.colorID;
-		}
-
-		/**
-		 * Sets the color ID of this vertex and the color accordingly.
-		 * 
-		 * @param id
-		 *            the new color ID.
-		 */
-		public void setColorID(int id) {
-			this.colorID = id;
-
-			switch (this.colorID) {
-				case CLRID_RED:
-					setFillColor(Color.RED);
-					break;
-				case CLRID_GREEN:
-					setFillColor(Color.GREEN);
-					break;
-				case CLRID_BLUE:
-					setFillColor(Color.BLUE);
-					break;
-				default:
-					setFillColor(Color.WHITE);
+		for (Vertex vtex : this.getGameManager().getGameBoard().getGraph().getVertices()) {
+			if (vtex instanceof GraphColoringVertex) {
+				if (vtex instanceof GraphColoringButtonVertex) {
+					GraphColoringButtonVertex gcbtnv = (GraphColoringButtonVertex) vtex;
+					gcbtnv.setHighlighted(false);
+					tmpBtns.add(gcbtnv);
+				} else {
+					GraphColoringVertex gcv = (GraphColoringVertex) vtex;
+					gcv.update();
+					tmpVtices.add(gcv);
+				}
 			}
 		}
+
+		this.buttons = new GraphColoringButtonVertex[tmpBtns.size()];
+		tmpBtns.toArray(this.buttons);
+		this.vertices = new GraphColoringVertex[tmpVtices.size()];
+		tmpVtices.toArray(this.vertices);
 	}
-
-	/**
-	 * This class represents a special vertex for the GraphColoring game used as
-	 * a button.
-	 * 
-	 * @author Team Graphioli
-	 */
-	private class GraphColoringButtonVertex extends GraphColoringVertex {
-
-		/**
-		 * Constructs a GraphColoringButtonVertex with the given GridPoint.
-		 * 
-		 * @param gridPoint
-		 *            the GridPoint this vertex is located on.
-		 */
-		public GraphColoringButtonVertex(GridPoint gridPoint) {
-			super(gridPoint);
-			// TODO Auto-generated constructor stub
-		}
-
-		/**
-		 * (Un-)highlights this button vertex.
-		 * 
-		 * @param highlighted
-		 *            the new {@code highlighted} value.
-		 */
-		public void setHighlighted(boolean highlighted) {
-			setStrokeColor(highlighted ? Color.YELLOW : Color.BLACK);
-		}
-
-		/**
-		 * {@inheritDoc}
-		 */
-		@Override
-		protected void init() {
-			super.init();
-			this.setHighlighted(false);
-			setStrokeWeight(2);
-		}
-
-	}
-
 }

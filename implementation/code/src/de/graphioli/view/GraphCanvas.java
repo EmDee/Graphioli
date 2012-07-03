@@ -28,10 +28,6 @@ public class GraphCanvas extends JPanel {
 	 */
 	private static final Logger LOG = Logger.getLogger(GraphCanvas.class.getName());
 
-	/**
-	 * The width of an edge stroke.
-	 */
-	private static final int EDGE_WIDTH = 3;
 
 	/**
 	 * The stroke used for drawing the grid.
@@ -65,7 +61,6 @@ public class GraphCanvas extends JPanel {
 		LOG.fine("GraphCanvas instantiated");
 		this.parentGameWindow = parentGameWindow;
 		this.gridStroke = new BasicStroke(1);
-		this.edgeStroke = new BasicStroke(EDGE_WIDTH);
 	}
 
 	/**
@@ -100,7 +95,6 @@ public class GraphCanvas extends JPanel {
 		this.visualGrid.draw(g2d);
 
 		// Drawing edges of the graph from the canvas (PROTOTYPE)
-		g2d.setStroke(this.edgeStroke);
 		for (Edge edge : graph.getEdges()) {
 			VisualVertex originVertex = (VisualVertex) edge.getOriginVertex();
 			VisualVertex targetVertex = (VisualVertex) edge.getTargetVertex();

@@ -3,9 +3,11 @@ package de.graphioli.controller;
 import de.graphioli.gameexplorer.GameDefinition;
 import de.graphioli.gameexplorer.GameExplorer;
 import de.graphioli.model.GameBoard;
-import de.graphioli.model.Player;
 import de.graphioli.model.GameCapsule;
+import de.graphioli.model.Player;
 import de.graphioli.utils.GraphioliLogger;
+import de.graphioli.utils.JarParser;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -13,9 +15,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLClassLoader;
 import java.util.ArrayList;
 import java.util.concurrent.TimeoutException;
 import java.util.logging.Level;
@@ -64,6 +63,12 @@ public class GameManager {
 	 * GameDefinition for the current played game.
 	 */
 	private GameDefinition currentGameDefinition;
+	
+	/**
+	 * {@code true} when the game is about to be finished.
+	 * Volatile because accessed from the game call thread.
+	 */
+	private volatile boolean finishFlag;
 
 	/**
 	 * Creates a new instance of {@link GameManager}.
@@ -115,16 +120,6 @@ public class GameManager {
 	}
 
 	/**
-	 * Kills the currently running game.
-	 * 
-	 * @return <code>true</code> if the action was performed successfully,
-	 *         <code>false</code> otherwise TODO: Implement
-	 */
-	private boolean killGame() {
-		return false;
-	}
-
-	/**
 	 * Starts the game specified by the {@link GameDefinition}.
 	 * 
 	 * @param gameDefinition
@@ -140,48 +135,17 @@ public class GameManager {
 
 		this.initializeFramework(gameDefinition, players);
 
+		// get game class from Jar
+		Class<?> classToLoad = JarParser.getClass(this.gamePackagePath, gameDefinition.getClassName());
+
 		// Instantiate game
 		try {
-
-			String fullyQualifiedClassName = this.gamePackagePath + gameDefinition.getClassName();
-			String canonicalPath;
-			try {
-				canonicalPath = new File(".").getCanonicalPath();
-			} catch (IOException e1) {
-				canonicalPath = ".";
-			}
-
-			// Create jarBall file pointer to specific game class
-			// TODO Get path (currently /src/games/) from environment (eg.
-			// production and development)
-			File jarBall = new File(canonicalPath + "/src/games/" + gameDefinition.getClassName() + "/");
-			URL[] urls = new URL[1];
-
-			// Format jarBall file pointer to proper URL
-			try {
-				urls[0] = jarBall.toURI().toURL();
-			} catch (MalformedURLException e) {
-				// Log exception
-				LOG.severe("MalformedURLException: " + e.getMessage());
-				return false;
-			}
-
-			URLClassLoader loader = new URLClassLoader(urls);
-			Class<?> gameClass = loader.loadClass(fullyQualifiedClassName);
-
-			this.game = (Game) gameClass.newInstance();
-
+			this.game = (Game) classToLoad.newInstance();
 		} catch (InstantiationException e) {
-			// Log exception
 			LOG.severe("InstantiationException: " + e.getMessage());
 			return false;
 		} catch (IllegalAccessException e) {
-			// Log exception
 			LOG.severe("IllegalAccessException: " + e.getMessage());
-			return false;
-		} catch (ClassNotFoundException e) {
-			// Log exception
-			LOG.severe("ClassNotFoundException: " + e.getMessage());
 			return false;
 		}
 
@@ -193,7 +157,6 @@ public class GameManager {
 		}
 
 		return true;
-
 	}
 
 	/**
@@ -228,6 +191,7 @@ public class GameManager {
 	 * @return {@code true} when calls succeeded.
 	 */
 	private boolean runGame() {
+		this.finishFlag = false;
 		LOG.finer("Calling <em>onGameInit()</em>.");
 
 		try {
@@ -269,11 +233,12 @@ public class GameManager {
 			ObjectInputStream in = new ObjectInputStream(fis);
 			GameCapsule capsule = (GameCapsule) in.readObject();
 			in.close();
-			//this.gameBoard = capsule.getBoard();
-			//this.playerManager = new PlayerManager(capsule.getPlayers(), this);
-			//this.playerManager.setActivePlayer(capsule.getActivePlayer());
-			
-			//TODO what to do with the capsule (onGameStart)
+			// this.gameBoard = capsule.getBoard();
+			// this.playerManager = new PlayerManager(capsule.getPlayers(),
+			// this);
+			// this.playerManager.setActivePlayer(capsule.getActivePlayer());
+
+			// TODO what to do with the capsule (onGameStart)
 			LOG.info("Loaded GameCapsule from File: " + savegame.getName());
 			LOG.info("Just for testing: Name of the active player: " + capsule.getActivePlayer().getName());
 		} catch (FileNotFoundException e) {
@@ -324,27 +289,31 @@ public class GameManager {
 	}
 
 	/**
-	 * Finishes the game and displays the active player as winner.
+	 * Notifies this {@link GameManager}, that the game is supposed to be finished.
 	 * 
 	 * @return <code>true</code> if the action was performed successfully,
-	 *         <code>false</code> otherwise TODO Implement
+	 *         <code>false</code> otherwise.
 	 */
 	public boolean finishGame() {
-		return this.finishGame(this.playerManager.getActivePlayer());
+		this.finishFlag = true;
+		return true;
 	}
-
+	
+	
 	/**
-	 * Finishes the game and displays the winning {@link Player} in a pop-up.
-	 * 
-	 * @param winner
-	 *            The winning player
-	 * @return <code>true</code> if the action was performed successfully,
-	 *         <code>false</code> otherwise TODO Implement
+	 * Checks whether the finishFlag is set and if so closes the game with a winner Pop-up.
 	 */
-	public boolean finishGame(Player winner) {
-		LOG.info("Finishing game.");
-		this.killGame();
-		return false;
+	public void checkFinished() {
+		if (this.finishFlag) {
+			if (this.playerManager.getWinningPlayer() == null) {
+				this.viewManager.displayPopUp("Draw.");
+			} else {
+				this.viewManager.displayPopUp(this.playerManager.getWinningPlayer().getName() + " wins.");
+			}
+			
+			//TODO: Restart prompt
+			this.closeGame();
+		}
 	}
 
 	/**
@@ -354,7 +323,10 @@ public class GameManager {
 	 *         <code>false</code> otherwise TODO Implement
 	 */
 	public boolean restartGame() {
-		return false;
+		this.getGameBoard().flush();
+		this.playerManager.initializePlayers();
+		this.runGame();
+		return true;
 	}
 
 	/**
@@ -459,6 +431,17 @@ public class GameManager {
 	public boolean openHelpFile() {
 		LOG.info("GameManager.<em>openHelpFile()</em> within game called.");
 		return this.openHelpFile(this.currentGameDefinition);
+	}
+
+	/**
+	 * Exits the whole program.
+	 */
+	public void exit() {
+
+		LOG.finer("GameManager.<em>exit()</em> called.");
+
+		System.exit(0);
+
 	}
 
 }
