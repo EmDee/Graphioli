@@ -20,7 +20,7 @@ public abstract class Game {
 	 */
 	private static final Logger LOG = Logger.getLogger(Game.class.getName());
 
-	private static final long CALL_TIMEOUT = 500;
+	private static final long CALL_TIMEOUT = 2000;
 
 	/**
 	 * The {@link GameManager} associated with this {@link Game}.

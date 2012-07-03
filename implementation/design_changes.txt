@@ -32,6 +32,7 @@
 
 == VisualVertex
 - added PIXELS_PER_SIDE
+- made update() public
 
 == VisualGrid
 - added attribute GraphCanvas to constructor to get the size of the canvas
