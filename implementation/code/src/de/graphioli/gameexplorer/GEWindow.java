@@ -2,6 +2,8 @@ package de.graphioli.gameexplorer;
 
 import de.graphioli.model.Player;
 import de.graphioli.utils.JarParser;
+import de.graphioli.utils.Localization;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -81,7 +83,7 @@ public class GEWindow extends JFrame implements GEView, ListSelectionListener, K
 	 */
 	public GEWindow() {
 
-		this.setTitle("Game Explorer");
+		this.setTitle(Localization.getLanguageString("ge_title"));
 
 		LOG.info("GEWindow instantiated.");
 

@@ -103,7 +103,9 @@ public class PlayerPopUp extends JFrame {
 			return maxPlayer;
 		}
 
-		String[] playerStrings = { "", "One player", "Two players", "Three players", "Four players" };
+		String[] playerStrings = { "", Localization.getLanguageString("one_player"),
+				Localization.getLanguageString("two_players"), Localization.getLanguageString("three_players"),
+				Localization.getLanguageString("four_players") };
 		int playerCount = 0;
 
 		while (playerCount == 0) {
@@ -117,12 +119,12 @@ public class PlayerPopUp extends JFrame {
 
 				return 0;
 
-			// User entered invalid number of players
+				// User entered invalid number of players
 			} else if (inputPlayerCount.isEmpty()) {
 
 				return minPlayer;
 
-			// User entered valid number of players
+				// User entered valid number of players
 			} else {
 
 				playerCount = Arrays.asList(playerStrings).indexOf(inputPlayerCount);
