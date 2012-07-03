@@ -349,13 +349,8 @@ public class GEWindow extends JFrame implements GEView, ListSelectionListener, K
 		// Center window
 		this.setLocationRelativeTo(null);
 
-		// Generate list pane
 		this.generateListPane();
-
-		// Generate button panel
 		this.generateButtonPanel();
-
-		// Generate game information panel
 		this.generateGameInformationPanel();
 
 		// Show window

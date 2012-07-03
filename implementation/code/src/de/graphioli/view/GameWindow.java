@@ -13,7 +13,6 @@ import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
-
 /**
  * @author Graphioli
  */
@@ -91,6 +90,28 @@ public class GameWindow extends JFrame implements View {
 		LOG.info("GameWindow instantiated.");
 		this.registerController(viewManager);
 
+		this.generateView();
+		this.addEventListeners();
+	}
+
+	/**
+	 * Registers a {@link ViewManager} as the controller for the user interface.
+	 * 
+	 * @param viewManager
+	 *            The controlling ViewManager
+	 * @return <code>true</code> if the action was performed successfully,
+	 *         <code>false</code> otherwise
+	 */
+	@Override
+	public boolean registerController(ViewManager viewManager) {
+		this.viewManager = viewManager;
+		return true;
+	}
+
+	/**
+	 * Generates the view for the game window.
+	 */
+	private void generateView() {
 		this.setLayout(new BorderLayout());
 		this.setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
 
@@ -110,32 +131,23 @@ public class GameWindow extends JFrame implements View {
 		this.add(this.statusBar, BorderLayout.SOUTH);
 		this.statusBar.setPreferredSize(new Dimension(this.getWidth(), STATUSBAR_HEIGHT));
 
-		// Initialize CustomKeyDispatcher
-		KeyboardFocusManager manager = KeyboardFocusManager.getCurrentKeyboardFocusManager();
-		manager.addKeyEventDispatcher(new CustomKeyDispatcher(this));
-		
 		this.setResizable(false);
 		this.setVisible(true);
 		// Center window
 		this.setLocationRelativeTo(null);
+	}
+
+	/**
+	 * Adds CustomKeyDispatcher and window listener.
+	 */
+	private void addEventListeners() {
+		// Initialize CustomKeyDispatcher
+		KeyboardFocusManager manager = KeyboardFocusManager.getCurrentKeyboardFocusManager();
+		manager.addKeyEventDispatcher(new CustomKeyDispatcher(this));
 
 		// Add window listener for closing attempts
 		this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 		this.addWindowListener(new CloseListener());
-	}
-
-	/**
-	 * Registers a {@link ViewManager} as the controller for the user interface.
-	 * 
-	 * @param viewManager
-	 *            The controlling ViewManager
-	 * @return <code>true</code> if the action was performed successfully,
-	 *         <code>false</code> otherwise
-	 */
-	@Override
-	public boolean registerController(ViewManager viewManager) {
-		this.viewManager = viewManager;
-		return true;
 	}
 
 	/**
