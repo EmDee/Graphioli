@@ -12,6 +12,8 @@ import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
+import javax.swing.ScrollPaneConstants;
 
 /**
  * @author Graphioli
@@ -31,22 +33,22 @@ public class GameWindow extends JFrame implements View {
 	/**
 	 * The initial width of the window.
 	 */
-	private static final int WINDOW_WIDTH = 500;
+	private static final int WINDOW_WIDTH = 400;
 
 	/**
 	 * The initial height of the window.
 	 */
-	private static final int WINDOW_HEIGHT = 500;
+	private static final int WINDOW_HEIGHT = 450;
 
 	/**
 	 * The initial width of the graph canvas.
 	 */
-	private static final int CANVAS_WIDTH = 500;
+	private static final int CANVAS_WIDTH = 600;
 
 	/**
 	 * The initial height of the graph canvas.
 	 */
-	private static final int CANVAS_HEIGHT = 300;
+	private static final int CANVAS_HEIGHT = 600;
 
 	/**
 	 * The height of the status bar.
@@ -121,17 +123,25 @@ public class GameWindow extends JFrame implements View {
 
 		// Initialize and add GraphCanvas and ViusalGrid
 		this.graphCanvas = new GraphCanvas(this);
-		this.add(this.graphCanvas);
-		this.graphCanvas.setSize(CANVAS_WIDTH, CANVAS_HEIGHT);
+
+		
+
+		JScrollPane scrollPane = new JScrollPane(graphCanvas, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
+				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		this.add(scrollPane, BorderLayout.CENTER);
+
 		this.visualGrid = new VisualGrid(this.graphCanvas, this);
 		this.graphCanvas.addMouseListener(this.visualGrid);
+		
+		this.graphCanvas.setPreferredSize(visualGrid.calculateSize());
 
 		// Initialize and add StatusBar
 		this.statusBar = new StatusBar();
 		this.add(this.statusBar, BorderLayout.SOUTH);
 		this.statusBar.setPreferredSize(new Dimension(this.getWidth(), STATUSBAR_HEIGHT));
 
-		this.setResizable(false);
+		this.setMinimumSize(new Dimension(WINDOW_WIDTH, WINDOW_HEIGHT));
+		this.setResizable(true);
 		this.setVisible(true);
 		// Center window
 		this.setLocationRelativeTo(null);
