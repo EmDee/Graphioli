@@ -37,7 +37,7 @@ public final class FindPath {
 	 */
 	public static boolean performAlgorithm(Graph graph, Vertex vertexA, Vertex vertexB) {
 		ArrayList<Vertex> reachableVertices = BreadthFirstSearch.performAlgorithm(graph, vertexA, MAX_DEPTH);
-		if (reachableVertices.contains(vertexB)) {
+		if (reachableVertices != null && reachableVertices.contains(vertexB)) {
 			return true;
 		}
 		return false;
