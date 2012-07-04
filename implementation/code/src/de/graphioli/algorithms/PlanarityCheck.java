@@ -67,7 +67,7 @@ public final class PlanarityCheck {
 
 		// Numerators
 		double nx = (xA1 * yA2 - yA1 * xA2) * (xB1 - xB2) - (xA1 - xA2) * (xB1 * yB2 - yB1 * xB2);
-		double ny = (xA1 * yA2 - yA1 * xA2) * (yB1 - yB2) - (yA1 - yA2) * (xB1 * yB2 - yB1 * xB2);
+//		double ny = (xA1 * yA2 - yA1 * xA2) * (yB1 - yB2) - (yA1 - yA2) * (xB1 * yB2 - yB1 * xB2);
 
 		// Denominator
 		double d = (xA1 - xA2) * (yB1 - yB2) - (yA1 - yA2) * (xB1 - xB2);
@@ -79,12 +79,34 @@ public final class PlanarityCheck {
 
 		// Coordinates of point of intersection
 		double x = nx / d;
-		double y = ny / d;
+//		double y = ny / d;
 
+		if (xA1 < xA2) {
+			if (xB1 < xB2) {
+				if (xA1 < x && xB1 < x && x < xA2 && x < xB2) {
+					return true;
+				}
+			} else {
+				if (xA1 < x && xB2 < x && x < xA2 && x < xB1) {
+					return true;
+				}
+			}
+		} else {
+			if (xB1 < xB2) {
+				if (xA2 < x && xB1 < x && x < xA1 && x < xB2) {
+					return true;
+				}
+			} else {
+				if (xA2 < x && xB2 < x && x < xA1 && x < xB1) {
+					return true;
+				}
+			}
+		}
+		return false;
 		// If point of intersection is in the line segments (edges)
-		return (x - xA1) / (xA2 - xA1) < 1
-				&& (x - xB1) / (xB2 - xB1) < 1
-				&& (y - yA1) / (yA2 - yA1) < 1
-				&& (y - yB1) / (yB2 - yB1) < 1;
+//		return (x - xA1) / (xA2 - xA1) < 1
+//				&& (x - xB1) / (xB2 - xB1) < 1
+//				&& (y - yA1) / (yA2 - yA1) < 1
+//				&& (y - yB1) / (yB2 - yB1) < 1;
 	}
 }
