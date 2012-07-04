@@ -5,7 +5,6 @@ import de.graphioli.utils.Localization;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.io.IOException;
 
 import javax.swing.JFileChooser;
 import javax.swing.JMenu;
@@ -81,11 +80,11 @@ public class MenuBar extends JMenuBar implements ActionListener {
 		this.optionsMenu = new JMenu(Localization.getLanguageString("menu_options"));
 		this.helpMenu = new JMenu(Localization.getLanguageString("menu_help"));
 
-		this.saveItem 		= new JMenuItem(Localization.getLanguageString("menu_item_save"));
-		this.loadItem 		= new JMenuItem(Localization.getLanguageString("menu_item_load"));
-		this.quitItem		= new JMenuItem(Localization.getLanguageString("menu_item_quit"));
-		this.helpItem		= new JMenuItem(Localization.getLanguageString("menu_item_help"));
-		this.restartItem	= new JMenuItem(Localization.getLanguageString("menu_item_restart"));
+		this.saveItem = new JMenuItem(Localization.getLanguageString("menu_item_save"));
+		this.loadItem = new JMenuItem(Localization.getLanguageString("menu_item_load"));
+		this.quitItem = new JMenuItem(Localization.getLanguageString("menu_item_quit"));
+		this.helpItem = new JMenuItem(Localization.getLanguageString("menu_item_help"));
+		this.restartItem = new JMenuItem(Localization.getLanguageString("menu_item_restart"));
 
 		this.saveItem.addActionListener(this);
 		this.loadItem.addActionListener(this);
@@ -121,62 +120,70 @@ public class MenuBar extends JMenuBar implements ActionListener {
 		JMenuItem sourceItem = (JMenuItem) event.getSource();
 
 		if (sourceItem.equals(this.saveItem)) {
-			String gameName = this.parentGameWindow.getViewManager().getGameManager().getGame().getClass().getName();
-			gameName = gameName.substring(gameName.indexOf('.') + 1, gameName.length());
-			JFileChooser fc = new JFileChooser(new File("games/" + gameName + "/"));
-			SaveGameFilter filter = new SaveGameFilter();
-			fc.setFileFilter(filter);
-			int returnVal = fc.showSaveDialog(this.parentGameWindow);
-			if (returnVal == JFileChooser.APPROVE_OPTION) {
-				File fileToSave = fc.getSelectedFile();
-				String filePath = fileToSave.getAbsolutePath();
-				if (!filePath.endsWith(".save")) {
-					int seperatorIndex = filePath.lastIndexOf('.');
-					if (seperatorIndex == -1) {
-						filePath = filePath + ".save";
-					} else {
-						filePath = filePath.substring(0, seperatorIndex) + ".save";						
-					}
-					fileToSave = new File(filePath);
-				}
-				this.parentGameWindow.getViewManager().getGameManager().saveGame(fileToSave);
-			}
+			saveGame();
 		}
 
-		if (sourceItem.equals(this.loadItem)) {
-			String gameName = this.parentGameWindow.getViewManager().getGameManager().getGame().getClass().getName();
-			gameName = gameName.substring(gameName.indexOf('.') + 1, gameName.length());
-			JFileChooser fc = new JFileChooser(new File("games/" + gameName + "/"));
-			SaveGameFilter filter = new SaveGameFilter();
-			fc.setFileFilter(filter);
-			int returnVal = fc.showOpenDialog(this.parentGameWindow);
-			if (returnVal == JFileChooser.APPROVE_OPTION) {
-				File fileToLoad = fc.getSelectedFile();
-				this.parentGameWindow.getViewManager().getGameManager().loadGame(fileToLoad);
-			}
+		else if (sourceItem.equals(this.loadItem)) {
+			loadGame();
 		}
 
-		if (sourceItem.equals(this.quitItem)) {
+		else if (sourceItem.equals(this.quitItem)) {
 			this.parentGameWindow.closeGame();
 		}
 
-		if (sourceItem.equals(this.helpItem)) {
+		else if (sourceItem.equals(this.helpItem)) {
 			this.parentGameWindow.getViewManager().getGameManager().openHelpFile();
 		}
-		
-		if (sourceItem.equals(this.restartItem)) {
+
+		else if (sourceItem.equals(this.restartItem)) {
 			this.parentGameWindow.getViewManager().getGameManager().restartGame();
-		}		
+		}
 
 	}
-	
+
+	private void saveGame() {
+		String gameName = this.parentGameWindow.getViewManager().getGameManager().getGame().getClass().getName();
+		gameName = gameName.substring(gameName.indexOf('.') + 1, gameName.length());
+		JFileChooser fc = new JFileChooser(new File("games/" + gameName + "/"));
+		SaveGameFilter filter = new SaveGameFilter();
+		fc.setFileFilter(filter);
+		int returnVal = fc.showSaveDialog(this.parentGameWindow);
+		if (returnVal == JFileChooser.APPROVE_OPTION) {
+			File fileToSave = fc.getSelectedFile();
+			String filePath = fileToSave.getAbsolutePath();
+			if (!filePath.endsWith(".save")) {
+				int seperatorIndex = filePath.lastIndexOf('.');
+				if (seperatorIndex == -1) {
+					filePath = filePath + ".save";
+				} else {
+					filePath = filePath.substring(0, seperatorIndex) + ".save";
+				}
+				fileToSave = new File(filePath);
+			}
+			this.parentGameWindow.getViewManager().getGameManager().saveGame(fileToSave);
+		}
+	}
+
+	private void loadGame() {
+		String gameName = this.parentGameWindow.getViewManager().getGameManager().getGame().getClass().getName();
+		gameName = gameName.substring(gameName.indexOf('.') + 1, gameName.length());
+		JFileChooser fc = new JFileChooser(new File("games/" + gameName + "/"));
+		SaveGameFilter filter = new SaveGameFilter();
+		fc.setFileFilter(filter);
+		int returnVal = fc.showOpenDialog(this.parentGameWindow);
+		if (returnVal == JFileChooser.APPROVE_OPTION) {
+			File fileToLoad = fc.getSelectedFile();
+			this.parentGameWindow.getViewManager().getGameManager().loadGame(fileToLoad);
+		}
+	}
+
 	private class SaveGameFilter extends FileFilter {
-		
+
 		public boolean accept(File file) {
 			String filename = file.getName();
-	        return filename.endsWith(".save");
+			return filename.endsWith(".save") || file.isDirectory();
 		}
-		
+
 		public String getDescription() {
 			return "*.save";
 		}
