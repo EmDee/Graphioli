@@ -233,14 +233,14 @@ public class GameManager {
 			ObjectInputStream in = new ObjectInputStream(fis);
 			GameCapsule capsule = (GameCapsule) in.readObject();
 			in.close();
-			// this.gameBoard = capsule.getBoard();
-			// this.playerManager = new PlayerManager(capsule.getPlayers(),
-			// this);
-			// this.playerManager.setActivePlayer(capsule.getActivePlayer());
-
-			// TODO what to do with the capsule (onGameStart)
 			LOG.info("Loaded GameCapsule from File: " + savegame.getName());
-			LOG.info("Just for testing: Name of the active player: " + capsule.getActivePlayer().getName());
+			this.gameBoard = capsule.getBoard();
+			this.playerManager = new PlayerManager(capsule.getPlayers(), this);
+			this.playerManager.setActivePlayer(capsule.getActivePlayer());
+			// game.onGameStart();
+
+			// TODO restore transient attributes (Stroke in svv and sve and BufferedImage in vv)
+		
 		} catch (FileNotFoundException e) {
 			LOG.severe("FileNotFoundException: " + e.getMessage());
 			e.printStackTrace();

@@ -130,27 +130,23 @@ public class MenuBar extends JMenuBar implements ActionListener {
 			if (returnVal == JFileChooser.APPROVE_OPTION) {
 				File fileToSave = fc.getSelectedFile();
 				String filePath = fileToSave.getAbsolutePath();
-//				if (!filePath.endsWith(".save")) {
-//					fileToSave.delete();
-//					int seperatorIndex = filePath.indexOf('.');
-//					if (seperatorIndex == -1) {
-//						filePath = filePath + ".save";
-//					} else {
-//						filePath = filePath.substring(0, seperatorIndex) + ".save";
-//						fileToSave = new File(filePath);
-//						try {
-//							fileToSave.createNewFile();
-//						} catch (IOException e) {
-//							e.printStackTrace();
-//						}
-//					}
-//				}
+				if (!filePath.endsWith(".save")) {
+					int seperatorIndex = filePath.lastIndexOf('.');
+					if (seperatorIndex == -1) {
+						filePath = filePath + ".save";
+					} else {
+						filePath = filePath.substring(0, seperatorIndex) + ".save";						
+					}
+					fileToSave = new File(filePath);
+				}
 				this.parentGameWindow.getViewManager().getGameManager().saveGame(fileToSave);
 			}
 		}
 
 		if (sourceItem.equals(this.loadItem)) {
-			JFileChooser fc = new JFileChooser();
+			String gameName = this.parentGameWindow.getViewManager().getGameManager().getGame().getClass().getName();
+			gameName = gameName.substring(gameName.indexOf('.') + 1, gameName.length());
+			JFileChooser fc = new JFileChooser(new File("games/" + gameName + "/"));
 			SaveGameFilter filter = new SaveGameFilter();
 			fc.setFileFilter(filter);
 			int returnVal = fc.showOpenDialog(this.parentGameWindow);
