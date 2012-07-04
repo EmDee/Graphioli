@@ -1,5 +1,6 @@
 package de.graphioli.gameexplorer;
 
+import java.io.Serializable;
 import java.net.URI;
 
 // import java.util.ArrayList;
@@ -10,7 +11,7 @@ import java.net.URI;
  * 
  * @author Graphioli
  */
-public final class GameDefinition {
+public final class GameDefinition implements Serializable {
 
 	/**
 	 * The name of the game.
@@ -184,5 +185,53 @@ public final class GameDefinition {
 	public String toString() {
 		return this.getName();
 	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((className == null) ? 0 : className.hashCode());
+		result = prime * result + horizontalGridPointCount;
+		result = prime * result + (isDirectedGraph ? 1231 : 1237);
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		result = prime * result + verticalGridPointCount;
+		return result;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		GameDefinition other = (GameDefinition) obj;
+		if (className == null) {
+			if (other.className != null)
+				return false;
+		} else if (!className.equals(other.className))
+			return false;
+		if (horizontalGridPointCount != other.horizontalGridPointCount)
+			return false;
+		if (isDirectedGraph != other.isDirectedGraph)
+			return false;
+		if (name == null) {
+			if (other.name != null)
+				return false;
+		} else if (!name.equals(other.name))
+			return false;
+		if (verticalGridPointCount != other.verticalGridPointCount)
+			return false;
+		return true;
+	}
+	
+	
 
 }

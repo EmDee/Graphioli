@@ -44,10 +44,26 @@ public abstract class VisualVertex extends Vertex {
 
 	/**
 	 * Initialize this {@code VisualVertex}.
+	 * Call {@code super()} when overriding!
 	 */
 	protected void init() {
+		this.bufferedImage = new BufferedImage(PIXELS_PER_SIDE, PIXELS_PER_SIDE, BufferedImage.TYPE_4BYTE_ABGR);
 	}
+	
 
+	/**
+	 * Recreates the fields, that are not serialized.
+	 */
+	public void reload() {
+		this.bufferedImage = new BufferedImage(PIXELS_PER_SIDE, PIXELS_PER_SIDE, BufferedImage.TYPE_4BYTE_ABGR);
+		this.onReload();
+		this.update();
+	}
+	
+	/**
+	 * Implement this method to recreates the fields, that are not serialized.
+	 */
+	abstract protected void onReload();
 	/**
 	 * Draws the visualization of this {@code VisualVertex} onto the given
 	 * {@link Graphics2D} instance.
@@ -67,12 +83,9 @@ public abstract class VisualVertex extends Vertex {
 	public final boolean update() {
 
 		LOG.finer("Updating VisualVertex at position " + getGridPoint() + ".");
-
-		if (this.bufferedImage == null) {
-			this.bufferedImage = new BufferedImage(PIXELS_PER_SIDE, PIXELS_PER_SIDE, BufferedImage.TYPE_4BYTE_ABGR);
-		} else {
-			clearBufferedImage();
-		}
+		
+		clearBufferedImage();
+		
 		
 		Graphics2D g2d = this.bufferedImage.createGraphics();
 

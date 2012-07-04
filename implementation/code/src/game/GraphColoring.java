@@ -112,9 +112,8 @@ public class GraphColoring extends Game {
 	protected boolean onGameStart() {
 		this.singleplayer = this.getGameManager().getPlayerManager().getPlayers().size() == 1;
 
-		if (this.buttons == null || this.vertices == null) {
-			this.reloadLevel();
-		}
+		this.reloadLevel();
+		
 		this.selectedButton = this.buttons[0];
 		this.selectedButton.setHighlighted(true);
 

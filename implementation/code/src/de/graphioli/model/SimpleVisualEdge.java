@@ -83,5 +83,14 @@ public class SimpleVisualEdge extends VisualEdge {
 	public void setStrokeColor(Color strokeColor) {
 		this.strokeColor = strokeColor;
 	}
+	
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	protected void onReload() {
+		this.edgeStroke = new BasicStroke(this.strokeWeight + 2);	
+	}
+
 
 }

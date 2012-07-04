@@ -41,6 +41,8 @@ public class SimpleVisualVertex extends VisualVertex {
 		this.strokeWeight = 1;
 		this.stroke = new BasicStroke(this.strokeWeight);
 	}
+	
+	
 
 	/**
 	 * Draws this {@code SimpleVisualVertex} according to its fill color, stroke
@@ -113,6 +115,14 @@ public class SimpleVisualVertex extends VisualVertex {
 		this.strokeWeight = 2 * strokeWeight - 1;
 		this.stroke = new BasicStroke(this.strokeWeight);
 		this.update();
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	protected void onReload() {
+		this.stroke = new BasicStroke(this.strokeWeight);	
 	}
 
 }

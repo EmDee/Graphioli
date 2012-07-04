@@ -2,9 +2,13 @@ package de.graphioli.controller;
 
 import de.graphioli.gameexplorer.GameDefinition;
 import de.graphioli.gameexplorer.GameExplorer;
+import de.graphioli.model.Edge;
 import de.graphioli.model.GameBoard;
 import de.graphioli.model.GameCapsule;
 import de.graphioli.model.Player;
+import de.graphioli.model.Vertex;
+import de.graphioli.model.VisualEdge;
+import de.graphioli.model.VisualVertex;
 import de.graphioli.utils.GraphioliLogger;
 import de.graphioli.utils.JarParser;
 
@@ -228,18 +232,16 @@ public class GameManager {
 	 *         <code>false</code> otherwise TODO: Implement
 	 */
 	public boolean loadGame(File savegame) {
+		
+		LOG.info("Loading savegame: " + savegame.getPath());
+		
+		GameCapsule capsule;
 		try {
 			FileInputStream fis = new FileInputStream(savegame);
 			ObjectInputStream in = new ObjectInputStream(fis);
-			GameCapsule capsule = (GameCapsule) in.readObject();
+			capsule = (GameCapsule) in.readObject();
 			in.close();
-			LOG.info("Loaded GameCapsule from File: " + savegame.getName());
-			this.gameBoard = capsule.getBoard();
-			this.playerManager = new PlayerManager(capsule.getPlayers(), this);
-			this.playerManager.setActivePlayer(capsule.getActivePlayer());
-			// game.onGameStart();
-
-			// TODO restore transient attributes (Stroke in svv and sve and BufferedImage in vv)
+			LOG.info("Loaded GameCapsule from File: " + savegame.getName());		
 		
 		} catch (FileNotFoundException e) {
 			LOG.severe("FileNotFoundException: " + e.getMessage());
@@ -254,6 +256,37 @@ public class GameManager {
 			e.printStackTrace();
 			return false;
 		}
+		
+		if (!capsule.getGameDefinition().equals(this.currentGameDefinition)) {
+			this.viewManager.displayPopUp("This savegame does not belong to this game.");
+			return true;
+		}
+		
+		this.gameBoard = capsule.getBoard();
+		this.playerManager = new PlayerManager(capsule.getPlayers(), this);
+		this.playerManager.setActivePlayer(capsule.getActivePlayer());
+		
+		for (Vertex vtex: capsule.getBoard().getGraph().getVertices()) {
+			((VisualVertex) vtex).reload();
+		}
+		
+		for (Edge egd: capsule.getBoard().getGraph().getEdges()) {
+			((VisualEdge) egd).reload(); 
+		}
+		
+		try {
+			game.callOnGameStart();
+		} catch (TimeoutException e) {
+			this.viewManager.displayPopUp("Game timed out. Closing.");
+			this.closeGame();
+		}
+		
+		
+		
+		this.viewManager.updatePlayerStatus(this.playerManager.getActivePlayer());
+		this.viewManager.displayErrorMessage("Game loaded.");
+		this.viewManager.updateView();
+		
 		return true;
 	}
 
@@ -268,7 +301,7 @@ public class GameManager {
 	 */
 	public boolean saveGame(File savegame) {
 		GameCapsule capsule = new GameCapsule(this.gameBoard, this.playerManager.getPlayers(),
-				this.playerManager.getActivePlayer());
+				this.playerManager.getActivePlayer(), this.currentGameDefinition);
 		try {
 			FileOutputStream fos = new FileOutputStream(savegame);
 			ObjectOutputStream out = new ObjectOutputStream(fos);
@@ -443,5 +476,6 @@ public class GameManager {
 		System.exit(0);
 
 	}
-
+	
+	
 }

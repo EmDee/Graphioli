@@ -27,4 +27,10 @@ public class GraphicVisualVertex extends VisualVertex {
 		return false;
 	}
 
+	@Override
+	protected void onReload() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

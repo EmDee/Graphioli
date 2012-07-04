@@ -72,7 +72,7 @@ public class ViewManager {
 			if (this.gameManager.getGameBoard().getGrid().getVisualVertexAtGridPoint(gridPoint) == null) {
 				LOG.fine("OnEmptyGridPointClick " + gridPoint);
 				if (this.gameManager.getGame().callOnEmptyGridPointClick(gridPoint)) {
-					this.view.redrawGraph();
+					this.updateView();
 				}
 
 			} else {
@@ -83,7 +83,7 @@ public class ViewManager {
 				if (this.gameManager.getGame().callOnVertexClick(
 						this.gameManager.getGameBoard().getGrid().getVisualVertexAtGridPoint(gridPoint))) {
 
-					this.view.redrawGraph();
+					this.updateView();
 				}
 			}
 		} catch (TimeoutException toe) {
@@ -106,7 +106,7 @@ public class ViewManager {
 	public boolean onKeyRelease(int keyCode) {
 		try {
 			if (this.gameManager.getGame().callOnKeyRelease(keyCode)) {
-				this.view.redrawGraph();
+				this.updateView();
 				this.gameManager.checkFinished();
 				return true;
 			}
@@ -188,6 +188,15 @@ public class ViewManager {
 	public boolean setVisualVertexSize(int size) {
 		return this.view.setVisualVertexSize(size);
 	}
+	
+
+	/**
+	 * Notifies the view to update itself. 
+	 */
+	public void updateView() {
+		this.view.redrawGraph();
+	}
+
 
 	/**
 	 * Closes the View and all its components.

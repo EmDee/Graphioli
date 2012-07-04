@@ -1,6 +1,7 @@
 package de.graphioli.model;
 
 import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
 
 /**
  * This class represents an {@link Edge} with its visual representation.
@@ -27,6 +28,18 @@ public abstract class VisualEdge extends Edge {
 		this.visible = true;
 		// TODO Auto-generated constructor stub
 	}
+	
+	/**
+	 * Recreates the fields, that are not serialized.
+	 */
+	public void reload() {
+		this.onReload();
+	}
+	
+	/**
+	 * Implement this method to recreates the fields, that are not serialized.
+	 */
+	abstract protected void onReload();
 
 	/**
 	 * Returns whether or not this VisualEdge is visible.

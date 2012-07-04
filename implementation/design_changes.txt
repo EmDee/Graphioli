@@ -4,6 +4,9 @@
 == Game
 - added 'call' methods
 
+== Visual* ==
+- added reload methods
+
 == GameDefinition
 - changed 'fullyQualifiedClassName' to 'className'
 - no constructor
@@ -66,3 +69,6 @@
 
 == GEWindowActions ==
 - class added
+
+== Game Capsule ==
+- added GameDefinition
