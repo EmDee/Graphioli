@@ -105,6 +105,7 @@ public final class JarParser {
 		return classToLoad;
 	}
 
+	// TODO: Remove this method for production
 	public static Class<?> getClassFromBin(String gameName) {
 		File file = new File("bin/games");
 		Class<?> cls = null;

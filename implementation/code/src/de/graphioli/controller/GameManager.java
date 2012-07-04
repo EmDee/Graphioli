@@ -142,6 +142,7 @@ public class GameManager {
 		// get game class from Jar
 		// Class<?> classToLoad = JarParser.getClass(this.gamePackagePath,
 		// gameDefinition.getClassName());
+		// TODO: Remove this method for production
 		Class<?> classToLoad = JarParser.getClassFromBin(gameDefinition.getClassName());
 
 		// Instantiate game
