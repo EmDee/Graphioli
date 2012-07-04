@@ -104,4 +104,27 @@ public final class JarParser {
 
 		return classToLoad;
 	}
+
+	public static Class<?> getClassFromBin(String gameName) {
+		// Create a File object on the root of the directory containing the
+		// class file
+		File file = new File("bin/games");
+		Class<?> cls = null;
+
+		try {
+			// Convert File to a URL
+			URL url = file.toURI().toURL();
+			URL[] urls = new URL[] { url };
+
+			// Create a new class loader with the directory
+			ClassLoader cl = new URLClassLoader(urls);
+
+			// Load in the class; MyClass.class should be located in
+			// the directory file:/c:/myclasses/com/mycompany
+			cls = cl.loadClass("game." + gameName);
+		} catch (MalformedURLException e) {
+		} catch (ClassNotFoundException e) {
+		}
+		return cls;
+	}
 }

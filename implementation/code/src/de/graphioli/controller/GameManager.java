@@ -67,10 +67,10 @@ public class GameManager {
 	 * GameDefinition for the current played game.
 	 */
 	private GameDefinition currentGameDefinition;
-	
+
 	/**
-	 * {@code true} when the game is about to be finished.
-	 * Volatile because accessed from the game call thread.
+	 * {@code true} when the game is about to be finished. Volatile because
+	 * accessed from the game call thread.
 	 */
 	private volatile boolean finishFlag;
 
@@ -140,7 +140,9 @@ public class GameManager {
 		this.initializeFramework(gameDefinition, players);
 
 		// get game class from Jar
-		Class<?> classToLoad = JarParser.getClass(this.gamePackagePath, gameDefinition.getClassName());
+		// Class<?> classToLoad = JarParser.getClass(this.gamePackagePath,
+		// gameDefinition.getClassName());
+		Class<?> classToLoad = JarParser.getClassFromBin(gameDefinition.getClassName());
 
 		// Instantiate game
 		try {
@@ -232,17 +234,17 @@ public class GameManager {
 	 *         <code>false</code> otherwise TODO: Implement
 	 */
 	public boolean loadGame(File savegame) {
-		
+
 		LOG.info("Loading savegame: " + savegame.getPath());
-		
+
 		GameCapsule capsule;
 		try {
 			FileInputStream fis = new FileInputStream(savegame);
 			ObjectInputStream in = new ObjectInputStream(fis);
 			capsule = (GameCapsule) in.readObject();
 			in.close();
-			LOG.info("Loaded GameCapsule from File: " + savegame.getName());		
-		
+			LOG.info("Loaded GameCapsule from File: " + savegame.getName());
+
 		} catch (FileNotFoundException e) {
 			LOG.severe("FileNotFoundException: " + e.getMessage());
 			e.printStackTrace();
@@ -256,37 +258,35 @@ public class GameManager {
 			e.printStackTrace();
 			return false;
 		}
-		
+
 		if (!capsule.getGameDefinition().equals(this.currentGameDefinition)) {
 			this.viewManager.displayPopUp("This savegame does not belong to this game.");
 			return true;
 		}
-		
+
 		this.gameBoard = capsule.getBoard();
 		this.playerManager = new PlayerManager(capsule.getPlayers(), this);
 		this.playerManager.setActivePlayer(capsule.getActivePlayer());
-		
-		for (Vertex vtex: capsule.getBoard().getGraph().getVertices()) {
+
+		for (Vertex vtex : capsule.getBoard().getGraph().getVertices()) {
 			((VisualVertex) vtex).reload();
 		}
-		
-		for (Edge egd: capsule.getBoard().getGraph().getEdges()) {
-			((VisualEdge) egd).reload(); 
+
+		for (Edge egd : capsule.getBoard().getGraph().getEdges()) {
+			((VisualEdge) egd).reload();
 		}
-		
+
 		try {
 			game.callOnGameStart();
 		} catch (TimeoutException e) {
 			this.viewManager.displayPopUp("Game timed out. Closing.");
 			this.closeGame();
 		}
-		
-		
-		
+
 		this.viewManager.updatePlayerStatus(this.playerManager.getActivePlayer());
 		this.viewManager.displayErrorMessage("Game loaded.");
 		this.viewManager.updateView();
-		
+
 		return true;
 	}
 
@@ -322,7 +322,8 @@ public class GameManager {
 	}
 
 	/**
-	 * Notifies this {@link GameManager}, that the game is supposed to be finished.
+	 * Notifies this {@link GameManager}, that the game is supposed to be
+	 * finished.
 	 * 
 	 * @return <code>true</code> if the action was performed successfully,
 	 *         <code>false</code> otherwise.
@@ -331,10 +332,10 @@ public class GameManager {
 		this.finishFlag = true;
 		return true;
 	}
-	
-	
+
 	/**
-	 * Checks whether the finishFlag is set and if so closes the game with a winner Pop-up.
+	 * Checks whether the finishFlag is set and if so closes the game with a
+	 * winner Pop-up.
 	 */
 	public void checkFinished() {
 		if (this.finishFlag) {
@@ -343,8 +344,8 @@ public class GameManager {
 			} else {
 				this.viewManager.displayPopUp(this.playerManager.getWinningPlayer().getName() + " wins.");
 			}
-			
-			//TODO: Restart prompt
+
+			// TODO: Restart prompt
 			this.closeGame();
 		}
 	}
@@ -476,6 +477,5 @@ public class GameManager {
 		System.exit(0);
 
 	}
-	
-	
+
 }
