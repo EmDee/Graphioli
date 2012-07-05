@@ -15,10 +15,15 @@ import javax.imageio.ImageIO;
 public class GraphicVisualVertex extends VisualVertex {
 
 	/**
-	 * BufferedImage
+	 * The image of the GraphicVisualVertex
 	 */
-	private BufferedImage image;
+	private transient BufferedImage image;
 
+	/**
+	 * The path to and file name of the image to load
+	 */
+	private String fileName;
+	
 	/**
 	 * Creates an instance of this {@link GraphicVisualVertex} with a given
 	 * {@link GridPoint}.
@@ -59,20 +64,21 @@ public class GraphicVisualVertex extends VisualVertex {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		this.fileName = fileName;
 		return newImage;
 	}
 
 	/**
-	 * Returns the image
+	 * Returns the image that represents this GraphicVisualVertex.
 	 * 
-	 * @return The BufferedImage of this vertex
+	 * @return The image of this vertex
 	 */
 	public BufferedImage getImage() {
-		return image;
+		return this.image;
 	}
 
 	/**
-	 * Sets the BufferedImage of this GraphicVisualVertex
+	 * Sets the image that represents this GraphicVisualVertex.
 	 * 
 	 * @param image
 	 *            The new BufferedImage
@@ -84,10 +90,18 @@ public class GraphicVisualVertex extends VisualVertex {
 		return true;
 	}
 
+	/**
+	 * Reloads the image to the BufferedImage.
+	 */
 	@Override
 	protected void onReload() {
-		// TODO Auto-generated method stub
-		
+		if (!this.fileName.isEmpty()) {
+			try {
+				this.image = ImageIO.read(new File(this.fileName));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 
 }

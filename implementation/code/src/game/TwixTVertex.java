@@ -1,61 +1,83 @@
 package game;
 
-import java.awt.Graphics2D;
-import java.awt.Image;
 import java.awt.image.BufferedImage;
 
 import de.graphioli.model.GraphicVisualVertex;
 import de.graphioli.model.GridPoint;
 import de.graphioli.model.Player;
-import de.graphioli.model.VisualVertex;
-
 
 public class TwixTVertex extends GraphicVisualVertex {
 
-	private BufferedImage playerOneTower;
-	private BufferedImage playerTwoTower;	
+	/**
+	 * The BufferedImage used for the first {@link Player}
+	 */
+	private static transient BufferedImage playerOneTower;
 	
-	private Player player;
+	/**
+	 * The BufferedImage used for the second {@link Player}
+	 */
+	private static transient BufferedImage playerTwoTower;
 
+	/**
+	 * The {@link Player} who owns this TwixTVertex.
+	 */
+	private Player player;
+	
+	private final String fileNameOne = "games/TwixT/Awesome1.png";
+
+	private final String fileNameTwo = "games/TwixT/Awesome2.png";
+	
+	/**
+	 * Creates a new TwixtVertex and places it on the specified GridPoint.
+	 * 
+	 * @param gridPoint
+	 *            The {@link GridPoint} where the TwixTVertex is located
+	 */
 	public TwixTVertex(GridPoint gridPoint) {
 		super(gridPoint);
 	}
 
+	/**
+	 * Returns the Player.
+	 * 
+	 * @return The 'owner' of this vertex.
+	 */
 	public Player getPlayer() {
 		return this.player;
 	}
 
+	/**
+	 * Sets the image that represents this GraphicVisualVertex.
+	 * 
+	 * @param player
+	 *            The 'owner' of this vertex
+	 */
 	public void setPlayer(Player player) {
 		this.player = player;
+		if (this.player == TwixT.playerOne) {
+			this.setImage(playerTwoTower);
+		} else {
+			this.setImage(playerOneTower);
+		}
 		this.update();
 	}
-	
-	@Override
-	protected void init() {
-		this.playerOneTower = super.loadBufferedImage("games/TwixT/Awesome1.png");
-		this.playerTwoTower = super.loadBufferedImage("games/TwixT/Awesome2.png");
-	}
-	
+
 	/**
-	 * {@inheritDoc}
+	 * Initializes the two BufferedImage for used for the towers of both
+	 * players.
 	 */
 	@Override
-	protected boolean draw(Graphics2D g2d) {
-		if (this.player == TwixT.PLAYER_ONE) {
-			if (this.playerOneTower != null) {
-				g2d.drawImage(this.playerOneTower, 0, 0, VisualVertex.PIXELS_PER_SIDE, VisualVertex.PIXELS_PER_SIDE, null);
-			} else {
-				g2d.drawString("X", VisualVertex.PIXELS_PER_SIDE, VisualVertex.PIXELS_PER_SIDE);
-				return false;
-			}
-		} else {
-			if (this.playerTwoTower != null) {
-				g2d.drawImage(this.playerTwoTower, 0, 0, VisualVertex.PIXELS_PER_SIDE, VisualVertex.PIXELS_PER_SIDE, null);
-			} else {
-				g2d.drawString("O", VisualVertex.PIXELS_PER_SIDE, VisualVertex.PIXELS_PER_SIDE);
-				return false;
-			}
+	protected void init() {
+		if (playerOneTower == null || playerTwoTower == null) {
+			playerOneTower = this.loadBufferedImage(this.fileNameOne);
+			playerTwoTower = this.loadBufferedImage(this.fileNameTwo);			
 		}
-		return true;
 	}
+	
+	@Override
+	protected void onReload() {
+		this.init();
+		this.setPlayer(this.player);
+	}
+
 }
