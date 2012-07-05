@@ -81,5 +81,12 @@ public abstract class VisualEdge extends Edge {
 	 * @param targetY the y coordinate of the target vertex.
 	 */
 	public abstract void drawDirected(Graphics2D g2d, int originX, int originY, int targetX, int targetY);
+	
+	/**
+	 * Generates an Edge from this one where target and origin vertices are swapped.
+	 * 
+	 * @return the opposed edge.
+	 */
+	public abstract VisualEdge generateOpposedEdge();
 
 }

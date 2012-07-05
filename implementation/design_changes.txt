@@ -36,6 +36,8 @@
 
 == VisualEdge
 - added private attribute 'visible'
+- split draw() method
+- added generateOpposedEdge()
 
 == VisualVertex
 - added PIXELS_PER_SIDE

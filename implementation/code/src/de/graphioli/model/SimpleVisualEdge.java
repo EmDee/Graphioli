@@ -6,7 +6,7 @@ import java.awt.Graphics2D;
 import java.awt.Stroke;
 
 /**
- * This class cepresents a simple, undirected edge with a stroke color and weight.
+ * This class represents a simple, undirected edge with a stroke color and weight.
  * 
  * @author Team Graphioli
  * 
@@ -101,6 +101,17 @@ public class SimpleVisualEdge extends VisualEdge {
 	@Override
 	protected void onReload() {
 		this.edgeStroke = new BasicStroke(this.strokeWeight + 2);	
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public VisualEdge generateOpposedEdge() {
+		SimpleVisualEdge newEdge = new SimpleVisualEdge(this.getTargetVertex(), this.getOriginVertex());
+		newEdge.setStrokeColor(this.strokeColor);
+		newEdge.setStrokeWeight(this.strokeWeight);
+		return newEdge;
 	}
 
 
