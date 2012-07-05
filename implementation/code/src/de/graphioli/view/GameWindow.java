@@ -82,22 +82,13 @@ public class GameWindow extends JFrame implements View {
 	 * The {@link VisualGrid} associated with this {@link GameWindow}.
 	 */
 	private VisualGrid visualGrid;
-
+	
 	/**
-	 * Constructs a {@link GameWindow} including {@link GraphCanvas},
-	 * {@link StatusBar} and {@link MenuBar}.
-	 * 
-	 * @param viewManager
-	 *            the {@link ViewManager} this window is assigned to.
+	 * This windows KeyDispatcher
 	 */
-	public GameWindow(ViewManager viewManager) {
+	
+	private CustomKeyDispatcher dispatcher;
 
-		LOG.info("GameWindow instantiated.");
-		this.registerController(viewManager);
-
-		this.generateView();
-		this.addEventListeners();
-	}
 
 	/**
 	 * Registers a {@link ViewManager} as the controller for the user interface.
@@ -109,7 +100,11 @@ public class GameWindow extends JFrame implements View {
 	 */
 	@Override
 	public boolean registerController(ViewManager viewManager) {
+		LOG.info("Starting View.");
 		this.viewManager = viewManager;
+		
+		this.generateView();
+		this.addEventListeners();
 		return true;
 	}
 
@@ -158,7 +153,7 @@ public class GameWindow extends JFrame implements View {
 	    constraints.fill = GridBagConstraints.CENTER;
 	    gridBag.setConstraints(canvasContainer, constraints);
 		canvasContainer.setLayout(gridBag);
-		canvasContainer.add(graphCanvas);
+		canvasContainer.add(this.graphCanvas);
 		
 		// Add scroll pane
 		JScrollPane scrollPane = new JScrollPane(canvasContainer, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
@@ -174,7 +169,8 @@ public class GameWindow extends JFrame implements View {
 	private void addEventListeners() {
 		// Initialize CustomKeyDispatcher
 		KeyboardFocusManager manager = KeyboardFocusManager.getCurrentKeyboardFocusManager();
-		manager.addKeyEventDispatcher(new CustomKeyDispatcher(this));
+		this.dispatcher = new CustomKeyDispatcher(this);
+		manager.addKeyEventDispatcher(this.dispatcher);
 
 		// Add window listener for closing attempts
 		this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
@@ -286,7 +282,10 @@ public class GameWindow extends JFrame implements View {
 	 * @return {@code true} when closing was successful.
 	 */
 	public boolean closeView() {
-		// TODO implement
+		this.viewManager = null;
+		KeyboardFocusManager manager = KeyboardFocusManager.getCurrentKeyboardFocusManager();
+		manager.removeKeyEventDispatcher(this.dispatcher);
+		
 		this.dispose();
 		return true;
 	}
@@ -342,7 +341,6 @@ public class GameWindow extends JFrame implements View {
 
 		LOG.finer("GameWindow.<em>closeGame()</em> called.");
 		LOG.fine("Forwarding call to GameManager.");
-
 		// Forward call to GameManager
 		this.getViewManager().getGameManager().closeGame();
 

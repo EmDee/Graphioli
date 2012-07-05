@@ -43,7 +43,8 @@ public class ViewManager {
 		this.gameManager = gameManager;
 
 		// Instantiate view
-		this.view = new GameWindow(this);
+		this.view = new GameWindow();
+		this.view.registerController(this);
 	}
 
 	/**
