@@ -61,7 +61,7 @@ public abstract class VisualEdge extends Edge {
 	}
 	
 	/**
-	 * Draws this edge onto the given {@code Graphics2D} object.
+	 * Draws this edge as undirected edge onto the given {@code Graphics2D} object.
 	 * 
 	 * @param g2d the {@code Graphics2D} object to draw on.
 	 * @param originX the x coordinate of the origin vertex.
@@ -69,6 +69,17 @@ public abstract class VisualEdge extends Edge {
 	 * @param targetX the x coordinate of the target vertex.
 	 * @param targetY the y coordinate of the target vertex.
 	 */
-	public abstract void draw(Graphics2D g2d, int originX, int originY, int targetX, int targetY);
+	public abstract void drawUndirected(Graphics2D g2d, int originX, int originY, int targetX, int targetY);
+	
+	/**
+	 * Draws this edge as directed edge onto the given {@code Graphics2D} object.
+	 * 
+	 * @param g2d the {@code Graphics2D} object to draw on.
+	 * @param originX the x coordinate of the origin vertex.
+	 * @param originY the y coordinate of the origin vertex.
+	 * @param targetX the x coordinate of the target vertex.
+	 * @param targetY the y coordinate of the target vertex.
+	 */
+	public abstract void drawDirected(Graphics2D g2d, int originX, int originY, int targetX, int targetY);
 
 }

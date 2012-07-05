@@ -1,6 +1,7 @@
 package de.graphioli.view;
 
 import de.graphioli.model.Edge;
+import de.graphioli.model.GameBoard;
 import de.graphioli.model.Graph;
 import de.graphioli.model.Vertex;
 import de.graphioli.model.VisualEdge;
@@ -28,16 +29,11 @@ public class GraphCanvas extends JPanel {
 	 */
 	private static final Logger LOG = Logger.getLogger(GraphCanvas.class.getName());
 
-
 	/**
 	 * The stroke used for drawing the grid.
 	 */
 	private final Stroke gridStroke;
 
-	/**
-	 * The stroke used for drawing the edges.
-	 */
-	private Stroke edgeStroke;
 
 	/**
 	 * The parent {@link GameWindow} associated with this @ GraphCanvas}.
@@ -80,7 +76,8 @@ public class GraphCanvas extends JPanel {
 
 		Graphics2D g2d = (Graphics2D) g;
 
-		Graph graph = this.parentGameWindow.getViewManager().getGameManager().getGameBoard().getGraph();
+		GameBoard board = this.parentGameWindow.getViewManager().getGameManager().getGameBoard();
+		Graph graph = board.getGraph();
 
 		/*
 		 * visualGrid in GameWindow after Canvas initiated but paintComponent
@@ -95,13 +92,28 @@ public class GraphCanvas extends JPanel {
 		this.visualGrid.draw(g2d);
 
 		// Drawing edges of the graph from the canvas (PROTOTYPE)
-		for (Edge edge : graph.getEdges()) {
-			VisualVertex originVertex = (VisualVertex) edge.getOriginVertex();
-			VisualVertex targetVertex = (VisualVertex) edge.getTargetVertex();
+		if (board.isDirectedGraph()) {
+			// Draw directed
+			for (Edge edge : graph.getEdges()) {
+				VisualVertex originVertex = (VisualVertex) edge.getOriginVertex();
+				VisualVertex targetVertex = (VisualVertex) edge.getTargetVertex();
 
-			((VisualEdge) edge).draw(g2d, (originVertex.getGridPoint().getPositionX() + 1) * gridScale, (originVertex
-					.getGridPoint().getPositionY() + 1) * gridScale, (targetVertex.getGridPoint().getPositionX() + 1)
-					* gridScale, (targetVertex.getGridPoint().getPositionY() + 1) * gridScale);
+				((VisualEdge) edge).drawDirected(g2d, (originVertex.getGridPoint().getPositionX() + 1) * gridScale,
+						(originVertex.getGridPoint().getPositionY() + 1) * gridScale, (targetVertex.getGridPoint()
+								.getPositionX() + 1) * gridScale, (targetVertex.getGridPoint().getPositionY() + 1)
+								* gridScale);
+			}
+		} else {
+			// Draw Undirected
+			for (Edge edge : graph.getEdges()) {
+				VisualVertex originVertex = (VisualVertex) edge.getOriginVertex();
+				VisualVertex targetVertex = (VisualVertex) edge.getTargetVertex();
+
+				((VisualEdge) edge).drawDirected(g2d, (originVertex.getGridPoint().getPositionX() + 1) * gridScale,
+						(originVertex.getGridPoint().getPositionY() + 1) * gridScale, (targetVertex.getGridPoint()
+								.getPositionX() + 1) * gridScale, (targetVertex.getGridPoint().getPositionY() + 1)
+								* gridScale);
+			}
 		}
 
 		// Drawing vertices

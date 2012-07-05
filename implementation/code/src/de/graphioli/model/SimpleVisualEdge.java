@@ -37,11 +37,22 @@ public class SimpleVisualEdge extends VisualEdge {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public void draw(Graphics2D g2d, int originX, int originY, int targetX, int targetY) {
+	public void drawUndirected(Graphics2D g2d, int originX, int originY, int targetX, int targetY) {
 		if (this.isVisible()) {
 			g2d.setColor(this.strokeColor);
 			g2d.setStroke(this.edgeStroke);
 			g2d.drawLine(originX, originY, targetX, targetY);
+		}
+	}
+	
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public void drawDirected(Graphics2D g2d, int originX, int originY, int targetX, int targetY) {
+		if (this.isVisible()) {
+			this.drawUndirected(g2d, originX, originY, targetX, targetY);
+			// TODO: Arrow Head.
 		}
 	}
 
