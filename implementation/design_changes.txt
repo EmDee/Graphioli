@@ -1,8 +1,9 @@
 == Vertex ==
 - changed access modifiers of add and remove methods to default
 
-== Game
+== Game ==
 - added 'call' methods
+- added onGameSave and Load
 
 == Visual* ==
 - added reload methods

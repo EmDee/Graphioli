@@ -1,6 +1,7 @@
 package game;
 
 import java.awt.Color;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.logging.Logger;
 
@@ -29,7 +30,12 @@ public class GraphColoring extends Game {
 	public static final int CLRID_GREEN = 1;
 	public static final int CLRID_BLUE = 2;
 	public static final int CLRID_BLANK = -1;
-
+	
+	/*
+	 * Keys
+	 */
+	public static final int KEY_SELECTED = 0;
+	
 	/**
 	 * Number of colors used.
 	 */
@@ -99,6 +105,9 @@ public class GraphColoring extends Game {
 
 			this.getGameManager().getGameBoard().addVisualVertex(this.buttons[i]);
 		}
+		
+		this.selectedButton = this.buttons[0];
+		this.selectedButton.setHighlighted(true);
 
 		this.generateLevel();
 
@@ -110,12 +119,7 @@ public class GraphColoring extends Game {
 	 */
 	@Override
 	protected boolean onGameStart() {
-		this.singleplayer = this.getGameManager().getPlayerManager().getPlayers().size() == 1;
-
-		this.reloadLevel();
-		
-		this.selectedButton = this.buttons[0];
-		this.selectedButton.setHighlighted(true);
+		this.singleplayer = this.getGameManager().getPlayerManager().getPlayers().size() == 1;		
 
 		return true;
 	}
@@ -266,5 +270,25 @@ public class GraphColoring extends Game {
 		tmpBtns.toArray(this.buttons);
 		this.vertices = new GraphColoringVertex[tmpVtices.size()];
 		tmpVtices.toArray(this.vertices);
+	}
+	
+	@Override
+	protected boolean onGameLoad(HashMap<Integer, Object> customValues) {
+		this.reloadLevel();
+		Integer selection = (Integer) customValues.get(KEY_SELECTED);
+		for (int i = 0; i < this.buttons.length; i++) {
+			if (this.buttons[i].getColorID() == selection) {
+				this.buttons[i].setHighlighted(true);
+				this.selectedButton = this.buttons[i];
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	@Override
+	protected boolean onGameSave(HashMap<Integer, Object> customValues) {
+		customValues.put(KEY_SELECTED, this.selectedButton.getColorID());
+		return true;
 	}
 }

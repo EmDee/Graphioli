@@ -238,6 +238,7 @@ public class GameManager {
 
 		LOG.info("Loading savegame: " + savegame.getPath());
 
+		// Unserializing capsule
 		GameCapsule capsule;
 		try {
 			FileInputStream fis = new FileInputStream(savegame);
@@ -265,6 +266,7 @@ public class GameManager {
 			return true;
 		}
 
+		// Recreating game data
 		this.gameBoard = capsule.getBoard();
 		this.playerManager = new PlayerManager(capsule.getPlayers(), this);
 		this.playerManager.setActivePlayer(capsule.getActivePlayer());
@@ -277,8 +279,10 @@ public class GameManager {
 			((VisualEdge) egd).reload();
 		}
 
+		// Calling game
 		try {
-			game.callOnGameStart();
+			this.game.callOnGameLoad(capsule.getHashMap());
+			this.game.callOnGameStart();
 		} catch (TimeoutException e) {
 			this.viewManager.displayPopUp("Game timed out. Closing.");
 			this.closeGame();
@@ -302,7 +306,23 @@ public class GameManager {
 	 */
 	public boolean saveGame(File savegame) {
 		GameCapsule capsule = new GameCapsule(this.gameBoard, this.playerManager.getPlayers(),
-				this.playerManager.getActivePlayer(), this.currentGameDefinition);
+		this.playerManager.getActivePlayer(), this.currentGameDefinition);
+		
+		// Calling game
+		boolean success = false;;
+		try {
+			success = this.game.callOnGameSave(capsule.getHashMap());
+		} catch (TimeoutException e) {
+			this.viewManager.displayPopUp("Game timed out. Closing.");
+			this.closeGame();
+		}
+		
+		if (!success) {
+			this.viewManager.displayPopUp("Saving not supported by this game.");
+			return false;
+		}
+		
+		// Serializing GameCapsule
 		try {
 			FileOutputStream fos = new FileOutputStream(savegame);
 			ObjectOutputStream out = new ObjectOutputStream(fos);
@@ -319,6 +339,8 @@ public class GameManager {
 			e.printStackTrace();
 			return false;
 		}
+		
+		
 		return true;
 	}
 

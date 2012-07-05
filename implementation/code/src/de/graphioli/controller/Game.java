@@ -3,6 +3,7 @@ package de.graphioli.controller;
 import de.graphioli.model.GridPoint;
 import de.graphioli.model.VisualVertex;
 
+import java.util.HashMap;
 import java.util.concurrent.TimeoutException;
 import java.util.logging.Logger;
 
@@ -239,6 +240,80 @@ public abstract class Game {
 	 *         <code>false</code> otherwise
 	 */
 	protected boolean onKeyRelease(int keyCode) {
+		return false;
+	}
+	
+	/**
+	 * This method executes a {@code onGameLoad} call.
+	 * 
+	 * @param customValues the custom values.
+	 * @return the result of the {@link Game#onKeyRelease(int)} method.
+	 * @throws TimeoutException
+	 *             when the call does not return in time.
+	 */
+	final boolean callOnGameLoad(final HashMap<Integer, Object> customValues) throws TimeoutException {
+
+		Thread callThread = new Thread(new Runnable() {
+			public void run() {
+				callResult = onGameLoad(customValues);
+				callFinished = true;
+			}
+
+		});
+
+		LOG.finer("Executing onGameLoad");
+		if (!this.executeAndWaitForCall(callThread)) {
+			throw new TimeoutException("onGameLoad timed out.");
+		}
+		LOG.finer("onGameLoad returned in time.");
+		return callResult;
+	}
+
+	/**
+	 * Called after a savegame was loaded.
+	 * 
+	 * @param customValues the stored custom values.
+	 * @return <code>true</code> if the action was performed successfully,
+	 *         <code>false</code> otherwise
+	 */
+	protected boolean onGameLoad(HashMap<Integer, Object> customValues) {
+		return false;
+	}
+	
+	/**
+	 * This method executes a {@code onGameLoad} call.
+	 * 
+	 * @param customValues the custom values.
+	 * @return the result of the {@link Game#onKeyRelease(int)} method.
+	 * @throws TimeoutException
+	 *             when the call does not return in time.
+	 */
+	final boolean callOnGameSave(final HashMap<Integer, Object> customValues) throws TimeoutException {
+
+		Thread callThread = new Thread(new Runnable() {
+			public void run() {
+				callResult = onGameSave(customValues);
+				callFinished = true;
+			}
+
+		});
+
+		LOG.finer("Executing onGameSave");
+		if (!this.executeAndWaitForCall(callThread)) {
+			throw new TimeoutException("onGameSave timed out.");
+		}
+		LOG.finer("onGameSave returned in time.");
+		return callResult;
+	}
+
+	/**
+	 * Called before a savegame is stored.
+	 * 
+	 * @param customValues the custom values to be stored.
+	 * @return <code>true</code> if the action was performed successfully,
+	 *         <code>false</code> otherwise
+	 */
+	protected boolean onGameSave(HashMap<Integer, Object> customValues) {
 		return false;
 	}
 

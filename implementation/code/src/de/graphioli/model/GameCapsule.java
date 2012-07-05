@@ -2,6 +2,7 @@ package de.graphioli.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import de.graphioli.gameexplorer.GameDefinition;
 
@@ -22,17 +23,22 @@ public class GameCapsule implements Serializable {
 	/**
 	 * The players of the game to be saved.
 	 */
-	private final  ArrayList<Player> players;
+	private final ArrayList<Player> players;
 
 	/**
 	 * The currently active player
 	 */
 	private final Player activePlayer;
-	
+
 	/**
 	 * The game definition of the game to be saved.
 	 */
 	private final GameDefinition gameDef;
+
+	/**
+	 * A hash map for custom values.
+	 */
+	private final HashMap<Integer, Object> hashMap;
 
 	/**
 	 * Creates a new GameCapsule with the given parameters.
@@ -43,12 +49,15 @@ public class GameCapsule implements Serializable {
 	 *            the players of the game to be saved
 	 * @param activePlayer
 	 *            the currently active player
+	 * @param definition
+	 *            the game definition of the currently active game.
 	 */
 	public GameCapsule(GameBoard board, ArrayList<Player> players, Player activePlayer, GameDefinition definition) {
 		this.board = board;
 		this.players = players;
 		this.activePlayer = activePlayer;
 		this.gameDef = definition;
+		this.hashMap = new HashMap<Integer, Object>();
 	}
 
 	/**
@@ -77,7 +86,7 @@ public class GameCapsule implements Serializable {
 	public Player getActivePlayer() {
 		return this.activePlayer;
 	}
-	
+
 	/**
 	 * Returns the saved active {@link GameDefinition}.
 	 * 
@@ -85,5 +94,14 @@ public class GameCapsule implements Serializable {
 	 */
 	public GameDefinition getGameDefinition() {
 		return this.gameDef;
+	}
+
+	/**
+	 * Returns the saved active {@link GameDefinition}.
+	 * 
+	 * @return the saved active {@link GameDefinition}
+	 */
+	public HashMap<Integer, Object> getHashMap() {
+		return this.hashMap;
 	}
 }
