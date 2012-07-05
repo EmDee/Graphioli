@@ -17,6 +17,8 @@ public class SimpleVisualEdge extends VisualEdge {
 
 	private int strokeWeight;
 	private Color strokeColor;
+	
+	private static final int WIDTH_SCALE = Math.max(VisualVertex.PIXELS_PER_SIDE / 25, 1); 
 
 	/**
 	 * Creates a black, undirected edge between the given vertices.
@@ -30,7 +32,7 @@ public class SimpleVisualEdge extends VisualEdge {
 		super(vertexA, vertexB);
 		this.strokeColor = Color.BLACK;
 		this.strokeWeight = 1;
-		this.edgeStroke = new BasicStroke(this.strokeWeight + 2);
+		this.edgeStroke = new BasicStroke((this.strokeWeight + 2) * WIDTH_SCALE);
 	}
 
 	/**
@@ -73,7 +75,7 @@ public class SimpleVisualEdge extends VisualEdge {
 	 */
 	public void setStrokeWeight(int strokeWeight) {
 		this.strokeWeight = strokeWeight;
-		this.edgeStroke = new BasicStroke(this.strokeWeight + 2);
+		this.edgeStroke = new BasicStroke((this.strokeWeight + 2) * WIDTH_SCALE);
 	}
 
 	/**
@@ -100,7 +102,7 @@ public class SimpleVisualEdge extends VisualEdge {
 	 */
 	@Override
 	protected void onReload() {
-		this.edgeStroke = new BasicStroke(this.strokeWeight + 2);	
+		this.edgeStroke = new BasicStroke((this.strokeWeight + 2) * WIDTH_SCALE);	
 	}
 
 	/**
