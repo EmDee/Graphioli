@@ -4,6 +4,8 @@ import de.graphioli.controller.ViewManager;
 import de.graphioli.model.Player;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.KeyboardFocusManager;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -12,6 +14,7 @@ import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 
@@ -122,18 +125,8 @@ public class GameWindow extends JFrame implements View {
 		this.setJMenuBar(this.menuBar);
 
 		// Initialize and add GraphCanvas and ViusalGrid
-		this.graphCanvas = new GraphCanvas(this);
-
-		
-
-		JScrollPane scrollPane = new JScrollPane(graphCanvas, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
-				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-		this.add(scrollPane, BorderLayout.CENTER);
-
-		this.visualGrid = new VisualGrid(this.graphCanvas, this);
-		this.graphCanvas.addMouseListener(this.visualGrid);
-		
-		this.graphCanvas.setPreferredSize(visualGrid.calculateSize());
+		this.generateCanvas();
+			
 
 		// Initialize and add StatusBar
 		this.statusBar = new StatusBar();
@@ -145,6 +138,34 @@ public class GameWindow extends JFrame implements View {
 		this.setVisible(true);
 		// Center window
 		this.setLocationRelativeTo(null);
+	}
+	
+	/**
+	 * Generates the graph Canvas and its grid.
+	 */
+	private void generateCanvas() {
+		this.graphCanvas = new GraphCanvas(this);
+		this.visualGrid = new VisualGrid(this.graphCanvas, this);
+		Dimension gridSize = this.visualGrid.calculateSize();
+		this.graphCanvas.addMouseListener(this.visualGrid);
+		this.graphCanvas.setPreferredSize(gridSize);
+		
+		// Add container to make Canvas centered.
+		JPanel canvasContainer = new JPanel();
+		canvasContainer.setPreferredSize(gridSize);
+		GridBagLayout gridBag = new GridBagLayout();
+	    GridBagConstraints constraints = new GridBagConstraints();
+	    constraints.fill = GridBagConstraints.CENTER;
+	    gridBag.setConstraints(canvasContainer, constraints);
+		canvasContainer.setLayout(gridBag);
+		canvasContainer.add(graphCanvas);
+		
+		// Add scroll pane
+		JScrollPane scrollPane = new JScrollPane(canvasContainer, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
+				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		
+		
+		this.add(scrollPane, BorderLayout.CENTER);		
 	}
 
 	/**
