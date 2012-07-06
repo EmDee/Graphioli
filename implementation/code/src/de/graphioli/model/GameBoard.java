@@ -88,36 +88,30 @@ public class GameBoard implements Serializable {
 		return true;
 	}
 
-	/**
-	 * Creates the {@link VisualEdge} with the given vertices and adds it to the
-	 * {@link Graph} and the {@link Grid}.
-	 * 
-	 * @param vertexA
-	 *            one of the the vertices for the VisualEdge
-	 * @param vertexB
-	 *            the other vertex for the VisualEdge
-	 * @return the created {@link VisualEdge}
-	 */
-	public VisualEdge addVisualEdge(VisualVertex vertexA, VisualVertex vertexB) {
-		SimpleVisualEdge edgeToAdd = new SimpleVisualEdge(vertexA, vertexB);
-		if (this.graph.addEdge(edgeToAdd)) {
+	public boolean addVisualEdge(VisualEdge vEdge) {
+		if (this.graph.addEdge(vEdge)) {
 			if (!this.isDirectedGraph) {
-				SimpleVisualEdge twinEdgeToAdd = new SimpleVisualEdge(vertexB, vertexA);
-				twinEdgeToAdd.setVisible(false);
-				if (this.graph.addEdge(twinEdgeToAdd)) {
-					return edgeToAdd;
-				} else {
-					this.graph.removeEdge(edgeToAdd);
-					return null;
+				// Undirected
+				VisualEdge twinEdgeToAdd = vEdge.generateOpposedEdge();
+				twinEdgeToAdd.setHasOpposingEdge(false);
+				twinEdgeToAdd.setIsOpposingEdge(true);
+				vEdge.setHasOpposingEdge(true);
+				vEdge.setIsOpposingEdge(false);
+				if (!this.graph.addEdge(twinEdgeToAdd)) {
+					LOG.severe("Adding opposing edge failed. Graph inconsistent.");
+					return false;
 				}
+			} else {
+
 			}
-			return edgeToAdd;
+			return true;
+		} else {
+			return false;
 		}
-		return null;
 	}
 
 	/**
-	 * Removes the {@link VisualVertex} from the the {@link Graph} and the
+	 * Removes the {@link VisualVertex} from the {@link Graph} and the
 	 * {@link Grid}.
 	 * 
 	 * @param visualVertex
@@ -147,12 +141,24 @@ public class GameBoard implements Serializable {
 	public boolean removeVisualEdge(VisualEdge visualEdge) {
 		if (this.graph.removeEdge(visualEdge)) {
 			if (!this.isDirectedGraph) {
+				// Undirected
 				Edge twinEdge = this.graph.getEdge(visualEdge.getTargetVertex(), visualEdge.getOriginVertex());
 				if (this.graph.removeEdge(twinEdge)) {
 					return true;
 				} else {
 					this.graph.addEdge(visualEdge);
 					return false;
+				}
+			} else {
+				if (visualEdge.hasOpposingEdge()) {
+					VisualEdge twinEdge = (VisualEdge) this.graph.getEdge(visualEdge.getTargetVertex(),
+							visualEdge.getOriginVertex());
+					twinEdge.setIsOpposingEdge(false);
+				}
+				if (visualEdge.isOpposingEdge()) {
+					VisualEdge twinEdge = (VisualEdge) this.graph.getEdge(visualEdge.getTargetVertex(),
+							visualEdge.getOriginVertex());
+					twinEdge.setHasOpposingEdge(false);
 				}
 			}
 			return true;
@@ -162,19 +168,19 @@ public class GameBoard implements Serializable {
 
 	/**
 	 * Returns the {@link VisualEdge} with vertexA as origin and vertexB as
-	 * target vertex In an undirected graph, it returns visible one of the twin
-	 * edges.
+	 * target vertex In an undirected graph, it returns the one which is not flagged
+	 * eas opposing.
 	 * 
 	 * @param vertexA
 	 *            the origin vertex of the edge to get
 	 * @param vertexB
 	 *            the target vertex of the edge to get
 	 * @return the edge from vertexA to vertexB (resp. in an undirected graph,
-	 *         the visible one of the twin edges
+	 *         the not-opposing one.
 	 */
 	public VisualEdge getVisualEdge(VisualVertex vertexA, VisualVertex vertexB) {
 		VisualEdge edge = (VisualEdge) this.graph.getEdge(vertexA, vertexB);
-		if (edge.isVisible()) {
+		if (this.isDirectedGraph || !edge.isOpposingEdge()) {
 			return edge;
 		} else {
 			return (VisualEdge) this.graph.getEdge(vertexB, vertexA);

@@ -23,13 +23,13 @@ public class SimpleVisualEdge extends VisualEdge {
 	/**
 	 * Creates a black, undirected edge between the given vertices.
 	 * 
-	 * @param vertexA
-	 *            the origin vertex.
-	 * @param vertexB
-	 *            the target vertex.
+	 * @param VisualVertexA
+	 *            the origin VisualVertex.
+	 * @param VisualVertexB
+	 *            the target VisualVertex.
 	 */
-	public SimpleVisualEdge(Vertex vertexA, Vertex vertexB) {
-		super(vertexA, vertexB);
+	public SimpleVisualEdge(VisualVertex VisualVertexA, VisualVertex VisualVertexB) {
+		super(VisualVertexA, VisualVertexB);
 		this.strokeColor = Color.BLACK;
 		this.strokeWeight = 1;
 		this.edgeStroke = new BasicStroke((this.strokeWeight + 2) * WIDTH_SCALE);
@@ -40,7 +40,7 @@ public class SimpleVisualEdge extends VisualEdge {
 	 */
 	@Override
 	public void drawUndirected(Graphics2D g2d, int originX, int originY, int targetX, int targetY) {
-		if (this.isVisible()) {
+		if (!this.isOpposingEdge()) {
 			g2d.setColor(this.strokeColor);
 			g2d.setStroke(this.edgeStroke);
 			g2d.drawLine(originX, originY, targetX, targetY);
@@ -52,7 +52,6 @@ public class SimpleVisualEdge extends VisualEdge {
 	 */
 	@Override
 	public void drawDirected(Graphics2D g2d, int originX, int originY, int targetX, int targetY) {
-		if (this.isVisible()) {
 			this.drawUndirected(g2d, originX, originY, targetX, targetY);
 			
 			int arrowEndLength = 10;
@@ -85,7 +84,6 @@ public class SimpleVisualEdge extends VisualEdge {
 			
 			g2d.drawLine(originArrowX, originArrowY, targetArrowXOne, targetArrowYOne);
 			g2d.drawLine(originArrowX, originArrowY, targetArrowXTwo, targetArrowYTwo);
-		}
 	}
 
 	/**

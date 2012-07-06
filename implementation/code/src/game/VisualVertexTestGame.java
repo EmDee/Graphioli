@@ -35,7 +35,7 @@ public class VisualVertexTestGame extends Game {
 		SimpleVisualVertex vex = (SimpleVisualVertex) vertex;
 		if (vex.getFillColor() == Color.BLUE) {
 			if ((this.firstSelectedVisualVertex != null) && (this.firstSelectedVisualVertex != vex)) {
-				this.getGameManager().getGameBoard().addVisualEdge(firstSelectedVisualVertex, vex);
+				this.getGameManager().getGameBoard().addVisualEdge(new SimpleVisualEdge(firstSelectedVisualVertex, vex));
 			}
 			this.firstSelectedVisualVertex = vex;
 			return true;
@@ -80,7 +80,7 @@ public class VisualVertexTestGame extends Game {
 		simpleVisualVertecies.add(simpleVisualVertexB);
 
 		this.getGameManager().getGameBoard().addVisualVertices(simpleVisualVertecies);
-		this.getGameManager().getGameBoard().addVisualEdge(simpleVisualVertexA, simpleVisualVertexB);
+		this.getGameManager().getGameBoard().addVisualEdge(new SimpleVisualEdge(simpleVisualVertexA, simpleVisualVertexB));
 
 		return true;
 	}

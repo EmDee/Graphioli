@@ -109,7 +109,7 @@ public class GraphCanvas extends JPanel {
 				VisualVertex originVertex = (VisualVertex) edge.getOriginVertex();
 				VisualVertex targetVertex = (VisualVertex) edge.getTargetVertex();
 
-				((VisualEdge) edge).drawDirected(g2d, (originVertex.getGridPoint().getPositionX() + 1) * gridScale,
+				((VisualEdge) edge).drawUndirected(g2d, (originVertex.getGridPoint().getPositionX() + 1) * gridScale,
 						(originVertex.getGridPoint().getPositionY() + 1) * gridScale, (targetVertex.getGridPoint()
 								.getPositionX() + 1) * gridScale, (targetVertex.getGridPoint().getPositionY() + 1)
 								* gridScale);

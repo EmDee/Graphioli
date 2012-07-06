@@ -1,6 +1,7 @@
 package game;
 
 import java.awt.Color;
+import java.util.HashMap;
 
 import de.graphioli.algorithms.FindPath;
 import de.graphioli.algorithms.PlanarityCheck;
@@ -35,69 +36,86 @@ public class TwixT extends Game {
 	@Override
 	protected boolean onVertexClick(VisualVertex vertex) {
 		TwixTVertex vex = (TwixTVertex) vertex;
-		if (vex.getPlayer() == this.playerManager.getActivePlayer()) {
-			if (this.originVertex != null) {
-				if (this.originVertex == vex) {
-					this.getGameManager().getViewManager().displayErrorMessage("Place your tower or wall");
+
+		if (vex.getPlayer() != this.playerManager.getActivePlayer()) {
+			// Tower not belonging to active player.
+			this.originVertex = null;
+			this.getGameManager().getViewManager().displayErrorMessage("Can't select the tower of your enemy");
+			return true;
+		}
+
+		if (this.originVertex == null) {
+			// First tower selected.
+			this.originVertex = vex;
+			this.getGameManager().getViewManager().displayErrorMessage("Select a second tower to place a wall");
+			return true;
+		}
+
+		if (this.originVertex == vex) {
+			// Undo selection
+			this.getGameManager().getViewManager().displayErrorMessage("Place your tower or wall");
+			this.originVertex = null;
+			return true;
+		}
+
+		if (this.checkEdgeBuild(vex)) {
+			SimpleVisualEdge edge = new SimpleVisualEdge(this.originVertex, vex);
+			Graph graph = this.board.getGraph();
+			if (PlanarityCheck.performAlgorithm(graph, edge)) {
+				edge = new SimpleVisualEdge(originVertex, vex);
+				if (!this.board.addVisualEdge(edge)) {
+					this.getGameManager().getViewManager().displayErrorMessage("There already is a wall.");
 					this.originVertex = null;
 					return true;
 				}
-				if (this.checkEdgeBuild(vex)) {
-					SimpleVisualEdge edge = new SimpleVisualEdge(this.originVertex, vex);
-					Graph graph = this.board.getGraph();
-					if (PlanarityCheck.performAlgorithm(graph, edge)) {
-						edge = (SimpleVisualEdge) this.board.addVisualEdge(originVertex, vex);
-						if (playerOne == this.playerManager.getActivePlayer()) {
-							edge.setStrokeColor(this.playerOneColor);
-							// Checks if Player One has a path connecting his two sides
-							for (TwixTVertex vertexA : startVerticesOne) {
-								for (TwixTVertex vertexB : endVerticesOne) {
-									if (FindPath.performAlgorithm(graph, vertexA, vertexB)) {
-										this.playerManager.setActivePlayerAsWinning();
-										this.getGameManager().finishGame();
-										return true;
-									}
-								}
-							}
-						} else {
-							edge.setStrokeColor(this.playerTwoColor);
-							// Checks if Player Two has a path connecting his two sides
-							for (TwixTVertex vertexA : startVerticesTwo) {
-								for (TwixTVertex vertexB : endVerticesTwo) {
-									if (FindPath.performAlgorithm(graph, vertexA, vertexB)) {
-										this.playerManager.setActivePlayerAsWinning();
-										this.getGameManager().finishGame();
-										return true;
-									}
-								}
+				if (playerOne == this.playerManager.getActivePlayer()) {
+					edge.setStrokeColor(this.playerOneColor);
+					// Checks if Player One has a path connecting his two
+					// sides
+					for (TwixTVertex vertexA : startVerticesOne) {
+						for (TwixTVertex vertexB : endVerticesOne) {
+							if (FindPath.performAlgorithm(graph, vertexA, vertexB)) {
+								this.playerManager.setActivePlayerAsWinning();
+								this.getGameManager().finishGame();
+								return true;
 							}
 						}
-						this.getGameManager().getViewManager().displayErrorMessage("Place your tower or wall");
-						this.originVertex = null;
-						this.playerManager.nextPlayer();
-						return true;
-					} else {
-						this.originVertex = null;
-						this.getGameManager().getViewManager().displayErrorMessage("Walls can't intersect");
 					}
 				} else {
-					this.originVertex =  null;
-					this.getGameManager().getViewManager().displayErrorMessage("You can't place a wall here");
+					edge.setStrokeColor(this.playerTwoColor);
+					// Checks if Player Two has a path connecting his two
+					// sides
+					for (TwixTVertex vertexA : startVerticesTwo) {
+						for (TwixTVertex vertexB : endVerticesTwo) {
+							if (FindPath.performAlgorithm(graph, vertexA, vertexB)) {
+								this.playerManager.setActivePlayerAsWinning();
+								this.getGameManager().finishGame();
+								return true;
+							}
+						}
+					}
 				}
+				this.getGameManager().getViewManager().displayErrorMessage("Place your tower or wall");
+				this.originVertex = null;
+				this.playerManager.nextPlayer();
+				return true;
 			} else {
-				this.originVertex = vex;
-				this.getGameManager().getViewManager().displayErrorMessage("Select a second tower to place a wall");
+				this.originVertex = null;
+				this.getGameManager().getViewManager().displayErrorMessage("Walls can't intersect");
 			}
 		} else {
 			this.originVertex = null;
-			this.getGameManager().getViewManager().displayErrorMessage("Can't select the tower of your enemy");
+			this.getGameManager().getViewManager().displayErrorMessage("You can't place a wall here");
 		}
+
 		return true;
 	}
 
 	@Override
 	protected boolean onEmptyGridPointClick(GridPoint gridPoint) {
-		if (gridPoint.getPositionX() > 0 && gridPoint.getPositionX() < this.gridSize && gridPoint.getPositionY() > 0
+		if (gridPoint.getPositionX() > 0
+				&& gridPoint.getPositionX() < this.gridSize
+				&& gridPoint.getPositionY() > 0
 				&& gridPoint.getPositionY() < this.gridSize) {
 			TwixTVertex addVertex = new TwixTVertex(gridPoint);
 			addVertex.setPlayer(this.playerManager.getActivePlayer());
@@ -112,16 +130,9 @@ public class TwixT extends Game {
 
 	@Override
 	protected boolean onGameInit() {
-		this.playerManager = this.getGameManager().getPlayerManager();
-		playerOne = this.playerManager.getPlayers().get(0);
-		playerTwo = this.playerManager.getPlayers().get(1);
-		this.board = this.getGameManager().getGameBoard();
-		// angenommen horizontal grid points = vertical
-		this.gridSize = this.board.getGrid().getHorizontalGridPoints();
-		this.startVerticesOne = new TwixTVertex[this.gridSize];
-		this.endVerticesOne = new TwixTVertex[this.gridSize];
-		this.startVerticesTwo = new TwixTVertex[this.gridSize];
-		this.endVerticesTwo = new TwixTVertex[this.gridSize];
+		
+		this.initFields();
+		
 		
 		// Create board
 		GridPoint tmpGridPoint;
@@ -151,26 +162,21 @@ public class TwixT extends Game {
 			this.endVerticesTwo[i - 1] = tmpVertex;
 			this.board.addVisualVertex(tmpVertex);
 		}
-		
+
 		return true;
 	}
 
 	@Override
 	protected boolean onGameStart() {
-		this.playerManager = this.getGameManager().getPlayerManager();
-		playerOne = this.playerManager.getPlayers().get(0);
-		playerTwo = this.playerManager.getPlayers().get(1);
-		this.board = this.getGameManager().getGameBoard();
 		
-		// angenommen horizontal grid points = vertical
-		this.gridSize = this.board.getGrid().getHorizontalGridPoints();
+		return true;
+	}
+
+	@Override
+	protected boolean onGameLoad(HashMap<Integer, Object> customValues) {
+		this.initFields();
 		
 		// Recreating Arrays
-		this.startVerticesOne = new TwixTVertex[this.gridSize];
-		this.endVerticesOne = new TwixTVertex[this.gridSize];
-		this.startVerticesTwo = new TwixTVertex[this.gridSize];
-		this.endVerticesTwo = new TwixTVertex[this.gridSize];
-		
 		GridPoint tmpGridPoint;
 		TwixTVertex tmpVertex;
 		for (int i = 1; i < this.gridSize - 1; i++) {
@@ -194,7 +200,24 @@ public class TwixT extends Game {
 		for (Vertex vtex : board.getGraph().getVertices()) {
 			((TwixTVertex) vtex).reload();
 		}
+
 		return true;
+	}
+	
+	private void initFields() {
+		this.playerManager = this.getGameManager().getPlayerManager();
+		playerOne = this.playerManager.getPlayers().get(0);
+		playerTwo = this.playerManager.getPlayers().get(1);
+		this.board = this.getGameManager().getGameBoard();
+
+		this.gridSize = Math.min(this.board.getGrid().getHorizontalGridPoints(), this.board.getGrid()
+				.getVerticalGridPoints());
+		
+		this.startVerticesOne = new TwixTVertex[this.gridSize];
+		this.endVerticesOne = new TwixTVertex[this.gridSize];
+		this.startVerticesTwo = new TwixTVertex[this.gridSize];
+		this.endVerticesTwo = new TwixTVertex[this.gridSize];
+
 	}
 
 	/**
@@ -210,6 +233,11 @@ public class TwixT extends Game {
 		int y2 = targetVertex.getGridPoint().getPositionY();
 
 		return ((Math.abs(x1 - x2) == 2 && Math.abs(y1 - y2) == 1) || (Math.abs(x1 - x2) == 1 && Math.abs(y1 - y2) == 2));
+	}
+	
+	@Override
+	protected boolean onGameSave(HashMap<Integer, Object> customValues) {
+		return true;
 	}
 
 }

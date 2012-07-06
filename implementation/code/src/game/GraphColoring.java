@@ -138,9 +138,9 @@ public class GraphColoring extends Game {
 		}
 
 		for (int i = 0; i < 4; i++) {
-			mBoard.addVisualEdge(this.vertices[i], this.vertices[(i + 1) % 4]);
+			mBoard.addVisualEdge(new SimpleVisualEdge(this.vertices[i], this.vertices[(i + 1) % 4]));
 		}
-		mBoard.addVisualEdge(this.vertices[0], this.vertices[2]);
+		mBoard.addVisualEdge(new SimpleVisualEdge(this.vertices[0], this.vertices[2]));
 
 	}
 
