@@ -54,7 +54,37 @@ public class SimpleVisualEdge extends VisualEdge {
 	public void drawDirected(Graphics2D g2d, int originX, int originY, int targetX, int targetY) {
 		if (this.isVisible()) {
 			this.drawUndirected(g2d, originX, originY, targetX, targetY);
-			// TODO: Arrow Head.
+			
+			int arrowEndLength = 10;
+			
+			int distanceX = targetX - originX;
+			int distanceY = targetY - originY;
+			double winkelArrowOne;
+			double winkelArrowTwo;
+			double steigungswinkel;
+			steigungswinkel = Math.atan2(distanceY, distanceX);
+			winkelArrowOne = steigungswinkel + 5 * Math.PI / 4;
+			winkelArrowTwo = steigungswinkel - 5 * Math.PI / 4;
+
+			// for both arrows 
+			double arrowLength = Math.sqrt(distanceX * distanceX + distanceY * distanceY) - VisualVertex.PIXELS_PER_SIDE / 2;
+
+			int originArrowX = (int) Math.round(((Math.cos(steigungswinkel) * arrowLength + originX)));
+			int originArrowY = (int) Math.round(((Math.sin(steigungswinkel) * arrowLength + originY)));
+			
+			// for arrow one
+			int targetArrowXOne = (int) Math.round((Math.cos(winkelArrowOne) * arrowEndLength));
+			targetArrowXOne += originArrowX;
+			int targetArrowYOne = (int) Math.round((Math.sin(winkelArrowOne) * arrowEndLength));
+			targetArrowYOne += originArrowY;
+			// for arrow two
+			int targetArrowXTwo = (int) Math.round((Math.cos(winkelArrowTwo) * arrowEndLength));
+			targetArrowXTwo += originArrowX;
+			int targetArrowYTwo = (int) Math.round((Math.sin(winkelArrowTwo) * arrowEndLength));
+			targetArrowYTwo += originArrowY;
+			
+			g2d.drawLine(originArrowX, originArrowY, targetArrowXOne, targetArrowYOne);
+			g2d.drawLine(originArrowX, originArrowY, targetArrowXTwo, targetArrowYTwo);
 		}
 	}
 
