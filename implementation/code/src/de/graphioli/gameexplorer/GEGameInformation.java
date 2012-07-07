@@ -161,11 +161,12 @@ public class GEGameInformation extends JPanel {
 		}
 
 		// Display screenshot
+		this.screenshotLabel.setText("");
 		this.screenshotLabel.setIcon(screenshot);
 		this.screenshotLabel.revalidate();
 
 		LOG.fine("Display of screenshot updated.");
-		return false;
+		return true;
 
 	}
 
