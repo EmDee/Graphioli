@@ -36,9 +36,10 @@
 - changed signature of addEdge
 
 == VisualEdge
-- added private attribute 'visible'
 - split draw() method
 - added generateOpposedEdge()
+- added isOpposingEdge and hasOpposingEdge fields
+- added 'call' methods
 
 == VisualVertex
 - added PIXELS_PER_SIDE

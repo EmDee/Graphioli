@@ -21,13 +21,13 @@ public abstract class VisualEdge extends Edge {
 	/**
 	 * Creates a new VisualEdge between the given vertices.
 	 * 
-	 * @param VisualVertexA
+	 * @param originVertex
 	 *            the origin VisualVertex
-	 * @param VisualVertexB
+	 * @param targetVertex
 	 *            the target VisualVertex
 	 */
-	public VisualEdge(VisualVertex VisualVertexA, VisualVertex VisualVertexB) {
-		super(VisualVertexA, VisualVertexB);
+	public VisualEdge(VisualVertex originVertex, VisualVertex targetVertex) {
+		super(originVertex, targetVertex);
 		this.hasOpposingEdge = false;
 		this.isOpposingEdge = false;
 	}
@@ -42,7 +42,7 @@ public abstract class VisualEdge extends Edge {
 	/**
 	 * Implement this method to recreates the fields, that are not serialized.
 	 */
-	abstract protected void onReload();
+	protected abstract void onReload();
 
 	/**
 	 * Draws this edge as undirected edge onto the given {@code Graphics2D}
@@ -86,6 +86,22 @@ public abstract class VisualEdge extends Edge {
 	 */
 	public abstract VisualEdge generateOpposedEdge();
 
+	/**
+	 * Calculates an offset for the edge and then calls {@link VisualEdge#drawDirected(Graphics2D, int, int, int, int)
+	 * with the adapted coordinates.
+	 * 
+	 * @param g2d
+	 *            the {@code Graphics2D} object to draw on.
+	 * @param originX
+	 *            the x coordinate of the origin VisualVertex.
+	 * @param originY
+	 *            the y coordinate of the origin VisualVertex.
+	 * @param targetX
+	 *            the x coordinate of the target VisualVertex.
+	 * @param targetY
+	 *            the y coordinate of the target VisualVertex.
+	 * @param offset the offset
+	 */
 	public final void callDrawDirected(Graphics2D g2d, int originX, int originY, int targetX, int targetY, int offset) {
 
 		double xOffset = 0;
@@ -114,33 +130,76 @@ public abstract class VisualEdge extends Edge {
 
 	}
 
+	/**
+	 * Calls {@link VisualEdge#drawUndirected(Graphics2D, int, int, int, int)}
+	 * if this edge is not flagged as an opposing edge.
+	 * 
+	 * @param g2d
+	 *            the {@code Graphics2D} object to draw on.
+	 * @param originX
+	 *            the x coordinate of the origin VisualVertex.
+	 * @param originY
+	 *            the y coordinate of the origin VisualVertex.
+	 * @param targetX
+	 *            the x coordinate of the target VisualVertex.
+	 * @param targetY
+	 *            the y coordinate of the target VisualVertex.
+	 */
 	public final void callDrawUndirected(Graphics2D g2d, int originX, int originY, int targetX, int targetY) {
 		if (!this.isOpposingEdge) {
 			this.drawUndirected(g2d, originX, originY, targetX, targetY);
 		}
 	}
 
+	/**
+	 * Returns {@code true} if this edge has an opposing edge.
+	 * 
+	 * @return {@code true} if this edge has an opposing edge.
+	 */
 	public boolean hasOpposingEdge() {
-		return hasOpposingEdge;
+		return this.hasOpposingEdge;
 	}
 
+	/**
+	 * Sets whether this edge has an opposing edge.
+	 * 
+	 * @param hasOpposingEdge
+	 *            whether this edge has an opposing edge.
+	 */
 	void setHasOpposingEdge(boolean hasOpposingEdge) {
 		this.hasOpposingEdge = hasOpposingEdge;
 	}
 
+	/**
+	 * Returns {@code true} if this edge is a opposing edge.
+	 * 
+	 * @return {@code true} if this edge is a opposing edge.
+	 */
 	public boolean isOpposingEdge() {
-		return isOpposingEdge;
+		return this.isOpposingEdge;
 	}
 
+	/**
+	 * Sets whether this edge is an opposing edge.
+	 * 
+	 * @param isOpposingEdge
+	 *            whether this edge is an opposing edge.
+	 */
 	void setIsOpposingEdge(boolean isOpposingEdge) {
 		this.isOpposingEdge = isOpposingEdge;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public VisualVertex getOriginVertex() {
 		return (VisualVertex) super.getOriginVertex();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public VisualVertex getTargetVertex() {
 		return (VisualVertex) super.getTargetVertex();

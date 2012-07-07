@@ -88,6 +88,16 @@ public class GameBoard implements Serializable {
 		return true;
 	}
 
+	/**
+	 * Adds the given {@link VisualEdge} to the board. If the used graph is
+	 * undirected the opposing edge is also added. If there already is an edge
+	 * present connecting the two vertices, {@code false} is returned.
+	 * 
+	 * @param vEdge
+	 *            the visual edge to add
+	 * @return {@code true} when successful.
+	 */
+
 	public boolean addVisualEdge(VisualEdge vEdge) {
 		if (this.graph.addEdge(vEdge)) {
 			if (!this.isDirectedGraph) {
