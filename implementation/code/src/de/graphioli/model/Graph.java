@@ -95,14 +95,14 @@ public class Graph implements Serializable {
 
 			// Remove edges connected to it
 			for (Edge edge : vertex.getIncomingEdges()) {
-				if (!this.edgeList.remove(edge)) {
-					LOG.severe("Graph inconsistency in removeVertex method!");
+				if (!this.edgeList.remove(edge) | !edge.getOriginVertex().removeOutgoingEdge(edge)) {
+					LOG.severe("Graph inconsistency in removeVertex method! (Incoming edge already removed)");
 				}
 			}
 
 			for (Edge edge : vertex.getOutgoingEdges()) {
-				if (!this.edgeList.remove(edge)) {
-					LOG.severe("Graph inconsistency in removeVertex method!");
+				if (!this.edgeList.remove(edge) | !edge.getTargetVertex().removeIncomingEdge(edge)) {
+					LOG.severe("Graph inconsistency in removeVertex method! (Outgoing edge already removed)");
 				}
 			}
 
@@ -127,7 +127,7 @@ public class Graph implements Serializable {
 		} else {
 			this.edgeList.remove(index);
 
-			if (!edge.getOriginVertex().removeOutgoingEdge(edge) || !edge.getTargetVertex().removeIncomingEdge(edge)) {
+			if (!edge.getOriginVertex().removeOutgoingEdge(edge) | !edge.getTargetVertex().removeIncomingEdge(edge)) {
 				LOG.severe("Graph inconsistency in removeEdge method!");
 			}
 			return true;
