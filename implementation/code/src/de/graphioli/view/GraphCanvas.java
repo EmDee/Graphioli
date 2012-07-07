@@ -98,10 +98,10 @@ public class GraphCanvas extends JPanel {
 				VisualVertex originVertex = (VisualVertex) edge.getOriginVertex();
 				VisualVertex targetVertex = (VisualVertex) edge.getTargetVertex();
 
-				((VisualEdge) edge).drawDirected(g2d, (originVertex.getGridPoint().getPositionX() + 1) * gridScale,
+				((VisualEdge) edge).callDrawDirected(g2d, (originVertex.getGridPoint().getPositionX() + 1) * gridScale,
 						(originVertex.getGridPoint().getPositionY() + 1) * gridScale, (targetVertex.getGridPoint()
 								.getPositionX() + 1) * gridScale, (targetVertex.getGridPoint().getPositionY() + 1)
-								* gridScale);
+								* gridScale, VisualVertex.PIXELS_PER_SIDE / 4);
 			}
 		} else {
 			// Draw Undirected
@@ -109,7 +109,7 @@ public class GraphCanvas extends JPanel {
 				VisualVertex originVertex = (VisualVertex) edge.getOriginVertex();
 				VisualVertex targetVertex = (VisualVertex) edge.getTargetVertex();
 
-				((VisualEdge) edge).drawUndirected(g2d, (originVertex.getGridPoint().getPositionX() + 1) * gridScale,
+				((VisualEdge) edge).callDrawUndirected(g2d, (originVertex.getGridPoint().getPositionX() + 1) * gridScale,
 						(originVertex.getGridPoint().getPositionY() + 1) * gridScale, (targetVertex.getGridPoint()
 								.getPositionX() + 1) * gridScale, (targetVertex.getGridPoint().getPositionY() + 1)
 								* gridScale);

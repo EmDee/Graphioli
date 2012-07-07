@@ -40,11 +40,9 @@ public class SimpleVisualEdge extends VisualEdge {
 	 */
 	@Override
 	public void drawUndirected(Graphics2D g2d, int originX, int originY, int targetX, int targetY) {
-		if (!this.isOpposingEdge()) {
-			g2d.setColor(this.strokeColor);
-			g2d.setStroke(this.edgeStroke);
-			g2d.drawLine(originX, originY, targetX, targetY);
-		}
+		g2d.setColor(this.strokeColor);
+		g2d.setStroke(this.edgeStroke);
+		g2d.drawLine(originX, originY, targetX, targetY);
 	}
 	
 	/**
@@ -53,37 +51,41 @@ public class SimpleVisualEdge extends VisualEdge {
 	@Override
 	public void drawDirected(Graphics2D g2d, int originX, int originY, int targetX, int targetY) {
 			this.drawUndirected(g2d, originX, originY, targetX, targetY);
-			
-			int arrowEndLength = 10;
-			
-			int distanceX = targetX - originX;
-			int distanceY = targetY - originY;
-			double winkelArrowOne;
-			double winkelArrowTwo;
-			double steigungswinkel;
-			steigungswinkel = Math.atan2(distanceY, distanceX);
-			winkelArrowOne = steigungswinkel + 5 * Math.PI / 4;
-			winkelArrowTwo = steigungswinkel - 5 * Math.PI / 4;
+			this.drawArrowHead(g2d, originX, originY, targetX, targetY);			
+	}
+	
+	
+	private void drawArrowHead(Graphics2D g2d, int originX, int originY, int targetX, int targetY) {
+		int arrowEndLength = 10;
+		
+		int distanceX = targetX - originX;
+		int distanceY = targetY - originY;
+		double winkelArrowOne;
+		double winkelArrowTwo;
+		double steigungswinkel;
+		steigungswinkel = Math.atan2(distanceY, distanceX);
+		winkelArrowOne = steigungswinkel + 5 * Math.PI / 4;
+		winkelArrowTwo = steigungswinkel - 5 * Math.PI / 4;
 
-			// for both arrows 
-			double arrowLength = Math.sqrt(distanceX * distanceX + distanceY * distanceY) - VisualVertex.PIXELS_PER_SIDE / 2;
+		// for both arrows 
+		double arrowLength = Math.sqrt(distanceX * distanceX + distanceY * distanceY) - VisualVertex.PIXELS_PER_SIDE / 2;
 
-			int originArrowX = (int) Math.round(((Math.cos(steigungswinkel) * arrowLength + originX)));
-			int originArrowY = (int) Math.round(((Math.sin(steigungswinkel) * arrowLength + originY)));
-			
-			// for arrow one
-			int targetArrowXOne = (int) Math.round((Math.cos(winkelArrowOne) * arrowEndLength));
-			targetArrowXOne += originArrowX;
-			int targetArrowYOne = (int) Math.round((Math.sin(winkelArrowOne) * arrowEndLength));
-			targetArrowYOne += originArrowY;
-			// for arrow two
-			int targetArrowXTwo = (int) Math.round((Math.cos(winkelArrowTwo) * arrowEndLength));
-			targetArrowXTwo += originArrowX;
-			int targetArrowYTwo = (int) Math.round((Math.sin(winkelArrowTwo) * arrowEndLength));
-			targetArrowYTwo += originArrowY;
-			
-			g2d.drawLine(originArrowX, originArrowY, targetArrowXOne, targetArrowYOne);
-			g2d.drawLine(originArrowX, originArrowY, targetArrowXTwo, targetArrowYTwo);
+		int originArrowX = (int) Math.round(((Math.cos(steigungswinkel) * arrowLength + originX)));
+		int originArrowY = (int) Math.round(((Math.sin(steigungswinkel) * arrowLength + originY)));
+		
+		// for arrow one
+		int targetArrowXOne = (int) Math.round((Math.cos(winkelArrowOne) * arrowEndLength));
+		targetArrowXOne += originArrowX;
+		int targetArrowYOne = (int) Math.round((Math.sin(winkelArrowOne) * arrowEndLength));
+		targetArrowYOne += originArrowY;
+		// for arrow two
+		int targetArrowXTwo = (int) Math.round((Math.cos(winkelArrowTwo) * arrowEndLength));
+		targetArrowXTwo += originArrowX;
+		int targetArrowYTwo = (int) Math.round((Math.sin(winkelArrowTwo) * arrowEndLength));
+		targetArrowYTwo += originArrowY;
+		
+		g2d.drawLine(originArrowX, originArrowY, targetArrowXOne, targetArrowYOne);
+		g2d.drawLine(originArrowX, originArrowY, targetArrowXTwo, targetArrowYTwo);	
 	}
 
 	/**

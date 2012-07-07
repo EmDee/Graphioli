@@ -1,6 +1,7 @@
 package de.graphioli.model;
 
 import java.awt.Graphics2D;
+import java.util.logging.Logger;
 
 /**
  * This class represents an {@link Edge} with its visual representation.
@@ -8,6 +9,11 @@ import java.awt.Graphics2D;
  * @author Graphioli
  */
 public abstract class VisualEdge extends Edge {
+
+	/**
+	 * Logging instance.
+	 */
+	private static final Logger LOG = Logger.getLogger(VisualEdge.class.getName());
 
 	private boolean hasOpposingEdge;
 	private boolean isOpposingEdge;
@@ -79,6 +85,40 @@ public abstract class VisualEdge extends Edge {
 	 * @return the opposed edge.
 	 */
 	public abstract VisualEdge generateOpposedEdge();
+
+	public final void callDrawDirected(Graphics2D g2d, int originX, int originY, int targetX, int targetY, int offset) {
+
+		double xOffset = 0;
+		double yOffset = 0;
+		final int vecX = targetX - originX;
+		final int vecY = targetY - originY;
+
+		if (this.isOpposingEdge || this.hasOpposingEdge) {
+			// Calculating the orthogonal offset
+
+			if (offset == 0 || (vecX == 0 && vecY == 0)) {
+				LOG.warning("Incorrect call of drawDirectedWithOffset");
+				return;
+			}
+
+			xOffset = Math.sqrt(offset * offset * vecY * vecY / (vecX * vecX + vecY * vecY));
+			yOffset = Math.sqrt(offset * offset - xOffset * xOffset);
+
+			xOffset *= Math.signum(vecY);
+			yOffset *= Math.signum(vecX) * -1;
+
+		}
+
+		this.drawDirected(g2d, originX + (int) xOffset, originY + (int) yOffset, targetX + (int) xOffset, targetY
+				+ (int) yOffset);
+
+	}
+
+	public final void callDrawUndirected(Graphics2D g2d, int originX, int originY, int targetX, int targetY) {
+		if (!this.isOpposingEdge) {
+			this.drawUndirected(g2d, originX, originY, targetX, targetY);
+		}
+	}
 
 	public boolean hasOpposingEdge() {
 		return hasOpposingEdge;

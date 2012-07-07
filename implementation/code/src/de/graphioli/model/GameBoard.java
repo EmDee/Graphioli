@@ -102,6 +102,14 @@ public class GameBoard implements Serializable {
 					return false;
 				}
 			} else {
+				VisualEdge opEdge = this.getVisualEdge(vEdge.getTargetVertex(), vEdge.getOriginVertex());
+				if (opEdge == null) {
+					vEdge.setHasOpposingEdge(false);
+					vEdge.setIsOpposingEdge(false);
+				} else {
+					vEdge.setIsOpposingEdge(true);
+					opEdge.setHasOpposingEdge(true);
+				}
 
 			}
 			return true;
@@ -168,8 +176,8 @@ public class GameBoard implements Serializable {
 
 	/**
 	 * Returns the {@link VisualEdge} with vertexA as origin and vertexB as
-	 * target vertex In an undirected graph, it returns the one which is not flagged
-	 * eas opposing.
+	 * target vertex In an undirected graph, it returns the one which is not
+	 * flagged eas opposing.
 	 * 
 	 * @param vertexA
 	 *            the origin vertex of the edge to get
