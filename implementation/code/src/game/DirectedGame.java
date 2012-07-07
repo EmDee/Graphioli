@@ -54,14 +54,11 @@ public class DirectedGame extends Game {
 
 	@Override
 	protected boolean onGameInit() {
-		// TODO Auto-generated method stub
 		return true;
 	}
 
 	@Override
 	protected boolean onGameStart() {
-		// TODO Auto-generated method stub
-		System.out.print(getGameManager().getGameBoard().isDirectedGraph());
 		return true;
 	}
 	
