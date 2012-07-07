@@ -26,10 +26,10 @@ public class TwixT extends Game {
 	private Color playerOneColor = Color.GREEN;
 	private Color playerTwoColor = Color.MAGENTA;
 
-	private TwixTVertex[] startVerticesOne;
-	private TwixTVertex[] endVerticesOne;
-	private TwixTVertex[] startVerticesTwo;
-	private TwixTVertex[] endVerticesTwo;
+	private TwixTVertex startVertexOne;
+	private TwixTVertex endVertexOne;
+	private TwixTVertex startVertexTwo;
+	private TwixTVertex endVertexTwo;
 
 	private TwixTVertex originVertex;
 
@@ -72,28 +72,21 @@ public class TwixT extends Game {
 					edge.setStrokeColor(this.playerOneColor);
 					// Checks if Player One has a path connecting his two
 					// sides
-					for (TwixTVertex vertexA : startVerticesOne) {
-						for (TwixTVertex vertexB : endVerticesOne) {
-							if (FindPath.performAlgorithm(graph, vertexA, vertexB)) {
+
+							if (FindPath.performAlgorithm(graph, startVertexOne, endVertexOne)) {
 								this.playerManager.setActivePlayerAsWinning();
 								this.getGameManager().finishGame();
 								return true;
 							}
-						}
-					}
 				} else {
 					edge.setStrokeColor(this.playerTwoColor);
 					// Checks if Player Two has a path connecting his two
 					// sides
-					for (TwixTVertex vertexA : startVerticesTwo) {
-						for (TwixTVertex vertexB : endVerticesTwo) {
-							if (FindPath.performAlgorithm(graph, vertexA, vertexB)) {
+							if (FindPath.performAlgorithm(graph, startVertexTwo, endVertexTwo)) {
 								this.playerManager.setActivePlayerAsWinning();
 								this.getGameManager().finishGame();
 								return true;
 							}
-						}
-					}
 				}
 				this.getGameManager().getViewManager().displayErrorMessage("Place your tower or wall");
 				this.originVertex = null;
@@ -136,33 +129,72 @@ public class TwixT extends Game {
 		
 		// Create board
 		GridPoint tmpGridPoint;
+		SimpleVisualEdge tmpEdge;
+		TwixTVertex prevVertex = null;
 		TwixTVertex tmpVertex;
+		
 		for (int i = 1; i < this.gridSize - 1; i++) {
 			tmpGridPoint = new GridPoint(i, 0);
 			tmpVertex = new TwixTVertex(tmpGridPoint);
 			tmpVertex.setPlayer(playerOne);
-			this.startVerticesOne[i - 1] = tmpVertex;
 			this.board.addVisualVertex(tmpVertex);
-
+			
+			if (prevVertex != null) {
+				tmpEdge = new SimpleVisualEdge(prevVertex, tmpVertex);
+				tmpEdge.setStrokeColor(this.playerOneColor);
+				this.board.addVisualEdge(tmpEdge);	
+			}			
+			prevVertex = tmpVertex;
+		}
+		this.startVertexOne = prevVertex;
+		prevVertex = null;
+		
+		for (int i = 1; i < this.gridSize - 1; i++) {
 			tmpGridPoint = new GridPoint(i, this.gridSize - 1);
 			tmpVertex = new TwixTVertex(tmpGridPoint);
 			tmpVertex.setPlayer(playerOne);
-			this.endVerticesOne[i - 1] = tmpVertex;
 			this.board.addVisualVertex(tmpVertex);
-
+			
+			if (prevVertex != null) {
+				tmpEdge = new SimpleVisualEdge(prevVertex, tmpVertex);
+				tmpEdge.setStrokeColor(this.playerOneColor);
+				this.board.addVisualEdge(tmpEdge);	
+			}			
+			prevVertex = tmpVertex;
+		}
+		this.endVertexOne = prevVertex;
+		prevVertex = null;
+		
+		for (int i = 1; i < this.gridSize - 1; i++) {
 			tmpGridPoint = new GridPoint(0, i);
 			tmpVertex = new TwixTVertex(tmpGridPoint);
 			tmpVertex.setPlayer(playerTwo);
-			this.startVerticesTwo[i - 1] = tmpVertex;
 			this.board.addVisualVertex(tmpVertex);
-
+			
+			if (prevVertex != null) {
+				tmpEdge = new SimpleVisualEdge(prevVertex, tmpVertex);
+				tmpEdge.setStrokeColor(this.playerTwoColor);
+				this.board.addVisualEdge(tmpEdge);	
+			}			
+			prevVertex = tmpVertex;
+		}
+		this.startVertexTwo = prevVertex;
+		prevVertex = null;
+		
+		for (int i = 1; i < this.gridSize - 1; i++) {
 			tmpGridPoint = new GridPoint(this.gridSize - 1, i);
 			tmpVertex = new TwixTVertex(tmpGridPoint);
 			tmpVertex.setPlayer(playerTwo);
-			this.endVerticesTwo[i - 1] = tmpVertex;
 			this.board.addVisualVertex(tmpVertex);
+			
+			if (prevVertex != null) {
+				tmpEdge = new SimpleVisualEdge(prevVertex, tmpVertex);
+				tmpEdge.setStrokeColor(this.playerTwoColor);
+				this.board.addVisualEdge(tmpEdge);	
+			}			
+			prevVertex = tmpVertex;
 		}
-
+		this.endVertexTwo = prevVertex;
 		return true;
 	}
 
@@ -176,26 +208,11 @@ public class TwixT extends Game {
 	protected boolean onGameLoad(HashMap<Integer, Object> customValues) {
 		this.initFields();
 		
-		// Recreating Arrays
-		GridPoint tmpGridPoint;
-		TwixTVertex tmpVertex;
-		for (int i = 1; i < this.gridSize - 1; i++) {
-			tmpGridPoint = new GridPoint(i, 0);
-			tmpVertex = (TwixTVertex) this.board.getGrid().getVisualVertexAtGridPoint(tmpGridPoint);
-			this.startVerticesOne[i - 1] = tmpVertex;
-
-			tmpGridPoint = new GridPoint(i, this.gridSize - 1);
-			tmpVertex = (TwixTVertex) this.board.getGrid().getVisualVertexAtGridPoint(tmpGridPoint);
-			this.endVerticesOne[i - 1] = tmpVertex;
-
-			tmpGridPoint = new GridPoint(0, i);
-			tmpVertex = (TwixTVertex) this.board.getGrid().getVisualVertexAtGridPoint(tmpGridPoint);
-			this.startVerticesTwo[i - 1] = tmpVertex;
-
-			tmpGridPoint = new GridPoint(this.gridSize - 1, i);
-			tmpVertex = (TwixTVertex) this.board.getGrid().getVisualVertexAtGridPoint(tmpGridPoint);
-			this.endVerticesTwo[i - 1] = tmpVertex;
-		}
+		startVertexOne = (TwixTVertex) this.board.getGrid().getVisualVertexAtGridPoint(new GridPoint(this.gridSize - 2, 0));
+		endVertexOne = (TwixTVertex) this.board.getGrid().getVisualVertexAtGridPoint(new GridPoint(this.gridSize - 2, this.gridSize - 1));
+		startVertexTwo = (TwixTVertex) this.board.getGrid().getVisualVertexAtGridPoint(new GridPoint(0, this.gridSize - 2));
+		endVertexTwo = (TwixTVertex) this.board.getGrid().getVisualVertexAtGridPoint(new GridPoint(this.gridSize - 1, this.gridSize - 2));
+		
 		// Refresh vertices... -.-"
 		for (Vertex vtex : board.getGraph().getVertices()) {
 			((TwixTVertex) vtex).reload();
@@ -213,11 +230,6 @@ public class TwixT extends Game {
 		this.gridSize = Math.min(this.board.getGrid().getHorizontalGridPoints(), this.board.getGrid()
 				.getVerticalGridPoints());
 		
-		this.startVerticesOne = new TwixTVertex[this.gridSize];
-		this.endVerticesOne = new TwixTVertex[this.gridSize];
-		this.startVerticesTwo = new TwixTVertex[this.gridSize];
-		this.endVerticesTwo = new TwixTVertex[this.gridSize];
-
 	}
 
 	/**
