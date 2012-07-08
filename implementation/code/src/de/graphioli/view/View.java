@@ -1,6 +1,9 @@
 package de.graphioli.view;
 
+import java.util.List;
+
 import de.graphioli.controller.ViewManager;
+import de.graphioli.model.MenuItem;
 import de.graphioli.model.Player;
 
 /**
@@ -86,5 +89,12 @@ public interface View {
 	 * @return {@code true} if the disposal was successful
 	 */
 	boolean closeView();
+	
+	/**
+	 * Adds a list of menu items to the options menu.
+	 * 
+	 * @return {@code true} if the adding was successful
+	 */
+	boolean addMenuItems(List<MenuItem> menu);
 
 }

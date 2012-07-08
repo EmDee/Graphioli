@@ -2,8 +2,12 @@ package de.graphioli.gameexplorer;
 
 import java.io.Serializable;
 import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.ArrayList;
 
-// import java.util.ArrayList;
+import com.google.gson.Gson;
+
+import de.graphioli.model.MenuItem;
 
 /**
  * This class represents the game’s definition, containing crucial information
@@ -12,6 +16,11 @@ import java.net.URI;
  * @author Graphioli
  */
 public final class GameDefinition implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -9032856528106026142L;
 
 	/**
 	 * The name of the game.
@@ -51,7 +60,7 @@ public final class GameDefinition implements Serializable {
 	/**
 	 * The list of additional menu items
 	 */
-	// private ArrayList<MenuItem> menu;
+	private ArrayList<MenuItem> menu;
 
 	/**
 	 * The number of horizontal grid points.
@@ -142,9 +151,10 @@ public final class GameDefinition implements Serializable {
 	 * 
 	 * @return the list of additional menu items
 	 */
-	/*
-	 * public ArrayList<MenuItem> getMenu() { return this.menu; }
-	 */
+
+	public ArrayList<MenuItem> getMenu() {
+		return this.menu;
+	}
 
 	/**
 	 * Returns the number of horizontal grid points.
@@ -231,7 +241,6 @@ public final class GameDefinition implements Serializable {
 			return false;
 		return true;
 	}
-	
 	
 
 }

@@ -7,6 +7,7 @@ import javax.swing.JComboBox.KeySelectionManager;
 
 import de.graphioli.controller.Game;
 import de.graphioli.model.GridPoint;
+import de.graphioli.model.MenuItem;
 import de.graphioli.model.SimpleVisualEdge;
 import de.graphioli.model.SimpleVisualVertex;
 import de.graphioli.model.VisualEdge;
@@ -15,7 +16,12 @@ import de.graphioli.model.VisualVertex;
 public class DirectedGame extends Game {
 	
 	private SimpleVisualVertex selectedVertex;
+	
+	private static final int MENU_FLUSH = 1;
+	private static final int MENU_PINK = 2;
 
+	private Color vCol = Color.ORANGE;
+	
 	@Override
 	protected boolean onVertexClick(VisualVertex vertex) {
 		SimpleVisualVertex cVtex = (SimpleVisualVertex) vertex;
@@ -36,7 +42,7 @@ public class DirectedGame extends Game {
 			} else {
 				getGameManager().getGameBoard().removeVisualEdge(oldEdge);
 			}
-			selectedVertex.setFillColor(Color.ORANGE);
+			selectedVertex.setFillColor(vCol);
 			selectedVertex = null;
 			
 		}
@@ -48,7 +54,7 @@ public class DirectedGame extends Game {
 	protected boolean onEmptyGridPointClick(GridPoint gridPoint) {
 		SimpleVisualVertex vtex = new SimpleVisualVertex(gridPoint);
 		this.getGameManager().getGameBoard().addVisualVertex(vtex);
-		vtex.setFillColor(Color.ORANGE);
+		vtex.setFillColor(vCol);
 		return true;
 	}
 
@@ -68,6 +74,23 @@ public class DirectedGame extends Game {
 			getGameManager().getGameBoard().removeVisualVertex(selectedVertex);
 			selectedVertex = null;
 		}
+		return true;
+	}
+	
+	@Override
+	protected boolean onMenuItemClick(MenuItem item) {
+
+		switch(item.getId()) {
+		case MENU_FLUSH:
+			this.getGameManager().getGameBoard().flush();
+			this.selectedVertex = null;
+			break;
+		case MENU_PINK:
+			this.vCol = Color.MAGENTA;
+			this.getGameManager().getViewManager().displayErrorMessage("Pink!");
+			break;
+		}
+		
 		return true;
 	}
 

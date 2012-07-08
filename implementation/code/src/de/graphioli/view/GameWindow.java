@@ -1,6 +1,7 @@
 package de.graphioli.view;
 
 import de.graphioli.controller.ViewManager;
+import de.graphioli.model.MenuItem;
 import de.graphioli.model.Player;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -10,6 +11,7 @@ import java.awt.KeyboardFocusManager;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
+import java.util.List;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -361,6 +363,12 @@ public class GameWindow extends JFrame implements View {
 			GameWindow.this.closeGame();
 		}
 
+	}
+
+	@Override
+	public boolean addMenuItems(List<MenuItem> menu) {
+		this.menuBar.addOptionsItems(menu);
+		return true;
 	}
 
 }

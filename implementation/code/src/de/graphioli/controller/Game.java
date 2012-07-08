@@ -1,6 +1,7 @@
 package de.graphioli.controller;
 
 import de.graphioli.model.GridPoint;
+import de.graphioli.model.MenuItem;
 import de.graphioli.model.VisualVertex;
 
 import java.util.HashMap;
@@ -317,6 +318,32 @@ public abstract class Game {
 		return false;
 	}
 
+	
+	/**
+	 * This method executes a {@code onMenuItemClick} call.
+	 * 
+	 * @param customValues the custom values.
+	 * @return the result of the {@link Game#onMenuItemClick(MenuItem)} method.
+	 * @throws TimeoutException
+	 *             when the call does not return in time.
+	 */
+	final boolean callOnMenuItemClick(final MenuItem menuItem) throws TimeoutException {
+
+		Thread callThread = new Thread(new Runnable() {
+			public void run() {
+				callResult = onMenuItemClick(menuItem);
+				callFinished = true;
+			}
+
+		});
+
+		LOG.finer("Executing onMenuItemClick");
+		if (!this.executeAndWaitForCall(callThread)) {
+			throw new TimeoutException("onMenuItemClick timed out.");
+		}
+		LOG.finer("onMenuItemClick returned in time.");
+		return callResult;
+	}
 	/**
 	 * Called when a player clicks on a custom {@link MenuItem}.
 	 * 
@@ -324,9 +351,10 @@ public abstract class Game {
 	 *            The MenuItem that was clicked
 	 * @return <code>true</code> if the action was performed successfully,
 	 *         <code>false</code> otherwise
-	 * @todo Facultative
 	 */
-	// protected boolean onMenuItemClick(MenuItem item) {}
+	protected boolean onMenuItemClick(MenuItem item) {
+		return true;
+	}
 
 	@SuppressWarnings("deprecation")
 	private boolean executeAndWaitForCall(Thread callThread) {

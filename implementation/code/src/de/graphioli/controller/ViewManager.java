@@ -1,10 +1,12 @@
 package de.graphioli.controller;
 
 import de.graphioli.model.GridPoint;
+import de.graphioli.model.MenuItem;
 import de.graphioli.model.Player;
 import de.graphioli.view.GameWindow;
 import de.graphioli.view.View;
 
+import java.util.List;
 import java.util.concurrent.TimeoutException;
 import java.util.logging.Logger;
 
@@ -189,15 +191,13 @@ public class ViewManager {
 	public boolean setVisualVertexSize(int size) {
 		return this.view.setVisualVertexSize(size);
 	}
-	
 
 	/**
-	 * Notifies the view to update itself. 
+	 * Notifies the view to update itself.
 	 */
 	public void updateView() {
 		this.view.redrawGraph();
 	}
-
 
 	/**
 	 * Closes the View and all its components.
@@ -207,5 +207,37 @@ public class ViewManager {
 	public boolean closeView() {
 		this.view.closeView();
 		return true;
+	}
+
+	/**
+	 * Callback function used by the {@link View} to notify about a custom menu
+	 * item click.
+	 * 
+	 * @param menuItem
+	 *            The menu item that was clicked
+	 * @return <code>true</code> if the action was performed successfully,
+	 *         <code>false</code> otherwise
+	 */
+	public boolean onCustomMenuItemClick(MenuItem menuItem) {
+		try {
+			if (this.gameManager.getGame().callOnMenuItemClick(menuItem)) {
+				this.updateView();
+				this.gameManager.checkFinished();
+				return true;
+			}
+		} catch (TimeoutException e) {
+			this.displayPopUp("Game timed out. Closing.");
+			this.gameManager.closeGame();
+		}
+		return false;
+	}
+
+	/**
+	 * Notifies the view to add the given menu items.
+	 * 
+	 * @return {@code true} on success.
+	 */
+	public boolean addCustomMenuItems(List<MenuItem> items) {
+		return this.view.addMenuItems(items);
 	}
 }

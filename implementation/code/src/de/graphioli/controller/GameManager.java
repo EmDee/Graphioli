@@ -88,7 +88,7 @@ public class GameManager {
 	 *            Provided command-line arguments
 	 */
 	public static void main(String[] args) {
-
+		
 		// Start Logging
 		if (!initLogger()) {
 			System.out.print("STOP: Unable to create log file.");
@@ -181,6 +181,7 @@ public class GameManager {
 
 		// Create ViewManager instance
 		this.viewManager = new ViewManager(this);
+		this.viewManager.addCustomMenuItems(gameDefinition.getMenu());
 
 		// Create PlayerManager instance
 		this.playerManager = new PlayerManager(players, this);

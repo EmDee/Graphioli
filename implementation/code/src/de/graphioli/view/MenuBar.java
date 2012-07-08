@@ -1,10 +1,15 @@
 package de.graphioli.view;
 
+import de.graphioli.controller.Game;
+import de.graphioli.model.MenuItem;
 import de.graphioli.utils.Localization;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Logger;
 
 import javax.swing.JFileChooser;
 import javax.swing.JMenu;
@@ -27,6 +32,11 @@ public class MenuBar extends JMenuBar implements ActionListener {
 	private static final long serialVersionUID = 1L;
 
 	/**
+	 * Logging instance.
+	 */
+	private static final Logger LOG = Logger.getLogger(MenuBar.class.getName());
+
+	/**
 	 * The game menu.
 	 */
 	private JMenu gameMenu;
@@ -40,6 +50,11 @@ public class MenuBar extends JMenuBar implements ActionListener {
 	 * The options menu.
 	 */
 	private JMenu optionsMenu;
+
+	/**
+	 * The custom menu items.
+	 */
+	private List<OptionsMenuItem> customItems;
 
 	/**
 	 * The parent {@link GameWindow} associated with this @ MenuBar}.
@@ -61,7 +76,6 @@ public class MenuBar extends JMenuBar implements ActionListener {
 	public MenuBar(GameWindow parentGameWindow) {
 		this.parentGameWindow = parentGameWindow;
 		this.createMenus();
-		// TODO create menus...
 	}
 
 	/**
@@ -71,10 +85,6 @@ public class MenuBar extends JMenuBar implements ActionListener {
 	 *         <code>false</code> otherwise
 	 */
 	private boolean createMenus() {
-		// this.saveItem = Localization.getLanguageString("menu_item_save");
-		// this.loadItem = Localization.getLanguageString("menu_item_load");
-		// this.quitItem = Localization.getLanguageString("menu_item_quit");
-		// this.helpItem = Localization.getLanguageString("menu_item_help");
 
 		this.gameMenu = new JMenu(Localization.getLanguageString("menu_game"));
 		this.optionsMenu = new JMenu(Localization.getLanguageString("menu_options"));
@@ -104,7 +114,28 @@ public class MenuBar extends JMenuBar implements ActionListener {
 		this.add(this.optionsMenu);
 		this.add(this.helpMenu);
 
+		this.optionsMenu.setEnabled(false);
+		this.customItems = null;
+
 		return true;
+	}
+
+	public void addOptionsItems(List<MenuItem> menuItems) {
+		if (menuItems.size() == 0) {
+			return;
+		}
+
+		this.customItems = new ArrayList<OptionsMenuItem>(menuItems.size());
+
+		OptionsMenuItem tmpCustItem;
+		for (MenuItem tmpMenItem : menuItems) {
+			tmpCustItem = new OptionsMenuItem(tmpMenItem);
+			tmpCustItem.addActionListener(this);
+			this.customItems.add(tmpCustItem);
+			this.optionsMenu.add(tmpCustItem);
+		}
+
+		this.optionsMenu.setEnabled(true);
 	}
 
 	/**
@@ -137,6 +168,13 @@ public class MenuBar extends JMenuBar implements ActionListener {
 
 		else if (sourceItem.equals(this.restartItem)) {
 			this.parentGameWindow.getViewManager().getGameManager().restartGame();
+		}
+
+		else if (this.customItems.contains(sourceItem)) {
+			OptionsMenuItem optItem = (OptionsMenuItem) sourceItem;
+			this.parentGameWindow.getViewManager().onCustomMenuItemClick(optItem.getCustomItem());
+		} else {
+			LOG.warning("Unknown menu item click received: " + sourceItem.getText());
 		}
 
 	}
