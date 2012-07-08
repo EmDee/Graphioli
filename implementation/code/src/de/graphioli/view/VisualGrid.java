@@ -169,7 +169,7 @@ public class VisualGrid implements MouseListener {
 	 */
 	public Dimension calculateSize() {
 		int xCoord = (this.grid.getHorizontalGridPoints() + 1) * this.gridScale;
-		int yCoord = (this.grid.getHorizontalGridPoints() + 1) * this.gridScale;
+		int yCoord = (this.grid.getVerticalGridPoints() + 1) * this.gridScale;
 				
 		return new Dimension(Math.round(xCoord), Math.round(yCoord));
 	}
