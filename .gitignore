@@ -55,6 +55,9 @@ implementation/*.pdf
 .project
 .settings
 
+# Tower.app specific file
+Icon.jpg
+
 # Java
 *.class
 bin/
