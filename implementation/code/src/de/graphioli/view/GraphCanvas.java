@@ -81,7 +81,7 @@ public class GraphCanvas extends JPanel {
 	public boolean updateCanvas() {	
 		this.clearBufferedImage();
 		this.drawBoard();
-		this.updateUI();
+		this.repaint();
 		return true;
 	}
 	
