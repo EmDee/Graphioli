@@ -82,12 +82,25 @@ public class PlayerPopUp extends JFrame {
 				LOG.fine("User cancelled game initialization.");
 				return;
 			}
+			
+			// If name is already taken, get user to choose a different one
+			boolean isNewName = true;
+			for (int j = 0; j < i; j++) {
+				if (this.players.get(j).getName().equals(playerName)) {
+					i--;
+					isNewName = false;
+					this.showMessageDialog(Localization.getLanguageString("player_pop_up_uniqueName"));
+					break;
+				}
+			}
+			
+			if (isNewName) {
+				Player player = new LocalPlayer(playerName);
+				this.players.add(player);
 
-			Player player = new LocalPlayer(playerName);
-			this.players.add(player);
-
-			LOG.fine("Player " + (i + 1) + " instantiated: '" + playerName + "'");
-
+				LOG.fine("Player " + (i + 1) + " instantiated: '" + playerName + "'");
+			}
+			
 		}
 
 		this.geWindow.onPlayerPopUpReturn(this.players);

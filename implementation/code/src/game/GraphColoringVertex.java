@@ -55,7 +55,6 @@ public class GraphColoringVertex extends SimpleVisualVertex {
 	 */
 	public void setColorID(int id) {
 		this.colorID = id;
-
 		switch (this.colorID) {
 			case GraphColoring.CLRID_RED:
 				setFillColor(Color.RED);
@@ -65,6 +64,9 @@ public class GraphColoringVertex extends SimpleVisualVertex {
 				break;
 			case GraphColoring.CLRID_BLUE:
 				setFillColor(Color.BLUE);
+				break;
+			case GraphColoring.CLRID_YELLOW:
+				setFillColor(Color.YELLOW);
 				break;
 			default:
 				setFillColor(Color.WHITE);

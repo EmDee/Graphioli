@@ -29,17 +29,23 @@ public class GraphColoring extends Game {
 	public static final int CLRID_RED = 0;
 	public static final int CLRID_GREEN = 1;
 	public static final int CLRID_BLUE = 2;
+	public static final int CLRID_YELLOW = 3;
 	public static final int CLRID_BLANK = -1;
-	
+
 	/*
 	 * Keys
 	 */
 	public static final int KEY_SELECTED = 0;
-	
+
 	/**
 	 * Number of colors used.
 	 */
-	private static final int COLOR_COUNT = 3;
+	private int colorCount;
+
+	/**
+	 * The selected level.
+	 */
+	private int selectedLevel = 2;
 
 	/**
 	 * List of vertices used in the game.
@@ -98,18 +104,18 @@ public class GraphColoring extends Game {
 	@Override
 	protected boolean onGameInit() {
 
-		this.buttons = new GraphColoringButtonVertex[COLOR_COUNT];
-		for (int i = 0; i < COLOR_COUNT; i++) {
+		this.generateLevel(selectedLevel);
+
+		this.buttons = new GraphColoringButtonVertex[colorCount];
+		for (int i = 0; i < colorCount; i++) {
 			this.buttons[i] = new GraphColoringButtonVertex(new GridPoint(i + 1, 0));
 			this.buttons[i].setColorID(i);
 
 			this.getGameManager().getGameBoard().addVisualVertex(this.buttons[i]);
 		}
-		
+
 		this.selectedButton = this.buttons[0];
 		this.selectedButton.setHighlighted(true);
-
-		this.generateLevel();
 
 		return true;
 	}
@@ -119,7 +125,7 @@ public class GraphColoring extends Game {
 	 */
 	@Override
 	protected boolean onGameStart() {
-		this.singleplayer = this.getGameManager().getPlayerManager().getPlayers().size() == 1;		
+		this.singleplayer = this.getGameManager().getPlayerManager().getPlayers().size() == 1;
 
 		return true;
 	}
@@ -127,20 +133,21 @@ public class GraphColoring extends Game {
 	/**
 	 * Builds a level for the game.
 	 */
-	private void generateLevel() {
+	private void generateLevel(int selectedLevel) {
+		GraphColoringLevel level = GraphColoringLevel.getLevelInstance(selectedLevel);
+				
+		// Adding level to board
 		final GameBoard mBoard = this.getGameManager().getGameBoard();
-		this.vertices = new GraphColoringVertex[4];
-		GridPoint tmpPoint;
-		for (int i = 0; i < 4; i++) {
-			tmpPoint = new GridPoint((i / 2) * 3 + 2, (i % 2) * 3 + 2);
-			this.vertices[i] = new GraphColoringVertex(tmpPoint);
+		this.colorCount = level.getColorCount();
+		this.vertices = level.getVertices();
+		
+		for (int i = 0; i < this.vertices.length; i++) {
 			mBoard.addVisualVertex(this.vertices[i]);
 		}
 
-		for (int i = 0; i < 4; i++) {
-			mBoard.addVisualEdge(new SimpleVisualEdge(this.vertices[i], this.vertices[(i + 1) % 4]));
+		for (int i = 0; i < level.getEdges().length; i++) {
+			mBoard.addVisualEdge(level.getEdges()[i]);
 		}
-		mBoard.addVisualEdge(new SimpleVisualEdge(this.vertices[0], this.vertices[2]));
 
 	}
 
@@ -197,7 +204,7 @@ public class GraphColoring extends Game {
 	private boolean isColoringPossible() {
 		for (GraphColoringVertex vtex : this.vertices) {
 			if (vtex.getColorID() == CLRID_BLANK) {
-				for (int i = 0; i < COLOR_COUNT; i++) {
+				for (int i = 0; i < colorCount; i++) {
 					if (this.isColoringValid(vtex, i)) {
 						return true;
 					}
@@ -271,7 +278,7 @@ public class GraphColoring extends Game {
 		this.vertices = new GraphColoringVertex[tmpVtices.size()];
 		tmpVtices.toArray(this.vertices);
 	}
-	
+
 	@Override
 	protected boolean onGameLoad(HashMap<Integer, Object> customValues) {
 		this.reloadLevel();
@@ -285,7 +292,7 @@ public class GraphColoring extends Game {
 		}
 		return false;
 	}
-	
+
 	@Override
 	protected boolean onGameSave(HashMap<Integer, Object> customValues) {
 		customValues.put(KEY_SELECTED, this.selectedButton.getColorID());
