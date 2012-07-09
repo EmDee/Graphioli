@@ -82,7 +82,7 @@ public class PlayerPopUp extends JFrame {
 				LOG.fine("User cancelled game initialization.");
 				return;
 			}
-
+		
 			Player player = new LocalPlayer(playerName);
 			this.players.add(player);
 
