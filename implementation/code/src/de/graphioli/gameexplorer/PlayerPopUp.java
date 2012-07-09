@@ -83,6 +83,7 @@ public class PlayerPopUp extends JFrame {
 				return;
 			}
 			
+			// If name is already taken, get user to choose a different one
 			boolean isNewName = true;
 			for (int j = 0; j < i; j++) {
 				if (this.players.get(j).getName().equals(playerName)) {
