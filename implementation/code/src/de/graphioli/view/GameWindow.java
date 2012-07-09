@@ -37,24 +37,14 @@ public class GameWindow extends JFrame implements View {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * The initial width of the window.
+	 * The minimum width of the window.
 	 */
-	private static final int WINDOW_WIDTH = 400;
+	private static final int MIN_WINDOW_WIDTH = 400;
 
 	/**
-	 * The initial height of the window.
+	 * The minimum height of the window.
 	 */
-	private static final int WINDOW_HEIGHT = 450;
-
-	/**
-	 * The initial width of the graph canvas.
-	 */
-	private static final int CANVAS_WIDTH = 600;
-
-	/**
-	 * The initial height of the graph canvas.
-	 */
-	private static final int CANVAS_HEIGHT = 600;
+	private static final int MIN_WINDOW_HEIGHT = 450;
 
 	/**
 	 * The height of the status bar.
@@ -124,7 +114,7 @@ public class GameWindow extends JFrame implements View {
 	 */
 	private void generateView() {
 		this.setLayout(new BorderLayout());
-		this.setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
+		this.setMinimumSize(new Dimension(MIN_WINDOW_WIDTH, MIN_WINDOW_HEIGHT));
 
 		// Initialize and add MenuBar
 		this.menuBar = new MenuBar(this);
@@ -139,11 +129,13 @@ public class GameWindow extends JFrame implements View {
 		this.add(this.statusBar, BorderLayout.SOUTH);
 		this.statusBar.setPreferredSize(new Dimension(this.getWidth(), STATUSBAR_HEIGHT));
 
-		this.setMinimumSize(new Dimension(WINDOW_WIDTH, WINDOW_HEIGHT));
+		this.setMinimumSize(new Dimension(MIN_WINDOW_WIDTH, MIN_WINDOW_HEIGHT));
 		this.setResizable(true);
 		this.setVisible(true);
 		// Center window
+		this.pack();
 		this.setLocationRelativeTo(null);
+		
 	}
 
 	/**

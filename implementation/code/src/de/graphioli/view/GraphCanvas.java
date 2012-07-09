@@ -1,19 +1,22 @@
 package de.graphioli.view;
 
+import java.awt.BasicStroke;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Stroke;
+import java.awt.image.BufferedImage;
+import java.util.logging.Logger;
+
+import javax.swing.JPanel;
+
 import de.graphioli.model.Edge;
 import de.graphioli.model.GameBoard;
 import de.graphioli.model.Graph;
 import de.graphioli.model.Vertex;
 import de.graphioli.model.VisualEdge;
 import de.graphioli.model.VisualVertex;
-
-import java.awt.BasicStroke;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Stroke;
-import java.util.logging.Logger;
-
-import javax.swing.JPanel;
 
 /**
  * This class represents the canvas where the {@link Graph} will be drawn on.
@@ -33,7 +36,12 @@ public class GraphCanvas extends JPanel {
 	 * The stroke used for drawing the grid.
 	 */
 	private final Stroke gridStroke;
+	
+	/**
+	 * The image buffering the content of the GraphCanvas
+	 */
 
+	private BufferedImage bufferedImage;
 
 	/**
 	 * The parent {@link GameWindow} associated with this @ GraphCanvas}.
@@ -44,6 +52,10 @@ public class GraphCanvas extends JPanel {
 	 * The {@link VisualGrid} this canvas uses.
 	 */
 	private VisualGrid visualGrid;
+	
+	private Dimension canvasSize;
+	
+	private boolean hasChanged;
 
 	/**
 	 * The {@link VisualGrid} associated with this {@link GraphCanvas}. private
@@ -57,6 +69,7 @@ public class GraphCanvas extends JPanel {
 		LOG.fine("GraphCanvas instantiated");
 		this.parentGameWindow = parentGameWindow;
 		this.gridStroke = new BasicStroke(1);
+		this.hasChanged = false;
 	}
 
 	/**
@@ -65,17 +78,30 @@ public class GraphCanvas extends JPanel {
 	 * @return <code>true</code> if the action was performed successfully,
 	 *         <code>false</code> otherwise
 	 */
-	public boolean updateCanvas() {
-		this.updateUI();
+	public boolean updateCanvas() {	
+		this.clearBufferedImage();
+		this.drawBoard();
+		this.repaint();
 		return true;
+	}
+	
+	public void registerGrid(VisualGrid grid) {
+		this.visualGrid = grid;
+		this.canvasSize = grid.calculateSize();
+		this.bufferedImage = new BufferedImage(this.canvasSize.width, this.canvasSize.height, BufferedImage.TYPE_4BYTE_ABGR);
 	}
 
 	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
-
-		Graphics2D g2d = (Graphics2D) g;
-
+		if (this.bufferedImage != null) {
+		g.drawImage(bufferedImage, 0, 0, null);
+		}
+	}
+	
+	private void drawBoard() {
+		Graphics2D g2d = this.bufferedImage.createGraphics();
+		
 		GameBoard board = this.parentGameWindow.getViewManager().getGameManager().getGameBoard();
 		Graph graph = board.getGraph();
 
@@ -84,7 +110,7 @@ public class GraphCanvas extends JPanel {
 		 * already in canvas constructor used --> can't set next line in canvas
 		 * constructor...
 		 */
-		this.visualGrid = this.parentGameWindow.getVisualGrid();
+		
 		int gridScale = this.visualGrid.getGridScale();
 
 		// Drawing grid lines
@@ -127,4 +153,15 @@ public class GraphCanvas extends JPanel {
 
 		}
 	}
+	
+	/**
+	 * Resets the buffered image of this {@code VisualVertex} to a completely
+	 * transparent state.
+	 */
+	private void clearBufferedImage() {
+		Graphics2D g2d = this.bufferedImage.createGraphics();
+		g2d.setBackground(new Color(255, 255, 255,0));
+		g2d.clearRect(0, 0, (int) this.canvasSize.getWidth(), (int) this.canvasSize.getHeight());
+	}
+
 }

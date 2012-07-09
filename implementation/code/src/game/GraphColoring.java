@@ -45,7 +45,7 @@ public class GraphColoring extends Game {
 	/**
 	 * The selected level.
 	 */
-	private int selectedLevel = 2;
+	private int selectedLevel = 3;
 
 	/**
 	 * List of vertices used in the game.

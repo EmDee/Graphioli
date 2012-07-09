@@ -226,6 +226,8 @@ public class GameManager {
 			this.viewManager.displayPopUp("Game timed out. Closing.");
 			this.closeGame();
 		}
+		
+		this.viewManager.updateView();
 		return true;
 	}
 
@@ -508,6 +510,22 @@ public class GameManager {
 
 		System.exit(0);
 
+	}
+
+	/**
+	 * Logs an event in a {@link Game}.
+	 * 
+	 * @param logMessage
+	 * 			The event's message to log
+	 * @return <code>true</code> if the action was performed successfully,
+	 *         <code>false</code> otherwise
+	 */
+	public boolean logGameAction(String logMessage) {
+		if (logMessage.isEmpty()) {
+			logMessage = "<em>Empty message</em>";
+		}
+		LOG.info("Current game '" + this.currentGameDefinition.getName() + "' states: " + logMessage);
+		return true;
 	}
 
 }
