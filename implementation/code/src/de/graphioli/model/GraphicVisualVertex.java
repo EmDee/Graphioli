@@ -58,7 +58,7 @@ public class GraphicVisualVertex extends VisualVertex {
 		if (image != null) {
 			g2d.drawImage(image, 0, 0, VisualVertex.PIXELS_PER_SIDE, VisualVertex.PIXELS_PER_SIDE, null);
 		} else {
-			LOG.warning("No image of the GraphicVisualVertex is set. Drawing red 'X' as place holder.");
+			LOG.fine("No image of the GraphicVisualVertex is set. Drawing red 'X' as place holder.");
 			g2d.setColor(Color.RED);
 			g2d.drawLine(0, 0, PIXELS_PER_SIDE, PIXELS_PER_SIDE);
 			g2d.drawLine(PIXELS_PER_SIDE, 0, 0, PIXELS_PER_SIDE);
@@ -67,33 +67,6 @@ public class GraphicVisualVertex extends VisualVertex {
 		return true;
 	}
 
-	/**
-	 * Loads a new BufferedImage from a given file
-	 * 
-	 * @param gameName
-	 *            The name of the game used to generate the path to the file
-	 * @param fileName
-	 *            The file name of the image
-	 * @return The new image that was loaded
-	 */
-	protected final BufferedImage loadBufferedImage(String gameName, String fileName) {
-		BufferedImage newImage = null;
-		InputStream imageInputStream = JarParser.getFileAsInputStream(gameName, fileName);
-
-		// Try creating buffered image from path
-		try {
-			newImage = ImageIO.read(imageInputStream);
-		} catch (IllegalArgumentException e) {
-			LOG.severe("Illegal Argument: '" + imageInputStream + "'.");
-			return null;
-		} catch (IOException e) {
-			LOG.severe("Path does not exist: '" + imageInputStream + "'.");
-			return null;
-		}
-		this.gameName = gameName;
-		this.fileName = fileName;
-		return newImage;
-	}
 
 	/**
 	 * Returns the image that represents this GraphicVisualVertex.
@@ -118,22 +91,12 @@ public class GraphicVisualVertex extends VisualVertex {
 	}
 
 	/**
-	 * Reloads the image to the BufferedImage.
+	 * Dummy implementation. Graphics are not serialized, so you need to take care of it by yourself.
 	 */
 	@Override
 	protected void onReload() {
-		if (!this.fileName.isEmpty() && !this.gameName.isEmpty()) {
-			InputStream imageInputStream = JarParser.getFileAsInputStream(gameName, fileName);
-
-			// Try creating buffered image from path
-			try {
-				this.image = ImageIO.read(imageInputStream);
-			} catch (IllegalArgumentException e) {
-				LOG.severe("Illegal Argument: '" + imageInputStream + "'.");
-			} catch (IOException e) {
-				LOG.severe("Path does not exist: '" + imageInputStream + "'.");
-			}
-		}
+		// Cannot reload the graphic.
+		return;
 	}
 
 }

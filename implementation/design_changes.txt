@@ -4,6 +4,7 @@
 == Game ==
 - added 'call' methods
 - added onGameSave and Load
+- added GameResources as field and to registerController
 
 == Visual* ==
 - added reload methods
@@ -70,6 +71,7 @@
 - JarParser
 - GEWindowActions
 - GraphColoringLevel
+- GameResources
 
 == New libraries ==
 - GSON
@@ -88,3 +90,6 @@
 
 == CustomMenuItemListener ==
 - Not implemented, replaced by OptionsMenuItem
+
+== GraphicVisualVertex ==
+- removed loadImage method.

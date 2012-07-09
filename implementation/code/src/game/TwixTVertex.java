@@ -1,11 +1,11 @@
 package game;
 
+import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
 import de.graphioli.model.GraphicVisualVertex;
 import de.graphioli.model.GridPoint;
 import de.graphioli.model.Player;
-import de.graphioli.utils.JarParser;
 
 public class TwixTVertex extends GraphicVisualVertex {
 
@@ -20,19 +20,20 @@ public class TwixTVertex extends GraphicVisualVertex {
 	private static transient BufferedImage playerTwoTower;
 
 	/**
+	 * The first player of this game.
+	 */
+	private static Player playerOne;
+	
+	/**
+	 * The second player of this game.
+	 */
+	private static Player playerTwo;
+	
+	
+	/**
 	 * The {@link Player} who owns this TwixTVertex.
 	 */
 	private Player player;
-
-	/**
-	 * The file name of the image used by player one
-	 */
-	private final String fileNameOne = "Awesome1.png";
-
-	/**
-	 * The file name of the image used by player two
-	 */
-	private final String fileNameTwo = "Awesome2.png";
 
 	/**
 	 * Creates a new TwixtVertex and places it on the specified GridPoint.
@@ -61,30 +62,42 @@ public class TwixTVertex extends GraphicVisualVertex {
 	 */
 	public void setPlayer(Player player) {
 		this.player = player;
-		if (this.player == TwixT.playerOne) {
+		if (this.player.equals(playerOne)) {
+			this.setImage(playerOneTower);
+		} else if (this.player.equals(playerTwo)) {
 			this.setImage(playerTwoTower);
 		} else {
-			this.setImage(playerOneTower);
+			System.out.println("Unknown player");
+			this.setImage(null);
 		}
 		this.update();
 	}
 
 	/**
-	 * Initializes the two BufferedImage for used for the towers of both
+	 * Initializes the two BufferedImages used for the towers of both
 	 * players.
 	 */
-	@Override
-	protected void init() {
-		if (playerOneTower == null || playerTwoTower == null) {
-			playerOneTower = this.loadBufferedImage("TwixT", this.fileNameOne);
-			playerTwoTower = this.loadBufferedImage("TwixT", this.fileNameTwo);
-		}
+	protected static void initImages(Player playerOne, BufferedImage playerOneImage, Player playerTwo, BufferedImage playerTwoImage) {
+		TwixTVertex.playerOne = playerOne;
+		TwixTVertex.playerTwo = playerTwo;
+		TwixTVertex.playerOneTower = playerOneImage;
+		TwixTVertex.playerTwoTower = playerTwoImage;
 	}
-
+	
+	/**
+	 * {@inheritDoc}
+	 */
+	/*
+	 * Need to reset player, when Vertex was reloaded.
+	 * (non-Javadoc)
+	 * @see de.graphioli.model.GraphicVisualVertex#draw(java.awt.Graphics2D)
+	 */
 	@Override
-	protected void onReload() {
-		this.init();
-		this.setPlayer(this.player);
+	protected boolean draw(Graphics2D g2d) {
+		if (this.getImage() == null && this.player != null) {
+			this.setPlayer(this.player);
+		}
+		return super.draw(g2d);
 	}
 
 }

@@ -20,11 +20,15 @@ public class TwixT extends Game {
 	private GameBoard board;
 	private int gridSize;
 
-	public static Player playerOne;
-	public static Player playerTwo;
+	private Player playerOne;
+	private Player playerTwo;
 
-	private Color playerOneColor = Color.GREEN;
-	private Color playerTwoColor = Color.MAGENTA;
+	private String playerOneImgFile = "Awesome1.png";
+	private String playerTwoImgFile = "Awesome2.png";
+
+	private Color playerOneColor = Color.MAGENTA;
+	private Color playerTwoColor = Color.GREEN;
+	
 
 	private TwixTVertex startVertexOne;
 	private TwixTVertex endVertexOne;
@@ -112,7 +116,9 @@ public class TwixT extends Game {
 	 */
 	@Override
 	protected boolean onEmptyGridPointClick(GridPoint gridPoint) {
-		if (gridPoint.getPositionX() > 0 && gridPoint.getPositionX() < this.gridSize && gridPoint.getPositionY() > 0
+		if (gridPoint.getPositionX() > 0
+				&& gridPoint.getPositionX() < this.gridSize
+				&& gridPoint.getPositionY() > 0
 				&& gridPoint.getPositionY() < this.gridSize) {
 			TwixTVertex addVertex = new TwixTVertex(gridPoint);
 			addVertex.setPlayer(this.playerManager.getActivePlayer());
@@ -231,7 +237,7 @@ public class TwixT extends Game {
 
 		// Refresh vertices... -.-"
 		for (Vertex vtex : board.getGraph().getVertices()) {
-			((TwixTVertex) vtex).reload();
+			((TwixTVertex) vtex).update();
 		}
 
 		return true;
@@ -241,6 +247,10 @@ public class TwixT extends Game {
 		this.playerManager = this.getGameManager().getPlayerManager();
 		playerOne = this.playerManager.getPlayers().get(0);
 		playerTwo = this.playerManager.getPlayers().get(1);
+
+		TwixTVertex.initImages(playerOne, this.getGameResources().getImageRessource(playerOneImgFile), playerTwo, this
+				.getGameResources().getImageRessource(playerTwoImgFile));
+
 		this.board = this.getGameManager().getGameBoard();
 
 		this.gridSize = Math.min(this.board.getGrid().getHorizontalGridPoints(), this.board.getGrid()

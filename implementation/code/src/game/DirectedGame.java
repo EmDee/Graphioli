@@ -2,6 +2,7 @@ package game;
 
 import java.awt.Color;
 import java.awt.event.KeyEvent;
+import java.awt.image.BufferedImage;
 
 import javax.swing.JComboBox.KeySelectionManager;
 
@@ -14,14 +15,14 @@ import de.graphioli.model.VisualEdge;
 import de.graphioli.model.VisualVertex;
 
 public class DirectedGame extends Game {
-	
+
 	private SimpleVisualVertex selectedVertex;
-	
+
 	private static final int MENU_FLUSH = 1;
 	private static final int MENU_PINK = 2;
 
 	private Color vCol = Color.ORANGE;
-	
+
 	@Override
 	protected boolean onVertexClick(VisualVertex vertex) {
 		SimpleVisualVertex cVtex = (SimpleVisualVertex) vertex;
@@ -44,9 +45,9 @@ public class DirectedGame extends Game {
 			}
 			selectedVertex.setFillColor(vCol);
 			selectedVertex = null;
-			
+
 		}
-		
+
 		return true;
 	}
 
@@ -67,7 +68,7 @@ public class DirectedGame extends Game {
 	protected boolean onGameStart() {
 		return true;
 	}
-	
+
 	@Override
 	protected boolean onKeyRelease(int keyCode) {
 		if (keyCode == KeyEvent.VK_DELETE && selectedVertex != null) {
@@ -76,21 +77,22 @@ public class DirectedGame extends Game {
 		}
 		return true;
 	}
-	
+
 	@Override
 	protected boolean onMenuItemClick(MenuItem item) {
 
-		switch(item.getId()) {
+		switch (item.getId()) {
 		case MENU_FLUSH:
 			this.getGameManager().getGameBoard().flush();
 			this.selectedVertex = null;
 			break;
 		case MENU_PINK:
 			this.vCol = Color.MAGENTA;
-			this.getGameManager().getViewManager().displayErrorMessage("Pink!");
+			this.getGameManager().getViewManager()
+					.displayErrorMessage(this.getGameResources().getStringResource("PINK"));
 			break;
 		}
-		
+
 		return true;
 	}
 

@@ -1,5 +1,6 @@
 package de.graphioli.controller;
 
+import de.graphioli.model.GameResources;
 import de.graphioli.model.GridPoint;
 import de.graphioli.model.MenuItem;
 import de.graphioli.model.VisualVertex;
@@ -28,6 +29,7 @@ public abstract class Game {
 	 * The {@link GameManager} associated with this {@link Game}.
 	 */
 	private GameManager gameManager;
+	private GameResources resources;
 
 	volatile boolean callFinished;
 	volatile boolean callResult;
@@ -40,16 +42,19 @@ public abstract class Game {
 	}
 
 	/**
-	 * Associates this {@link Game} with a {@link GameManager}.
+	 * Associates this {@link Game} with a {@link GameManager} and its
+	 * {@link GameResources} .
 	 * 
 	 * @param gameManager
 	 *            The controlling <code>GameManager</code>
+	 * @param The
+	 *            resources of this game.
 	 * @return <code>true</code> if the action was performed successfully,
 	 *         <code>false</code> otherwise
 	 */
-	public final boolean registerController(GameManager gameManager) {
-
+	public final boolean registerController(GameManager gameManager, GameResources resources) {
 		this.gameManager = gameManager;
+		this.resources = resources;
 		return true;
 
 	}
@@ -61,6 +66,15 @@ public abstract class Game {
 	 */
 	protected final GameManager getGameManager() {
 		return this.gameManager;
+	}
+
+	/**
+	 * Returns the associated {@link GameResources}.
+	 * 
+	 * @return the associated {@link GameResources}
+	 */
+	protected final GameResources getGameResources() {
+		return this.resources;
 	}
 
 	/**
@@ -243,11 +257,12 @@ public abstract class Game {
 	protected boolean onKeyRelease(int keyCode) {
 		return false;
 	}
-	
+
 	/**
 	 * This method executes a {@code onGameLoad} call.
 	 * 
-	 * @param customValues the custom values.
+	 * @param customValues
+	 *            the custom values.
 	 * @return the result of the {@link Game#onKeyRelease(int)} method.
 	 * @throws TimeoutException
 	 *             when the call does not return in time.
@@ -273,18 +288,20 @@ public abstract class Game {
 	/**
 	 * Called after a savegame was loaded.
 	 * 
-	 * @param customValues the stored custom values.
+	 * @param customValues
+	 *            the stored custom values.
 	 * @return <code>true</code> if the action was performed successfully,
 	 *         <code>false</code> otherwise
 	 */
 	protected boolean onGameLoad(HashMap<Integer, Object> customValues) {
 		return false;
 	}
-	
+
 	/**
 	 * This method executes a {@code onGameLoad} call.
 	 * 
-	 * @param customValues the custom values.
+	 * @param customValues
+	 *            the custom values.
 	 * @return the result of the {@link Game#onKeyRelease(int)} method.
 	 * @throws TimeoutException
 	 *             when the call does not return in time.
@@ -310,7 +327,8 @@ public abstract class Game {
 	/**
 	 * Called before a savegame is stored.
 	 * 
-	 * @param customValues the custom values to be stored.
+	 * @param customValues
+	 *            the custom values to be stored.
 	 * @return <code>true</code> if the action was performed successfully,
 	 *         <code>false</code> otherwise
 	 */
@@ -318,11 +336,11 @@ public abstract class Game {
 		return false;
 	}
 
-	
 	/**
 	 * This method executes a {@code onMenuItemClick} call.
 	 * 
-	 * @param customValues the custom values.
+	 * @param customValues
+	 *            the custom values.
 	 * @return the result of the {@link Game#onMenuItemClick(MenuItem)} method.
 	 * @throws TimeoutException
 	 *             when the call does not return in time.
@@ -344,6 +362,7 @@ public abstract class Game {
 		LOG.finer("onMenuItemClick returned in time.");
 		return callResult;
 	}
+
 	/**
 	 * Called when a player clicks on a custom {@link MenuItem}.
 	 * 

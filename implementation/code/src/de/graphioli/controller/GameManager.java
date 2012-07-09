@@ -5,6 +5,7 @@ import de.graphioli.gameexplorer.GameExplorer;
 import de.graphioli.model.Edge;
 import de.graphioli.model.GameBoard;
 import de.graphioli.model.GameCapsule;
+import de.graphioli.model.GameResources;
 import de.graphioli.model.Player;
 import de.graphioli.model.Vertex;
 import de.graphioli.model.VisualEdge;
@@ -20,6 +21,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.concurrent.TimeoutException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -77,7 +79,7 @@ public class GameManager {
 	/**
 	 * Creates a new instance of {@link GameManager}.
 	 */
-	public GameManager() {
+	private GameManager() {
 		LOG.info("GameManager instantiated.");
 	}
 
@@ -156,7 +158,7 @@ public class GameManager {
 			return false;
 		}
 
-		this.game.registerController(this);
+		this.game.registerController(this, new GameResources(gameDefinition.getClassName()));
 
 		if (!runGame()) {
 			this.viewManager.displayPopUp("Game initialization failed. Closing.");

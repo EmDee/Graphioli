@@ -42,17 +42,17 @@ public final class JarParser {
 	 * @return an {@link InputStream} of the file
 	 */
 	public static InputStream getFileAsInputStream(String gameName, String fileName) {
-		LOG.finer("JarParser.<em>getImageURL()</em> called.");
+		LOG.finer("JarParser.<em>getFileAsInputStream()</em> called.");
 
 		InputStream inputStream = null;
 		try {
 			jarFile = new JarFile("games/" + gameName + "/" + gameName + ".jar");
 			inputStream = jarFile.getInputStream(jarFile.getJarEntry(fileName));
 		} catch (IOException e) {
-			LOG.severe("Path does not exist: '" + inputStream + "'.");
+			LOG.warning("Could not access file \"" + fileName + "\" in \"" +  gameName + ".jar\" (IO Exception).");
 			return null;
 		} catch (NullPointerException e) {
-			LOG.severe("File does not exist at: '" + inputStream + "'.");
+			LOG.warning("Could not access file \"" + fileName + "\" in \"" +  gameName + ".jar\" (NullPointerException).");
 			return null;
 		}
 
