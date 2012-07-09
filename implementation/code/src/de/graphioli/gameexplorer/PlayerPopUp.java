@@ -174,8 +174,12 @@ public class PlayerPopUp extends JFrame {
 			inputPlayerName = this.showInputDialog(
 					Localization.getLanguageString("player_pop_up_input" + localizationSuffix), null);
 
-			// User pressed 'Cancel'
-			if (inputPlayerName == null) {
+			// User pressed 'Cancel', but this is the first (or only) dialog
+			if (inputPlayerName == null && playerCount < 2) {
+				return null;
+
+			// User pressed 'Cancel', but has made other choices before
+			} else if (inputPlayerName == null) {
 
 				// Ask user, if he really wants to cancel
 				boolean choice = this.showConfirmDialog(Localization.getLanguageString("player_pop_up_choice"));
