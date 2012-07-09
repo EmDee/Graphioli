@@ -67,7 +67,7 @@ public class TwixTVertex extends GraphicVisualVertex {
 		} else if (this.player.equals(playerTwo)) {
 			this.setImage(playerTwoTower);
 		} else {
-			System.out.println("Unknown player");
+			// System.out.println("Unknown player");
 			this.setImage(null);
 		}
 		this.update();
@@ -95,7 +95,11 @@ public class TwixTVertex extends GraphicVisualVertex {
 	@Override
 	protected boolean draw(Graphics2D g2d) {
 		if (this.getImage() == null && this.player != null) {
-			this.setPlayer(this.player);
+			if (this.player.equals(playerOne)) {
+				this.setImage(playerOneTower);
+			} else if (this.player.equals(playerTwo)) {
+				this.setImage(playerTwoTower);
+			}
 		}
 		return super.draw(g2d);
 	}
