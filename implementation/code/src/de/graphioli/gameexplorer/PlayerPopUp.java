@@ -69,7 +69,13 @@ public class PlayerPopUp extends JFrame {
 		// Instantiate players
 		for (int i = 0; i < playerCount; i++) {
 
-			String playerName = this.askForPlayerName(i + 1);
+			String playerName = "";
+
+			if (playerCount == 1) {
+				playerName = this.askForPlayerName();
+			} else {
+				playerName = this.askForPlayerName(i + 1);
+			}
 
 			// If user pressed 'Cancel', close window
 			if (playerName == null) {
@@ -140,6 +146,18 @@ public class PlayerPopUp extends JFrame {
 	/**
 	 * Prompts for a name and returns the name for player initialization.
 	 * 
+	 * Use this method if only one player needs to be instantiated. Use {@link PlayerPopUp#askForPlayerName(int)}
+	 * if more than one player will be instantiated.
+	 * 
+	 * @return The chosen name
+	 */
+	private String askForPlayerName() {
+		return this.askForPlayerName(0);
+	}
+
+	/**
+	 * Prompts for a name and returns the name for player initialization.
+	 * 
 	 * @param playerCount
 	 *            The number of the current player
 	 * @return The chosen name
@@ -148,12 +166,13 @@ public class PlayerPopUp extends JFrame {
 
 		String playerName = "";
 		String inputPlayerName;
+		String localizationSuffix = (playerCount > 0) ? "_" + playerCount : "";
 
 		while (playerName.equals("")) {
 
 			// Ask for player name
 			inputPlayerName = this.showInputDialog(
-					Localization.getLanguageString("player_pop_up_input_" + playerCount), null);
+					Localization.getLanguageString("player_pop_up_input" + localizationSuffix), null);
 
 			// User pressed 'Cancel'
 			if (inputPlayerName == null) {
