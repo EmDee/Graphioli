@@ -51,6 +51,9 @@ public final class JarParser {
 		} catch (IOException e) {
 			LOG.severe("Path does not exist: '" + inputStream + "'.");
 			return null;
+		} catch (NullPointerException e) {
+			LOG.severe("File does not exist at: '" + inputStream + "'.");
+			return null;
 		}
 
 		return inputStream;
