@@ -24,6 +24,7 @@
 - removed public method 'killGame()'
 - removed overloaded method finishGame(winner)
 - added checkFinished method
+- added public method 'logGameAction()'
 
 == ViewManager
 - added public method 'askForRestart()'
