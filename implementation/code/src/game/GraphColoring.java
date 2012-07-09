@@ -10,6 +10,7 @@ import de.graphioli.controller.GameManager;
 import de.graphioli.controller.ViewManager;
 import de.graphioli.model.GameBoard;
 import de.graphioli.model.GridPoint;
+import de.graphioli.model.MenuItem;
 import de.graphioli.model.SimpleVisualEdge;
 import de.graphioli.model.SimpleVisualVertex;
 import de.graphioli.model.Vertex;
@@ -35,7 +36,15 @@ public class GraphColoring extends Game {
 	/*
 	 * Keys
 	 */
-	public static final int KEY_SELECTED = 0;
+	private static final int KEY_SELECTED = 0;
+	private static final int KEY_COLORCOUNT = 1;
+	private static final int KEY_SELECTED_LEVEL = 2;
+	
+	/*
+	 * Menu IDs
+	 */
+	private static final int MENU_NEXT = 1;
+	private static final int MENU_PREV = 2;
 
 	/**
 	 * Number of colors used.
@@ -45,7 +54,7 @@ public class GraphColoring extends Game {
 	/**
 	 * The selected level.
 	 */
-	private int selectedLevel = 3;
+	private int selectedLevel = 1;
 
 	/**
 	 * List of vertices used in the game.
@@ -104,8 +113,16 @@ public class GraphColoring extends Game {
 	@Override
 	protected boolean onGameInit() {
 
-		this.generateLevel(selectedLevel);
-
+		this.generateLevel();
+		this.generateButtons();
+		
+		return true;
+	}
+	
+	/**
+	 * Creates and adds the button vertices.
+	 */
+	private void generateButtons() {
 		this.buttons = new GraphColoringButtonVertex[colorCount];
 		for (int i = 0; i < colorCount; i++) {
 			this.buttons[i] = new GraphColoringButtonVertex(new GridPoint(i + 1, 0));
@@ -116,8 +133,6 @@ public class GraphColoring extends Game {
 
 		this.selectedButton = this.buttons[0];
 		this.selectedButton.setHighlighted(true);
-
-		return true;
 	}
 
 	/**
@@ -133,8 +148,8 @@ public class GraphColoring extends Game {
 	/**
 	 * Builds a level for the game.
 	 */
-	private void generateLevel(int selectedLevel) {
-		GraphColoringLevel level = GraphColoringLevel.getLevelInstance(selectedLevel);
+	private void generateLevel() {
+		GraphColoringLevel level = GraphColoringLevel.getLevelInstance(this.selectedLevel + 1);
 				
 		// Adding level to board
 		final GameBoard mBoard = this.getGameManager().getGameBoard();
@@ -283,6 +298,8 @@ public class GraphColoring extends Game {
 	protected boolean onGameLoad(HashMap<Integer, Object> customValues) {
 		this.reloadLevel();
 		Integer selection = (Integer) customValues.get(KEY_SELECTED);
+		this.selectedLevel = (Integer) customValues.get(KEY_SELECTED_LEVEL);
+		this.colorCount = (Integer) customValues.get(KEY_COLORCOUNT);
 		for (int i = 0; i < this.buttons.length; i++) {
 			if (this.buttons[i].getColorID() == selection) {
 				this.buttons[i].setHighlighted(true);
@@ -296,6 +313,38 @@ public class GraphColoring extends Game {
 	@Override
 	protected boolean onGameSave(HashMap<Integer, Object> customValues) {
 		customValues.put(KEY_SELECTED, this.selectedButton.getColorID());
+		customValues.put(KEY_COLORCOUNT, this.colorCount);
+		customValues.put(KEY_SELECTED_LEVEL, this.selectedLevel);
+		return true;
+	}
+	
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	protected boolean onMenuItemClick(MenuItem item) {
+		switch(item.getId()) {
+			case MENU_NEXT:
+				this.getGameManager().getGameBoard().flush();
+				this.getGameManager().getPlayerManager().initializePlayers();
+				this.generateButtons();
+				this.selectedLevel++;
+				this.selectedLevel %= GraphColoringLevel.IMPLEMENTED_LEVEL_COUNT;
+				this.generateLevel();
+				this.generateButtons();
+				break;
+			case MENU_PREV:
+				this.getGameManager().getGameBoard().flush();
+				this.getGameManager().getPlayerManager().initializePlayers();
+				this.generateButtons();
+				this.selectedLevel--;
+				this.selectedLevel += GraphColoringLevel.IMPLEMENTED_LEVEL_COUNT;
+				this.selectedLevel %= GraphColoringLevel.IMPLEMENTED_LEVEL_COUNT;
+				this.generateLevel();
+				this.generateButtons();
+				break;
+		}
+		
 		return true;
 	}
 }

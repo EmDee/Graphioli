@@ -9,6 +9,8 @@ import de.graphioli.model.VisualVertex;
 
 public class GraphColoringLevel {
 
+	public static final int IMPLEMENTED_LEVEL_COUNT = 3;
+			
 	private final int colorCount;
 	private final GraphColoringVertex[] lvlVertices;
 	private final VisualEdge[] lvlEdges;
