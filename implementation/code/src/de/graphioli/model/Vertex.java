@@ -157,15 +157,14 @@ public class Vertex implements Serializable {
 		return false;
 	}
 
-	/*
-	 * (non-Javadoc)
+	/* (non-Javadoc)
 	 * @see java.lang.Object#hashCode()
 	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((this.uuid == null) ? 0 : this.uuid.hashCode());
+		result = prime * result + ((uuid == null) ? 0 : uuid.hashCode());
 		return result;
 	}
 
@@ -179,22 +178,21 @@ public class Vertex implements Serializable {
 	 */
 	@Override
 	public boolean equals(Object obj) {
-		Vertex other = (Vertex) obj;
-		if (this == obj) {
+		if (this == obj)
 			return true;
-		}
-
-		if (obj == null || getClass() != obj.getClass()) {
+		if (obj == null)
 			return false;
-		}
-
-		if (this.uuid == null) {
-			if (other.uuid != null) {
+		if (getClass() != obj.getClass())
+			return false;
+		Vertex other = (Vertex) obj;
+		if (uuid == null) {
+			if (other.uuid != null)
 				return false;
-			}
-		} else if (!this.uuid.equals(other.uuid)) {
+		} else if (!uuid.equals(other.uuid))
 			return false;
-		}
 		return true;
 	}
+
+
+
 }
