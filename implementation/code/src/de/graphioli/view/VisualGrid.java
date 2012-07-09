@@ -5,6 +5,7 @@ import de.graphioli.model.Grid;
 import de.graphioli.model.GridPoint;
 import de.graphioli.model.VisualVertex;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
@@ -70,6 +71,7 @@ public class VisualGrid implements MouseListener {
 		this.grid = this.parentGameWindow.getViewManager().getGameManager().getGameBoard().getGrid();
 		// default gridScale based on VertexSize for now
 		this.gridScale = (int) (VisualVertex.PIXELS_PER_SIDE * GAP_SCALE);
+		graphCanvas.registerGrid(this);
 	}
 
 	/**
@@ -105,6 +107,8 @@ public class VisualGrid implements MouseListener {
 		// Drawing grid
 		int xScaled;
 		int yScaled;
+		
+		g2d.setColor(Color.BLACK);
 		
 		Dimension size = this.calculateSize();
 		int width = size.width;

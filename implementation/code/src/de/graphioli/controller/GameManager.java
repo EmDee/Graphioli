@@ -226,6 +226,8 @@ public class GameManager {
 			this.viewManager.displayPopUp("Game timed out. Closing.");
 			this.closeGame();
 		}
+		
+		this.viewManager.updateView();
 		return true;
 	}
 
