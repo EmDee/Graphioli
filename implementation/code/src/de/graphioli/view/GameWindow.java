@@ -3,6 +3,7 @@ package de.graphioli.view;
 import de.graphioli.controller.ViewManager;
 import de.graphioli.model.MenuItem;
 import de.graphioli.model.Player;
+import de.graphioli.utils.Localization;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
@@ -91,6 +92,14 @@ public class GameWindow extends JFrame implements View {
 	
 	private CustomKeyDispatcher dispatcher;
 
+
+	/**
+	 * Constructs a new instance of GameWindow.
+	 */
+	public GameWindow() {
+		this.setTitle(Localization.getLanguageString("gw_title"));
+		LOG.info("GameWindow instantiated.");
+	}
 
 	/**
 	 * Registers a {@link ViewManager} as the controller for the user interface.
@@ -342,9 +351,17 @@ public class GameWindow extends JFrame implements View {
 	public void closeGame() {
 
 		LOG.finer("GameWindow.<em>closeGame()</em> called.");
-		LOG.fine("Forwarding call to GameManager.");
-		// Forward call to GameManager
-		this.getViewManager().getGameManager().closeGame();
+
+		// Ask user, if he really wants to quit
+		boolean choice = this.showConfirmDialog(Localization.getLanguageString("gw_confirm_quit"));
+
+		if (choice) {
+
+			LOG.fine("Forwarding call to GameManager.");
+			// Forward call to GameManager
+			this.getViewManager().getGameManager().closeGame();
+
+		}
 
 	}
 
@@ -369,6 +386,25 @@ public class GameWindow extends JFrame implements View {
 	public boolean addMenuItems(List<MenuItem> menu) {
 		this.menuBar.addOptionsItems(menu);
 		return true;
+	}
+
+	/**
+	 * Shows a confirmation dialog.
+	 * 
+	 * @param message
+	 *            The message to display
+	 * @return <code>true</code> if the user confirmed, <code>false</code>
+	 *         otherwise
+	 */
+	private boolean showConfirmDialog(String message) {
+
+		int confirmChoice = JOptionPane.showConfirmDialog(this, message, this.getTitle(),
+				JOptionPane.YES_NO_OPTION);
+
+		// confirmChoice == 0: Yes
+		// confirmChoice == 1: No
+		return confirmChoice == 0;
+
 	}
 
 }

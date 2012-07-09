@@ -76,6 +76,7 @@ public class GEWindow extends JFrame implements GEView {
 	 */
 	private GEWindowActions geWindowActions;
 
+
 	/**
 	 * Constructs a new instance of GEWindow.
 	 */
