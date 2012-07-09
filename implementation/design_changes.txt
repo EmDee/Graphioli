@@ -25,6 +25,15 @@
 - removed overloaded method finishGame(winner)
 - added checkFinished method
 
+== ViewManager
+- added public method 'askForRestart()'
+
+== View
+- added method 'askForRestart()'
+
+== GameWindow
+- added public method 'askForRestart()'
+
 == PlayerPopUp
 - does not further implement ActionListener
 - added private attribute 'geWindow'
@@ -58,6 +67,7 @@
 - GraphioliLogger
 - Localization
 - JarParser
+- GEWindowActions
 
 == New libraries ==
 - GSON
@@ -70,9 +80,6 @@
 == GEWindow ==
 - added public method 'selectGameDefinition([...])'
 - outsourced all event and action listeners to GEWindowActions
-
-== GEWindowActions ==
-- class added
 
 == Game Capsule ==
 - added GameDefinition
