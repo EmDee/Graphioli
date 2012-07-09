@@ -181,7 +181,12 @@ public class GameManager {
 
 		// Create ViewManager instance
 		this.viewManager = new ViewManager(this);
-		this.viewManager.addCustomMenuItems(gameDefinition.getMenu());
+		
+		if (gameDefinition.getMenu() != null) {
+			this.viewManager.addCustomMenuItems(gameDefinition.getMenu());
+		} else {
+			LOG.fine("No custom menu items found");
+		}
 
 		// Create PlayerManager instance
 		this.playerManager = new PlayerManager(players, this);
@@ -189,8 +194,6 @@ public class GameManager {
 		this.playerManager.initializePlayers();
 
 		this.currentGameDefinition = gameDefinition;
-
-		// Facultative: Create MenuItems here
 	}
 
 	/**
