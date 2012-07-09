@@ -33,6 +33,9 @@ public class TwixT extends Game {
 
 	private TwixTVertex originVertex;
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	protected boolean onVertexClick(VisualVertex vertex) {
 		TwixTVertex vex = (TwixTVertex) vertex;
@@ -104,11 +107,12 @@ public class TwixT extends Game {
 		return true;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	protected boolean onEmptyGridPointClick(GridPoint gridPoint) {
-		if (gridPoint.getPositionX() > 0
-				&& gridPoint.getPositionX() < this.gridSize
-				&& gridPoint.getPositionY() > 0
+		if (gridPoint.getPositionX() > 0 && gridPoint.getPositionX() < this.gridSize && gridPoint.getPositionY() > 0
 				&& gridPoint.getPositionY() < this.gridSize) {
 			TwixTVertex addVertex = new TwixTVertex(gridPoint);
 			addVertex.setPlayer(this.playerManager.getActivePlayer());
@@ -121,6 +125,9 @@ public class TwixT extends Game {
 		return false;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	protected boolean onGameInit() {
 
@@ -197,12 +204,18 @@ public class TwixT extends Game {
 		return true;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	protected boolean onGameStart() {
 
 		return true;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	protected boolean onGameLoad(HashMap<Integer, Object> customValues) {
 		this.initFields();
@@ -239,7 +252,9 @@ public class TwixT extends Game {
 	 * Checks if the target Vertex has the right distance to the originVertex
 	 * 
 	 * @param targetVertex
-	 * @return
+	 *            The target vertex
+	 * @return <code>true</code> if those two vertices have the right distance,
+	 *         <code>false</code> otherwise
 	 */
 	private boolean checkEdgeBuild(TwixTVertex targetVertex) {
 		int x1 = this.originVertex.getGridPoint().getPositionX();
@@ -250,6 +265,9 @@ public class TwixT extends Game {
 		return ((Math.abs(x1 - x2) == 2 && Math.abs(y1 - y2) == 1) || (Math.abs(x1 - x2) == 1 && Math.abs(y1 - y2) == 2));
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	protected boolean onGameSave(HashMap<Integer, Object> customValues) {
 		return true;

@@ -5,6 +5,7 @@ import java.awt.image.BufferedImage;
 import de.graphioli.model.GraphicVisualVertex;
 import de.graphioli.model.GridPoint;
 import de.graphioli.model.Player;
+import de.graphioli.utils.JarParser;
 
 public class TwixTVertex extends GraphicVisualVertex {
 
@@ -12,7 +13,7 @@ public class TwixTVertex extends GraphicVisualVertex {
 	 * The BufferedImage used for the first {@link Player}
 	 */
 	private static transient BufferedImage playerOneTower;
-	
+
 	/**
 	 * The BufferedImage used for the second {@link Player}
 	 */
@@ -22,11 +23,17 @@ public class TwixTVertex extends GraphicVisualVertex {
 	 * The {@link Player} who owns this TwixTVertex.
 	 */
 	private Player player;
-	
-	private final String fileNameOne = "games/TwixT/Awesome1.png";
 
-	private final String fileNameTwo = "games/TwixT/Awesome2.png";
-	
+	/**
+	 * The file name of the image used by player one
+	 */
+	private final String fileNameOne = "Awesome1.png";
+
+	/**
+	 * The file name of the image used by player two
+	 */
+	private final String fileNameTwo = "Awesome2.png";
+
 	/**
 	 * Creates a new TwixtVertex and places it on the specified GridPoint.
 	 * 
@@ -69,11 +76,11 @@ public class TwixTVertex extends GraphicVisualVertex {
 	@Override
 	protected void init() {
 		if (playerOneTower == null || playerTwoTower == null) {
-			playerOneTower = this.loadBufferedImage(this.fileNameOne);
-			playerTwoTower = this.loadBufferedImage(this.fileNameTwo);			
+			playerOneTower = this.loadBufferedImage("TwixT", this.fileNameOne);
+			playerTwoTower = this.loadBufferedImage("TwixT", this.fileNameTwo);
 		}
 	}
-	
+
 	@Override
 	protected void onReload() {
 		this.init();
