@@ -145,7 +145,7 @@ public class GameWindow extends JFrame implements View {
 		// Center window
 		this.setLocationRelativeTo(null);
 	}
-	
+
 	/**
 	 * Generates the graph Canvas and its grid.
 	 */
@@ -155,7 +155,7 @@ public class GameWindow extends JFrame implements View {
 		Dimension gridSize = this.visualGrid.calculateSize();
 		this.graphCanvas.addMouseListener(this.visualGrid);
 		this.graphCanvas.setPreferredSize(gridSize);
-		
+
 		// Add container to make Canvas centered.
 		JPanel canvasContainer = new JPanel();
 		canvasContainer.setPreferredSize(gridSize);
@@ -165,12 +165,11 @@ public class GameWindow extends JFrame implements View {
 	    gridBag.setConstraints(canvasContainer, constraints);
 		canvasContainer.setLayout(gridBag);
 		canvasContainer.add(this.graphCanvas);
-		
+
 		// Add scroll pane
 		JScrollPane scrollPane = new JScrollPane(canvasContainer, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
 				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-		
-		
+
 		this.add(scrollPane, BorderLayout.CENTER);		
 	}
 
@@ -352,7 +351,7 @@ public class GameWindow extends JFrame implements View {
 
 		LOG.finer("GameWindow.<em>closeGame()</em> called.");
 
-		// Ask user, if he really wants to quit
+		// Ask user, if he/she really wants to quit
 		boolean choice = this.showConfirmDialog(Localization.getLanguageString("gw_confirm_quit"));
 
 		if (choice) {
@@ -363,6 +362,15 @@ public class GameWindow extends JFrame implements View {
 
 		}
 
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public boolean askForRestart() {
+		// Ask user, if he/she wants to restart
+		boolean choice = this.showConfirmDialog(Localization.getLanguageString("gw_restart"));
+		return choice;
 	}
 
 	/**

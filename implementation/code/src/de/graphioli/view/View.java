@@ -97,4 +97,11 @@ public interface View {
 	 */
 	boolean addMenuItems(List<MenuItem> menu);
 
+	/**
+	 * Asks the player if the game should be restarted.
+	 * 
+	 * @return {@code true} if player wants to restart, {@code false} otherwise
+	 */
+	boolean askForRestart();
+
 }

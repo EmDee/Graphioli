@@ -240,4 +240,14 @@ public class ViewManager {
 	public boolean addCustomMenuItems(List<MenuItem> items) {
 		return this.view.addMenuItems(items);
 	}
+
+	/**
+	 * Informs the View to ask the player if the game should be restarted.
+	 * 
+	 * @return {@code true} if player wants to restart, {@code false} otherwise
+	 */
+	public boolean askForRestart() {
+		return this.view.askForRestart();
+	}
+
 }

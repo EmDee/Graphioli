@@ -372,8 +372,12 @@ public class GameManager {
 				this.viewManager.displayPopUp(this.playerManager.getWinningPlayer().getName() + " wins.");
 			}
 
-			// TODO: Restart prompt
-			this.closeGame();
+			// Prompt if game should be restarted or closed
+			if (this.viewManager.askForRestart()) {
+				this.restartGame();
+			} else {
+				this.closeGame();
+			}
 		}
 	}
 
@@ -381,12 +385,13 @@ public class GameManager {
 	 * Restarts the game and resets the {@link GameBoard} and {@link Player}s.
 	 * 
 	 * @return <code>true</code> if the action was performed successfully,
-	 *         <code>false</code> otherwise TODO Implement
+	 *         <code>false</code> otherwise
 	 */
 	public boolean restartGame() {
 		this.getGameBoard().flush();
 		this.playerManager.initializePlayers();
 		this.runGame();
+		this.viewManager.updateView();
 		return true;
 	}
 
@@ -395,7 +400,7 @@ public class GameManager {
 	 * {@link GameExplorer}.
 	 * 
 	 * @return <code>true</code> if the action was performed successfully,
-	 *         <code>false</code> otherwise TODO Implement
+	 *         <code>false</code> otherwise
 	 */
 	public boolean closeGame() {
 		LOG.info("Closing game.");
