@@ -68,6 +68,7 @@
 - Localization
 - JarParser
 - GEWindowActions
+- GraphColoringLevel
 
 == New libraries ==
 - GSON
