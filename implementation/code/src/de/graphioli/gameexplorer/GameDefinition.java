@@ -2,11 +2,7 @@ package de.graphioli.gameexplorer;
 
 import java.io.Serializable;
 import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.ArrayList;
-
-import com.google.gson.Gson;
-
 import de.graphioli.model.MenuItem;
 
 /**
