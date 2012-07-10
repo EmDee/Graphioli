@@ -1,26 +1,61 @@
 package game;
 
-//TODO: Javadoc
-
 import de.graphioli.model.GridPoint;
 import de.graphioli.model.SimpleVisualEdge;
 import de.graphioli.model.VisualEdge;
 import de.graphioli.model.VisualVertex;
 
+/**
+ * This class represents a level of a graph coloring game
+ * 
+ * @author Graphioli
+ *
+ */
 public class GraphColoringLevel {
-
+	
+	/*
+	 * the number of levels that are implemented
+	 */
 	public static final int IMPLEMENTED_LEVEL_COUNT = 3;
-			
+	
+	/**
+	 * the number of colors to color the graph
+	 */
 	private final int colorCount;
+	
+	/**
+	 * the vertices of the level
+	 */
 	private final GraphColoringVertex[] lvlVertices;
+	
+	/**
+	 * the edges of the level
+	 */
 	private final VisualEdge[] lvlEdges;
-
+	
+	/**
+	 * Creates a new instance of the graph coloring level
+	 * 
+	 * @param colorCount
+	 * 				the number of colors
+	 * @param vertices
+	 * 				the vertices of the level
+	 * @param edges
+	 * 				the edges of the level
+	 */
 	private GraphColoringLevel(int colorCount, GraphColoringVertex[] vertices, VisualEdge[] edges) {
 		this.colorCount = colorCount;
 		this.lvlVertices = vertices;
 		this.lvlEdges = edges;
 	}
-
+	
+	/**
+	 * Returns the level with the given level number
+	 * 
+	 * @param levelNumber 
+	 * 				the number of the level to be returned
+	 * @return the level instance
+	 */
 	public static GraphColoringLevel getLevelInstance(int levelNumber) {
 		switch (levelNumber) {
 			case 1:
@@ -33,7 +68,12 @@ public class GraphColoringLevel {
 				return null;
 		}
 	}
-
+	
+	/**
+	 * Generates the first level of graph coloring
+	 * 
+	 * @return the first level
+	 */
 	private static GraphColoringLevel generateLevelOne() {
 
 		GraphColoringVertex[] vertices = new GraphColoringVertex[4];
@@ -52,6 +92,12 @@ public class GraphColoringLevel {
 		return new GraphColoringLevel(3, vertices, edges);
 	}
 	
+	
+	/**
+	 * Generates the second level of graph coloring
+	 * 
+	 * @return the second level
+	 */
 	private static GraphColoringLevel generateLevelTwo() {
 
 		GraphColoringVertex[] vertices = new GraphColoringVertex[6];
@@ -73,10 +119,13 @@ public class GraphColoringLevel {
 		edges[9] = new SimpleVisualEdge(vertices[3], vertices[5]);
 
 		return new GraphColoringLevel(3, vertices, edges);
-		
-		
 	}
 	
+	/**
+	 * Generates the third level of graph coloring
+	 * 
+	 * @return the third level
+	 */
 	private static GraphColoringLevel generateLevelThree() {
 		
 		GraphColoringVertex[] vertices = new GraphColoringVertex[13];
@@ -111,15 +160,27 @@ public class GraphColoringLevel {
 		
 		return new GraphColoringLevel(3, vertices, edges);
 	}
-
+	
+	/**
+	 * 
+	 * @return the number of colors in the level
+	 */
 	public int getColorCount() {
 		return this.colorCount;
 	}
-
+	
+	/**
+	 * 
+	 * @return the vertices of the level
+	 */
 	public GraphColoringVertex[] getVertices() {
 		return this.lvlVertices;
 	}
-
+	
+	/**
+	 * 
+	 * @return the edges of the level
+	 */
 	public VisualEdge[] getEdges() {
 		return this.lvlEdges;
 	}
