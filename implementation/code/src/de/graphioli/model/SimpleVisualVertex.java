@@ -13,8 +13,24 @@ import java.awt.Stroke;
  */
 public class SimpleVisualVertex extends VisualVertex {
 
+	/**
+	 * Serial UID.
+	 */
+	private static final long serialVersionUID = 4741129810683779141L;
+
+	/**
+	 * The fill color of this vertex.
+	 */
 	private Color fillColor;
+	
+	/**
+	 * The stroke color of this vertex.
+	 */
 	private Color strokeColor;
+	
+	/**
+	 * The stroke weight of this vertex.
+	 */
 	private int strokeWeight;
 
 	private transient Stroke stroke;
@@ -31,18 +47,57 @@ public class SimpleVisualVertex extends VisualVertex {
 	}
 
 	/**
-	 * Sets the fill color of this {@code SimpleVisualVertex} to {@code WHITE},
-	 * the stroke color to {@code BLACK} and the stroke weight to {@code 1}.
+	 * @return the fillColor
 	 */
-	@Override
-	protected void init() {
-		this.fillColor = Color.WHITE;
-		this.strokeColor = Color.BLACK;
-		this.strokeWeight = 1;
-		this.stroke = new BasicStroke(this.strokeWeight);
+	public Color getFillColor() {
+		return this.fillColor;
 	}
 	
 	
+
+	/**
+	 * @return the strokeColor
+	 */
+	public Color getStrokeColor() {
+		return this.strokeColor;
+	}
+
+	/**
+	 * @return the strokeWeight
+	 */
+	public int getStrokeWeight() {
+		return (this.strokeWeight + 1) / 2;
+	}
+
+	/**
+	 * @param fillColor
+	 *            the fillColor to set
+	 */
+	public void setFillColor(Color fillColor) {
+		this.fillColor = fillColor;
+		this.update();
+	}
+
+	/**
+	 * @param strokeColor
+	 *            the strokeColor to set
+	 */
+	public void setStrokeColor(Color strokeColor) {
+		this.strokeColor = strokeColor;
+		this.update();
+	}
+
+	/**
+	 * @param strokeWeight
+	 *            the strokeWeight to set
+	 */
+	public void setStrokeWeight(int strokeWeight) {
+		// Stroke Weight has to be an uneven number internally to prevent edges
+		// being cut off.
+		this.strokeWeight = 2 * strokeWeight - 1;
+		this.stroke = new BasicStroke(this.strokeWeight);
+		this.update();
+	}
 
 	/**
 	 * Draws this {@code SimpleVisualVertex} according to its fill color, stroke
@@ -67,54 +122,15 @@ public class SimpleVisualVertex extends VisualVertex {
 	}
 
 	/**
-	 * @return the fillColor
+	 * Sets the fill color of this {@code SimpleVisualVertex} to {@code WHITE},
+	 * the stroke color to {@code BLACK} and the stroke weight to {@code 1}.
 	 */
-	public Color getFillColor() {
-		return this.fillColor;
-	}
-
-	/**
-	 * @param fillColor
-	 *            the fillColor to set
-	 */
-	public void setFillColor(Color fillColor) {
-		this.fillColor = fillColor;
-		this.update();
-	}
-
-	/**
-	 * @return the strokeColor
-	 */
-	public Color getStrokeColor() {
-		return this.strokeColor;
-	}
-
-	/**
-	 * @param strokeColor
-	 *            the strokeColor to set
-	 */
-	public void setStrokeColor(Color strokeColor) {
-		this.strokeColor = strokeColor;
-		this.update();
-	}
-
-	/**
-	 * @return the strokeWeight
-	 */
-	public int getStrokeWeight() {
-		return (this.strokeWeight + 1) / 2;
-	}
-
-	/**
-	 * @param strokeWeight
-	 *            the strokeWeight to set
-	 */
-	public void setStrokeWeight(int strokeWeight) {
-		// Stroke Weight has to be an uneven number internally to prevent edges
-		// being cut off.
-		this.strokeWeight = 2 * strokeWeight - 1;
+	@Override
+	protected void init() {
+		this.fillColor = Color.WHITE;
+		this.strokeColor = Color.BLACK;
+		this.strokeWeight = 1;
 		this.stroke = new BasicStroke(this.strokeWeight);
-		this.update();
 	}
 
 	/**

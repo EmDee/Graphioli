@@ -9,6 +9,14 @@ package de.graphioli.gameexplorer;
 public interface GEView {
 
 	/**
+	 * Generates the user interface of the {@link GameExplorer}.
+	 * 
+	 * @return <code>true</code> if the action was performed successfully,
+	 *         <code>false</code> otherwise
+	 */
+	boolean generateView();
+
+	/**
 	 * Registers the controller for the {@link GameExplorer} user interface.
 	 * 
 	 * @param gameExplorer
@@ -17,13 +25,5 @@ public interface GEView {
 	 *         <code>false</code> otherwise
 	 */
 	boolean registerController(GameExplorer gameExplorer);
-
-	/**
-	 * Generates the user interface of the {@link GameExplorer}.
-	 * 
-	 * @return <code>true</code> if the action was performed successfully,
-	 *         <code>false</code> otherwise
-	 */
-	boolean generateView();
 
 }

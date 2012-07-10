@@ -14,6 +14,11 @@ import java.util.logging.Logger;
 public class GameBoard implements Serializable {
 
 	/**
+	 * Serial UID.
+	 */
+	private static final long serialVersionUID = -2685640996584191994L;
+
+	/**
 	 * Logging instance.
 	 */
 	private static final Logger LOG = Logger.getLogger(GameBoard.class.getName());
@@ -51,41 +56,6 @@ public class GameBoard implements Serializable {
 		this.graph = new Graph();
 		this.grid = new Grid(horizontalGridPoints, verticalGridPoints);
 
-	}
-
-	/**
-	 * Adds the given {@link VisualVertex} to the {@link Graph} and the
-	 * {@link Grid}.
-	 * 
-	 * @param visualVertex
-	 *            the VisualVertex to be added
-	 * @return {@code true} if the adding was successful
-	 */
-	public boolean addVisualVertex(VisualVertex visualVertex) {
-		if (this.grid.addVisualVertexToGrid(visualVertex)) {
-			if (this.graph.addVertex(visualVertex)) {
-				LOG.finer("Added VisualVertex at position " + visualVertex.getGridPoint() + ".");
-				return true;
-			}
-			this.grid.removeVisualVertexAtGridPoint(visualVertex.getGridPoint());
-		}
-		return false;
-	}
-
-	/**
-	 * Adds the given VisualVertices to the {@link Graph} and the {@link Grid}.
-	 * 
-	 * @param visualVertices
-	 *            an ArrayList of the VisualVertices to be added
-	 * @return {@code true} if the adding was successful
-	 */
-	public boolean addVisualVertices(ArrayList<VisualVertex> visualVertices) {
-		for (VisualVertex vertex : visualVertices) {
-			if (!this.addVisualVertex(vertex)) {
-				return false;
-			}
-		}
-		return true;
 	}
 
 	/**
@@ -129,23 +99,98 @@ public class GameBoard implements Serializable {
 	}
 
 	/**
-	 * Removes the {@link VisualVertex} from the {@link Graph} and the
+	 * Adds the given {@link VisualVertex} to the {@link Graph} and the
 	 * {@link Grid}.
 	 * 
 	 * @param visualVertex
-	 *            the {@link VisualVertex} to be removed
-	 * @return {@code true} if the removing was successful
+	 *            the VisualVertex to be added
+	 * @return {@code true} if the adding was successful
 	 */
-	public boolean removeVisualVertex(VisualVertex visualVertex) {
-		if (this.grid.removeVisualVertexAtGridPoint(visualVertex.getGridPoint())) {
-			if (this.graph.removeVertex(visualVertex)) {
-				LOG.finer("Removed VisualVertex from position " + visualVertex.getGridPoint() + ".");
+	public boolean addVisualVertex(VisualVertex visualVertex) {
+		if (this.grid.addVisualVertexToGrid(visualVertex)) {
+			if (this.graph.addVertex(visualVertex)) {
+				LOG.finer("Added VisualVertex at position " + visualVertex.getGridPoint() + ".");
 				return true;
 			}
-			// Removing failed, add to grid again.
-			this.grid.addVisualVertexToGrid(visualVertex);
+			this.grid.removeVisualVertexAtGridPoint(visualVertex.getGridPoint());
 		}
 		return false;
+	}
+
+	/**
+	 * Adds the given VisualVertices to the {@link Graph} and the {@link Grid}.
+	 * 
+	 * @param visualVertices
+	 *            an ArrayList of the VisualVertices to be added
+	 * @return {@code true} if the adding was successful
+	 */
+	public boolean addVisualVertices(ArrayList<VisualVertex> visualVertices) {
+		for (VisualVertex vertex : visualVertices) {
+			if (!this.addVisualVertex(vertex)) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	/**
+	 * Resets this GameBoard to an empty state.
+	 */
+	public void flush() {
+		this.graph = new Graph();
+		int horizontalGridPoints = this.grid.getHorizontalGridPoints();
+		int verticalGridPoints = this.grid.getVerticalGridPoints();
+		this.grid = new Grid(horizontalGridPoints, verticalGridPoints);
+		LOG.fine("GameBoard flushed.");
+	}
+
+	/**
+	 * Returns the {@link Graph} of this GameBoard.
+	 * 
+	 * @return the Graph of this GameBoard
+	 */
+	public Graph getGraph() {
+		return this.graph;
+	}
+
+	/**
+	 * Returns the {@link Grid} of this GameBoard.
+	 * 
+	 * @return the Grid of this GameBoard
+	 */
+	public Grid getGrid() {
+		return this.grid;
+	}
+
+	/**
+	 * Returns the {@link VisualEdge} with vertexA as origin and vertexB as
+	 * target vertex In an undirected graph, it returns the one which is not
+	 * flagged eas opposing.
+	 * 
+	 * @param vertexA
+	 *            the origin vertex of the edge to get
+	 * @param vertexB
+	 *            the target vertex of the edge to get
+	 * @return the edge from vertexA to vertexB (resp. in an undirected graph,
+	 *         the not-opposing one.
+	 */
+	public VisualEdge getVisualEdge(VisualVertex vertexA, VisualVertex vertexB) {
+		VisualEdge edge = (VisualEdge) this.graph.getEdge(vertexA, vertexB);
+		if (this.isDirectedGraph || !edge.isOpposingEdge()) {
+			return edge;
+		} else {
+			return (VisualEdge) this.graph.getEdge(vertexB, vertexA);
+		}
+	}
+
+	/**
+	 * Returns whether the graph of this GameBoard is directed or not.
+	 * 
+	 * @return <code>true</code> if the graph of this GameBoard is directed,
+	 *         <code>false</code> otherwise
+	 */
+	public boolean isDirectedGraph() {
+		return this.isDirectedGraph;
 	}
 
 	/**
@@ -185,63 +230,23 @@ public class GameBoard implements Serializable {
 	}
 
 	/**
-	 * Returns the {@link VisualEdge} with vertexA as origin and vertexB as
-	 * target vertex In an undirected graph, it returns the one which is not
-	 * flagged eas opposing.
+	 * Removes the {@link VisualVertex} from the {@link Graph} and the
+	 * {@link Grid}.
 	 * 
-	 * @param vertexA
-	 *            the origin vertex of the edge to get
-	 * @param vertexB
-	 *            the target vertex of the edge to get
-	 * @return the edge from vertexA to vertexB (resp. in an undirected graph,
-	 *         the not-opposing one.
+	 * @param visualVertex
+	 *            the {@link VisualVertex} to be removed
+	 * @return {@code true} if the removing was successful
 	 */
-	public VisualEdge getVisualEdge(VisualVertex vertexA, VisualVertex vertexB) {
-		VisualEdge edge = (VisualEdge) this.graph.getEdge(vertexA, vertexB);
-		if (this.isDirectedGraph || !edge.isOpposingEdge()) {
-			return edge;
-		} else {
-			return (VisualEdge) this.graph.getEdge(vertexB, vertexA);
+	public boolean removeVisualVertex(VisualVertex visualVertex) {
+		if (this.grid.removeVisualVertexAtGridPoint(visualVertex.getGridPoint())) {
+			if (this.graph.removeVertex(visualVertex)) {
+				LOG.finer("Removed VisualVertex from position " + visualVertex.getGridPoint() + ".");
+				return true;
+			}
+			// Removing failed, add to grid again.
+			this.grid.addVisualVertexToGrid(visualVertex);
 		}
-	}
-
-	/**
-	 * Returns whether the graph of this GameBoard is directed or not.
-	 * 
-	 * @return <code>true</code> if the graph of this GameBoard is directed,
-	 *         <code>false</code> otherwise
-	 */
-	public boolean isDirectedGraph() {
-		return this.isDirectedGraph;
-	}
-
-	/**
-	 * Returns the {@link Graph} of this GameBoard.
-	 * 
-	 * @return the Graph of this GameBoard
-	 */
-	public Graph getGraph() {
-		return this.graph;
-	}
-
-	/**
-	 * Returns the {@link Grid} of this GameBoard.
-	 * 
-	 * @return the Grid of this GameBoard
-	 */
-	public Grid getGrid() {
-		return this.grid;
-	}
-
-	/**
-	 * Resets this GameBoard to an empty state.
-	 */
-	public void flush() {
-		this.graph = new Graph();
-		int horizontalGridPoints = this.grid.getHorizontalGridPoints();
-		int verticalGridPoints = this.grid.getVerticalGridPoints();
-		this.grid = new Grid(horizontalGridPoints, verticalGridPoints);
-		LOG.fine("GameBoard flushed.");
+		return false;
 	}
 
 }

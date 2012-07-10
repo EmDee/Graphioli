@@ -1,9 +1,10 @@
 package de.graphioli.model;
 
-import java.io.Serializable;
-import java.util.UUID;
 import de.graphioli.utils.UIDManager;
 import de.graphioli.utils.Validation;
+
+import java.io.Serializable;
+import java.util.UUID;
 
 /**
  * This class represents a player.
@@ -13,12 +14,17 @@ import de.graphioli.utils.Validation;
 public abstract class Player implements Serializable {
 
 	/**
-	 * The unique ID of this {@link Player}
+	 * Serial UID.
+	 */
+	private static final long serialVersionUID = -2106686641317916584L;
+
+	/**
+	 * The unique ID of this {@link Player}.
 	 */
 	private UUID uid;
 
 	/**
-	 * The player's name
+	 * The player's name.
 	 */
 	private String name;
 
@@ -44,15 +50,7 @@ public abstract class Player implements Serializable {
 
 	}
 
-	/**
-	 * Returns the unique ID of this {@link Player}.
-	 * 
-	 * @return the unique ID of this player.
-	 */
-	public UUID getUID() {
-		return this.uid;
-	}
-
+	
 	/**
 	 * Returns the player's name.
 	 * 
@@ -63,17 +61,56 @@ public abstract class Player implements Serializable {
 	}
 	
 	/**
+	 * Returns the unique ID of this {@link Player}.
+	 * 
+	 * @return the unique ID of this player.
+	 */
+	public UUID getUID() {
+		return this.uid;
+	}
+
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((this.uid == null) ? 0 : this.uid.hashCode());
+		return result;
+	}
+
+
+	/**
 	 * Compares this player to the given object.
 	 * 
-	 * @param player the player to compare this one to
+	 * @param obj the object to compare this one to
 	 * @return {@code true} if the object is a Player and its UID equals this player's UID.
 	 */
-	public boolean equals(Object o) {
-		if (o instanceof Player) {
-			Player player = (Player) o;
-			return player.getUID().equals(this.uid);
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
 		}
-		return false;
+		if (obj == null) {
+			return false;
+		}
+		if (getClass() != obj.getClass()) {
+			return false;
+		}
+		Player other = (Player) obj;
+		if (this.uid == null) {
+			if (other.uid != null) {
+				return false;
+			}
+		} else if (!this.uid.equals(other.uid)) {
+			return false;
+		}
+		return true;
 	}
+
+
+
 
 }

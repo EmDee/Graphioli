@@ -8,8 +8,25 @@ import java.io.Serializable;
  * @author Graphioli
  */
 public class Edge implements Serializable {
+	
+	/**
+	 * Serial UID.
+	 */
+	private static final long serialVersionUID = -236312537166149510L;
+	
+	/**
+	 * This edge's origin Vertex.
+	 */
 	private final Vertex originVertex;
+	
+	/**
+	 * This edge's target vertex.
+	 */
 	private final Vertex targetVertex;
+	
+	/**
+	 * This edge's weight.
+	 */
 	private int weight;
 
 	/**
@@ -23,56 +40,6 @@ public class Edge implements Serializable {
 	public Edge(Vertex vertexA, Vertex vertexB) {
 		this.originVertex = vertexA;
 		this.targetVertex = vertexB;
-	}
-
-	/**
-	 * Returns the origin Vertex.
-	 * 
-	 * @return this origin {@link Vertex}
-	 */
-	public Vertex getOriginVertex() {
-		return this.originVertex;
-	}
-
-	/**
-	 * Returns the target Vertex.
-	 * 
-	 * @return this target {@link Vertex}
-	 */
-	public Vertex getTargetVertex() {
-		return this.targetVertex;
-	}
-
-	/**
-	 * Returns the weight of this {@link Edge}.
-	 * 
-	 * @return the weight of this {@link Edge}
-	 */
-	public int getWeight() {
-		return this.weight;
-	}
-
-	/**
-	 * Sets the weight of this Edge.
-	 * 
-	 * @param weight
-	 *            the weight to set
-	 */
-	public void setWeight(int weight) {
-		this.weight = weight;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * @see java.lang.Object#hashCode()
-	 */
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((this.originVertex == null) ? 0 : this.originVertex.hashCode());
-		result = prime * result + ((this.targetVertex == null) ? 0 : this.targetVertex.hashCode());
-		return result;
 	}
 
 	/**
@@ -108,6 +75,56 @@ public class Edge implements Serializable {
 			return false;
 		}
 		return true;
+	}
+
+	/**
+	 * Returns the origin Vertex.
+	 * 
+	 * @return this origin {@link Vertex}
+	 */
+	public Vertex getOriginVertex() {
+		return this.originVertex;
+	}
+
+	/**
+	 * Returns the target Vertex.
+	 * 
+	 * @return this target {@link Vertex}
+	 */
+	public Vertex getTargetVertex() {
+		return this.targetVertex;
+	}
+
+	/**
+	 * Returns the weight of this {@link Edge}.
+	 * 
+	 * @return the weight of this {@link Edge}
+	 */
+	public int getWeight() {
+		return this.weight;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((this.originVertex == null) ? 0 : this.originVertex.hashCode());
+		result = prime * result + ((this.targetVertex == null) ? 0 : this.targetVertex.hashCode());
+		return result;
+	}
+
+	/**
+	 * Sets the weight of this Edge.
+	 * 
+	 * @param weight
+	 *            the weight to set
+	 */
+	public void setWeight(int weight) {
+		this.weight = weight;
 	}
 
 }

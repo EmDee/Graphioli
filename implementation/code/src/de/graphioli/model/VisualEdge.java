@@ -11,6 +11,11 @@ import java.util.logging.Logger;
 public abstract class VisualEdge extends Edge {
 
 	/**
+	 * Serial UID.
+	 */
+	private static final long serialVersionUID = -5932235747243972058L;
+
+	/**
 	 * Logging instance.
 	 */
 	private static final Logger LOG = Logger.getLogger(VisualEdge.class.getName());
@@ -31,60 +36,6 @@ public abstract class VisualEdge extends Edge {
 		this.hasOpposingEdge = false;
 		this.isOpposingEdge = false;
 	}
-
-	/**
-	 * Recreates the fields, that are not serialized.
-	 */
-	public void reload() {
-		this.onReload();
-	}
-
-	/**
-	 * Implement this method to recreates the fields, that are not serialized.
-	 */
-	protected abstract void onReload();
-
-	/**
-	 * Draws this edge as undirected edge onto the given {@code Graphics2D}
-	 * object.
-	 * 
-	 * @param g2d
-	 *            the {@code Graphics2D} object to draw on.
-	 * @param originX
-	 *            the x coordinate of the origin VisualVertex.
-	 * @param originY
-	 *            the y coordinate of the origin VisualVertex.
-	 * @param targetX
-	 *            the x coordinate of the target VisualVertex.
-	 * @param targetY
-	 *            the y coordinate of the target VisualVertex.
-	 */
-	public abstract void drawUndirected(Graphics2D g2d, int originX, int originY, int targetX, int targetY);
-
-	/**
-	 * Draws this edge as directed edge onto the given {@code Graphics2D}
-	 * object.
-	 * 
-	 * @param g2d
-	 *            the {@code Graphics2D} object to draw on.
-	 * @param originX
-	 *            the x coordinate of the origin VisualVertex.
-	 * @param originY
-	 *            the y coordinate of the origin VisualVertex.
-	 * @param targetX
-	 *            the x coordinate of the target VisualVertex.
-	 * @param targetY
-	 *            the y coordinate of the target VisualVertex.
-	 */
-	public abstract void drawDirected(Graphics2D g2d, int originX, int originY, int targetX, int targetY);
-
-	/**
-	 * Generates an Edge from this one where target and origin vertices are
-	 * swapped.
-	 * 
-	 * @return the opposed edge.
-	 */
-	public abstract VisualEdge generateOpposedEdge();
 
 	/**
 	 * Calculates an offset for the edge and then calls {@link VisualEdge#drawDirected(Graphics2D, int, int, int, int)
@@ -152,42 +103,46 @@ public abstract class VisualEdge extends Edge {
 	}
 
 	/**
-	 * Returns {@code true} if this edge has an opposing edge.
+	 * Draws this edge as directed edge onto the given {@code Graphics2D}
+	 * object.
 	 * 
-	 * @return {@code true} if this edge has an opposing edge.
+	 * @param g2d
+	 *            the {@code Graphics2D} object to draw on.
+	 * @param originX
+	 *            the x coordinate of the origin VisualVertex.
+	 * @param originY
+	 *            the y coordinate of the origin VisualVertex.
+	 * @param targetX
+	 *            the x coordinate of the target VisualVertex.
+	 * @param targetY
+	 *            the y coordinate of the target VisualVertex.
 	 */
-	public boolean hasOpposingEdge() {
-		return this.hasOpposingEdge;
-	}
+	public abstract void drawDirected(Graphics2D g2d, int originX, int originY, int targetX, int targetY);
 
 	/**
-	 * Sets whether this edge has an opposing edge.
+	 * Draws this edge as undirected edge onto the given {@code Graphics2D}
+	 * object.
 	 * 
-	 * @param hasOpposingEdge
-	 *            whether this edge has an opposing edge.
+	 * @param g2d
+	 *            the {@code Graphics2D} object to draw on.
+	 * @param originX
+	 *            the x coordinate of the origin VisualVertex.
+	 * @param originY
+	 *            the y coordinate of the origin VisualVertex.
+	 * @param targetX
+	 *            the x coordinate of the target VisualVertex.
+	 * @param targetY
+	 *            the y coordinate of the target VisualVertex.
 	 */
-	void setHasOpposingEdge(boolean hasOpposingEdge) {
-		this.hasOpposingEdge = hasOpposingEdge;
-	}
+	public abstract void drawUndirected(Graphics2D g2d, int originX, int originY, int targetX, int targetY);
 
 	/**
-	 * Returns {@code true} if this edge is a opposing edge.
+	 * Generates an Edge from this one where target and origin vertices are
+	 * swapped.
 	 * 
-	 * @return {@code true} if this edge is a opposing edge.
+	 * @return the opposed edge.
 	 */
-	public boolean isOpposingEdge() {
-		return this.isOpposingEdge;
-	}
-
-	/**
-	 * Sets whether this edge is an opposing edge.
-	 * 
-	 * @param isOpposingEdge
-	 *            whether this edge is an opposing edge.
-	 */
-	void setIsOpposingEdge(boolean isOpposingEdge) {
-		this.isOpposingEdge = isOpposingEdge;
-	}
+	public abstract VisualEdge generateOpposedEdge();
 
 	/**
 	 * {@inheritDoc}
@@ -203,6 +158,56 @@ public abstract class VisualEdge extends Edge {
 	@Override
 	public VisualVertex getTargetVertex() {
 		return (VisualVertex) super.getTargetVertex();
+	}
+
+	/**
+	 * Returns {@code true} if this edge has an opposing edge.
+	 * 
+	 * @return {@code true} if this edge has an opposing edge.
+	 */
+	public boolean hasOpposingEdge() {
+		return this.hasOpposingEdge;
+	}
+
+	/**
+	 * Returns {@code true} if this edge is a opposing edge.
+	 * 
+	 * @return {@code true} if this edge is a opposing edge.
+	 */
+	public boolean isOpposingEdge() {
+		return this.isOpposingEdge;
+	}
+
+	/**
+	 * Recreates the fields, that are not serialized.
+	 */
+	public void reload() {
+		this.onReload();
+	}
+
+	/**
+	 * Implement this method to recreates the fields, that are not serialized.
+	 */
+	protected abstract void onReload();
+
+	/**
+	 * Sets whether this edge has an opposing edge.
+	 * 
+	 * @param hasOpposingEdge
+	 *            whether this edge has an opposing edge.
+	 */
+	void setHasOpposingEdge(boolean hasOpposingEdge) {
+		this.hasOpposingEdge = hasOpposingEdge;
+	}
+
+	/**
+	 * Sets whether this edge is an opposing edge.
+	 * 
+	 * @param isOpposingEdge
+	 *            whether this edge is an opposing edge.
+	 */
+	void setIsOpposingEdge(boolean isOpposingEdge) {
+		this.isOpposingEdge = isOpposingEdge;
 	}
 
 }

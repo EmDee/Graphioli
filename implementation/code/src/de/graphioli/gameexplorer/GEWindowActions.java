@@ -37,29 +37,6 @@ public class GEWindowActions extends WindowAdapter implements ListSelectionListe
 		this.geWindow = geWindow;
 	}
 
-	/**
-	 * Called by the {@link JList} when its selection has changed to update the
-	 * remaining graphical elements of this {@link GEWindow}.
-	 * 
-	 * @param event
-	 *            The ListSelectionEvent
-	 */
-	@Override
-	public void valueChanged(ListSelectionEvent event) {
-
-		LOG.finer("GEWindowActions.<em>valueChanged([...])</em> called.");
-
-		// Get new selected GameDefinition
-		JList sourceList = (JList) event.getSource();
-		GameDefinition selectedGameDefinition = (GameDefinition) sourceList.getSelectedValue();
-
-		// Notify relevant dependencies about the selection
-		this.geWindow.selectGameDefinition(selectedGameDefinition);
-
-		LOG.fine("New GameDefinition '" + selectedGameDefinition.toString() + "' selected.");
-
-	}
-
 	/** {@inheritDoc} */
 	@Override
 	public void keyPressed(KeyEvent e) {
@@ -75,6 +52,18 @@ public class GEWindowActions extends WindowAdapter implements ListSelectionListe
 
 	/** {@inheritDoc} */
 	@Override
+	public void keyReleased(KeyEvent e) {
+		// Not needed
+	}
+
+	/** {@inheritDoc} */
+	@Override
+	public void keyTyped(KeyEvent e) {
+		// Not needed
+	}
+
+	/** {@inheritDoc} */
+	@Override
 	public void mouseClicked(MouseEvent e) {
 
 		LOG.finer("GEWindowActions.<em>mouseClicked([...])</em> called.");
@@ -84,29 +73,6 @@ public class GEWindowActions extends WindowAdapter implements ListSelectionListe
 			this.geWindow.openPlayerPopUp();
 		}
 
-	}
-
-	/**
-	 * Acts on closing attempts performed by the main GEWindow.
-	 * 
-	 * @param e
-	 * 			The WindowEvent
-	 */
-	@Override
-	public void windowClosing(WindowEvent e) {
-		this.geWindow.closeGameExplorer();
-	}
-
-	/** {@inheritDoc} */
-	@Override
-	public void keyReleased(KeyEvent e) {
-		// Not needed
-	}
-
-	/** {@inheritDoc} */
-	@Override
-	public void keyTyped(KeyEvent e) {
-		// Not needed
 	}
 
 	/** {@inheritDoc} */
@@ -131,6 +97,40 @@ public class GEWindowActions extends WindowAdapter implements ListSelectionListe
 	@Override
 	public void mouseReleased(MouseEvent arg0) {
 		// Not needed
+	}
+
+	/**
+	 * Called by the {@link JList} when its selection has changed to update the
+	 * remaining graphical elements of this {@link GEWindow}.
+	 * 
+	 * @param event
+	 *            The ListSelectionEvent
+	 */
+	@Override
+	public void valueChanged(ListSelectionEvent event) {
+
+		LOG.finer("GEWindowActions.<em>valueChanged([...])</em> called.");
+
+		// Get new selected GameDefinition
+		JList sourceList = (JList) event.getSource();
+		GameDefinition selectedGameDefinition = (GameDefinition) sourceList.getSelectedValue();
+
+		// Notify relevant dependencies about the selection
+		this.geWindow.selectGameDefinition(selectedGameDefinition);
+
+		LOG.fine("New GameDefinition '" + selectedGameDefinition.toString() + "' selected.");
+
+	}
+
+	/**
+	 * Acts on closing attempts performed by the main GEWindow.
+	 * 
+	 * @param e
+	 * 			The WindowEvent
+	 */
+	@Override
+	public void windowClosing(WindowEvent e) {
+		this.geWindow.closeGameExplorer();
 	}
 
 }

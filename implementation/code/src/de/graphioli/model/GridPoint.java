@@ -7,8 +7,13 @@ import java.io.Serializable;
  * 
  * @author Graphioli
  */
-// TODO Implement ValidParameters checkings.
+// TODO Implement ValidParameters checks.
 public class GridPoint implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1424579031573596468L;
 
 	/**
 	 * The x coordinate of the GridPoint.

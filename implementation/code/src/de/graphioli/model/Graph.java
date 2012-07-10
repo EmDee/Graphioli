@@ -12,6 +12,11 @@ import java.util.logging.Logger;
  */
 public class Graph implements Serializable {
 
+	/**
+	 * Serial UID.
+	 */
+	private static final long serialVersionUID = -8977195676667503454L;
+
 	private static final Logger LOG = Logger.getLogger(Graph.class.getName());
 
 	private final List<Vertex> vertexList;
@@ -78,6 +83,62 @@ public class Graph implements Serializable {
 	}
 
 	/**
+	 * Returns the {@link Edge} between two given vertices.
+	 * 
+	 * @param origin
+	 *            starting {@link Vertex}.
+	 * @param target
+	 *            end {@link Vertex}.
+	 * @return the {@link Edge} between the two vertices, if one exists, else
+	 *         <code>null</code>/
+	 */
+	public Edge getEdge(Vertex origin, Vertex target) {
+		for (Edge edge : origin.getOutgoingEdges()) {
+			if (edge.getTargetVertex().equals(target)) {
+				return edge;
+			}
+		}
+		return null;
+	}
+
+	/**
+	 * @return the list of {@link Edge}s in this {@code Graph}.
+	 */
+	public List<Edge> getEdges() {
+		return this.edgeList;
+	}
+
+	/**
+	 * @return the list of vertices in this {@code Graph}.
+	 */
+	public List<Vertex> getVertices() {
+		return this.vertexList;
+	}
+
+	/**
+	 * Removes a {@link Edge} from this grapht.
+	 * 
+	 * @param edge
+	 *            the edge to remove
+	 * @return {@code true} if the edge was in this graph
+	 */
+	public boolean removeEdge(Edge edge) {
+		int index = this.edgeList.indexOf(edge);
+
+		if (index == -1) {
+			// Edge not in list
+			return false;
+		} else {
+			this.edgeList.remove(index);
+
+			if (!edge.getOriginVertex().removeOutgoingEdge(edge) | !edge.getTargetVertex().removeIncomingEdge(edge)) {
+				LOG.severe("Graph inconsistency in removeEdge method!");
+			}
+			return true;
+		}
+	}
+
+	/**
 	 * Removes a {@link Vertex} from this graph including all edges connected to
 	 * it.
 	 * 
@@ -109,62 +170,6 @@ public class Graph implements Serializable {
 			this.vertexList.remove(index);
 			return true;
 		}
-	}
-
-	/**
-	 * Removes a {@link Edge} from this grapht.
-	 * 
-	 * @param edge
-	 *            the edge to remove
-	 * @return {@code true} if the edge was in this graph
-	 */
-	public boolean removeEdge(Edge edge) {
-		int index = this.edgeList.indexOf(edge);
-
-		if (index == -1) {
-			// Edge not in list
-			return false;
-		} else {
-			this.edgeList.remove(index);
-
-			if (!edge.getOriginVertex().removeOutgoingEdge(edge) | !edge.getTargetVertex().removeIncomingEdge(edge)) {
-				LOG.severe("Graph inconsistency in removeEdge method!");
-			}
-			return true;
-		}
-	}
-
-	/**
-	 * Returns the {@link Edge} between two given vertices.
-	 * 
-	 * @param origin
-	 *            starting {@link Vertex}.
-	 * @param target
-	 *            end {@link Vertex}.
-	 * @return the {@link Edge} between the two vertices, if one exists, else
-	 *         <code>null</code>/
-	 */
-	public Edge getEdge(Vertex origin, Vertex target) {
-		for (Edge edge : origin.getOutgoingEdges()) {
-			if (edge.getTargetVertex().equals(target)) {
-				return edge;
-			}
-		}
-		return null;
-	}
-
-	/**
-	 * @return the list of vertices in this {@code Graph}.
-	 */
-	public List<Vertex> getVertices() {
-		return this.vertexList;
-	}
-
-	/**
-	 * @return the list of {@link Edge}s in this {@code Graph}.
-	 */
-	public List<Edge> getEdges() {
-		return this.edgeList;
 	}
 
 }

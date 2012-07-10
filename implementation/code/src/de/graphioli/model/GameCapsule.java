@@ -1,10 +1,10 @@
 package de.graphioli.model;
 
+import de.graphioli.gameexplorer.GameDefinition;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
-
-import de.graphioli.gameexplorer.GameDefinition;
 
 /**
  * This serializable class represents a GameCapsule that holds all the important
@@ -14,6 +14,11 @@ import de.graphioli.gameexplorer.GameDefinition;
  * @author Graphioli
  */
 public class GameCapsule implements Serializable {
+
+	/**
+	 * Serial UID.
+	 */
+	private static final long serialVersionUID = -563123642396872207L;
 
 	/**
 	 * The game board in the state to be saved.
@@ -26,7 +31,7 @@ public class GameCapsule implements Serializable {
 	private final ArrayList<Player> players;
 
 	/**
-	 * The currently active player
+	 * The currently active player.
 	 */
 	private final Player activePlayer;
 
@@ -61,30 +66,21 @@ public class GameCapsule implements Serializable {
 	}
 
 	/**
-	 * Returns the saved {@link GameBoard}.
-	 * 
-	 * @return the saved {@link GameBoard}
-	 */
-	public GameBoard getBoard() {
-		return this.board;
-	}
-
-	/**
-	 * Returns the saved {@link Player}s.
-	 * 
-	 * @return an ArrayList of the saved {@link Player}s
-	 */
-	public ArrayList<Player> getPlayers() {
-		return this.players;
-	}
-
-	/**
 	 * Returns the saved active {@link Player}.
 	 * 
 	 * @return the saved active {@link Player}
 	 */
 	public Player getActivePlayer() {
 		return this.activePlayer;
+	}
+
+	/**
+	 * Returns the saved {@link GameBoard}.
+	 * 
+	 * @return the saved {@link GameBoard}
+	 */
+	public GameBoard getBoard() {
+		return this.board;
 	}
 
 	/**
@@ -103,5 +99,14 @@ public class GameCapsule implements Serializable {
 	 */
 	public HashMap<Integer, Object> getHashMap() {
 		return this.hashMap;
+	}
+
+	/**
+	 * Returns the saved {@link Player}s.
+	 * 
+	 * @return an ArrayList of the saved {@link Player}s
+	 */
+	public ArrayList<Player> getPlayers() {
+		return this.players;
 	}
 }

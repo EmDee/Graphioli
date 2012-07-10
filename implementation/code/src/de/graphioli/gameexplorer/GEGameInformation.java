@@ -171,24 +171,24 @@ public class GEGameInformation extends JPanel {
 	}
 
 	/**
-	 * Generates the screenshot label.
+	 * Generates the description label.
 	 */
-	private void generateScreenshotLabel() {
+	private void generateDescriptionLabel() {
 
-		this.screenshotLabel = new JLabel();
+		this.descriptionLabel = new JTextArea();
 
-		// Style screenshot label
-		this.screenshotLabel.setPreferredSize(new Dimension(SCREENSHOT_LABEL_WIDTH, SCREENSHOT_LABEL_HEIGHT));
-		this.screenshotLabel.setBackground(Color.WHITE);
-		this.screenshotLabel.setOpaque(true);
-		this.screenshotLabel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-		this.screenshotLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		// Style description label
+		this.descriptionLabel.setPreferredSize(new Dimension(DESCRIPTION_LABEL_WIDTH, DESCRIPTION_LABEL_HEIGHT));
+		this.descriptionLabel.setWrapStyleWord(true);
+		this.descriptionLabel.setLineWrap(true);
+		this.descriptionLabel.setEditable(false);
+		this.descriptionLabel.setOpaque(false);
 
 		// Add default text
-		this.screenshotLabel.setText(Localization.getLanguageString("ge_screenshotlabel"));
+		this.descriptionLabel.setText(Localization.getLanguageString("ge_description_error"));
 
-		// Add screenshot label to parent panel
-		this.add(this.screenshotLabel);
+		// Add description label to parent panel
+		this.add(this.descriptionLabel);
 
 	}
 
@@ -214,24 +214,24 @@ public class GEGameInformation extends JPanel {
 	}
 
 	/**
-	 * Generates the description label.
+	 * Generates the screenshot label.
 	 */
-	private void generateDescriptionLabel() {
+	private void generateScreenshotLabel() {
 
-		this.descriptionLabel = new JTextArea();
+		this.screenshotLabel = new JLabel();
 
-		// Style description label
-		this.descriptionLabel.setPreferredSize(new Dimension(DESCRIPTION_LABEL_WIDTH, DESCRIPTION_LABEL_HEIGHT));
-		this.descriptionLabel.setWrapStyleWord(true);
-		this.descriptionLabel.setLineWrap(true);
-		this.descriptionLabel.setEditable(false);
-		this.descriptionLabel.setOpaque(false);
+		// Style screenshot label
+		this.screenshotLabel.setPreferredSize(new Dimension(SCREENSHOT_LABEL_WIDTH, SCREENSHOT_LABEL_HEIGHT));
+		this.screenshotLabel.setBackground(Color.WHITE);
+		this.screenshotLabel.setOpaque(true);
+		this.screenshotLabel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+		this.screenshotLabel.setHorizontalAlignment(SwingConstants.CENTER);
 
 		// Add default text
-		this.descriptionLabel.setText(Localization.getLanguageString("ge_description_error"));
+		this.screenshotLabel.setText(Localization.getLanguageString("ge_screenshotlabel"));
 
-		// Add description label to parent panel
-		this.add(this.descriptionLabel);
+		// Add screenshot label to parent panel
+		this.add(this.screenshotLabel);
 
 	}
 

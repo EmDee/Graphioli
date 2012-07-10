@@ -89,16 +89,15 @@ public class GEWindow extends JFrame implements GEView {
 
 	}
 
-	/** {@inheritDoc} */
-	@Override
-	public boolean registerController(GameExplorer gameExplorer) {
+	/**
+	 * Closes this GameExplorer window.
+	 */
+	public void closeGameExplorer() {
 
-		LOG.finer("GEWindow.<em>registerController([...])</em> called.");
+		LOG.finer("GEWindow.<em>closeGameExplorer()</em> called.");
 
-		this.gameExplorer = gameExplorer;
-		LOG.info("Controller registered: GameExplorer.");
-
-		return true;
+		this.dispose();
+		this.gameExplorer.close();
 
 	}
 
@@ -126,6 +125,73 @@ public class GEWindow extends JFrame implements GEView {
 		this.generateWindow();
 
 		return true;
+
+	}
+
+	/**
+	 * Returns a BufferedImage containing the screenshot of the currently select
+	 * game.
+	 * 
+	 * @return a BufferedImage containing the screenshot of the currently select
+	 *         game
+	 */
+	public BufferedImage getCurrentScreenshot() {
+
+		LOG.finer("GEWindow.<em>getCurrentScreenshot()</em> called.");
+
+		BufferedImage screenshot;
+		InputStream screenshotInputStream;
+		try {
+			screenshotInputStream = JarParser.getFileAsInputStream(this.selectedGameDefinition.getClassName(),
+					"screenshot.jpg");
+		} catch (InvalidJarException e1) {
+			LOG.severe("JAR file doesn't provide valid creenshot for " + this.selectedGameDefinition.getClassName());
+			return null;
+		}
+
+		// Try creating buffered image from path
+		try {
+			screenshot = ImageIO.read(screenshotInputStream);
+		} catch (IllegalArgumentException e) {
+			LOG.severe("File does not exist: Screenshot for " + this.selectedGameDefinition.getClassName());
+			return null;
+		} catch (IOException e) {
+			LOG.severe("Could not read file: Screenshot for " + this.selectedGameDefinition.getClassName());
+			return null;
+		}
+
+		return screenshot;
+
+	}
+
+	/**
+	 * Called by the {@link PlayerPopUp} when it has finished and triggers the
+	 * start of the {@link Game}. For this method to perform its task
+	 * successfully, a {@link GameDefinition} must be selected from the list of
+	 * available definitions.
+	 * 
+	 * @param players
+	 *            The created players
+	 * @return <code>true</code> if the action was performed successfully,
+	 *         <code>false</code> otherwise
+	 */
+	public boolean onPlayerPopUpReturn(ArrayList<Player> players) {
+
+		LOG.finer("GEWindow.<em>onPlayerPopUpReturn([...])</em> called.");
+
+		if (players == null
+				|| players.isEmpty()
+				|| !this.isGameDefinitionSelected()
+				|| !this.isGameExplorerRegistered()) {
+			LOG.severe("Cannot start game: No GameExplorer registered or no valid players committed.");
+			return false;
+		}
+
+		// Close window
+		this.setVisible(false);
+
+		// Forward call to GameExplorer
+		return this.gameExplorer.selectGame(this.selectedGameDefinition, players);
 
 	}
 
@@ -171,34 +237,16 @@ public class GEWindow extends JFrame implements GEView {
 
 	}
 
-	/**
-	 * Called by the {@link PlayerPopUp} when it has finished and triggers the
-	 * start of the {@link Game}. For this method to perform its task
-	 * successfully, a {@link GameDefinition} must be selected from the list of
-	 * available definitions.
-	 * 
-	 * @param players
-	 *            The created players
-	 * @return <code>true</code> if the action was performed successfully,
-	 *         <code>false</code> otherwise
-	 */
-	public boolean onPlayerPopUpReturn(ArrayList<Player> players) {
+	/** {@inheritDoc} */
+	@Override
+	public boolean registerController(GameExplorer gameExplorer) {
 
-		LOG.finer("GEWindow.<em>onPlayerPopUpReturn([...])</em> called.");
+		LOG.finer("GEWindow.<em>registerController([...])</em> called.");
 
-		if (players == null
-				|| players.isEmpty()
-				|| !this.isGameDefinitionSelected()
-				|| !this.isGameExplorerRegistered()) {
-			LOG.severe("Cannot start game: No GameExplorer registered or no valid players committed.");
-			return false;
-		}
+		this.gameExplorer = gameExplorer;
+		LOG.info("Controller registered: GameExplorer.");
 
-		// Close window
-		this.setVisible(false);
-
-		// Forward call to GameExplorer
-		return this.gameExplorer.selectGame(this.selectedGameDefinition, players);
+		return true;
 
 	}
 
@@ -213,6 +261,94 @@ public class GEWindow extends JFrame implements GEView {
 
 		this.selectedGameDefinition = selectedGameDefinition;
 		this.updateGameInformation();
+
+	}
+
+	/**
+	 * Generates the buttons that allow to start a game, show the help file or
+	 * quit the GameExplorer.
+	 */
+	private void generateButtonPanel() {
+
+		JPanel visibleButtonPanel = new GEButtonPanel(this);
+
+		// Add button panel to window
+		this.add(visibleButtonPanel, BorderLayout.PAGE_END);
+
+	}
+
+	/**
+	 * Generates the panels that show information about the currently selected
+	 * game.
+	 */
+	private void generateGameInformationPanel() {
+
+		this.visibleGameInformationPanel = new GEGameInformation(this);
+
+		// Add information
+		this.updateGameInformation();
+
+		// Add information panel to window
+		this.add(this.visibleGameInformationPanel, BorderLayout.CENTER);
+
+	}
+
+	/**
+	 * Generates the list pane that shows the available GameDefinitions.
+	 */
+	private void generateListPane() {
+
+		JList visibleGameDefinitionList = new JList(this.gameDefinitionList);
+		visibleGameDefinitionList.addListSelectionListener(this.geWindowActions);
+		visibleGameDefinitionList.addKeyListener(this.geWindowActions);
+		visibleGameDefinitionList.addMouseListener(this.geWindowActions);
+
+		// Set list selection mode to 'single selection'
+		visibleGameDefinitionList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
+		// Make first index selected
+		visibleGameDefinitionList.setSelectedIndex(0);
+
+		JScrollPane visibleGameDefinitionListPane = new JScrollPane(visibleGameDefinitionList);
+
+		// Style list pane
+		visibleGameDefinitionListPane.setPreferredSize(new Dimension(INIT_WINDOW_WIDTH / 2, INIT_WINDOW_HEIGHT
+				- LIST_PANE_BOTTOM_MARGIN));
+		visibleGameDefinitionListPane.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+
+		JPanel visibleGameDefinitionListPaneBox = new JPanel();
+		visibleGameDefinitionListPaneBox.add(visibleGameDefinitionListPane);
+
+		// Add list pane to window
+		this.add(visibleGameDefinitionListPaneBox, BorderLayout.LINE_START);
+
+	}
+
+	/**
+	 * Generates the visible window consisting of several swing components.
+	 */
+	private void generateWindow() {
+
+		// Create window action and event listener
+		this.geWindowActions = new GEWindowActions(this);
+
+		// Add window listener for closing attempts
+		this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+		this.addWindowListener(this.geWindowActions);
+
+		// Style window
+		this.setSize(INIT_WINDOW_WIDTH, INIT_WINDOW_HEIGHT);
+		this.setLayout(new BorderLayout());
+		this.setResizable(false);
+		// Center window
+		this.setLocationRelativeTo(null);
+
+		this.generateListPane();
+		this.generateButtonPanel();
+		this.generateGameInformationPanel();
+
+		// Show window
+		this.setVisible(true);
 
 	}
 
@@ -258,142 +394,6 @@ public class GEWindow extends JFrame implements GEView {
 		this.visibleGameInformationPanel.setScreenshot(this.selectedGameDefinition.getClassName());
 
 		return true;
-
-	}
-
-	/**
-	 * Returns a BufferedImage containing the screenshot of the currently select
-	 * game.
-	 * 
-	 * @return a BufferedImage containing the screenshot of the currently select
-	 *         game
-	 */
-	public BufferedImage getCurrentScreenshot() {
-
-		LOG.finer("GEWindow.<em>getCurrentScreenshot()</em> called.");
-
-		BufferedImage screenshot;
-		InputStream screenshotInputStream;
-		try {
-			screenshotInputStream = JarParser.getFileAsInputStream(this.selectedGameDefinition.getClassName(),
-					"screenshot.jpg");
-		} catch (InvalidJarException e1) {
-			LOG.severe("JAR file doesn't provide valid creenshot for " + this.selectedGameDefinition.getClassName());
-			return null;
-		}
-
-		// Try creating buffered image from path
-		try {
-			screenshot = ImageIO.read(screenshotInputStream);
-		} catch (IllegalArgumentException e) {
-			LOG.severe("File does not exist: Screenshot for " + this.selectedGameDefinition.getClassName());
-			return null;
-		} catch (IOException e) {
-			LOG.severe("Could not read file: Screenshot for " + this.selectedGameDefinition.getClassName());
-			return null;
-		}
-
-		return screenshot;
-
-	}
-
-	/**
-	 * Generates the visible window consisting of several swing components.
-	 */
-	private void generateWindow() {
-
-		// Create window action and event listener
-		this.geWindowActions = new GEWindowActions(this);
-
-		// Add window listener for closing attempts
-		this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
-		this.addWindowListener(this.geWindowActions);
-
-		// Style window
-		this.setSize(INIT_WINDOW_WIDTH, INIT_WINDOW_HEIGHT);
-		this.setLayout(new BorderLayout());
-		this.setResizable(false);
-		// Center window
-		this.setLocationRelativeTo(null);
-
-		this.generateListPane();
-		this.generateButtonPanel();
-		this.generateGameInformationPanel();
-
-		// Show window
-		this.setVisible(true);
-
-	}
-
-	/**
-	 * Generates the list pane that shows the available GameDefinitions.
-	 */
-	private void generateListPane() {
-
-		JList visibleGameDefinitionList = new JList(this.gameDefinitionList);
-		visibleGameDefinitionList.addListSelectionListener(this.geWindowActions);
-		visibleGameDefinitionList.addKeyListener(this.geWindowActions);
-		visibleGameDefinitionList.addMouseListener(this.geWindowActions);
-
-		// Set list selection mode to 'single selection'
-		visibleGameDefinitionList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-
-		// Make first index selected
-		visibleGameDefinitionList.setSelectedIndex(0);
-
-		JScrollPane visibleGameDefinitionListPane = new JScrollPane(visibleGameDefinitionList);
-
-		// Style list pane
-		visibleGameDefinitionListPane.setPreferredSize(new Dimension(INIT_WINDOW_WIDTH / 2, INIT_WINDOW_HEIGHT
-				- LIST_PANE_BOTTOM_MARGIN));
-		visibleGameDefinitionListPane.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-
-		JPanel visibleGameDefinitionListPaneBox = new JPanel();
-		visibleGameDefinitionListPaneBox.add(visibleGameDefinitionListPane);
-
-		// Add list pane to window
-		this.add(visibleGameDefinitionListPaneBox, BorderLayout.LINE_START);
-
-	}
-
-	/**
-	 * Generates the buttons that allow to start a game, show the help file or
-	 * quit the GameExplorer.
-	 */
-	private void generateButtonPanel() {
-
-		JPanel visibleButtonPanel = new GEButtonPanel(this);
-
-		// Add button panel to window
-		this.add(visibleButtonPanel, BorderLayout.PAGE_END);
-
-	}
-
-	/**
-	 * Generates the panels that show information about the currently selected
-	 * game.
-	 */
-	private void generateGameInformationPanel() {
-
-		this.visibleGameInformationPanel = new GEGameInformation(this);
-
-		// Add information
-		this.updateGameInformation();
-
-		// Add information panel to window
-		this.add(this.visibleGameInformationPanel, BorderLayout.CENTER);
-
-	}
-
-	/**
-	 * Closes this GameExplorer window.
-	 */
-	public void closeGameExplorer() {
-
-		LOG.finer("GEWindow.<em>closeGameExplorer()</em> called.");
-
-		this.dispose();
-		this.gameExplorer.close();
 
 	}
 

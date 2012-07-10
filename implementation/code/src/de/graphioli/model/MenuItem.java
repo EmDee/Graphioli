@@ -8,7 +8,7 @@ import java.io.Serializable;
  * @author Team Graphioli
  *
  */
-public class MenuItem implements Serializable{
+public class MenuItem implements Serializable {
 	
 	/**
 	 * 
@@ -42,7 +42,7 @@ public class MenuItem implements Serializable{
 	 * @return the id
 	 */
 	public int getId() {
-		return id;
+		return this.id;
 	}
 
 	/**
@@ -51,7 +51,7 @@ public class MenuItem implements Serializable{
 	 * @return the name
 	 */
 	public String getName() {
-		return name;
+		return this.name;
 	}
 
 }

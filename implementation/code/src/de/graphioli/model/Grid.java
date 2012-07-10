@@ -1,8 +1,8 @@
 package de.graphioli.model;
 
-import java.io.Serializable;
-
 import de.graphioli.utils.Validation;
+
+import java.io.Serializable;
 
 /**
  * This class represents the grid, on which the {@link Graph} will be located.
@@ -10,6 +10,11 @@ import de.graphioli.utils.Validation;
  * @author Graphioli
  */
 public class Grid implements Serializable {
+
+	/**
+	 * Serial UID.
+	 */
+	private static final long serialVersionUID = 4066049788478541276L;
 
 	/**
 	 * The number of horizontal grid points.
@@ -34,11 +39,47 @@ public class Grid implements Serializable {
 	 * @param verticalGridPoints
 	 *            The number of vertical grid points
 	 */
-	public Grid(int horizontalGridPoints, int verticalGridPoints) {
+	Grid(int horizontalGridPoints, int verticalGridPoints) {
 
 		this.horizontalGridPoints = horizontalGridPoints;
 		this.verticalGridPoints = verticalGridPoints;
 		this.grid = new VisualVertex[horizontalGridPoints][verticalGridPoints];
+
+	}
+
+	/**
+	 * @return horizontalGridPoints.
+	 */
+	public int getHorizontalGridPoints() {
+		return this.horizontalGridPoints;
+	}
+
+	/**
+	 * @return verticalGridPoints
+	 */
+	public int getVerticalGridPoints() {
+		return this.verticalGridPoints;
+	}
+
+	/**
+	 * Returns the {@link VisualVertex} at the specified {@link GridPoint}.
+	 * 
+	 * @param gridPoint
+	 *            the GridPoint of the VisualVertex to return
+	 * @return the VisualVertex at the specified GridPoint or <code>null</code>
+	 *         if the GridPoint is empty
+	 */
+	public VisualVertex getVisualVertexAtGridPoint(GridPoint gridPoint) {
+
+		// Early negative return if specified GridPoint is invalid
+		if (!Validation.isValidGridPoint(gridPoint, this.horizontalGridPoints, this.verticalGridPoints)) {
+			return null;
+		}
+
+		// Get VisualVertex at specified GridPoint
+		VisualVertex visualVertex = this.grid[gridPoint.getPositionX()][gridPoint.getPositionY()];
+
+		return visualVertex;
 
 	}
 
@@ -50,7 +91,7 @@ public class Grid implements Serializable {
 	 * @return <code>true</code> if the VisualVertex was added successfully to
 	 *         this Grid, <code>false</code> otherwise
 	 */
-	public boolean addVisualVertexToGrid(VisualVertex visualVertex) {
+	boolean addVisualVertexToGrid(VisualVertex visualVertex) {
 		int positionX = visualVertex.getGridPoint().getPositionX();
 		int positionY = visualVertex.getGridPoint().getPositionY();
 
@@ -85,7 +126,7 @@ public class Grid implements Serializable {
 	 * @return <code>true</code> if a VisualVertex was removed from this
 	 *         GridPoint on the Grid, <code>false</code> otherwise
 	 */
-	public boolean removeVisualVertexAtGridPoint(GridPoint gridPoint) {
+	boolean removeVisualVertexAtGridPoint(GridPoint gridPoint) {
 
 		// Early negative return if specified GridPoint is invalid
 		if (!Validation.isValidGridPoint(gridPoint, this.horizontalGridPoints, this.verticalGridPoints)) {
@@ -105,42 +146,6 @@ public class Grid implements Serializable {
 
 		return true;
 
-	}
-
-	/**
-	 * Returns the {@link VisualVertex} at the specified {@link GridPoint}.
-	 * 
-	 * @param gridPoint
-	 *            the GridPoint of the VisualVertex to return
-	 * @return the VisualVertex at the specified GridPoint or <code>null</code>
-	 *         if the GridPoint is empty
-	 */
-	public VisualVertex getVisualVertexAtGridPoint(GridPoint gridPoint) {
-
-		// Early negative return if specified GridPoint is invalid
-		if (!Validation.isValidGridPoint(gridPoint, this.horizontalGridPoints, this.verticalGridPoints)) {
-			return null;
-		}
-
-		// Get VisualVertex at specified GridPoint
-		VisualVertex visualVertex = this.grid[gridPoint.getPositionX()][gridPoint.getPositionY()];
-
-		return visualVertex;
-
-	}
-
-	/**
-	 * @return horizontalGridPoints.
-	 */
-	public int getHorizontalGridPoints() {
-		return this.horizontalGridPoints;
-	}
-
-	/**
-	 * @return verticalGridPoints
-	 */
-	public int getVerticalGridPoints() {
-		return this.verticalGridPoints;
 	}
 
 }
