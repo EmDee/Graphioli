@@ -1,5 +1,6 @@
 package de.graphioli.model;
 
+import de.graphioli.utils.InvalidJarException;
 import de.graphioli.utils.JarParser;
 
 import java.awt.image.BufferedImage;
@@ -55,20 +56,23 @@ public class GameResources {
 	 */
 	private PropertyResourceBundle loadResourceBundle() {
 		Locale defLoc = Locale.getDefault();
-		InputStream fileIn = JarParser.getFileAsInputStream(this.gameName, "lang_"
-				+ defLoc.getLanguage()
-				+ "_"
-				+ defLoc.getCountry()
-				+ ".properties");
-		if (fileIn == null) {
+		InputStream fileIn;
+		try {
+			fileIn = JarParser.getFileAsInputStream(this.gameName, "lang_"
+					+ defLoc.getLanguage()
+					+ "_"
+					+ defLoc.getCountry()
+					+ ".properties");
+		} catch (InvalidJarException e1) {
 			LOG.finer("Could not load "
 					+ "lang_"
 					+ defLoc.getLanguage()
 					+ "_"
 					+ defLoc.getCountry()
 					+ ".properties. Trying to load default.");
-			fileIn = JarParser.getFileAsInputStream(this.gameName, "lang.properties");
-			if (fileIn == null) {
+			try {
+				fileIn = JarParser.getFileAsInputStream(this.gameName, "lang.properties");
+			} catch (InvalidJarException e) {
 				LOG.fine("No game language file found. Using fallback.");
 				return null;
 			}
@@ -146,9 +150,10 @@ public class GameResources {
 	 * @return the image.
 	 */
 	public BufferedImage getImageRessource(String filename) {
-		InputStream fis = JarParser.getFileAsInputStream(this.gameName, "img/" + filename);
-		
-		if (fis == null) {
+		InputStream fis;
+		try {
+			fis = JarParser.getFileAsInputStream(this.gameName, "img/" + filename);
+		} catch (InvalidJarException e1) {
 			LOG.warning("ImageResource  img/" + filename + " not found.");
 			return null;
 		}

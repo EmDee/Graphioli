@@ -1,6 +1,7 @@
 package de.graphioli.gameexplorer;
 
 import de.graphioli.model.Player;
+import de.graphioli.utils.InvalidJarException;
 import de.graphioli.utils.JarParser;
 import de.graphioli.utils.Localization;
 import java.awt.BorderLayout;
@@ -272,8 +273,14 @@ public class GEWindow extends JFrame implements GEView {
 		LOG.finer("GEWindow.<em>getCurrentScreenshot()</em> called.");
 
 		BufferedImage screenshot;
-		InputStream screenshotInputStream = JarParser.getFileAsInputStream(this.selectedGameDefinition.getClassName(),
-				"screenshot.jpg");
+		InputStream screenshotInputStream;
+		try {
+			screenshotInputStream = JarParser.getFileAsInputStream(this.selectedGameDefinition.getClassName(),
+					"screenshot.jpg");
+		} catch (InvalidJarException e1) {
+			LOG.severe("JAR file doesn't provide valid creenshot for " + this.selectedGameDefinition.getClassName());
+			return null;
+		}
 
 		// Try creating buffered image from path
 		try {

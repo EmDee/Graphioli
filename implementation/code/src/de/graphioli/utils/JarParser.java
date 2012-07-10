@@ -40,8 +40,9 @@ public final class JarParser {
 	 * @param fileName
 	 *            the file to get
 	 * @return an {@link InputStream} of the file
+	 * @throws InvalidJarException if specified JAR file does not exist
 	 */
-	public static InputStream getFileAsInputStream(String gameName, String fileName) {
+	public static InputStream getFileAsInputStream(String gameName, String fileName) throws InvalidJarException {
 		LOG.finer("JarParser.<em>getFileAsInputStream()</em> called.");
 
 		InputStream inputStream = null;
@@ -49,15 +50,17 @@ public final class JarParser {
 			jarFile = new JarFile("games/" + gameName + "/" + gameName + ".jar");
 			inputStream = jarFile.getInputStream(jarFile.getJarEntry(fileName));
 		} catch (IOException e) {
-			LOG.warning("Could not access file \"" + fileName + "\" in \"" + gameName + ".jar\" (IO Exception).");
-			return null;
+			String errorMsg = "Could not access file \"" + fileName + "\" in \"" + gameName + ".jar\" (IO Exception).";
+			LOG.warning(errorMsg);
+			throw new InvalidJarException(errorMsg);
 		} catch (NullPointerException e) {
-			LOG.fine("Could not access file \""
+			String errorMsg = "Could not access file \""
 					+ fileName
 					+ "\" in \""
 					+ gameName
-					+ ".jar\" (NullPointerException). (Does file exist?)");
-			return null;
+					+ ".jar\" (NullPointerException). (Does file exist?)";
+			LOG.fine(errorMsg);
+			throw new InvalidJarException(errorMsg);
 		}
 
 		return inputStream;
@@ -69,8 +72,9 @@ public final class JarParser {
 	 * @param gameName
 	 *            name of the game to get the property file from
 	 * @return the property file as {@link Reader}
+	 * @throws InvalidJarException if specified property file or parent JAR file doesn't exist
 	 */
-	public static Reader getPropertyFile(String gameName) {
+	public static Reader getPropertyFile(String gameName) throws InvalidJarException {
 		LOG.finer("JarParser.<em>getPropertyFileFromJar()</em> called.");
 
 		InputStream inputStream = getFileAsInputStream(gameName, "properties.json");
@@ -87,8 +91,9 @@ public final class JarParser {
 	 * @param gameName
 	 *            name of the game
 	 * @return the game's class file
+	 * @throws InvalidJarException if the specified JAR file doesn't exist
 	 */
-	public static Class<?> getClass(String gamePackagePath, String gameName) {
+	public static Class<?> getClass(String gamePackagePath, String gameName) throws InvalidJarException {
 		Class<?> classToLoad = null;
 		URL jarURL = null;
 
@@ -96,8 +101,9 @@ public final class JarParser {
 		try {
 			jarURL = new URL("jar", "", "file:" + myFile.getAbsolutePath() + "!/");
 		} catch (MalformedURLException e) {
-			LOG.severe("MalformedURLException: " + e.getMessage());
-			return null;
+			String errorMsg = "Could not get class file from \"" + gameName + ".jar\" (MalformedURLException).";
+			LOG.severe(errorMsg);
+			throw new InvalidJarException(errorMsg);
 		}
 		URL[] classes = new URL[] { jarURL };
 
@@ -105,8 +111,9 @@ public final class JarParser {
 		try {
 			classToLoad = Class.forName(gamePackagePath + gameName, true, classLoader);
 		} catch (ClassNotFoundException e) {
-			LOG.severe("MalformedURLException: " + e.getMessage());
-			return null;
+			String errorMsg = "Could not load class file from \"" + gameName + ".jar\" (MalformedURLException).";
+			LOG.severe(errorMsg);
+			throw new InvalidJarException(errorMsg);
 		}
 
 		return classToLoad;

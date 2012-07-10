@@ -5,6 +5,7 @@ import com.google.gson.JsonIOException;
 import com.google.gson.JsonSyntaxException;
 import de.graphioli.controller.GameManager;
 import de.graphioli.model.Player;
+import de.graphioli.utils.InvalidJarException;
 import de.graphioli.utils.JarParser;
 
 import java.io.File;
@@ -68,12 +69,19 @@ public class GameExplorer {
 	private void scanGameFolderAndCreateGameDefinitions() {
 		File gamesDirectory = new File("games/");
 		GameDefinition gameDefinition;
-		Reader propertyFile;
+		Reader propertyFile = null;
 
 		// TODO: Different path for different environments
 		for (File tmpGame : gamesDirectory.listFiles()) {
 			if (tmpGame.isDirectory()) {
-				propertyFile = JarParser.getPropertyFile(tmpGame.getName());
+				try {
+					propertyFile = JarParser.getPropertyFile(tmpGame.getName());
+				} catch (InvalidJarException e) {
+					// Ignore this invalid JAR file
+					LOG.warning("Skipping invalid JAR file: \"tmpGame.getName()\".");
+					continue;
+				}
+
 				gameDefinition = this.createGameDefinitionFromJSON(propertyFile);
 
 				if (gameDefinition != null) {
