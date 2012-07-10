@@ -385,6 +385,7 @@ public class GEWindow extends JFrame implements GEView {
 
 		LOG.finer("GEWindow.<em>closeGameExplorer()</em> called.");
 
+		this.dispose();
 		this.gameExplorer.close();
 
 	}
