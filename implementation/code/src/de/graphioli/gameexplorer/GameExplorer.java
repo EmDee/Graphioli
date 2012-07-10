@@ -81,6 +81,8 @@ public class GameExplorer {
 				}
 			}
 		}
+		
+		LOG.info(this.gameDefinitions.size() + " GameDefinition(s) created.");
 	}
 
 	/**
@@ -103,6 +105,10 @@ public class GameExplorer {
 			e.printStackTrace();
 		}
 
+		if (gameDefinition != null) {
+			LOG.fine("Got GameDefiniton for \"" + gameDefinition.getClassName() + "\". Localizing now.");
+			gameDefinition.localizeInstance();
+		}
 		return gameDefinition;
 	}
 

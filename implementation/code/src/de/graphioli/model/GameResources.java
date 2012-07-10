@@ -61,7 +61,7 @@ public class GameResources {
 				+ defLoc.getCountry()
 				+ ".properties");
 		if (fileIn == null) {
-			LOG.info("Could not load "
+			LOG.finer("Could not load "
 					+ "lang_"
 					+ defLoc.getLanguage()
 					+ "_"
@@ -69,7 +69,7 @@ public class GameResources {
 					+ ".properties. Trying to load default.");
 			fileIn = JarParser.getFileAsInputStream(this.gameName, "lang.properties");
 			if (fileIn == null) {
-				LOG.warning("No game language file found. Using fallback.");
+				LOG.fine("No game language file found. Using fallback.");
 				return null;
 			}
 		}

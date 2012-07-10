@@ -49,10 +49,14 @@ public final class JarParser {
 			jarFile = new JarFile("games/" + gameName + "/" + gameName + ".jar");
 			inputStream = jarFile.getInputStream(jarFile.getJarEntry(fileName));
 		} catch (IOException e) {
-			LOG.warning("Could not access file \"" + fileName + "\" in \"" +  gameName + ".jar\" (IO Exception).");
+			LOG.warning("Could not access file \"" + fileName + "\" in \"" + gameName + ".jar\" (IO Exception).");
 			return null;
 		} catch (NullPointerException e) {
-			LOG.warning("Could not access file \"" + fileName + "\" in \"" +  gameName + ".jar\" (NullPointerException).");
+			LOG.fine("Could not access file \""
+					+ fileName
+					+ "\" in \""
+					+ gameName
+					+ ".jar\" (NullPointerException). (Does file exist?)");
 			return null;
 		}
 

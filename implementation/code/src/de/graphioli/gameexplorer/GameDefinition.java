@@ -3,6 +3,8 @@ package de.graphioli.gameexplorer;
 import java.io.Serializable;
 import java.net.URI;
 import java.util.ArrayList;
+
+import de.graphioli.model.GameResources;
 import de.graphioli.model.MenuItem;
 
 /**
@@ -237,6 +239,40 @@ public final class GameDefinition implements Serializable {
 			return false;
 		return true;
 	}
-	
+
+	/**
+	 * Localizes the strings in this game definition based on its "lang" files.
+	 */
+	/*
+	 * Not really nice, but works.
+	 */
+	public void localizeInstance() {
+		GameResources res = new GameResources(this.className);
+		this.name = localizeString(this.name, res);
+		this.description = localizeString(this.description, res);
+
+		if (this.menu != null && this.menu.size() > 0) {
+			ArrayList<MenuItem> localizedMenu = new ArrayList<MenuItem>(this.menu.size());
+			for (MenuItem tmpItem : this.menu) {
+				localizedMenu.add(new MenuItem(tmpItem.getId(), localizeString(tmpItem.getName(), res)));
+			}
+			this.menu = localizedMenu;
+		}
+	}
+
+	/**
+	 * Tries to localize a string if it begins with an {@literal @} using the given {@link GameResources}.
+	 * 
+	 * @param s the string to localize.
+	 * @param res the game resources.
+	 * @return the localized string if it begins with an {@literal @}, otherwise the string itself.
+	 */
+	private static String localizeString(String s, GameResources res) {
+		if (!s.startsWith("@") || s == null || s.length() <= 1) {
+			return s;
+		}
+		String keyString = s.replaceFirst("@", "");
+		return res.getStringResource(keyString);
+	}
 
 }
