@@ -16,19 +16,19 @@ import de.graphioli.model.Vertex;
 import de.graphioli.model.VisualVertex;
 
 public class TwixT extends Game {
+		
+	private static String playerOneImgFile = "Awesome1.png";
+	private static String playerTwoImgFile = "Awesome2.png";
+
+	private static Color playerOneColor = Color.MAGENTA;
+	private static Color playerTwoColor = Color.GREEN;
+	
 	private PlayerManager playerManager;
 	private GameBoard board;
 	private int gridSize;
 
 	private Player playerOne;
 	private Player playerTwo;
-
-	private String playerOneImgFile = "Awesome1.png";
-	private String playerTwoImgFile = "Awesome2.png";
-
-	private Color playerOneColor = Color.MAGENTA;
-	private Color playerTwoColor = Color.GREEN;
-	
 
 	private TwixTVertex startVertexOne;
 	private TwixTVertex endVertexOne;
@@ -54,6 +54,7 @@ public class TwixT extends Game {
 		if (this.originVertex == null) {
 			// First tower selected.
 			this.originVertex = vex;
+			originVertex.setHighlighted(true);
 			this.getGameManager().getViewManager().displayErrorMessage("Select a second tower to place a wall");
 			return true;
 		}
@@ -61,6 +62,7 @@ public class TwixT extends Game {
 		if (this.originVertex == vex) {
 			// Undo selection
 			this.getGameManager().getViewManager().displayErrorMessage("Place your tower or wall");
+			originVertex.setHighlighted(false);
 			this.originVertex = null;
 			return true;
 		}
@@ -72,6 +74,7 @@ public class TwixT extends Game {
 				edge = new SimpleVisualEdge(originVertex, vex);
 				if (!this.board.addVisualEdge(edge)) {
 					this.getGameManager().getViewManager().displayErrorMessage("There already is a wall.");
+					originVertex.setHighlighted(false);
 					this.originVertex = null;
 					return true;
 				}
@@ -96,14 +99,17 @@ public class TwixT extends Game {
 					}
 				}
 				this.getGameManager().getViewManager().displayErrorMessage("Place your tower or wall");
+				originVertex.setHighlighted(false);
 				this.originVertex = null;
 				this.playerManager.nextPlayer();
 				return true;
 			} else {
+				originVertex.setHighlighted(false);
 				this.originVertex = null;
 				this.getGameManager().getViewManager().displayErrorMessage("Walls can't intersect");
 			}
 		} else {
+			originVertex.setHighlighted(false);
 			this.originVertex = null;
 			this.getGameManager().getViewManager().displayErrorMessage("You can't place a wall here");
 		}
@@ -125,7 +131,10 @@ public class TwixT extends Game {
 			this.board.addVisualVertex(addVertex);
 			this.playerManager.nextPlayer();
 			this.getGameManager().getViewManager().displayErrorMessage("Place your tower or wall");
-			this.originVertex = null;
+			if (this.originVertex != null) {
+				originVertex.setHighlighted(false);
+				this.originVertex = null;
+			}
 			return true;
 		}
 		return false;
@@ -244,6 +253,7 @@ public class TwixT extends Game {
 	}
 
 	private void initFields() {
+		this.originVertex = null;
 		this.playerManager = this.getGameManager().getPlayerManager();
 		playerOne = this.playerManager.getPlayers().get(0);
 		playerTwo = this.playerManager.getPlayers().get(1);
