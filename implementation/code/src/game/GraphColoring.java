@@ -54,7 +54,7 @@ public class GraphColoring extends Game {
 	/**
 	 * The selected level.
 	 */
-	private int selectedLevel = 1;
+	private int selectedLevel = 0;
 
 	/**
 	 * List of vertices used in the game.
@@ -238,8 +238,7 @@ public class GraphColoring extends Game {
 	private void handleSingleplayerMove(GraphColoringVertex vtex) {
 		vtex.setColorID(this.selectedButton.getColorID());
 		if (this.isGraphColored()) {
-			this.getGameManager().getPlayerManager().setActivePlayerAsWinning();
-			this.getGameManager().finishGame();
+			this.nextLevel();
 		}
 	}
 
@@ -325,26 +324,32 @@ public class GraphColoring extends Game {
 	protected boolean onMenuItemClick(MenuItem item) {
 		switch(item.getId()) {
 			case MENU_NEXT:
-				this.getGameManager().getGameBoard().flush();
-				this.getGameManager().getPlayerManager().initializePlayers();
-				this.generateButtons();
-				this.selectedLevel++;
-				this.selectedLevel %= GraphColoringLevel.IMPLEMENTED_LEVEL_COUNT;
-				this.generateLevel();
-				this.generateButtons();
+				this.nextLevel();
 				break;
 			case MENU_PREV:
-				this.getGameManager().getGameBoard().flush();
-				this.getGameManager().getPlayerManager().initializePlayers();
-				this.generateButtons();
-				this.selectedLevel--;
-				this.selectedLevel += GraphColoringLevel.IMPLEMENTED_LEVEL_COUNT;
-				this.selectedLevel %= GraphColoringLevel.IMPLEMENTED_LEVEL_COUNT;
-				this.generateLevel();
-				this.generateButtons();
+				this.prevLevel();
 				break;
 		}
 		
 		return true;
+	}
+	
+	private void nextLevel() {
+		this.getGameManager().getGameBoard().flush();
+		this.getGameManager().getPlayerManager().initializePlayers();
+		this.selectedLevel++;
+		this.selectedLevel %= GraphColoringLevel.IMPLEMENTED_LEVEL_COUNT;
+		this.generateLevel();
+		this.generateButtons();
+	}
+	
+	private void prevLevel() {
+		this.getGameManager().getGameBoard().flush();
+		this.getGameManager().getPlayerManager().initializePlayers();
+		this.selectedLevel--;
+		this.selectedLevel += GraphColoringLevel.IMPLEMENTED_LEVEL_COUNT;
+		this.selectedLevel %= GraphColoringLevel.IMPLEMENTED_LEVEL_COUNT;
+		this.generateLevel();
+		this.generateButtons();
 	}
 }
