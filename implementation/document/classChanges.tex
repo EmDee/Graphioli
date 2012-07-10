@@ -1,0 +1,25 @@
+\subsection{Class Changes}
+\subsubsection{Modified Classes}
+\paragraph*{\textcolor{Blue}{Class: Blabla}}
+\paragraph*{}
+\begin{longtable}{llp{10cm}}
+	\hline\rowcolor{white}\textbf{Method Before} & \textbf{Method After} & \textbf{Note} \\ \hline
+	method before & name after & sounds nicer \\
+	name before & name after & looks nicer \\
+	name before & name after & looks nicer \\
+	\hline
+\end{longtable}
+
+\subsubsection{Added Classes}
+% JarParser
+\static{JarParser}{jarparser}
+This class is part of the \texttt{de.graphioli.utils} package and is able to scan a jar file for its content and return those, if neccessary. \\
+
+\paragraph*{Method Summary}
+\paragraph*{}
+\begin{longtable}{Lp{10cm}}
+	\startmethodtable
+	\method{public static InputStream}{getFileAsInputStream(String gameName, String fileName)}{jp:getfileasinputstream} \\
+	& Returns a file of a given jar as InputStream. \\
+	\hline
+\end{longtable}
