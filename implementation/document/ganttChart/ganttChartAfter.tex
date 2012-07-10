@@ -1,0 +1,125 @@
+\documentclass[paper=a2,landscape]{scrartcl}
+\usepackage[top=1cm, bottom=1cm, left=1cm, right=1cm]{geometry}
+\usepackage[usenames,dvipsnames,svgnames]{xcolor}
+\usepackage{varwidth}
+\usepackage{ulem}
+
+\usepackage{../../../materials/resources/gantt}
+\newcommand{\week}{%
+	\titleelement{Mon}{1}
+	\titleelement{Tue}{1}
+	\titleelement{Wed}{1}
+	\titleelement{Thu}{1}
+	\titleelement{Fri}{1}
+	\titleelement{Sat}{1}
+	\titleelement{Sun}{1}
+}
+
+\newcommand{\all}{black}
+\newcommand{\notimp}{white}
+\newcommand{\jack}{SkyBlue}
+\newcommand{\joe}{Red}
+\newcommand{\leon}{Mulberry}
+\newcommand{\martin}{LimeGreen}
+\newcommand{\ole}{Goldenrod}
+\newcommand{\new}{MidnightBlue}
+
+\pagenumbering{gobble} % remove page numbers
+
+\begin{document}
+	
+	\begin{tabular}[b]{lll}
+	\begin{gantt}[xunitlength=1.3cm,fontsize=\small,titlefontsize=\small,drawledgerline=true]{50}{28} %{# of tasks}{# of slots}
+		\begin{ganttitle}
+  			\titleelement{June 18th - June 24th}{7}
+  			\titleelement{June 25th - July 1st}{7}
+  	  	  	\titleelement{July 2nd - July 8th}{7}
+  			\titleelement{July 9th - July 15th}{7}
+		\end{ganttitle}
+		\begin{ganttitle}
+      		\week
+			\week
+			\week
+			\week
+	  	\end{ganttitle}
+		
+		% localization
+		\ganttgroup{utils}{9}{3}
+		\ganttbar[color=\martin]{localization}{9}{1}
+		\ganttbar[color=\martin]{ensure correct locale in every class}{10}{2}
+			
+		% model
+		\ganttgroup{model}{1}{11}
+	    \ganttbar[color=\martin]{implement class: Vertex, Edge and subclasses}{1}{4}
+		\ganttbar[color=\leon]{implement class: Graph}{6}{2}
+		\ganttbarcon[color=\leon]{combine GameBoard with Graph and Grid}{8}{4}
+	    \ganttbar[color=\ole]{implement class: Grid, GridPoints, and Player}{5}{1}
+		\ganttbarcon[color=\ole]{implement class: GameBoard}{6}{2}
+		    
+		% controller
+		\ganttgroup{controller}{1}{8}
+		\ganttbar[color=\notimp]{\sout{implement utility classes}}{1}{1}
+		\ganttbar[color=\joe]{implement class: GameManager}{3}{4}
+		\ganttbar[color=\joe]{implement class: Game, PlayerManager and ViewManager}{3}{6}
+			
+		% view
+		\ganttgroup{view}{4}{11}
+		\ganttbar[color=\jack]{implement VisualGrid, StatusBar, and GraphCanvas}{12}{3}
+		\ganttbar[color=\jack]{implement GameWindow}{4}{4}
+			
+		\ganttmilestone[color=red]{first prototype}{6}
+			
+		% game explorer
+		\ganttgroup{GameExplorer}{1}{15}
+		\ganttbar[color=\joe]{implementation of GameExplorer GUI}{1}{5}
+		\ganttbar[color=\martin]{combine GameExplorer's logic with GUI}{11}{5}
+		\ganttmilestone[color=red]{GameExplorer done}{16}
+			
+		% games
+		\ganttgroup{games}{12}{8}
+		\ganttbar[color=\leon]{GraphColoring}{12}{4}
+		\ganttbar[color=\jack]{TwixT}{18}{5}
+			
+		\ganttmilestone[color=red]{Games done}{24}
+		\ganttmilestone[color=red]{Done with mandatory section}{24}
+			
+		% facultative
+		\ganttgroup{facultatives}{12}{11}
+		\ganttbar[color=\notimp]{\sout{AI Player}}{12}{4}
+		\ganttbar[color=\notimp]{\sout{Network functionalities}}{16}{7}
+		\ganttbar[color=\notimp]{\sout{AppStore}}{16}{4}
+		\ganttbar[color=\leon]{Add custom menu items}{20}{1}
+			
+		\ganttmilestone[color=red]{Graphioli done}{27}
+		
+		% new stuff
+		\ganttgroup{features, we didn't consider in original gantt chart}{1}{26}
+		\ganttbar[color=\joe]{UIDManager}{1}{1}
+		\ganttbar[color=\all]{TestCases}{1}{26}
+		\ganttbar[color=\jack]{BFS}{9}{1}
+		\ganttbar[color=\martin]{JarParser}{10}{3}
+		\ganttbar[color=\leon]{Logger}{8}{1}
+		\ganttbar[color=\jack]{GEWindowAction}{14}{1}
+		\ganttbar[color=\ole]{Planarity check}{11}{2}
+		\ganttbar[color=\ole]{Save/Load (GameCapsule)}{14}{3}
+		\ganttbar[color=\leon]{Levels for GraphColoring}{17}{2}
+		\ganttbar[color=\all]{Language files}{16}{3}
+		\ganttbar[color=\leon]{GameResources}{22}{1}
+		\ganttbar[color=\martin]{Document}{24}{2}
+		\ganttbar[color=\martin]{Gantt chart}{24}{1}
+	\end{gantt}
+	
+	\end{tabular}
+	\begin{tabular}[b]{ll}
+		\begin{gantt}[showgrid=false,xunitlength=0.8cm,fontsize=\small,titlefontsize=\small,drawledgerline=false]{0}{10} %{# of tasks}{# of slots}
+			\ganttbar[color=\jack]{\textbf{Jack}}{0}{5}
+			\ganttbar[color=\joe]{\textbf{Johannes}}{0}{5}
+			\ganttbar[color=\leon]{\textbf{Leon}}{0}{5}
+			\ganttbar[color=\martin]{\textbf{Martin}}{0}{5}
+			\ganttbar[color=\ole]{\textbf{Ole}}{0}{5}
+			\ganttbar[color=\all]{\textbf{Facultative}}{0}{5}
+			\ganttbar[color=\new]{\textbf{New features}}{0}{5}
+			\ganttbar[color=\notimp]{\textbf{Not implemented or changed}}{0}{5}
+		\end{gantt}
+	\end{tabular}
+\end{document}

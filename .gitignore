@@ -49,6 +49,9 @@ pflichtenheft/*.pdf
 design/*.pdf
 design/diagrams/*.pdf
 implementation/*.pdf
+implementation/**/*.pdf
+implementation/document/*.pdf
+implementation/document/ganttChart/*.pdf
 
 # eclipse specific file
 .classpath
@@ -75,3 +78,4 @@ log.html.*
 *.lck
 *.*~
 *.save
+*.psd

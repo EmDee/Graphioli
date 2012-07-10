@@ -3,7 +3,7 @@
 \usepackage[usenames,dvipsnames,svgnames]{xcolor}
 \usepackage{varwidth}
 
-\usepackage{../materials/resources/gantt}
+\usepackage{../../../materials/resources/gantt}
 \newcommand{\week}{%
 	\titleelement{Mon}{1}
 	\titleelement{Tue}{1}
@@ -41,15 +41,15 @@
 	  	\end{ganttitle}
 		
 		% localization
-		\ganttgroup{model}{1}{5}
+		\ganttgroup{utils}{1}{5}
 		\ganttbar[color=\leon]{localization}{1}{2}
-		\ganttbar[color=\leon]{ensure correct locale in every class}{3}{3}
+		\ganttbarcon[color=\leon]{ensure correct locale in every class}{3}{3}
 			
 		% model
 		\ganttgroup{model}{1}{7}
 	    \ganttbar[color=\martin]{implement class: Vertex, Edge and subclasses}{1}{2}
-		\ganttbar[color=\martin]{implement class: Graph}{3}{3}
-		\ganttbar[color=\martin]{combine GameBoard with Graph and Grid}{6}{2}
+		\ganttbarcon[color=\martin]{implement class: Graph}{3}{3}
+		\ganttbarcon[color=\martin]{combine GameBoard with Graph and Grid}{6}{2}
 	    \ganttbar[color=\ole]{implement class: Grid, GridPoints, and Player}{1}{1}
 		\ganttbarcon[color=\ole]{implement class: GameBoard}{2}{2}
 		    
@@ -62,14 +62,14 @@
 		% view
 		\ganttgroup{view}{1}{8}
 		\ganttbar[color=\jack]{implement VisualGrid, StatusBar, and GraphCanvas}{1}{3}
-		\ganttbar[color=\jack]{implement GameWindow}{4}{5}
+		\ganttbarcon[color=\jack]{implement GameWindow}{4}{5}
 			
 		\ganttmilestone[color=red]{first prototype}{9}
 			
 		% game explorer
 		\ganttgroup{GameExplorer}{6}{10}
 		\ganttbar[color=\martin]{implementation of GameExplorer GUI}{6}{5}
-		\ganttbar[color=\martin]{combine GameExplorer's logic with GUI}{11}{5}
+		\ganttbarcon[color=\martin]{combine GameExplorer's logic with GUI}{11}{5}
 		\ganttmilestone[color=red]{GameExplorer done}{16}
 			
 		% games
