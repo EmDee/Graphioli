@@ -50,15 +50,60 @@ public class ViewManager {
 	}
 
 	/**
-	 * Notifies the {@link View} to display the given {@link Player} as active.
+	 * Notifies the {@link View} to display the error message.
 	 * 
-	 * @param player
-	 *            The active player
+	 * @param message
+	 *            The message to display
 	 * @return <code>true</code> if the action was performed successfully,
 	 *         <code>false</code> otherwise
 	 */
-	public boolean updatePlayerStatus(Player player) {
-		return this.view.updatePlayerStatus(player);
+	public boolean displayErrorMessage(String message) {
+		return this.view.displayErrorMessage(message);
+	}
+
+	/**
+	 * Notifies the {@link View} to display the given message in a pop-up. NOTE:
+	 * Don't use this inside game logic. It will lead to an timeout.
+	 * 
+	 * @param message
+	 *            The message to display
+	 * @return <code>true</code> if the action was performed successfully,
+	 *         <code>false</code> otherwise
+	 */
+	public boolean displayPopUp(String message) {
+		return this.view.displayPopUp(message);
+	}
+
+	/**
+	 * Returns the associated {@link GameManager}.
+	 * 
+	 * @return the associated {@link GameManager}
+	 */
+	public GameManager getGameManager() {
+		return this.gameManager;
+	}
+
+	/**
+	 * Callback function used by the {@link View} to notify about a custom menu
+	 * item click.
+	 * 
+	 * @param menuItem
+	 *            The menu item that was clicked
+	 * @return <code>true</code> if the action was performed successfully,
+	 *         <code>false</code> otherwise
+	 */
+	public boolean onCustomMenuItemClick(MenuItem menuItem) {
+		try {
+			if (this.gameManager.getGame().callOnMenuItemClick(menuItem)) {
+				this.updateView();
+				this.gameManager.checkFinished();
+				return true;
+			}
+		} catch (TimeoutException e) {
+			this.displayPopUp("Game timed out. Closing.");
+			this.gameManager.closeGame();
+		}
+		return false;
 	}
 
 	/**
@@ -121,123 +166,12 @@ public class ViewManager {
 	}
 
 	/**
-	 * Notifies the {@link View} to display the error message.
-	 * 
-	 * @param message
-	 *            The message to display
-	 * @return <code>true</code> if the action was performed successfully,
-	 *         <code>false</code> otherwise
-	 */
-	public boolean displayErrorMessage(String message) {
-		return this.view.displayErrorMessage(message);
-	}
-
-	/**
-	 * Notifies the {@link View} to display the given message in a pop-up.
-	 * 
-	 * @param message
-	 *            The message to display
-	 * @return <code>true</code> if the action was performed successfully,
-	 *         <code>false</code> otherwise
-	 */
-	public boolean displayPopUp(String message) {
-		return this.view.displayPopUp(message);
-	}
-
-	/**
-	 * Notifies the {@link View} to add the given {@link MenuItem} to the menu.
-	 * 
-	 * @param item
-	 *            The MenuItem to add
-	 * @return <code>true</code> if the action was performed successfully,
-	 *         <code>false</code> otherwise
-	 */
-	// TODO: Facultative
-	/*
-	 * public boolean addGameMenuItem(MenuItem item) { return
-	 * this.view.addCustomMenuItem(item); }
-	 */
-
-	/**
-	 * Callback function used by the {@link View} to notify about a click on a
-	 * previously added {@link MenuItem}.
-	 * 
-	 * @param item
-	 *            The MenuItem that was clicked
-	 * @return <code>true</code> if the action was performed successfully,
-	 *         <code>false</code> otherwise
-	 */
-	// TODO: Facultative
-	// public boolean onMenuItemClick(MenuItem item) {}
-
-	/**
-	 * Returns the associated {@link GameManager}.
-	 * 
-	 * @return the associated {@link GameManager}
-	 */
-	public GameManager getGameManager() {
-		return this.gameManager;
-	}
-
-	/**
-	 * Notifies the {@link View} to change the size of the {@link VisualVertex}
-	 * es to the given value.
-	 * 
-	 * @param size
-	 *            The new size of the VisualVertex
-	 * @return <code>true</code> if the action was performed successfully,
-	 *         <code>false</code> otherwise
-	 */
-	public boolean setVisualVertexSize(int size) {
-		return this.view.setVisualVertexSize(size);
-	}
-
-	/**
-	 * Notifies the view to update itself.
-	 */
-	public void updateView() {
-		this.view.redrawGraph();
-	}
-
-	/**
-	 * Closes the View and all its components.
-	 * 
-	 * @return {@code true} if the disposal was successful
-	 */
-	public boolean closeView() {
-		this.view.closeView();
-		return true;
-	}
-
-	/**
-	 * Callback function used by the {@link View} to notify about a custom menu
-	 * item click.
-	 * 
-	 * @param menuItem
-	 *            The menu item that was clicked
-	 * @return <code>true</code> if the action was performed successfully,
-	 *         <code>false</code> otherwise
-	 */
-	public boolean onCustomMenuItemClick(MenuItem menuItem) {
-		try {
-			if (this.gameManager.getGame().callOnMenuItemClick(menuItem)) {
-				this.updateView();
-				this.gameManager.checkFinished();
-				return true;
-			}
-		} catch (TimeoutException e) {
-			this.displayPopUp("Game timed out. Closing.");
-			this.gameManager.closeGame();
-		}
-		return false;
-	}
-
-	/**
 	 * Notifies the view to add the given menu items.
 	 * 
+	 * @param items the menu items to add.
 	 * @return {@code true} on success.
 	 */
-	public boolean addCustomMenuItems(List<MenuItem> items) {
+	boolean addCustomMenuItems(List<MenuItem> items) {
 		return this.view.addMenuItems(items);
 	}
 
@@ -246,8 +180,37 @@ public class ViewManager {
 	 * 
 	 * @return {@code true} if player wants to restart, {@code false} otherwise
 	 */
-	public boolean askForRestart() {
+	boolean askForRestart() {
 		return this.view.askForRestart();
+	}
+
+	/**
+	 * Closes the View and all its components.
+	 * 
+	 * @return {@code true} if the disposal was successful
+	 */
+	boolean closeView() {
+		this.view.closeView();
+		return true;
+	}
+
+	/**
+	 * Notifies the {@link View} to display the given {@link Player} as active.
+	 * 
+	 * @param player
+	 *            The active player
+	 * @return <code>true</code> if the action was performed successfully,
+	 *         <code>false</code> otherwise
+	 */
+	boolean updatePlayerStatus(Player player) {
+		return this.view.updatePlayerStatus(player);
+	}
+
+	/**
+	 * Notifies the view to update itself.
+	 */
+	void updateView() {
+		this.view.redrawGraph();
 	}
 
 }

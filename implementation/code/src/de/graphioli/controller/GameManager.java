@@ -21,7 +21,6 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
-import java.util.Locale;
 import java.util.concurrent.TimeoutException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -33,7 +32,7 @@ import java.util.logging.Logger;
  * 
  * @author Graphioli
  */
-public class GameManager {
+public final class GameManager {
 
 	/**
 	 * Logging instance.
@@ -61,11 +60,6 @@ public class GameManager {
 	private PlayerManager playerManager;
 
 	/**
-	 * Path to the package that holds all implemented {@link Game} sub-classes.
-	 */
-	private String gamePackagePath = "game.";
-
-	/**
 	 * GameDefinition for the current played game.
 	 */
 	private GameDefinition currentGameDefinition;
@@ -90,7 +84,7 @@ public class GameManager {
 	 *            Provided command-line arguments
 	 */
 	public static void main(String[] args) {
-		
+
 		// Start Logging
 		if (!initLogger()) {
 			System.out.print("STOP: Unable to create log file.");
@@ -109,128 +103,94 @@ public class GameManager {
 	}
 
 	/**
-	 * Starts the {@link GameExplorer}.
+	 * Starts the logging for the framework.
+	 * 
+	 * @return {@code false} when logging could not be started
+	 */
+	private static boolean initLogger() {
+
+		try {
+			GraphioliLogger.startLog(Level.FINEST);
+		} catch (IOException e) {
+			return false;
+		}
+
+		return true;
+
+	}
+
+	/**
+	 * Closes the game with its {@link GameWindow} and returns the focus to the
+	 * {@link GameExplorer}.
 	 * 
 	 * @return <code>true</code> if the action was performed successfully,
 	 *         <code>false</code> otherwise
 	 */
-	private boolean openGameExplorer() {
-
-		// Create new instance of GameExplorer
-		new GameExplorer(this);
-
-		LOG.fine("<em>GameExplorer</em> call finished.");
-
+	public boolean closeGame() {
+		LOG.info("Closing game.");
+		this.viewManager.closeView();
+		this.openGameExplorer();
 		return true;
+	}
+
+	/**
+	 * Exits the whole program.
+	 */
+	public void exit() {
+
+		LOG.finer("GameManager.<em>exit()</em> called.");
+
+		System.exit(0);
 
 	}
 
 	/**
-	 * Starts the game specified by the {@link GameDefinition}.
+	 * Notifies this {@link GameManager}, that the game is supposed to be
+	 * finished.
 	 * 
-	 * @param gameDefinition
-	 *            The GameDefinition of the game to start
-	 * @param players
-	 *            The list of players for this game
 	 * @return <code>true</code> if the action was performed successfully,
-	 *         <code>false</code> otherwise
+	 *         <code>false</code> otherwise.
 	 */
-	public boolean startGame(GameDefinition gameDefinition, ArrayList<Player> players) {
-
-		LOG.info("Try starting game '" + gameDefinition.getClassName() + "'.");
-
-		this.initializeFramework(gameDefinition, players);
-
-		// get game class from Jar
-		// Class<?> classToLoad = JarParser.getClass(this.gamePackagePath,
-		// gameDefinition.getClassName());
-		// TODO: Remove this method for production
-		Class<?> classToLoad = JarParser.getClassFromBin(gameDefinition.getClassName());
-
-		// Instantiate game
-		try {
-			this.game = (Game) classToLoad.newInstance();
-		} catch (InstantiationException e) {
-			LOG.severe("InstantiationException: " + e.getMessage());
-			return false;
-		} catch (IllegalAccessException e) {
-			LOG.severe("IllegalAccessException: " + e.getMessage());
-			return false;
-		}
-
-		this.game.registerController(this, new GameResources(gameDefinition.getClassName()));
-
-		if (!runGame()) {
-			this.viewManager.displayPopUp("Game initialization failed. Closing.");
-			this.closeGame();
-		}
-
+	public boolean finishGame() {
+		this.finishFlag = true;
 		return true;
 	}
 
 	/**
-	 * Creates the components of the framework.
+	 * Returns the {@link Game} associated with this {@link GameManager}.
 	 * 
-	 * @param gameDefinition
-	 *            The GameDefinition of the game to start
-	 * @param players
-	 *            The list of players for this game
+	 * @return The Game
 	 */
-	private void initializeFramework(GameDefinition gameDefinition, ArrayList<Player> players) {
-		// Create GameBoard
-		this.gameBoard = new GameBoard(gameDefinition.isDirectedGraph(), gameDefinition.getHorizontalGridPointCount(),
-				gameDefinition.getVerticalGridPointCount());
-
-		// Create ViewManager instance
-		this.viewManager = new ViewManager(this);
-		
-		if (gameDefinition.getMenu() != null) {
-			this.viewManager.addCustomMenuItems(gameDefinition.getMenu());
-		} else {
-			LOG.fine("No custom menu items found");
-		}
-
-		// Create PlayerManager instance
-		this.playerManager = new PlayerManager(players, this);
-
-		this.playerManager.initializePlayers();
-
-		this.currentGameDefinition = gameDefinition;
+	public Game getGame() {
+		return this.game;
 	}
 
 	/**
-	 * Does the first calls to the game.
+	 * Returns the {@link GameBoard} associated with this {@link GameManager}.
 	 * 
-	 * @return {@code true} when calls succeeded.
+	 * @return GameBoard The GameBoard
 	 */
-	private boolean runGame() {
-		this.finishFlag = false;
-		LOG.finer("Calling <em>onGameInit()</em>.");
+	public GameBoard getGameBoard() {
+		return this.gameBoard;
+	}
 
-		try {
-			if (this.game.callOnGameInit()) {
-				LOG.fine("<em>onGameInit()</em> returned <em>true</em>.");
-				this.viewManager.displayErrorMessage("Running...");
-				LOG.finer("Calling <em>onGameStart()</em>.");
+	/**
+	 * Returns the {@link PlayerManager} associated with this
+	 * {@link GameManager}.
+	 * 
+	 * @return PlayerManager The PlayerManager
+	 */
+	public PlayerManager getPlayerManager() {
+		return this.playerManager;
+	}
 
-				if (this.game.callOnGameStart()) {
-					LOG.info("<em>onGameStart()</em> returned <em>true</em>. Game started.");
-				} else {
-					LOG.warning("<em>onGameStart()</em> returned <em>false</em>.");
-					return false;
-				}
-
-			} else {
-				LOG.warning("<em>onGameInit()</em> returned <em>false</em>.");
-				return false;
-			}
-		} catch (TimeoutException toe) {
-			this.viewManager.displayPopUp("Game timed out. Closing.");
-			this.closeGame();
-		}
-		
-		this.viewManager.updateView();
-		return true;
+	/**
+	 * Returns the {@link ViewManager} associated with this {@link GameManager}.
+	 * 
+	 * @return ViewManager The ViewManager
+	 */
+	public ViewManager getViewManager() {
+		return this.viewManager;
 	}
 
 	/**
@@ -304,167 +264,33 @@ public class GameManager {
 	}
 
 	/**
-	 * Creates a {@link GameCapsule} and serializes it into a savegame file to
-	 * save the current state of the game.
+	 * Logs an event in a {@link Game}.
 	 * 
-	 * @param savegame
-	 *            The savegame file
+	 * @param logMessage
+	 *            The event's message to log
 	 * @return <code>true</code> if the action was performed successfully,
-	 *         <code>false</code> otherwise TODO Implement
+	 *         <code>false</code> otherwise
 	 */
-	public boolean saveGame(File savegame) {
-		GameCapsule capsule = new GameCapsule(this.gameBoard, this.playerManager.getPlayers(),
-		this.playerManager.getActivePlayer(), this.currentGameDefinition);
-		
-		// Calling game
-		boolean success = false;;
-		try {
-			success = this.game.callOnGameSave(capsule.getHashMap());
-		} catch (TimeoutException e) {
-			this.viewManager.displayPopUp("Game timed out. Closing.");
-			this.closeGame();
+	public boolean logGameAction(String logMessage) {
+		String message;
+		if (logMessage.isEmpty()) {
+			message = "<em>Empty message</em>";
+		} else {
+			message = logMessage;
 		}
-		
-		if (!success) {
-			this.viewManager.displayPopUp("Saving not supported by this game.");
-			return false;
-		}
-		
-		// Serializing GameCapsule
-		try {
-			FileOutputStream fos = new FileOutputStream(savegame);
-			ObjectOutputStream out = new ObjectOutputStream(fos);
-			out.writeObject(capsule);
-			out.flush();
-			out.close();
-			LOG.info("Saved game to file: " + savegame.getName());
-		} catch (FileNotFoundException e) {
-			LOG.severe("FileNotFoundException: " + e.getMessage());
-			e.printStackTrace();
-			return false;
-		} catch (IOException e) {
-			LOG.severe("IOException: " + e.getMessage());
-			e.printStackTrace();
-			return false;
-		}
-		
-		
+		LOG.info("Current game '" + this.currentGameDefinition.getName() + "' states: " + message);
 		return true;
 	}
 
 	/**
-	 * Notifies this {@link GameManager}, that the game is supposed to be
-	 * finished.
-	 * 
-	 * @return <code>true</code> if the action was performed successfully,
-	 *         <code>false</code> otherwise.
-	 */
-	public boolean finishGame() {
-		this.finishFlag = true;
-		return true;
-	}
-
-	/**
-	 * Checks whether the finishFlag is set and if so closes the game with a
-	 * winner Pop-up.
-	 */
-	public void checkFinished() {
-		if (this.finishFlag) {
-			if (this.playerManager.getWinningPlayer() == null) {
-				this.viewManager.displayPopUp("Draw.");
-			} else {
-				this.viewManager.displayPopUp(this.playerManager.getWinningPlayer().getName() + " wins.");
-			}
-
-			// Prompt if game should be restarted or closed
-			if (this.viewManager.askForRestart()) {
-				this.restartGame();
-			} else {
-				this.closeGame();
-			}
-		}
-	}
-
-	/**
-	 * Restarts the game and resets the {@link GameBoard} and {@link Player}s.
+	 * Opens the help file with the link of the current {@link GameDefinition}.
 	 * 
 	 * @return <code>true</code> if the action was performed successfully,
 	 *         <code>false</code> otherwise
 	 */
-	public boolean restartGame() {
-		this.getGameBoard().flush();
-		this.playerManager.initializePlayers();
-		this.runGame();
-		this.viewManager.updateView();
-		return true;
-	}
-
-	/**
-	 * Closes the game with its {@link GameWindow} and returns the focus to the
-	 * {@link GameExplorer}.
-	 * 
-	 * @return <code>true</code> if the action was performed successfully,
-	 *         <code>false</code> otherwise
-	 */
-	public boolean closeGame() {
-		LOG.info("Closing game.");
-		this.viewManager.closeView();
-		this.openGameExplorer();
-		return true;
-	}
-
-	/**
-	 * Returns the {@link PlayerManager} associated with this
-	 * {@link GameManager}.
-	 * 
-	 * @return PlayerManager The PlayerManager
-	 */
-	public PlayerManager getPlayerManager() {
-		return this.playerManager;
-	}
-
-	/**
-	 * Returns the {@link ViewManager} associated with this {@link GameManager}.
-	 * 
-	 * @return ViewManager The ViewManager
-	 */
-	public ViewManager getViewManager() {
-		return this.viewManager;
-	}
-
-	/**
-	 * Returns the {@link GameBoard} associated with this {@link GameManager}.
-	 * 
-	 * @return GameBoard The GameBoard
-	 */
-	public GameBoard getGameBoard() {
-		return this.gameBoard;
-	}
-
-	/**
-	 * Returns the {@link Game} associated with this {@link GameManager}.
-	 * 
-	 * @return The Game
-	 */
-	public Game getGame() {
-		return this.game;
-	}
-
-	/**
-	 * Starts the logging for the framework.
-	 * 
-	 * @return {@code false} when logging could not be started
-	 */
-	private static boolean initLogger() {
-
-		try {
-			GraphioliLogger.startLog(Level.FINEST);
-		} catch (IOException e) {
-			return false;
-		}
-
-		return true;
-
+	public boolean openHelpFile() {
+		LOG.info("GameManager.<em>openHelpFile()</em> within game called.");
+		return this.openHelpFile(this.currentGameDefinition);
 	}
 
 	/**
@@ -493,41 +319,211 @@ public class GameManager {
 	}
 
 	/**
-	 * Opens the help file with the link of the current {@link GameDefinition}.
+	 * Restarts the game and resets the {@link GameBoard} and {@link Player}s.
 	 * 
 	 * @return <code>true</code> if the action was performed successfully,
 	 *         <code>false</code> otherwise
 	 */
-	public boolean openHelpFile() {
-		LOG.info("GameManager.<em>openHelpFile()</em> within game called.");
-		return this.openHelpFile(this.currentGameDefinition);
-	}
-
-	/**
-	 * Exits the whole program.
-	 */
-	public void exit() {
-
-		LOG.finer("GameManager.<em>exit()</em> called.");
-
-		System.exit(0);
-
-	}
-
-	/**
-	 * Logs an event in a {@link Game}.
-	 * 
-	 * @param logMessage
-	 * 			The event's message to log
-	 * @return <code>true</code> if the action was performed successfully,
-	 *         <code>false</code> otherwise
-	 */
-	public boolean logGameAction(String logMessage) {
-		if (logMessage.isEmpty()) {
-			logMessage = "<em>Empty message</em>";
-		}
-		LOG.info("Current game '" + this.currentGameDefinition.getName() + "' states: " + logMessage);
+	public boolean restartGame() {
+		this.getGameBoard().flush();
+		this.playerManager.initializePlayers();
+		this.runGame();
+		this.viewManager.updateView();
 		return true;
+	}
+
+	/**
+	 * Creates a {@link GameCapsule} and serializes it into a savegame file to
+	 * save the current state of the game.
+	 * 
+	 * @param savegame
+	 *            The savegame file
+	 * @return <code>true</code> if the action was performed successfully,
+	 *         <code>false</code> otherwise TODO Implement
+	 */
+	public boolean saveGame(File savegame) {
+		GameCapsule capsule = new GameCapsule(this.gameBoard, this.playerManager.getPlayers(),
+				this.playerManager.getActivePlayer(), this.currentGameDefinition);
+
+		// Calling game
+		boolean success = false;
+		try {
+			success = this.game.callOnGameSave(capsule.getHashMap());
+		} catch (TimeoutException e) {
+			this.viewManager.displayPopUp("Game timed out. Closing.");
+			this.closeGame();
+		}
+
+		if (!success) {
+			this.viewManager.displayPopUp("Saving not supported by this game.");
+			return false;
+		}
+
+		// Serializing GameCapsule
+		try {
+			FileOutputStream fos = new FileOutputStream(savegame);
+			ObjectOutputStream out = new ObjectOutputStream(fos);
+			out.writeObject(capsule);
+			out.flush();
+			out.close();
+			LOG.info("Saved game to file: " + savegame.getName());
+		} catch (FileNotFoundException e) {
+			LOG.severe("FileNotFoundException: " + e.getMessage());
+			e.printStackTrace();
+			return false;
+		} catch (IOException e) {
+			LOG.severe("IOException: " + e.getMessage());
+			e.printStackTrace();
+			return false;
+		}
+
+		return true;
+	}
+
+	/**
+	 * Starts the game specified by the {@link GameDefinition}.
+	 * 
+	 * @param gameDefinition
+	 *            The GameDefinition of the game to start
+	 * @param players
+	 *            The list of players for this game
+	 * @return <code>true</code> if the action was performed successfully,
+	 *         <code>false</code> otherwise
+	 */
+	public boolean startGame(GameDefinition gameDefinition, ArrayList<Player> players) {
+
+		LOG.info("Try starting game '" + gameDefinition.getClassName() + "'.");
+
+		this.initializeFramework(gameDefinition, players);
+
+		// get game class from Jar
+		// Class<?> classToLoad = JarParser.getClass(this.gamePackagePath,
+		// gameDefinition.getClassName());
+		// TODO: Remove this method for production
+		Class<?> classToLoad = JarParser.getClassFromBin(gameDefinition.getClassName());
+
+		// Instantiate game
+		try {
+			this.game = (Game) classToLoad.newInstance();
+		} catch (InstantiationException e) {
+			LOG.severe("InstantiationException: " + e.getMessage());
+			return false;
+		} catch (IllegalAccessException e) {
+			LOG.severe("IllegalAccessException: " + e.getMessage());
+			return false;
+		}
+
+		this.game.registerController(this, new GameResources(gameDefinition.getClassName()));
+
+		if (!runGame()) {
+			this.viewManager.displayPopUp("Game initialization failed. Closing.");
+			this.closeGame();
+		}
+
+		return true;
+	}
+
+	/**
+	 * Creates the components of the framework.
+	 * 
+	 * @param gameDefinition
+	 *            The GameDefinition of the game to start
+	 * @param players
+	 *            The list of players for this game
+	 */
+	private void initializeFramework(GameDefinition gameDefinition, ArrayList<Player> players) {
+		// Create GameBoard
+		this.gameBoard = new GameBoard(gameDefinition.isDirectedGraph(), gameDefinition.getHorizontalGridPointCount(),
+				gameDefinition.getVerticalGridPointCount());
+
+		// Create ViewManager instance
+		this.viewManager = new ViewManager(this);
+
+		if (gameDefinition.getMenu() != null) {
+			this.viewManager.addCustomMenuItems(gameDefinition.getMenu());
+		} else {
+			LOG.fine("No custom menu items found");
+		}
+
+		// Create PlayerManager instance
+		this.playerManager = new PlayerManager(players, this);
+
+		this.playerManager.initializePlayers();
+
+		this.currentGameDefinition = gameDefinition;
+	}
+
+	/**
+	 * Does the first calls to the game.
+	 * 
+	 * @return {@code true} when calls succeeded.
+	 */
+	private boolean runGame() {
+		this.finishFlag = false;
+		LOG.finer("Calling <em>onGameInit()</em>.");
+
+		try {
+			if (this.game.callOnGameInit()) {
+				LOG.fine("<em>onGameInit()</em> returned <em>true</em>.");
+				this.viewManager.displayErrorMessage("Running...");
+				LOG.finer("Calling <em>onGameStart()</em>.");
+
+				if (this.game.callOnGameStart()) {
+					LOG.info("<em>onGameStart()</em> returned <em>true</em>. Game started.");
+				} else {
+					LOG.warning("<em>onGameStart()</em> returned <em>false</em>.");
+					return false;
+				}
+
+			} else {
+				LOG.warning("<em>onGameInit()</em> returned <em>false</em>.");
+				return false;
+			}
+		} catch (TimeoutException toe) {
+			this.viewManager.displayPopUp("Game timed out. Closing.");
+			this.closeGame();
+		}
+
+		this.viewManager.updateView();
+		return true;
+	}
+
+	/**
+	 * Checks whether the finishFlag is set and if so closes the game with a
+	 * winner Pop-up.
+	 */
+	void checkFinished() {
+		if (this.finishFlag) {
+			if (this.playerManager.getWinningPlayer() == null) {
+				this.viewManager.displayPopUp("Draw.");
+			} else {
+				this.viewManager.displayPopUp(this.playerManager.getWinningPlayer().getName() + " wins.");
+			}
+
+			// Prompt if game should be restarted or closed
+			if (this.viewManager.askForRestart()) {
+				this.restartGame();
+			} else {
+				this.closeGame();
+			}
+		}
+	}
+
+	/**
+	 * Starts the {@link GameExplorer}.
+	 * 
+	 * @return <code>true</code> if the action was performed successfully,
+	 *         <code>false</code> otherwise
+	 */
+	boolean openGameExplorer() {
+
+		// Create new instance of GameExplorer
+		new GameExplorer(this);
+
+		LOG.fine("<em>GameExplorer</em> call finished.");
+
+		return true;
+
 	}
 
 }

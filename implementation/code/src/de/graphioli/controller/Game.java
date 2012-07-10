@@ -24,16 +24,28 @@ public abstract class Game {
 	private static final Logger LOG = Logger.getLogger(Game.class.getName());
 
 	private static final long CALL_TIMEOUT = 2000;
+	
+	/**
+	 * {@true} when there is a call to the game running.
+	 */
+	volatile boolean callFinished;
+	
+	/**
+	 * The result of the last call to the game.
+	 */
+	volatile boolean callResult;
 
 	/**
 	 * The {@link GameManager} associated with this {@link Game}.
 	 */
 	private GameManager gameManager;
+	
+	/**
+	 * The {@link GameResources} associated with this {@link Game}.
+	 */
 	private GameResources resources;
 
-	volatile boolean callFinished;
-	volatile boolean callResult;
-
+	
 	/**
 	 * Creates a new instance of Game.
 	 */
@@ -41,22 +53,29 @@ public abstract class Game {
 		LOG.info("Game Object instantiated.");
 	}
 
-	/**
-	 * Associates this {@link Game} with a {@link GameManager} and its
-	 * {@link GameResources} .
-	 * 
-	 * @param gameManager
-	 *            The controlling <code>GameManager</code>
-	 * @param The
-	 *            resources of this game.
-	 * @return <code>true</code> if the action was performed successfully,
-	 *         <code>false</code> otherwise
-	 */
-	public final boolean registerController(GameManager gameManager, GameResources resources) {
-		this.gameManager = gameManager;
-		this.resources = resources;
-		return true;
+	@SuppressWarnings("deprecation")
+	private boolean executeAndWaitForCall(Thread callThread) {
+		this.callFinished = false;
+		this.callResult = false;
+		callThread.start();
 
+		try {
+			callThread.join(CALL_TIMEOUT);
+		} catch (InterruptedException e) {
+			LOG.severe("Call interrupted: " + e.getMessage());
+			e.printStackTrace();
+			return true;
+		}
+
+		if (!this.callFinished) {
+			callThread.stop(); // Deprecated, but in this case there is no
+								// alternative.
+			this.callFinished = true;
+			LOG.warning("Call timed out.");
+			return false;
+		}
+
+		return true;
 	}
 
 	/**
@@ -78,31 +97,78 @@ public abstract class Game {
 	}
 
 	/**
-	 * This method executes a {@code onVertexClick} call.
+	 * Called when a player clicks on a {@link GridPoint} that has no
+	 * {@link VisualVertex} on it.
 	 * 
-	 * @param vertex
-	 *            the {@code VisualVertex} clicked on.
-	 * @return the result of the {@link Game#onVertexClick(VisualVertex)}
-	 *         method.
-	 * @throws TimeoutException
-	 *             when the call does not return in time.
+	 * @param gridPoint
+	 *            The empty GridPoint that was clicked
+	 * @return <code>true</code> if the action was performed successfully,
+	 *         <code>false</code> otherwise
 	 */
-	final boolean callOnVertexClick(final VisualVertex vertex) throws TimeoutException {
+	protected abstract boolean onEmptyGridPointClick(GridPoint gridPoint);
 
-		Thread callThread = new Thread(new Runnable() {
-			public void run() {
-				callResult = onVertexClick(vertex);
-				callFinished = true;
-			}
+	/**
+	 * Called after a {@link Game} has been instantiated.
+	 * 
+	 * @return <code>true</code> if the action was performed successfully,
+	 *         <code>false</code> otherwise
+	 */
+	protected abstract boolean onGameInit();
 
-		});
+	/**
+	 * Called after a savegame was loaded.
+	 * 
+	 * @param customValues
+	 *            the stored custom values.
+	 * @return <code>true</code> if the action was performed successfully,
+	 *         <code>false</code> otherwise
+	 */
+	protected boolean onGameLoad(HashMap<Integer, Object> customValues) {
+		return false;
+	}
 
-		LOG.finer("Executing onVertexClick");
-		if (!this.executeAndWaitForCall(callThread)) {
-			throw new TimeoutException("onVertexClick timed out.");
-		}
-		LOG.finer("onVertexClick returned in time.");
-		return callResult;
+	/**
+	 * Called before a savegame is stored.
+	 * 
+	 * @param customValues
+	 *            the custom values to be stored.
+	 * @return <code>true</code> if the action was performed successfully,
+	 *         <code>false</code> otherwise
+	 */
+	protected boolean onGameSave(HashMap<Integer, Object> customValues) {
+		return false;
+	}
+
+	/**
+	 * Called immediately before a {@link Game} gets (re)started.
+	 * 
+	 * @return <code>true</code> if the action was performed successfully,
+	 *         <code>false</code> otherwise
+	 */
+	protected abstract boolean onGameStart();
+
+	/**
+	 * Called when a player releases a keyboard key.
+	 * 
+	 * @param keyCode
+	 *            The code of the key that was released
+	 * @return <code>true</code> if the action was performed successfully,
+	 *         <code>false</code> otherwise
+	 */
+	protected boolean onKeyRelease(int keyCode) {
+		return false;
+	}
+
+	/**
+	 * Called when a player clicks on a custom {@link MenuItem}.
+	 * 
+	 * @param item
+	 *            The MenuItem that was clicked
+	 * @return <code>true</code> if the action was performed successfully,
+	 *         <code>false</code> otherwise
+	 */
+	protected boolean onMenuItemClick(MenuItem item) {
+		return true;
 	}
 
 	/**
@@ -129,8 +195,9 @@ public abstract class Game {
 
 		Thread callThread = new Thread(new Runnable() {
 			public void run() {
-				callResult = onEmptyGridPointClick(gridPoint);
-				callFinished = true;
+				Game.this.callResult = Game.this.onEmptyGridPointClick(gridPoint);
+				Game.this.callFinished = true;
+
 			}
 
 		});
@@ -140,32 +207,25 @@ public abstract class Game {
 			throw new TimeoutException("onEmptyGridPointClick timed out.");
 		}
 		LOG.finer("onEmptyGridPointClick returned in time.");
-		return callResult;
+		return this.callResult;
 	}
-
-	/**
-	 * Called when a player clicks on a {@link GridPoint} that has no
-	 * {@link VisualVertex} on it.
-	 * 
-	 * @param gridPoint
-	 *            The empty GridPoint that was clicked
-	 * @return <code>true</code> if the action was performed successfully,
-	 *         <code>false</code> otherwise
-	 */
-	protected abstract boolean onEmptyGridPointClick(GridPoint gridPoint);
 
 	/**
 	 * This method executes a {@code onGameInit} call.
 	 * 
+	 * NOTE: The game will be closed when this method returns {@code false}.
+	 * 
 	 * @throws TimeoutException
 	 *             when the call does not return in time.
+	 *             
+	 * @return {@code true} when the initialization was successful.
 	 */
 	final boolean callOnGameInit() throws TimeoutException {
 
 		Thread callThread = new Thread(new Runnable() {
 			public void run() {
-				callResult = onGameInit();
-				callFinished = true;
+				Game.this.callResult = Game.this.onGameInit();
+				Game.this.callFinished = true;
 			}
 
 		});
@@ -175,87 +235,7 @@ public abstract class Game {
 			throw new TimeoutException("onGameInit timed out.");
 		}
 		LOG.finer("onGameInit returned in time.");
-		return callResult;
-	}
-
-	/**
-	 * Called after a {@link Game} has been instantiated.
-	 * 
-	 * @return <code>true</code> if the action was performed successfully,
-	 *         <code>false</code> otherwise
-	 */
-	protected abstract boolean onGameInit();
-
-	/**
-	 * This method executes a {@code onGameStart} call.
-	 * 
-	 * @return the result of the {@link Game#onGameStart()} method.
-	 * @throws TimeoutException
-	 *             when the call does not return in time.
-	 */
-	final boolean callOnGameStart() throws TimeoutException {
-
-		Thread callThread = new Thread(new Runnable() {
-			public void run() {
-				callResult = onGameStart();
-				callFinished = true;
-			}
-
-		});
-
-		LOG.finer("Executing onGameStart");
-		if (!this.executeAndWaitForCall(callThread)) {
-			throw new TimeoutException("onGameStart timed out.");
-		}
-		LOG.finer("onGameStart returned in time.");
-		return callResult;
-	}
-
-	/**
-	 * Called immediately before a {@link Game} gets (re)started.
-	 * 
-	 * @return <code>true</code> if the action was performed successfully,
-	 *         <code>false</code> otherwise
-	 */
-	protected abstract boolean onGameStart();
-
-	/**
-	 * This method executes a {@code onKeyRelease} call.
-	 * 
-	 * @param keycode
-	 *            The code of the key that was released.
-	 * @return the result of the {@link Game#onKeyRelease(int)} method.
-	 * @throws TimeoutException
-	 *             when the call does not return in time.
-	 */
-	final boolean callOnKeyRelease(final int keycode) throws TimeoutException {
-
-		Thread callThread = new Thread(new Runnable() {
-			public void run() {
-				callResult = onKeyRelease(keycode);
-				callFinished = true;
-			}
-
-		});
-
-		LOG.finer("Executing onKeyRelease");
-		if (!this.executeAndWaitForCall(callThread)) {
-			throw new TimeoutException("onKeyRelease timed out.");
-		}
-		LOG.finer("onKeyRelease returned in time.");
-		return callResult;
-	}
-
-	/**
-	 * Called when a player releases a keyboard key.
-	 * 
-	 * @param keyCode
-	 *            The code of the key that was released
-	 * @return <code>true</code> if the action was performed successfully,
-	 *         <code>false</code> otherwise
-	 */
-	protected boolean onKeyRelease(int keyCode) {
-		return false;
+		return this.callResult;
 	}
 
 	/**
@@ -271,8 +251,8 @@ public abstract class Game {
 
 		Thread callThread = new Thread(new Runnable() {
 			public void run() {
-				callResult = onGameLoad(customValues);
-				callFinished = true;
+				Game.this.callResult = Game.this.onGameLoad(customValues);
+				Game.this.callFinished = true;
 			}
 
 		});
@@ -282,19 +262,7 @@ public abstract class Game {
 			throw new TimeoutException("onGameLoad timed out.");
 		}
 		LOG.finer("onGameLoad returned in time.");
-		return callResult;
-	}
-
-	/**
-	 * Called after a savegame was loaded.
-	 * 
-	 * @param customValues
-	 *            the stored custom values.
-	 * @return <code>true</code> if the action was performed successfully,
-	 *         <code>false</code> otherwise
-	 */
-	protected boolean onGameLoad(HashMap<Integer, Object> customValues) {
-		return false;
+		return this.callResult;
 	}
 
 	/**
@@ -310,8 +278,8 @@ public abstract class Game {
 
 		Thread callThread = new Thread(new Runnable() {
 			public void run() {
-				callResult = onGameSave(customValues);
-				callFinished = true;
+				Game.this.callResult = Game.this.onGameSave(customValues);
+				Game.this.callFinished = true;
 			}
 
 		});
@@ -321,26 +289,66 @@ public abstract class Game {
 			throw new TimeoutException("onGameSave timed out.");
 		}
 		LOG.finer("onGameSave returned in time.");
-		return callResult;
+		return this.callResult;
 	}
 
 	/**
-	 * Called before a savegame is stored.
+	 * This method executes a {@code onGameStart} call.
 	 * 
-	 * @param customValues
-	 *            the custom values to be stored.
-	 * @return <code>true</code> if the action was performed successfully,
-	 *         <code>false</code> otherwise
+	 * @return the result of the {@link Game#onGameStart()} method.
+	 * @throws TimeoutException
+	 *             when the call does not return in time.
 	 */
-	protected boolean onGameSave(HashMap<Integer, Object> customValues) {
-		return false;
+	final boolean callOnGameStart() throws TimeoutException {
+
+		Thread callThread = new Thread(new Runnable() {
+			public void run() {
+				Game.this.callResult = Game.this.onGameStart();
+				Game.this.callFinished = true;
+			}
+
+		});
+
+		LOG.finer("Executing onGameStart");
+		if (!this.executeAndWaitForCall(callThread)) {
+			throw new TimeoutException("onGameStart timed out.");
+		}
+		LOG.finer("onGameStart returned in time.");
+		return this.callResult;
+	}
+
+	/**
+	 * This method executes a {@code onKeyRelease} call.
+	 * 
+	 * @param keycode
+	 *            The code of the key that was released.
+	 * @return the result of the {@link Game#onKeyRelease(int)} method.
+	 * @throws TimeoutException
+	 *             when the call does not return in time.
+	 */
+	final boolean callOnKeyRelease(final int keycode) throws TimeoutException {
+
+		Thread callThread = new Thread(new Runnable() {
+			public void run() {
+				Game.this.callResult = Game.this.onKeyRelease(keycode);
+				Game.this.callFinished = true;
+			}
+
+		});
+
+		LOG.finer("Executing onKeyRelease");
+		if (!this.executeAndWaitForCall(callThread)) {
+			throw new TimeoutException("onKeyRelease timed out.");
+		}
+		LOG.finer("onKeyRelease returned in time.");
+		return this.callResult;
 	}
 
 	/**
 	 * This method executes a {@code onMenuItemClick} call.
 	 * 
-	 * @param customValues
-	 *            the custom values.
+	 * @param menuItem
+	 *            The MenuItem that was clicked
 	 * @return the result of the {@link Game#onMenuItemClick(MenuItem)} method.
 	 * @throws TimeoutException
 	 *             when the call does not return in time.
@@ -349,8 +357,8 @@ public abstract class Game {
 
 		Thread callThread = new Thread(new Runnable() {
 			public void run() {
-				callResult = onMenuItemClick(menuItem);
-				callFinished = true;
+				Game.this.callResult = Game.this.onMenuItemClick(menuItem);
+				Game.this.callFinished = true;
 			}
 
 		});
@@ -360,44 +368,53 @@ public abstract class Game {
 			throw new TimeoutException("onMenuItemClick timed out.");
 		}
 		LOG.finer("onMenuItemClick returned in time.");
-		return callResult;
+		return this.callResult;
 	}
 
 	/**
-	 * Called when a player clicks on a custom {@link MenuItem}.
+	 * This method executes a {@code onVertexClick} call.
 	 * 
-	 * @param item
-	 *            The MenuItem that was clicked
+	 * @param vertex
+	 *            the {@code VisualVertex} clicked on.
+	 * @return the result of the {@link Game#onVertexClick(VisualVertex)}
+	 *         method.
+	 * @throws TimeoutException
+	 *             when the call does not return in time.
+	 */
+	final boolean callOnVertexClick(final VisualVertex vertex) throws TimeoutException {
+
+		Thread callThread = new Thread(new Runnable() {
+			public void run() {
+				Game.this.callResult = Game.this.onVertexClick(vertex);
+				Game.this.callFinished = true;
+			}
+
+		});
+
+		LOG.finer("Executing onVertexClick");
+		if (!this.executeAndWaitForCall(callThread)) {
+			throw new TimeoutException("onVertexClick timed out.");
+		}
+		LOG.finer("onVertexClick returned in time.");
+		return this.callResult;
+	}
+
+	/**
+	 * Associates this {@link Game} with a {@link GameManager} and its
+	 * {@link GameResources} .
+	 * 
+	 * @param gameManager
+	 *            The controlling <code>GameManager</code>
+	 * @param resources
+	 *            The resources of this game.
 	 * @return <code>true</code> if the action was performed successfully,
 	 *         <code>false</code> otherwise
 	 */
-	protected boolean onMenuItemClick(MenuItem item) {
+	final boolean registerController(GameManager gameManager, GameResources resources) {
+		this.gameManager = gameManager;
+		this.resources = resources;
 		return true;
-	}
 
-	@SuppressWarnings("deprecation")
-	private boolean executeAndWaitForCall(Thread callThread) {
-		callFinished = false;
-		callResult = false;
-		callThread.start();
-
-		try {
-			callThread.join(CALL_TIMEOUT);
-		} catch (InterruptedException e) {
-			LOG.severe("Call interrupted: " + e.getMessage());
-			e.printStackTrace();
-			return true;
-		}
-
-		if (!callFinished) {
-			callThread.stop(); // Deprecated, but in this case there is no
-								// alternative.
-			callFinished = true;
-			LOG.warning("Call timed out.");
-			return false;
-		}
-
-		return true;
 	}
 
 }

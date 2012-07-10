@@ -1,11 +1,11 @@
 package de.graphioli.gameexplorer;
 
+import de.graphioli.model.GameResources;
+import de.graphioli.model.MenuItem;
+
 import java.io.Serializable;
 import java.net.URI;
 import java.util.ArrayList;
-
-import de.graphioli.model.GameResources;
-import de.graphioli.model.MenuItem;
 
 /**
  * This class represents the game’s definition, containing crucial information
@@ -56,7 +56,7 @@ public final class GameDefinition implements Serializable {
 	private URI helpFile;
 
 	/**
-	 * The list of additional menu items
+	 * The list of additional menu items.
 	 */
 	private ArrayList<MenuItem> menu;
 
@@ -82,48 +82,63 @@ public final class GameDefinition implements Serializable {
 	};
 
 	/**
-	 * Returns the name of the game.
+	 * Tries to localize a string if it begins with an {@literal @} using the
+	 * given {@link GameResources}.
 	 * 
-	 * @return the name of the game
+	 * @param s
+	 *            the string to localize.
+	 * @param res
+	 *            the game resources.
+	 * @return the localized string if it begins with an {@literal @}, otherwise
+	 *         the string itself.
 	 */
-	public String getName() {
-		return this.name;
+	private static String localizeString(String s, GameResources res) {
+		if (!s.startsWith("@") || s == null || s.length() <= 1) {
+			return s;
+		}
+		String keyString = s.replaceFirst("@", "");
+		return res.getStringResource(keyString);
 	}
 
 	/**
-	 * Returns the minimum number of players allowed.
-	 * 
-	 * @return the minimum number of players allowed
+	 * {@inheritDoc}
 	 */
-	public int getMinPlayerCount() {
-		return this.minPlayerCount;
-	}
-
-	/**
-	 * Returns the maximum number of players allowed.
-	 * 
-	 * @return the maximum number of players allowed
-	 */
-	public int getMaxPlayerCount() {
-		return this.maxPlayerCount;
-	}
-
-	/**
-	 * Returns the path to the game class file.
-	 * 
-	 * @return the path to the game class file
-	 */
-	public String getGamePath() {
-		return this.gamePath;
-	}
-
-	/**
-	 * Returns the description of the game.
-	 * 
-	 * @return the description of the game
-	 */
-	public String getDescription() {
-		return this.description;
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (obj == null) {
+			return false;
+		}
+		if (getClass() != obj.getClass()) {
+			return false;
+		}
+		GameDefinition other = (GameDefinition) obj;
+		if (this.className == null) {
+			if (other.className != null) {
+				return false;
+			}
+		} else if (!this.className.equals(other.className)) {
+			return false;
+		}
+		if (this.horizontalGridPointCount != other.horizontalGridPointCount) {
+			return false;
+		}
+		if (this.isDirectedGraph != other.isDirectedGraph) {
+			return false;
+		}
+		if (this.name == null) {
+			if (other.name != null) {
+				return false;
+			}
+		} else if (!this.name.equals(other.name)) {
+			return false;
+		}
+		if (this.verticalGridPointCount != other.verticalGridPointCount) {
+			return false;
+		}
+		return true;
 	}
 
 	/**
@@ -136,12 +151,48 @@ public final class GameDefinition implements Serializable {
 	}
 
 	/**
+	 * Returns the description of the game.
+	 * 
+	 * @return the description of the game
+	 */
+	public String getDescription() {
+		return this.description;
+	}
+
+	/**
+	 * Returns the path to the game class file.
+	 * 
+	 * @return the path to the game class file
+	 */
+	public String getGamePath() {
+		return this.gamePath;
+	}
+
+	/**
 	 * Returns the URI to the help file of the game.
 	 * 
 	 * @return the URI to the help file of the game
 	 */
 	public URI getHelpFile() {
 		return this.helpFile;
+	}
+
+	/**
+	 * Returns the number of horizontal grid points.
+	 * 
+	 * @return the number of horizontal grid points
+	 */
+	public int getHorizontalGridPointCount() {
+		return this.horizontalGridPointCount;
+	}
+
+	/**
+	 * Returns the maximum number of players allowed.
+	 * 
+	 * @return the maximum number of players allowed
+	 */
+	public int getMaxPlayerCount() {
+		return this.maxPlayerCount;
 	}
 
 	/**
@@ -155,12 +206,21 @@ public final class GameDefinition implements Serializable {
 	}
 
 	/**
-	 * Returns the number of horizontal grid points.
+	 * Returns the minimum number of players allowed.
 	 * 
-	 * @return the number of horizontal grid points
+	 * @return the minimum number of players allowed
 	 */
-	public int getHorizontalGridPointCount() {
-		return this.horizontalGridPointCount;
+	public int getMinPlayerCount() {
+		return this.minPlayerCount;
+	}
+
+	/**
+	 * Returns the name of the game.
+	 * 
+	 * @return the name of the game
+	 */
+	public String getName() {
+		return this.name;
 	}
 
 	/**
@@ -173,6 +233,21 @@ public final class GameDefinition implements Serializable {
 	}
 
 	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((this.className == null) ? 0 : this.className.hashCode());
+		result = prime * result + this.horizontalGridPointCount;
+		result = prime * result + (this.isDirectedGraph ? 1231 : 1237);
+		result = prime * result + ((this.name == null) ? 0 : this.name.hashCode());
+		result = prime * result + this.verticalGridPointCount;
+		return result;
+	}
+
+	/**
 	 * Returns whether the {@link Graph} of the game is directed or not.
 	 * 
 	 * @return <code>true</code> if the graph of the game is directed,
@@ -182,69 +257,11 @@ public final class GameDefinition implements Serializable {
 		return this.isDirectedGraph;
 	}
 
-	/**
-	 * Returns a string representation of this instance of
-	 * {@link GameDefinition}.
-	 * 
-	 * @return a string representation of this instance of
-	 *         {@link GameDefinition}.
-	 */
-	@Override
-	public String toString() {
-		return this.getName();
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((className == null) ? 0 : className.hashCode());
-		result = prime * result + horizontalGridPointCount;
-		result = prime * result + (isDirectedGraph ? 1231 : 1237);
-		result = prime * result + ((name == null) ? 0 : name.hashCode());
-		result = prime * result + verticalGridPointCount;
-		return result;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		GameDefinition other = (GameDefinition) obj;
-		if (className == null) {
-			if (other.className != null)
-				return false;
-		} else if (!className.equals(other.className))
-			return false;
-		if (horizontalGridPointCount != other.horizontalGridPointCount)
-			return false;
-		if (isDirectedGraph != other.isDirectedGraph)
-			return false;
-		if (name == null) {
-			if (other.name != null)
-				return false;
-		} else if (!name.equals(other.name))
-			return false;
-		if (verticalGridPointCount != other.verticalGridPointCount)
-			return false;
-		return true;
-	}
-
-	/**
-	 * Localizes the strings in this game definition based on its "lang" files.
-	 */
 	/*
 	 * Not really nice, but works.
+	 */
+	/**
+	 * Localizes the strings in this game definition based on its "lang" files.
 	 */
 	public void localizeInstance() {
 		GameResources res = new GameResources(this.className);
@@ -261,18 +278,15 @@ public final class GameDefinition implements Serializable {
 	}
 
 	/**
-	 * Tries to localize a string if it begins with an {@literal @} using the given {@link GameResources}.
+	 * Returns a string representation of this instance of
+	 * {@link GameDefinition}.
 	 * 
-	 * @param s the string to localize.
-	 * @param res the game resources.
-	 * @return the localized string if it begins with an {@literal @}, otherwise the string itself.
+	 * @return a string representation of this instance of
+	 *         {@link GameDefinition}.
 	 */
-	private static String localizeString(String s, GameResources res) {
-		if (!s.startsWith("@") || s == null || s.length() <= 1) {
-			return s;
-		}
-		String keyString = s.replaceFirst("@", "");
-		return res.getStringResource(keyString);
+	@Override
+	public String toString() {
+		return this.getName();
 	}
 
 }

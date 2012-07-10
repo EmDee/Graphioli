@@ -67,43 +67,9 @@ public class PlayerPopUp extends JFrame {
 		LOG.fine("Number of players chosen: " + playerCount);
 
 		// Instantiate players
-		for (int i = 0; i < playerCount; i++) {
-
-			String playerName = "";
-
-			if (playerCount == 1) {
-				playerName = this.askForPlayerName();
-			} else {
-				playerName = this.askForPlayerName(i + 1);
-			}
-
-			// If user pressed 'Cancel', close window
-			if (playerName == null) {
-				LOG.fine("User cancelled game initialization.");
-				return;
-			}
-			
-			// If name is already taken, get user to choose a different one
-			boolean isNewName = true;
-			for (int j = 0; j < i; j++) {
-				if (this.players.get(j).getName().equals(playerName)) {
-					i--;
-					isNewName = false;
-					this.showMessageDialog(Localization.getLanguageString("player_pop_up_uniqueName"));
-					break;
-				}
-			}
-			
-			if (isNewName) {
-				Player player = new LocalPlayer(playerName);
-				this.players.add(player);
-
-				LOG.fine("Player " + (i + 1) + " instantiated: '" + playerName + "'");
-			}
-			
+		if (this.instantiatePlayers(playerCount)) {
+			this.geWindow.onPlayerPopUpReturn(this.players);
 		}
-
-		this.geWindow.onPlayerPopUpReturn(this.players);
 
 	}
 
@@ -157,10 +123,10 @@ public class PlayerPopUp extends JFrame {
 	}
 
 	/**
-	 * Prompts for a name and returns the name for player initialization.
-	 * 
-	 * Use this method if only one player needs to be instantiated. Use {@link PlayerPopUp#askForPlayerName(int)}
-	 * if more than one player will be instantiated.
+	 * Prompts for a name and returns the name for player initialization. Use
+	 * this method if only one player needs to be instantiated. Use
+	 * {@link PlayerPopUp#askForPlayerName(int)} if more than one player will be
+	 * instantiated.
 	 * 
 	 * @return The chosen name
 	 */
@@ -191,7 +157,7 @@ public class PlayerPopUp extends JFrame {
 			if (inputPlayerName == null && playerCount < 2) {
 				return null;
 
-			// User pressed 'Cancel', but has made other choices before
+				// User pressed 'Cancel', but has made other choices before
 			} else if (inputPlayerName == null) {
 
 				// Ask user, if he really wants to cancel
@@ -220,6 +186,70 @@ public class PlayerPopUp extends JFrame {
 	}
 
 	/**
+	 * Displays the Pop-Ups for entering the player names.
+	 * 
+	 * @param playerCount
+	 *            the number of players to instantiate.
+	 */
+	private boolean instantiatePlayers(int playerCount) {
+		for (int i = 0; i < playerCount; i++) {
+			boolean isNewName;
+			String playerName;
+			do {
+				isNewName = true;
+				playerName = "";
+				
+				if (playerCount == 1) {
+					playerName = this.askForPlayerName();
+				} else {
+					playerName = this.askForPlayerName(i + 1);
+				}
+
+				// If user pressed 'Cancel', close window
+				if (playerName == null) {
+					LOG.fine("User cancelled game initialization.");
+					return false;
+				}
+
+				for (int j = 0; j < i; j++) {
+					if (this.players.get(j).getName().equals(playerName)) {
+						isNewName = false;
+						this.showMessageDialog(Localization.getLanguageString("player_pop_up_uniqueName"));
+						break;
+					}
+				}
+				// If name is already taken, get user to choose a different one
+			} while (!isNewName);
+
+			Player player = new LocalPlayer(playerName);
+			this.players.add(player);
+
+			LOG.fine("Player " + (i + 1) + " instantiated: '" + playerName + "'");
+
+		}
+		return true;
+	}
+
+	/**
+	 * Shows a confirmation dialog.
+	 * 
+	 * @param message
+	 *            The message to display
+	 * @return <code>true</code> if the user confirmed, <code>false</code>
+	 *         otherwise
+	 */
+	private boolean showConfirmDialog(String message) {
+
+		int confirmChoice = JOptionPane.showConfirmDialog(this, message, this.geWindow.getTitle(),
+				JOptionPane.YES_NO_OPTION);
+
+		// confirmChoice == 0: Yes
+		// confirmChoice == 1: No
+		return confirmChoice == 0;
+
+	}
+
+	/**
 	 * Shows an input dialog. <br />
 	 * If availableOptions is <code>null</code>, the user may enter any text.
 	 * 
@@ -243,25 +273,6 @@ public class PlayerPopUp extends JFrame {
 				JOptionPane.PLAIN_MESSAGE, null, availableOptions, selectedOption);
 
 		return input;
-
-	}
-
-	/**
-	 * Shows a confirmation dialog.
-	 * 
-	 * @param message
-	 *            The message to display
-	 * @return <code>true</code> if the user confirmed, <code>false</code>
-	 *         otherwise
-	 */
-	private boolean showConfirmDialog(String message) {
-
-		int confirmChoice = JOptionPane.showConfirmDialog(this, message, this.geWindow.getTitle(),
-				JOptionPane.YES_NO_OPTION);
-
-		// confirmChoice == 0: Yes
-		// confirmChoice == 1: No
-		return confirmChoice == 0;
 
 	}
 
