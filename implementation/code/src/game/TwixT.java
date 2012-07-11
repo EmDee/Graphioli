@@ -50,7 +50,7 @@ public class TwixT extends Game {
 				this.originVertex.setHighlighted(false);
 			this.originVertex = null;
 			}
-			this.getGameManager().getViewManager().displayErrorMessage("Can't select the tower of your enemy");
+			this.getGameManager().getViewManager().displayErrorMessage(this.getGameResources().getStringResource("enemy_tower"));		
 			return true;
 		}
 
@@ -58,13 +58,13 @@ public class TwixT extends Game {
 			// First tower selected.
 			this.originVertex = vex;
 			originVertex.setHighlighted(true);
-			this.getGameManager().getViewManager().displayErrorMessage("Select a second tower to place a wall");
+			this.getGameManager().getViewManager().displayErrorMessage(this.getGameResources().getStringResource("select_second"));
 			return true;
 		}
 
 		if (this.originVertex == vex) {
 			// Undo selection
-			this.getGameManager().getViewManager().displayErrorMessage("Place your tower or wall");
+			this.getGameManager().getViewManager().displayErrorMessage(this.getGameResources().getStringResource("place"));
 			originVertex.setHighlighted(false);
 			this.originVertex = null;
 			return true;
@@ -76,7 +76,7 @@ public class TwixT extends Game {
 			if (PlanarityCheck.performAlgorithm(graph, edge)) {
 				edge = new SimpleVisualEdge(originVertex, vex);
 				if (!this.board.addVisualEdge(edge)) {
-					this.getGameManager().getViewManager().displayErrorMessage("There already is a wall.");
+					this.getGameManager().getViewManager().displayErrorMessage(this.getGameResources().getStringResource("already_wall"));
 					originVertex.setHighlighted(false);
 					this.originVertex = null;
 					return true;
@@ -101,7 +101,7 @@ public class TwixT extends Game {
 						return true;
 					}
 				}
-				this.getGameManager().getViewManager().displayErrorMessage("Place your tower or wall");
+				this.getGameManager().getViewManager().displayErrorMessage(this.getGameResources().getStringResource("place"));
 				originVertex.setHighlighted(false);
 				this.originVertex = null;
 				this.playerManager.nextPlayer();
@@ -109,12 +109,12 @@ public class TwixT extends Game {
 			} else {
 				originVertex.setHighlighted(false);
 				this.originVertex = null;
-				this.getGameManager().getViewManager().displayErrorMessage("Walls can't intersect");
+				this.getGameManager().getViewManager().displayErrorMessage(this.getGameResources().getStringResource("intersecting"));
 			}
 		} else {
 			originVertex.setHighlighted(false);
 			this.originVertex = null;
-			this.getGameManager().getViewManager().displayErrorMessage("You can't place a wall here");
+			this.getGameManager().getViewManager().displayErrorMessage(this.getGameResources().getStringResource("invalid"));
 		}
 
 		return true;
@@ -133,7 +133,7 @@ public class TwixT extends Game {
 			addVertex.setPlayer(this.playerManager.getActivePlayer());
 			this.board.addVisualVertex(addVertex);
 			this.playerManager.nextPlayer();
-			this.getGameManager().getViewManager().displayErrorMessage("Place your tower or wall");
+			this.getGameManager().getViewManager().displayErrorMessage(this.getGameResources().getStringResource("place"));
 			if (this.originVertex != null) {
 				originVertex.setHighlighted(false);
 				this.originVertex = null;
@@ -227,6 +227,15 @@ public class TwixT extends Game {
 	 */
 	@Override
 	protected boolean onGameStart() {
+		
+		String turnMessage;
+		if (this.getGameManager().getPlayerManager().getActivePlayer() == playerOne) {
+			turnMessage = this.getGameResources().getStringResource("pink_turn");
+		} else {
+			turnMessage = this.getGameResources().getStringResource("green_turn");
+		}
+		
+		this.getGameManager().getViewManager().displayErrorMessage(turnMessage);
 
 		return true;
 	}
@@ -251,7 +260,7 @@ public class TwixT extends Game {
 		for (Vertex vtex : board.getGraph().getVertices()) {
 			((TwixTVertex) vtex).update();
 		}
-
+		
 		return true;
 	}
 
@@ -263,6 +272,12 @@ public class TwixT extends Game {
 
 		TwixTVertex.initImages(playerOne, this.getGameResources().getImageRessource(playerOneImgFile), playerTwo, this
 				.getGameResources().getImageRessource(playerTwoImgFile));
+		
+		
+		
+		
+		
+		
 
 		this.board = this.getGameManager().getGameBoard();
 
