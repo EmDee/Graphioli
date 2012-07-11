@@ -46,7 +46,10 @@ public class TwixT extends Game {
 
 		if (vex.getPlayer() != this.playerManager.getActivePlayer()) {
 			// Tower not belonging to active player.
+			if (this.originVertex != null) {
+				this.originVertex.setHighlighted(false);
 			this.originVertex = null;
+			}
 			this.getGameManager().getViewManager().displayErrorMessage("Can't select the tower of your enemy");
 			return true;
 		}
