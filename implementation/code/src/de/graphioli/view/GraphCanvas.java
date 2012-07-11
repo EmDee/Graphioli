@@ -8,9 +8,7 @@ import java.awt.Graphics2D;
 import java.awt.Stroke;
 import java.awt.image.BufferedImage;
 import java.util.logging.Logger;
-
 import javax.swing.JPanel;
-
 import de.graphioli.model.Edge;
 import de.graphioli.model.GameBoard;
 import de.graphioli.model.Graph;
@@ -52,10 +50,11 @@ public class GraphCanvas extends JPanel {
 	 * The {@link VisualGrid} this canvas uses.
 	 */
 	private VisualGrid visualGrid;
-	
+
+	/**
+	 * The size of the canvas.
+	 */
 	private Dimension canvasSize;
-	
-	private boolean hasChanged;
 
 	/**
 	 * The {@link VisualGrid} associated with this {@link GraphCanvas}. private
@@ -65,11 +64,15 @@ public class GraphCanvas extends JPanel {
 	 * @param parentGameWindow
 	 *            The {@link GameWindow} that contains this {@link GraphCanvas}
 	 */
-	public GraphCanvas(GameWindow parentGameWindow) {
+	public GraphCanvas(GameWindow parentGameWindow, VisualGrid grid) {
 		LOG.fine("GraphCanvas instantiated");
 		this.parentGameWindow = parentGameWindow;
 		this.gridStroke = new BasicStroke(1);
-		this.hasChanged = false;
+		
+		// Register grid
+		this.visualGrid = grid;
+		this.canvasSize = grid.calculateSize();
+		this.bufferedImage = new BufferedImage(this.canvasSize.width, this.canvasSize.height, BufferedImage.TYPE_4BYTE_ABGR);
 	}
 
 	/**
@@ -83,12 +86,6 @@ public class GraphCanvas extends JPanel {
 		this.drawBoard();
 		this.repaint();
 		return true;
-	}
-	
-	public void registerGrid(VisualGrid grid) {
-		this.visualGrid = grid;
-		this.canvasSize = grid.calculateSize();
-		this.bufferedImage = new BufferedImage(this.canvasSize.width, this.canvasSize.height, BufferedImage.TYPE_4BYTE_ABGR);
 	}
 
 	@Override

@@ -1,16 +1,13 @@
 package de.graphioli.view;
 
-import de.graphioli.controller.Game;
 import de.graphioli.model.MenuItem;
 import de.graphioli.utils.Localization;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
-
 import javax.swing.JFileChooser;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
