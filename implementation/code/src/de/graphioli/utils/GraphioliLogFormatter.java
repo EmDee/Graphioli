@@ -20,6 +20,17 @@ public class GraphioliLogFormatter extends Formatter {
 	 */
 	private static final int BUFFER_SIZE = 750;
 
+	/**
+	 * Generates a formatted date string of the time this method was called.
+	 * 
+	 * @return Formatted date string
+	 */
+	private static String generateTimeStamp() {
+		Calendar cal = Calendar.getInstance();
+		SimpleDateFormat df = new SimpleDateFormat("dd. MMM yyyy HH:mm:ss");
+		return df.format(cal.getTime());
+	}
+
 	/** {@inheritDoc} */
 	@Override
 	public String format(LogRecord rec) {
@@ -78,17 +89,6 @@ public class GraphioliLogFormatter extends Formatter {
 				+ ".\n"
 				+ "</p></body></html>";
 		return tailString;
-	}
-
-	/**
-	 * Generates a formatted date string of the time this method was called.
-	 * 
-	 * @return Formatted date string
-	 */
-	private static String generateTimeStamp() {
-		Calendar cal = Calendar.getInstance();
-		SimpleDateFormat df = new SimpleDateFormat("dd. MMM yyyy HH:mm:ss");
-		return df.format(cal.getTime());
 	}
 
 }

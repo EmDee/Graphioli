@@ -11,6 +11,7 @@ import de.graphioli.model.Vertex;
 import de.graphioli.model.VisualEdge;
 import de.graphioli.model.VisualVertex;
 import de.graphioli.utils.GraphioliLogger;
+import de.graphioli.utils.InvalidJarException;
 import de.graphioli.utils.JarParser;
 import de.graphioli.utils.Localization;
 
@@ -401,7 +402,15 @@ public final class GameManager {
 		// Class<?> classToLoad = JarParser.getClass(this.gamePackagePath,
 		// gameDefinition.getClassName());
 		// TODO: Remove this method for production
-		Class<?> classToLoad = JarParser.getClassFromBin(gameDefinition.getClassName());
+		
+		Class<?> classToLoad;
+		try {
+			classToLoad = JarParser.getClass("game.", gameDefinition.getClassName());
+		} catch (InvalidJarException ije) {
+			LOG.severe("Jar of \"" + gameDefinition.getClassName() + "\" corrupted : " + ije.getMessage());
+			this.viewManager.displayPopUp(Localization.getLanguageString("jar_err"));
+			return false;
+		}
 
 		// Instantiate game
 		try {

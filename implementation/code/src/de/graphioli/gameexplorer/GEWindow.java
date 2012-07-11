@@ -298,7 +298,7 @@ public class GEWindow extends JFrame implements GEView {
 	 */
 	private void generateListPane() {
 
-		JList visibleGameDefinitionList = new JList(this.gameDefinitionList);
+		JList<GameDefinition> visibleGameDefinitionList = new JList<GameDefinition>(this.gameDefinitionList);
 		visibleGameDefinitionList.addListSelectionListener(this.geWindowActions);
 		visibleGameDefinitionList.addKeyListener(this.geWindowActions);
 		visibleGameDefinitionList.addMouseListener(this.geWindowActions);

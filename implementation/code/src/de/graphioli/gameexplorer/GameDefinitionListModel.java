@@ -9,17 +9,19 @@ import javax.swing.AbstractListModel;
  * 
  * @author Graphioli
  */
-public class GameDefinitionListModel extends AbstractListModel {
+public class GameDefinitionListModel extends AbstractListModel<GameDefinition> {
+
+	/**
+	 * UID for serializing this object.
+	 */
+	private static final long serialVersionUID = 3043301665361133479L;
+
 
 	/**
 	 * Logging instance.
 	 */
 	private static final Logger LOG = Logger.getLogger(GameDefinitionListModel.class.getName());
 
-	/**
-	 * UID for serializing this object.
-	 */
-	private static final long serialVersionUID = 1L;
 
 	/**
 	 * The list of {@link GameDefinition}s in this ListModel.

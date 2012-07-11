@@ -26,18 +26,6 @@ public final class Validation {
 	}
 
 	/**
-	 * Checks if the specified string is a valid {@link Player} name.
-	 * 
-	 * @param name
-	 *            The name to check for validity
-	 * @return <code>true</code> if the given name is valid, <code>false</code>
-	 *         otherwise
-	 */
-	public static boolean isValidPlayerName(String name) {
-		return !name.isEmpty();
-	}
-
-	/**
 	 * Checks if the specified {@link GridPoint} is a valid GridPoint for a
 	 * specific Grid.
 	 * 
@@ -58,5 +46,17 @@ public final class Validation {
 				|| gridPoint.getPositionX() >= horizontalGridPoints
 				|| gridPoint.getPositionY() < 0 || gridPoint.getPositionY() >= verticalGridPoints);
 
+	}
+
+	/**
+	 * Checks if the specified string is a valid {@link Player} name.
+	 * 
+	 * @param name
+	 *            The name to check for validity
+	 * @return <code>true</code> if the given name is valid, <code>false</code>
+	 *         otherwise
+	 */
+	public static boolean isValidPlayerName(String name) {
+		return !name.isEmpty();
 	}
 }
