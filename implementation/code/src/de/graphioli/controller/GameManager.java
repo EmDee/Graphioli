@@ -252,6 +252,7 @@ public final class GameManager {
 		// Calling game
 		try {
 			this.game.callOnGameLoad(capsule.getHashMap());
+			this.viewManager.displayErrorMessage(Localization.getLanguageString("mess_load"));
 			this.game.callOnGameStart();
 		} catch (TimeoutException e) {
 			this.viewManager.displayPopUp(Localization.getLanguageString("timeout_err"));
@@ -259,7 +260,7 @@ public final class GameManager {
 		}
 
 		this.viewManager.updatePlayerStatus(this.playerManager.getActivePlayer());
-		this.viewManager.displayErrorMessage(Localization.getLanguageString("mess_load"));
+		
 		this.viewManager.updateView();
 
 		return true;
