@@ -34,6 +34,11 @@ public class MenuBar extends JMenuBar implements ActionListener {
 	private static final Logger LOG = Logger.getLogger(MenuBar.class.getName());
 
 	/**
+	 * The file extension for savegames.
+	 */
+	private static final String SAVE_FILE_EXT = ".save";
+	
+	/**
 	 * The game menu.
 	 */
 	private JMenu gameMenu;
@@ -73,6 +78,59 @@ public class MenuBar extends JMenuBar implements ActionListener {
 	public MenuBar(GameWindow parentGameWindow) {
 		this.parentGameWindow = parentGameWindow;
 		this.createMenus();
+	}
+
+	/**
+	 * Invoked when a menu item is selected and performs the menu item specific
+	 * action.
+	 * 
+	 * @param event
+	 *            The {@link ActionEvent} when a menu item is selected
+	 */
+	@Override
+	public void actionPerformed(ActionEvent event) {
+
+		JMenuItem sourceItem = (JMenuItem) event.getSource();
+
+		if (sourceItem.equals(this.saveItem)) {
+			saveGame();
+		} else if (sourceItem.equals(this.loadItem)) {
+			loadGame();
+		} else if (sourceItem.equals(this.quitItem)) {
+			this.parentGameWindow.closeGame();
+		} else if (sourceItem.equals(this.helpItem)) {
+			this.parentGameWindow.getViewManager().getGameManager().openHelpFile();
+		} else if (sourceItem.equals(this.restartItem)) {
+			this.parentGameWindow.getViewManager().getGameManager().restartGame();
+		} else if (this.customItems.contains(sourceItem)) {
+			OptionsMenuItem optItem = (OptionsMenuItem) sourceItem;
+			this.parentGameWindow.getViewManager().onCustomMenuItemClick(optItem.getCustomItem());
+		} else {
+			LOG.warning("Unknown menu item click received: " + sourceItem.getText());
+		}
+
+	}
+
+	/**
+	 * Adds menu items to the options menu.
+	 * @param menuItems the items to add.
+	 */
+	public void addOptionsItems(List<MenuItem> menuItems) {
+		if (menuItems.size() == 0) {
+			return;
+		}
+
+		this.customItems = new ArrayList<OptionsMenuItem>(menuItems.size());
+
+		OptionsMenuItem tmpCustItem;
+		for (MenuItem tmpMenItem : menuItems) {
+			tmpCustItem = new OptionsMenuItem(tmpMenItem);
+			tmpCustItem.addActionListener(this);
+			this.customItems.add(tmpCustItem);
+			this.optionsMenu.add(tmpCustItem);
+		}
+
+		this.optionsMenu.setEnabled(true);
 	}
 
 	/**
@@ -117,88 +175,9 @@ public class MenuBar extends JMenuBar implements ActionListener {
 		return true;
 	}
 
-	public void addOptionsItems(List<MenuItem> menuItems) {
-		if (menuItems.size() == 0) {
-			return;
-		}
-
-		this.customItems = new ArrayList<OptionsMenuItem>(menuItems.size());
-
-		OptionsMenuItem tmpCustItem;
-		for (MenuItem tmpMenItem : menuItems) {
-			tmpCustItem = new OptionsMenuItem(tmpMenItem);
-			tmpCustItem.addActionListener(this);
-			this.customItems.add(tmpCustItem);
-			this.optionsMenu.add(tmpCustItem);
-		}
-
-		this.optionsMenu.setEnabled(true);
-	}
-
 	/**
-	 * Invoked when a menu item is selected and performs the menu item specific
-	 * action.
-	 * 
-	 * @param event
-	 *            The {@link ActionEvent} when a menu item is selected
+	 * Displays a load game dialog.
 	 */
-	@Override
-	public void actionPerformed(ActionEvent event) {
-
-		JMenuItem sourceItem = (JMenuItem) event.getSource();
-
-		if (sourceItem.equals(this.saveItem)) {
-			saveGame();
-		}
-
-		else if (sourceItem.equals(this.loadItem)) {
-			loadGame();
-		}
-
-		else if (sourceItem.equals(this.quitItem)) {
-			this.parentGameWindow.closeGame();
-		}
-
-		else if (sourceItem.equals(this.helpItem)) {
-			this.parentGameWindow.getViewManager().getGameManager().openHelpFile();
-		}
-
-		else if (sourceItem.equals(this.restartItem)) {
-			this.parentGameWindow.getViewManager().getGameManager().restartGame();
-		}
-
-		else if (this.customItems.contains(sourceItem)) {
-			OptionsMenuItem optItem = (OptionsMenuItem) sourceItem;
-			this.parentGameWindow.getViewManager().onCustomMenuItemClick(optItem.getCustomItem());
-		} else {
-			LOG.warning("Unknown menu item click received: " + sourceItem.getText());
-		}
-
-	}
-
-	private void saveGame() {
-		String gameName = this.parentGameWindow.getViewManager().getGameManager().getGame().getClass().getName();
-		gameName = gameName.substring(gameName.indexOf('.') + 1, gameName.length());
-		JFileChooser fc = new JFileChooser(new File("games/" + gameName + "/"));
-		SaveGameFilter filter = new SaveGameFilter();
-		fc.setFileFilter(filter);
-		int returnVal = fc.showSaveDialog(this.parentGameWindow);
-		if (returnVal == JFileChooser.APPROVE_OPTION) {
-			File fileToSave = fc.getSelectedFile();
-			String filePath = fileToSave.getAbsolutePath();
-			if (!filePath.endsWith(".save")) {
-				int seperatorIndex = filePath.lastIndexOf('.');
-				if (seperatorIndex == -1) {
-					filePath = filePath + ".save";
-				} else {
-					filePath = filePath.substring(0, seperatorIndex) + ".save";
-				}
-				fileToSave = new File(filePath);
-			}
-			this.parentGameWindow.getViewManager().getGameManager().saveGame(fileToSave);
-		}
-	}
-
 	private void loadGame() {
 		String gameName = this.parentGameWindow.getViewManager().getGameManager().getGame().getClass().getName();
 		gameName = gameName.substring(gameName.indexOf('.') + 1, gameName.length());
@@ -212,15 +191,41 @@ public class MenuBar extends JMenuBar implements ActionListener {
 		}
 	}
 
+	/**
+	 * Displays a save game dialog.
+	 */
+	private void saveGame() {
+		String gameName = this.parentGameWindow.getViewManager().getGameManager().getGame().getClass().getName();
+		gameName = gameName.substring(gameName.indexOf('.') + 1, gameName.length());
+		JFileChooser fc = new JFileChooser(new File("games/" + gameName + "/"));
+		SaveGameFilter filter = new SaveGameFilter();
+		fc.setFileFilter(filter);
+		int returnVal = fc.showSaveDialog(this.parentGameWindow);
+		if (returnVal == JFileChooser.APPROVE_OPTION) {
+			File fileToSave = fc.getSelectedFile();
+			String filePath = fileToSave.getAbsolutePath();
+			if (!filePath.endsWith(SAVE_FILE_EXT)) {
+				int seperatorIndex = filePath.lastIndexOf('.');
+				if (seperatorIndex == -1) {
+					filePath = filePath + SAVE_FILE_EXT;
+				} else {
+					filePath = filePath.substring(0, seperatorIndex) + SAVE_FILE_EXT;
+				}
+				fileToSave = new File(filePath);
+			}
+			this.parentGameWindow.getViewManager().getGameManager().saveGame(fileToSave);
+		}
+	}
+
 	private class SaveGameFilter extends FileFilter {
 
 		public boolean accept(File file) {
 			String filename = file.getName();
-			return filename.endsWith(".save") || file.isDirectory();
+			return filename.endsWith(SAVE_FILE_EXT) || file.isDirectory();
 		}
 
 		public String getDescription() {
-			return "*.save";
+			return "*" + SAVE_FILE_EXT;
 		}
 	}
 

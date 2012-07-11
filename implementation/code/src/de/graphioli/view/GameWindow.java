@@ -22,7 +22,7 @@ import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 
 /**
- * @author Graphioli
+ * @author Team Graphioli
  */
 public class GameWindow extends JFrame implements View {
 
@@ -77,7 +77,7 @@ public class GameWindow extends JFrame implements View {
 	private VisualGrid visualGrid;
 	
 	/**
-	 * This windows KeyDispatcher
+	 * This windows KeyDispatcher.
 	 */
 	
 	private CustomKeyDispatcher dispatcher;
@@ -89,6 +89,154 @@ public class GameWindow extends JFrame implements View {
 	public GameWindow() {
 		this.setTitle(Localization.getLanguageString("gw_title"));
 		LOG.info("GameWindow instantiated.");
+	}
+
+	@Override
+	public boolean addMenuItems(List<MenuItem> menu) {
+		this.menuBar.addOptionsItems(menu);
+		return true;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public boolean askForRestart() {
+		// Ask user, if he/she wants to restart
+		boolean choice = this.showConfirmDialog(Localization.getLanguageString("gw_restart"));
+		return choice;
+	}
+
+	/**
+	 * Closes this Game window.
+	 */
+	public void closeGame() {
+
+		LOG.finer("GameWindow.<em>closeGame()</em> called.");
+
+		// Ask user, if he/she really wants to quit
+		boolean choice = this.showConfirmDialog(Localization.getLanguageString("gw_confirm_quit"));
+
+		if (choice) {
+
+			LOG.fine("Forwarding call to GameManager.");
+			// Forward call to GameManager
+			this.getViewManager().getGameManager().closeGame();
+
+		}
+
+	}
+
+	/**
+	 * Disposes all components of the GameWindow.
+	 * 
+	 * @return {@code true} when closing was successful.
+	 */
+	public boolean closeView() {
+		this.viewManager = null;
+		KeyboardFocusManager manager = KeyboardFocusManager.getCurrentKeyboardFocusManager();
+		manager.removeKeyEventDispatcher(this.dispatcher);
+		
+		this.dispose();
+		return true;
+	}
+
+	/**
+	 * Displays an error message.
+	 * 
+	 * @param message
+	 *            The message to display
+	 * @return <code>true</code> if the action was performed successfully,
+	 *         <code>false</code> otherwise
+	 */
+	@Override
+	public boolean displayErrorMessage(String message) {
+		if (this.statusBar.displayErrorMessage(message)) {
+			return true;
+		}
+		return false;
+	}
+
+	/**
+	 * Adds a custom {@link MenuItem} to the menu.
+	 * 
+	 * @param item
+	 *            The MenuItem to add
+	 * @return <code>true</code> if the action was performed successfully,
+	 *         <code>false</code> otherwise
+	 * @todo Facultative
+	 */
+	// public boolean addCustomMenuItem(MenuItem item);
+
+	/**
+	 * Displays a message in a pop-up.
+	 * 
+	 * @param message
+	 *            The message to display
+	 * @return <code>true</code> if the action was performed successfully,
+	 *         <code>false</code> otherwise
+	 */
+	@Override
+	public boolean displayPopUp(String message) {
+		JOptionPane.showMessageDialog(this, message);
+		return true;
+	}
+
+	/**
+	 * Returns the {@link ViewManager} associated with the {@link GameWindow}.
+	 * 
+	 * @return The associated {@link ViewManager}
+	 */
+	public ViewManager getViewManager() {
+		return this.viewManager;
+	}
+
+	/**
+	 * Returns the {@link VisualGrid} associated with the {@link GameWindow}.
+	 * 
+	 * @return The associated {@link ViusalGrid}
+	 */
+	public VisualGrid getVisualGrid() {
+		return this.visualGrid;
+	}
+
+	/**
+	 * Forwards the key input to the {@link ViewManager}.
+	 * 
+	 * @param keyCode
+	 *            The code of the key that was released
+	 * @return <code>true</code> if the action was performed successfully,
+	 *         <code>false</code> otherwise
+	 */
+	public boolean onKeyRelease(int keyCode) {
+		return this.viewManager.onKeyRelease(keyCode);
+	}
+
+	/**
+	 * Opens a load file dialog.
+	 * 
+	 * @return The file of saved game to load
+	 */
+	public File openFileDialog() {
+		JFileChooser fc = new JFileChooser();
+		int returnVal = fc.showOpenDialog(this);
+		if (returnVal == JFileChooser.APPROVE_OPTION) {
+			LOG.info("Selected file to load: " + fc.getSelectedFile().getName());
+			return fc.getSelectedFile();
+		}
+		return null;
+
+	}
+
+	/**
+	 * Redraws the {@link Graph}.
+	 * 
+	 * @return <code>true</code> if the action was performed successfully,
+	 *         <code>false</code> otherwise
+	 */
+	@Override
+	public boolean redrawGraph() {
+		return this.graphCanvas.updateCanvas();
 	}
 
 	/**
@@ -107,6 +255,92 @@ public class GameWindow extends JFrame implements View {
 		this.generateView();
 		this.addEventListeners();
 		return true;
+	}
+
+	/**
+	 * Opens a save file dialog.
+	 * 
+	 * @return The file the game should be saved
+	 */
+	public File saveFileDialog() {
+		JFileChooser fc = new JFileChooser();
+		int returnVal = fc.showSaveDialog(this);
+		if (returnVal == JFileChooser.APPROVE_OPTION) {
+			LOG.info("Selected file to save: " + fc.getSelectedFile().getName());
+			return fc.getSelectedFile();
+		}
+		return null;
+
+	}
+
+	/**
+	 * Sets the size of the {@link VisualVertex}es displayed.
+	 * 
+	 * @param size
+	 *            The size of the vertices
+	 * @return <code>true</code> if the action was performed successfully,
+	 *         <code>false</code> otherwise
+	 */
+	@Override
+	public boolean setVisualVertexSize(int size) {
+		return true;
+	}
+
+	/**
+	 * Updates which {@link Player} is displayed as active.
+	 * 
+	 * @param player
+	 *            The new active player
+	 * @return <code>true</code> if the action was performed successfully,
+	 *         <code>false</code> otherwise
+	 */
+	@Override
+	public boolean updatePlayerStatus(Player player) {
+		if (this.statusBar.updatePlayerStatus(player)) {
+			return true;
+		}
+		return false;
+	}
+
+	/**
+	 * Adds CustomKeyDispatcher and window listener.
+	 */
+	private void addEventListeners() {
+		// Initialize CustomKeyDispatcher
+		KeyboardFocusManager manager = KeyboardFocusManager.getCurrentKeyboardFocusManager();
+		this.dispatcher = new CustomKeyDispatcher(this);
+		manager.addKeyEventDispatcher(this.dispatcher);
+
+		// Add window listener for closing attempts
+		this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+		this.addWindowListener(new CloseListener());
+	}
+
+	/**
+	 * Generates the graph Canvas and its grid.
+	 */
+	private void generateCanvas() {
+		this.visualGrid = new VisualGrid(this);
+		this.graphCanvas = new GraphCanvas(this, this.visualGrid);
+		Dimension gridSize = this.visualGrid.calculateSize();
+		this.graphCanvas.addMouseListener(this.visualGrid);
+		this.graphCanvas.setPreferredSize(gridSize);
+
+		// Add container to make Canvas centered.
+		JPanel canvasContainer = new JPanel();
+		canvasContainer.setPreferredSize(gridSize);
+		GridBagLayout gridBag = new GridBagLayout();
+	    GridBagConstraints constraints = new GridBagConstraints();
+	    constraints.fill = GridBagConstraints.CENTER;
+	    gridBag.setConstraints(canvasContainer, constraints);
+		canvasContainer.setLayout(gridBag);
+		canvasContainer.add(this.graphCanvas);
+
+		// Add scroll pane
+		JScrollPane scrollPane = new JScrollPane(canvasContainer, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
+				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+
+		this.add(scrollPane, BorderLayout.CENTER);		
 	}
 
 	/**
@@ -139,230 +373,22 @@ public class GameWindow extends JFrame implements View {
 	}
 
 	/**
-	 * Generates the graph Canvas and its grid.
-	 */
-	private void generateCanvas() {
-		this.visualGrid = new VisualGrid(this);
-		this.graphCanvas = new GraphCanvas(this, this.visualGrid);
-		Dimension gridSize = this.visualGrid.calculateSize();
-		this.graphCanvas.addMouseListener(this.visualGrid);
-		this.graphCanvas.setPreferredSize(gridSize);
-
-		// Add container to make Canvas centered.
-		JPanel canvasContainer = new JPanel();
-		canvasContainer.setPreferredSize(gridSize);
-		GridBagLayout gridBag = new GridBagLayout();
-	    GridBagConstraints constraints = new GridBagConstraints();
-	    constraints.fill = GridBagConstraints.CENTER;
-	    gridBag.setConstraints(canvasContainer, constraints);
-		canvasContainer.setLayout(gridBag);
-		canvasContainer.add(this.graphCanvas);
-
-		// Add scroll pane
-		JScrollPane scrollPane = new JScrollPane(canvasContainer, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
-				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-
-		this.add(scrollPane, BorderLayout.CENTER);		
-	}
-
-	/**
-	 * Adds CustomKeyDispatcher and window listener.
-	 */
-	private void addEventListeners() {
-		// Initialize CustomKeyDispatcher
-		KeyboardFocusManager manager = KeyboardFocusManager.getCurrentKeyboardFocusManager();
-		this.dispatcher = new CustomKeyDispatcher(this);
-		manager.addKeyEventDispatcher(this.dispatcher);
-
-		// Add window listener for closing attempts
-		this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
-		this.addWindowListener(new CloseListener());
-	}
-
-	/**
-	 * Displays a message in a pop-up.
+	 * Shows a confirmation dialog.
 	 * 
 	 * @param message
 	 *            The message to display
-	 * @return <code>true</code> if the action was performed successfully,
-	 *         <code>false</code> otherwise
+	 * @return <code>true</code> if the user confirmed, <code>false</code>
+	 *         otherwise
 	 */
-	@Override
-	public boolean displayPopUp(String message) {
-		JOptionPane.showMessageDialog(this, message);
-		return true;
-	}
+	private boolean showConfirmDialog(String message) {
 
-	/**
-	 * Adds a custom {@link MenuItem} to the menu.
-	 * 
-	 * @param item
-	 *            The MenuItem to add
-	 * @return <code>true</code> if the action was performed successfully,
-	 *         <code>false</code> otherwise
-	 * @todo Facultative
-	 */
-	// public boolean addCustomMenuItem(MenuItem item);
+		int confirmChoice = JOptionPane.showConfirmDialog(this, message, this.getTitle(),
+				JOptionPane.YES_NO_OPTION);
 
-	/**
-	 * Updates which {@link Player} is displayed as active.
-	 * 
-	 * @param player
-	 *            The new active player
-	 * @return <code>true</code> if the action was performed successfully,
-	 *         <code>false</code> otherwise
-	 */
-	@Override
-	public boolean updatePlayerStatus(Player player) {
-		if (this.statusBar.updatePlayerStatus(player)) {
-			return true;
-		}
-		return false;
-	}
+		// confirmChoice == 0: Yes
+		// confirmChoice == 1: No
+		return confirmChoice == 0;
 
-	/**
-	 * Displays an error message.
-	 * 
-	 * @param message
-	 *            The message to display
-	 * @return <code>true</code> if the action was performed successfully,
-	 *         <code>false</code> otherwise
-	 */
-	@Override
-	public boolean displayErrorMessage(String message) {
-		if (this.statusBar.displayErrorMessage(message)) {
-			return true;
-		}
-		return false;
-	}
-
-	/**
-	 * Redraws the {@link Graph}.
-	 * 
-	 * @return <code>true</code> if the action was performed successfully,
-	 *         <code>false</code> otherwise
-	 */
-	@Override
-	public boolean redrawGraph() {
-		return this.graphCanvas.updateCanvas();
-	}
-
-	/**
-	 * Sets the size of the {@link VisualVertex}es displayed.
-	 * 
-	 * @param size
-	 *            The size of the vertices
-	 * @return <code>true</code> if the action was performed successfully,
-	 *         <code>false</code> otherwise
-	 */
-	@Override
-	public boolean setVisualVertexSize(int size) {
-		return true;
-	}
-
-	/**
-	 * Returns the {@link ViewManager} associated with the {@link GameWindow}.
-	 * 
-	 * @return The associated {@link ViewManager}
-	 */
-	public ViewManager getViewManager() {
-		return this.viewManager;
-	}
-
-	/**
-	 * Returns the {@link VisualGrid} associated with the {@link GameWindow}.
-	 * 
-	 * @return The associated {@link ViusalGrid}
-	 */
-	public VisualGrid getVisualGrid() {
-		return this.visualGrid;
-	}
-
-	/**
-	 * Disposes all components of the GameWindow.
-	 * 
-	 * @return {@code true} when closing was successful.
-	 */
-	public boolean closeView() {
-		this.viewManager = null;
-		KeyboardFocusManager manager = KeyboardFocusManager.getCurrentKeyboardFocusManager();
-		manager.removeKeyEventDispatcher(this.dispatcher);
-		
-		this.dispose();
-		return true;
-	}
-
-	/**
-	 * Forwards the key input to the {@link ViewManager}.
-	 * 
-	 * @param keyCode
-	 *            The code of the key that was released
-	 * @return <code>true</code> if the action was performed successfully,
-	 *         <code>false</code> otherwise
-	 */
-	public boolean onKeyRelease(int keyCode) {
-		return this.viewManager.onKeyRelease(keyCode);
-	}
-
-	/**
-	 * Opens a load file dialog.
-	 * 
-	 * @return The file of saved game to load
-	 */
-	public File openFileDialog() {
-		JFileChooser fc = new JFileChooser();
-		int returnVal = fc.showOpenDialog(this);
-		if (returnVal == JFileChooser.APPROVE_OPTION) {
-			LOG.info("Selected file to load: " + fc.getSelectedFile().getName());
-			return fc.getSelectedFile();
-		}
-		return null;
-
-	}
-
-	/**
-	 * Opens a save file dialog.
-	 * 
-	 * @return The file the game should be saved
-	 */
-	public File saveFileDialog() {
-		JFileChooser fc = new JFileChooser();
-		int returnVal = fc.showSaveDialog(this);
-		if (returnVal == JFileChooser.APPROVE_OPTION) {
-			LOG.info("Selected file to save: " + fc.getSelectedFile().getName());
-			return fc.getSelectedFile();
-		}
-		return null;
-
-	}
-
-	/**
-	 * Closes this Game window.
-	 */
-	public void closeGame() {
-
-		LOG.finer("GameWindow.<em>closeGame()</em> called.");
-
-		// Ask user, if he/she really wants to quit
-		boolean choice = this.showConfirmDialog(Localization.getLanguageString("gw_confirm_quit"));
-
-		if (choice) {
-
-			LOG.fine("Forwarding call to GameManager.");
-			// Forward call to GameManager
-			this.getViewManager().getGameManager().closeGame();
-
-		}
-
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	public boolean askForRestart() {
-		// Ask user, if he/she wants to restart
-		boolean choice = this.showConfirmDialog(Localization.getLanguageString("gw_restart"));
-		return choice;
 	}
 
 	/**
@@ -379,31 +405,6 @@ public class GameWindow extends JFrame implements View {
 		public void windowClosing(WindowEvent e) {
 			GameWindow.this.closeGame();
 		}
-
-	}
-
-	@Override
-	public boolean addMenuItems(List<MenuItem> menu) {
-		this.menuBar.addOptionsItems(menu);
-		return true;
-	}
-
-	/**
-	 * Shows a confirmation dialog.
-	 * 
-	 * @param message
-	 *            The message to display
-	 * @return <code>true</code> if the user confirmed, <code>false</code>
-	 *         otherwise
-	 */
-	private boolean showConfirmDialog(String message) {
-
-		int confirmChoice = JOptionPane.showConfirmDialog(this, message, this.getTitle(),
-				JOptionPane.YES_NO_OPTION);
-
-		// confirmChoice == 0: Yes
-		// confirmChoice == 1: No
-		return confirmChoice == 0;
 
 	}
 

@@ -14,7 +14,7 @@ import java.util.logging.Logger;
 /**
  * This class can access jar files and get specific files from it.
  * 
- * @author Graphioli
+ * @author Team Graphioli
  */
 public final class JarParser {
 
@@ -119,21 +119,4 @@ public final class JarParser {
 		return classToLoad;
 	}
 
-	// TODO: Remove this method for production
-	public static Class<?> getClassFromBin(String gameName) {
-		File file = new File("bin/games");
-		Class<?> cls = null;
-
-		try {
-			URL url = file.toURI().toURL();
-			URL[] urls = new URL[] { url };
-
-			ClassLoader cl = new URLClassLoader(urls);
-			cls = cl.loadClass("game." + gameName);
-
-		} catch (MalformedURLException e) {
-		} catch (ClassNotFoundException e) {
-		}
-		return cls;
-	}
 }
