@@ -3,6 +3,7 @@ package de.graphioli.controller;
 import de.graphioli.model.GridPoint;
 import de.graphioli.model.MenuItem;
 import de.graphioli.model.Player;
+import de.graphioli.utils.Localization;
 import de.graphioli.view.GameWindow;
 import de.graphioli.view.View;
 
@@ -100,7 +101,7 @@ public class ViewManager {
 				return true;
 			}
 		} catch (TimeoutException e) {
-			this.displayPopUp("Game timed out. Closing.");
+			this.displayPopUp(Localization.getLanguageString("timeout_err"));
 			this.gameManager.closeGame();
 		}
 		return false;
@@ -135,7 +136,7 @@ public class ViewManager {
 				}
 			}
 		} catch (TimeoutException toe) {
-			this.displayPopUp("Game timed out. Closing.");
+			this.displayPopUp(Localization.getLanguageString("timeout_err"));
 			this.gameManager.closeGame();
 		}
 
@@ -159,7 +160,7 @@ public class ViewManager {
 				return true;
 			}
 		} catch (TimeoutException e) {
-			this.displayPopUp("Game timed out. Closing.");
+			this.displayPopUp(Localization.getLanguageString("timeout_err"));
 			this.gameManager.closeGame();
 		}
 		return false;

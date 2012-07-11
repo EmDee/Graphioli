@@ -12,6 +12,7 @@ import de.graphioli.model.VisualEdge;
 import de.graphioli.model.VisualVertex;
 import de.graphioli.utils.GraphioliLogger;
 import de.graphioli.utils.JarParser;
+import de.graphioli.utils.Localization;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -230,7 +231,7 @@ public final class GameManager {
 		}
 
 		if (!capsule.getGameDefinition().equals(this.currentGameDefinition)) {
-			this.viewManager.displayPopUp("This savegame does not belong to this game.");
+			this.viewManager.displayPopUp(Localization.getLanguageString("savegeme_not_compatible"));
 			return true;
 		}
 
@@ -252,12 +253,12 @@ public final class GameManager {
 			this.game.callOnGameLoad(capsule.getHashMap());
 			this.game.callOnGameStart();
 		} catch (TimeoutException e) {
-			this.viewManager.displayPopUp("Game timed out. Closing.");
+			this.viewManager.displayPopUp(Localization.getLanguageString("timeout_err"));
 			this.closeGame();
 		}
 
 		this.viewManager.updatePlayerStatus(this.playerManager.getActivePlayer());
-		this.viewManager.displayErrorMessage("Game loaded.");
+		this.viewManager.displayErrorMessage(Localization.getLanguageString("mess_load"));
 		this.viewManager.updateView();
 
 		return true;
@@ -350,12 +351,12 @@ public final class GameManager {
 		try {
 			success = this.game.callOnGameSave(capsule.getHashMap());
 		} catch (TimeoutException e) {
-			this.viewManager.displayPopUp("Game timed out. Closing.");
+			this.viewManager.displayPopUp(Localization.getLanguageString("timeout_err"));
 			this.closeGame();
 		}
 
 		if (!success) {
-			this.viewManager.displayPopUp("Saving not supported by this game.");
+			this.viewManager.displayPopUp(Localization.getLanguageString("saving_unsupported"));
 			return false;
 		}
 
@@ -416,7 +417,7 @@ public final class GameManager {
 		this.game.registerController(this, new GameResources(gameDefinition.getClassName()));
 
 		if (!runGame()) {
-			this.viewManager.displayPopUp("Game initialization failed. Closing.");
+			this.viewManager.displayPopUp(Localization.getLanguageString("init_err"));
 			this.closeGame();
 		}
 
@@ -465,7 +466,7 @@ public final class GameManager {
 		try {
 			if (this.game.callOnGameInit()) {
 				LOG.fine("<em>onGameInit()</em> returned <em>true</em>.");
-				this.viewManager.displayErrorMessage("Running...");
+				this.viewManager.displayErrorMessage(Localization.getLanguageString("mess_running"));
 				LOG.finer("Calling <em>onGameStart()</em>.");
 
 				if (this.game.callOnGameStart()) {
@@ -480,7 +481,7 @@ public final class GameManager {
 				return false;
 			}
 		} catch (TimeoutException toe) {
-			this.viewManager.displayPopUp("Game timed out. Closing.");
+			this.viewManager.displayPopUp(Localization.getLanguageString("timeout_err"));
 			this.closeGame();
 		}
 
@@ -495,9 +496,11 @@ public final class GameManager {
 	void checkFinished() {
 		if (this.finishFlag) {
 			if (this.playerManager.getWinningPlayer() == null) {
-				this.viewManager.displayPopUp("Draw.");
+				this.viewManager.displayPopUp(Localization.getLanguageString("draw_mess"));
 			} else {
-				this.viewManager.displayPopUp(this.playerManager.getWinningPlayer().getName() + " wins.");
+				this.viewManager.displayPopUp(this.playerManager.getWinningPlayer().getName()
+						+ " "
+						+ Localization.getLanguageString("win_mess"));
 			}
 
 			// Prompt if game should be restarted or closed
