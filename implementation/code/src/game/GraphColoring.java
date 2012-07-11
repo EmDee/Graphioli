@@ -1,21 +1,16 @@
 package game;
 
-import java.awt.Color;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.logging.Logger;
-
 import de.graphioli.controller.Game;
-import de.graphioli.controller.GameManager;
 import de.graphioli.controller.ViewManager;
 import de.graphioli.model.GameBoard;
 import de.graphioli.model.GridPoint;
 import de.graphioli.model.MenuItem;
-import de.graphioli.model.SimpleVisualEdge;
-import de.graphioli.model.SimpleVisualVertex;
 import de.graphioli.model.Vertex;
-import de.graphioli.model.VisualEdge;
 import de.graphioli.model.VisualVertex;
+
+import java.awt.event.KeyEvent;
+import java.util.HashMap;
+import java.util.LinkedList;
 
 /**
  * This is a imlementation of the GraphColoring game (single- and multiplayer).
@@ -39,7 +34,7 @@ public class GraphColoring extends Game {
 	private static final int KEY_SELECTED = 0;
 	private static final int KEY_COLORCOUNT = 1;
 	private static final int KEY_SELECTED_LEVEL = 2;
-	
+
 	/*
 	 * Menu IDs
 	 */
@@ -77,19 +72,26 @@ public class GraphColoring extends Game {
 	private boolean singleplayer;
 
 	/**
-	 * {@inheritDoc}
+	 * If the given VisualVertex is an GraphColoringButtonVertex its color is
+	 * selected otherwise it colors the given vertex – if possible – with the
+	 * selected color and decides if the game is finished by this move.
+	 * 
+	 * @param vertex
+	 *            The VisualVertex that was clicked
+	 * @return <code>true</code> if the action was performed successfully,
+	 *         <code>false</code> otherwise
 	 */
 	@Override
 	protected boolean onVertexClick(VisualVertex vertex) {
 		if (vertex instanceof GraphColoringButtonVertex) {
 			GraphColoringButtonVertex btn = (GraphColoringButtonVertex) vertex;
-			selectedButton.setHighlighted(false);
-			selectedButton = btn;
+			this.selectedButton.setHighlighted(false);
+			this.selectedButton = btn;
 			btn.setHighlighted(true);
 		} else {
 			GraphColoringVertex vtex = (GraphColoringVertex) vertex;
 
-			if (singleplayer) {
+			if (this.singleplayer) {
 				handleSingleplayerMove(vtex);
 			} else {
 				handleMultiplayerMove(vtex);
@@ -100,7 +102,12 @@ public class GraphColoring extends Game {
 	}
 
 	/**
-	 * {@inheritDoc}
+	 * Has no function in this game.
+	 * 
+	 * @param gridPoint
+	 *            The empty GridPoint that was clicked
+	 * @return <code>true</code> if the action was performed successfully,
+	 *         <code>false</code> otherwise
 	 */
 	@Override
 	protected boolean onEmptyGridPointClick(GridPoint gridPoint) {
@@ -115,16 +122,16 @@ public class GraphColoring extends Game {
 
 		this.generateLevel();
 		this.generateButtons();
-		
+
 		return true;
 	}
-	
+
 	/**
 	 * Creates and adds the button vertices.
 	 */
 	private void generateButtons() {
-		this.buttons = new GraphColoringButtonVertex[colorCount];
-		for (int i = 0; i < colorCount; i++) {
+		this.buttons = new GraphColoringButtonVertex[this.colorCount];
+		for (int i = 0; i < this.colorCount; i++) {
 			this.buttons[i] = new GraphColoringButtonVertex(new GridPoint(i + 1, 0));
 			this.buttons[i].setColorID(i);
 
@@ -150,12 +157,12 @@ public class GraphColoring extends Game {
 	 */
 	private void generateLevel() {
 		GraphColoringLevel level = GraphColoringLevel.getLevelInstance(this.selectedLevel + 1);
-				
+
 		// Adding level to board
 		final GameBoard mBoard = this.getGameManager().getGameBoard();
 		this.colorCount = level.getColorCount();
 		this.vertices = level.getVertices();
-		
+
 		for (int i = 0; i < this.vertices.length; i++) {
 			mBoard.addVisualVertex(this.vertices[i]);
 		}
@@ -219,7 +226,7 @@ public class GraphColoring extends Game {
 	private boolean isColoringPossible() {
 		for (GraphColoringVertex vtex : this.vertices) {
 			if (vtex.getColorID() == CLRID_BLANK) {
-				for (int i = 0; i < colorCount; i++) {
+				for (int i = 0; i < this.colorCount; i++) {
 					if (this.isColoringValid(vtex, i)) {
 						return true;
 					}
@@ -250,7 +257,8 @@ public class GraphColoring extends Game {
 	 */
 	private void handleMultiplayerMove(GraphColoringVertex vtex) {
 		if (vtex.getColorID() != CLRID_BLANK) {
-			this.getGameManager().getViewManager().displayErrorMessage(this.getGameResources().getStringResource("ALREADY_COL"));
+			this.getGameManager().getViewManager()
+					.displayErrorMessage(this.getGameResources().getStringResource("ALREADY_COL"));
 			return;
 		}
 
@@ -263,11 +271,15 @@ public class GraphColoring extends Game {
 				this.getGameManager().getPlayerManager().nextPlayer();
 			}
 		} else {
-			this.getGameManager().getViewManager().displayErrorMessage(this.getGameResources().getStringResource("INVALID"));
+			this.getGameManager().getViewManager()
+					.displayErrorMessage(this.getGameResources().getStringResource("INVALID"));
 		}
 
 	}
 
+	/**
+	 * Reloads and sets up the level that was loaded from a save game.
+	 */
 	private void reloadLevel() {
 		LinkedList<GraphColoringVertex> tmpVtices = new LinkedList<GraphColoringVertex>();
 		LinkedList<GraphColoringButtonVertex> tmpBtns = new LinkedList<GraphColoringButtonVertex>();
@@ -292,6 +304,9 @@ public class GraphColoring extends Game {
 		tmpVtices.toArray(this.vertices);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	protected boolean onGameLoad(HashMap<Integer, Object> customValues) {
 		this.reloadLevel();
@@ -308,6 +323,9 @@ public class GraphColoring extends Game {
 		return false;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	protected boolean onGameSave(HashMap<Integer, Object> customValues) {
 		customValues.put(KEY_SELECTED, this.selectedButton.getColorID());
@@ -315,24 +333,48 @@ public class GraphColoring extends Game {
 		customValues.put(KEY_SELECTED_LEVEL, this.selectedLevel);
 		return true;
 	}
-	
+
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
 	protected boolean onMenuItemClick(MenuItem item) {
-		switch(item.getId()) {
+		switch (item.getId()) {
 			case MENU_NEXT:
 				this.nextLevel();
 				break;
 			case MENU_PREV:
 				this.prevLevel();
 				break;
+			default:
+				break;
 		}
-		
+
 		return true;
 	}
-	
+
+	/**
+	 * Changes the selected button on key release (keys F1 - F4) depending on
+	 * the colorCount.
+	 * 
+	 * @param keyCode
+	 *            The code of the key that was released
+	 * @return <code>true</code> if the action was performed successfully,
+	 *         <code>false</code> otherwise
+	 */
+	@Override
+	protected boolean onKeyRelease(int keyCode) {
+		if (this.colorCount > (keyCode - KeyEvent.VK_F1) && (keyCode - KeyEvent.VK_F1) >= 0) {
+			this.selectedButton.setHighlighted(false);
+			this.selectedButton = this.buttons[keyCode - KeyEvent.VK_F1];
+			this.selectedButton.setHighlighted(true);
+		}
+		return true;
+	}
+
+	/**
+	 * Initializes the following level.
+	 */
 	private void nextLevel() {
 		this.getGameManager().getGameBoard().flush();
 		this.getGameManager().getPlayerManager().initializePlayers();
@@ -341,7 +383,10 @@ public class GraphColoring extends Game {
 		this.generateLevel();
 		this.generateButtons();
 	}
-	
+
+	/**
+	 * Initializes the previous level.
+	 */
 	private void prevLevel() {
 		this.getGameManager().getGameBoard().flush();
 		this.getGameManager().getPlayerManager().initializePlayers();
