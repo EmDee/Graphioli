@@ -142,8 +142,8 @@ public class GameWindow extends JFrame implements View {
 	 * Generates the graph Canvas and its grid.
 	 */
 	private void generateCanvas() {
-		this.graphCanvas = new GraphCanvas(this);
-		this.visualGrid = new VisualGrid(this.graphCanvas, this);
+		this.visualGrid = new VisualGrid(this);
+		this.graphCanvas = new GraphCanvas(this, this.visualGrid);
 		Dimension gridSize = this.visualGrid.calculateSize();
 		this.graphCanvas.addMouseListener(this.visualGrid);
 		this.graphCanvas.setPreferredSize(gridSize);

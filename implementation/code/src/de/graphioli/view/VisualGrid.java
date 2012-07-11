@@ -1,17 +1,13 @@
 package de.graphioli.view;
 
-
 import de.graphioli.model.Grid;
 import de.graphioli.model.GridPoint;
 import de.graphioli.model.VisualVertex;
-
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.util.logging.Logger;
-
 
 /**
  * This class handles mouse input, serves as a connector between {@link Grid}
@@ -20,11 +16,6 @@ import java.util.logging.Logger;
  * @author Graphioli
  */
 public class VisualGrid implements MouseListener {
-	
-	/**
-	 * Logging instance.
-	 */
-	private static final Logger LOG = Logger.getLogger(VisualGrid.class.getName());
 
 	/**
 	 * The ratio of the gaps between to vertices to the size of the vertices.
@@ -35,11 +26,6 @@ public class VisualGrid implements MouseListener {
 	 * The parent {@link GameWindow} associated with this {@link VisualGrid}.
 	 */
 	private GameWindow parentGameWindow;
-
-	/**
-	 * The {@link GraphCanvas} associated with this {@link VisualGrid}.
-	 */
-	private GraphCanvas graphCanvas;
 
 	/**
 	 * The {@link Grid} associated with this {@link VisualGrid}.
@@ -65,13 +51,11 @@ public class VisualGrid implements MouseListener {
 	 *            The {@link GameWindow} that contains the {@link GraphCanvas}
 	 *            to this {@link VisualGrid}
 	 */
-	public VisualGrid(GraphCanvas graphCanvas, GameWindow parentGameWindow) {
+	public VisualGrid(GameWindow parentGameWindow) {
 		this.parentGameWindow = parentGameWindow;
-		this.graphCanvas = graphCanvas;
 		this.grid = this.parentGameWindow.getViewManager().getGameManager().getGameBoard().getGrid();
 		// default gridScale based on VertexSize for now
 		this.gridScale = (int) (VisualVertex.PIXELS_PER_SIDE * GAP_SCALE);
-		graphCanvas.registerGrid(this);
 	}
 
 	/**
@@ -197,26 +181,22 @@ public class VisualGrid implements MouseListener {
 
 	@Override
 	public void mouseEntered(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-
+		// Not needed
 	}
 
 	@Override
 	public void mouseExited(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-
+		// Not needed
 	}
 
 	@Override
 	public void mousePressed(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-
+		// Not needed
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-
+		// Not needed
 	}
 
 }
