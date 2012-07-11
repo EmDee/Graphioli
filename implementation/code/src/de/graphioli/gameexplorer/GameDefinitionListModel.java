@@ -9,7 +9,7 @@ import javax.swing.AbstractListModel;
  * 
  * @author Graphioli
  */
-public class GameDefinitionListModel extends AbstractListModel<GameDefinition> {
+public class GameDefinitionListModel extends AbstractListModel {
 
 	/**
 	 * UID for serializing this object.

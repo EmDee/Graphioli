@@ -113,8 +113,8 @@ public class GEWindowActions extends WindowAdapter implements ListSelectionListe
 
 		// Get new selected GameDefinition
 		@SuppressWarnings("unchecked") // We only have one list in the GameExplorer, so this cast should be safe.
-		JList<GameDefinition> sourceList = (JList<GameDefinition>) event.getSource();
-		GameDefinition selectedGameDefinition = sourceList.getSelectedValue();
+		JList sourceList = (JList) event.getSource();
+		GameDefinition selectedGameDefinition = (GameDefinition) sourceList.getSelectedValue();
 
 		// Notify relevant dependencies about the selection
 		this.geWindow.selectGameDefinition(selectedGameDefinition);
