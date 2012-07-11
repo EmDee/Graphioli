@@ -79,7 +79,7 @@ public final class GameDefinition implements Serializable {
 	 * Private constructor to ensure that no instance is created of this class.
 	 */
 	private GameDefinition() {
-	};
+	}
 
 	/**
 	 * Tries to localize a string if it begins with an {@literal @} using the
@@ -257,9 +257,6 @@ public final class GameDefinition implements Serializable {
 		return this.isDirectedGraph;
 	}
 
-	/*
-	 * Not really nice, but works.
-	 */
 	/**
 	 * Localizes the strings in this game definition based on its "lang" files.
 	 */
