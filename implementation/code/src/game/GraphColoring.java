@@ -176,17 +176,17 @@ public class GraphColoring extends Game {
 		ViewManager vm = this.getGameManager().getViewManager();
 		for (GraphColoringVertex tmpTex : this.vertices) {
 			if (tmpTex.getColorID() == CLRID_BLANK) {
-				vm.displayErrorMessage("Graph not completely colored.");
+				vm.displayErrorMessage(this.getGameResources().getStringResource("NOT_COLORED"));
 				return false;
 			}
 			for (Vertex adjTex : tmpTex.getAdjacentVertices()) {
 				if (((GraphColoringVertex) adjTex).getColorID() == tmpTex.getColorID()) {
-					vm.displayErrorMessage("Coloring invalid.");
+					vm.displayErrorMessage(this.getGameResources().getStringResource("COL_INVALID"));
 					return false;
 				}
 			}
 		}
-		vm.displayErrorMessage("Graph colored.");
+		vm.displayErrorMessage(this.getGameResources().getStringResource("COLORED"));
 		return true;
 	}
 
@@ -250,21 +250,20 @@ public class GraphColoring extends Game {
 	 */
 	private void handleMultiplayerMove(GraphColoringVertex vtex) {
 		if (vtex.getColorID() != CLRID_BLANK) {
-			this.getGameManager().getViewManager().displayErrorMessage("Already colored.");
+			this.getGameManager().getViewManager().displayErrorMessage(this.getGameResources().getStringResource("ALREADY_COL"));
 			return;
 		}
 
 		if (this.isColoringValid(vtex, this.selectedButton.getColorID())) {
 			vtex.setColorID(this.selectedButton.getColorID());
 			if (this.isGraphColored() || !this.isColoringPossible()) {
-				this.getGameManager().getViewManager().displayErrorMessage("Game over.");
 				this.getGameManager().getPlayerManager().setActivePlayerAsWinning();
 				this.getGameManager().finishGame();
 			} else {
 				this.getGameManager().getPlayerManager().nextPlayer();
 			}
 		} else {
-			this.getGameManager().getViewManager().displayErrorMessage("Invalid move.");
+			this.getGameManager().getViewManager().displayErrorMessage(this.getGameResources().getStringResource("INVALID"));
 		}
 
 	}
