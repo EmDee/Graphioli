@@ -6,6 +6,7 @@ import de.graphioli.model.Edge;
 import de.graphioli.model.GameBoard;
 import de.graphioli.model.GameCapsule;
 import de.graphioli.model.GameResources;
+import de.graphioli.model.LocalPlayer;
 import de.graphioli.model.Player;
 import de.graphioli.model.Vertex;
 import de.graphioli.model.VisualEdge;
@@ -14,7 +15,6 @@ import de.graphioli.utils.GraphioliLogger;
 import de.graphioli.utils.InvalidJarException;
 import de.graphioli.utils.JarParser;
 import de.graphioli.utils.Localization;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -218,15 +218,12 @@ public final class GameManager {
 			LOG.info("Loaded GameCapsule from File: " + savegame.getName());
 		} catch (FileNotFoundException e) {
 			LOG.severe("FileNotFoundException: " + e.getMessage());
-			e.printStackTrace();
 			return false;
 		} catch (IOException e) {
 			LOG.severe("IOException: " + e.getMessage());
-			e.printStackTrace();
 			return false;
 		} catch (ClassNotFoundException e) {
 			LOG.severe("ClassNotFoundException: " + e.getMessage());
-			e.printStackTrace();
 			return false;
 		}
 
@@ -433,9 +430,49 @@ public final class GameManager {
 		return true;
 	}
 
-	public boolean startGame(File savegame) {
-		
-		return true;
+	/**
+	 * Start the savegame specified by the {@link File}.
+	 * 
+	 * @param gameDefinition
+	 *            The GameDefinition of the selected game.
+	 * @param savegame
+	 *            The specified savegame to start
+	 * @return <code>true</code> if the action was performed successfully,
+	 *         <code>false</code> otherwise
+	 */
+	public boolean startGame(GameDefinition gameDefinition, File savegame) {
+
+		LOG.info("Try starting savegame '" + savegame.getAbsolutePath() + "'.");
+
+		// Initialize framework with dummy players
+		ArrayList<Player> dummyPlayerList = new ArrayList<Player>();
+		dummyPlayerList.add(new LocalPlayer("dummy"));
+		this.initializeFramework(gameDefinition, dummyPlayerList);
+
+		Class<?> classToLoad;
+		try {
+			classToLoad = JarParser.getClass("game.", gameDefinition.getClassName());
+		} catch (InvalidJarException ije) {
+			LOG.severe("Jar of \"" + gameDefinition.getClassName() + "\" corrupted : " + ije.getMessage());
+			this.viewManager.displayPopUp(Localization.getLanguageString("jar_err"));
+			return false;
+		}
+
+		// Instantiate game
+		try {
+			this.game = (Game) classToLoad.newInstance();
+		} catch (InstantiationException e) {
+			LOG.severe("InstantiationException: " + e.getMessage());
+			return false;
+		} catch (IllegalAccessException e) {
+			LOG.severe("IllegalAccessException: " + e.getMessage());
+			return false;
+		}
+
+		this.game.registerController(this, new GameResources(gameDefinition.getClassName()));
+
+		return this.loadGame(savegame);
+
 	}
 
 	/**

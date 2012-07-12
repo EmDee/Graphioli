@@ -131,6 +131,27 @@ public class GameExplorer {
 	}
 
 	/**
+	 * Calls the {@link GameManager} to restart the game of the given
+	 * savegame file.
+	 * 
+	 * @param gameDefinition
+	 *            The GameDefinition of the selected game.
+	 * @param savegame
+	 *            The savegame file to load
+	 * @return <code>true</code> if the action was performed successfully,
+	 *         <code>false</code> otherwise
+	 */
+	public boolean selectGame(GameDefinition gameDefinition, File savegame) {
+
+		LOG.finer("GameExplorer.<em>selectGame([...])</em> called.");
+
+		// Forward call to GameManager with the selected GameDefinition and
+		// Players
+		return this.gameManager.startGame(gameDefinition, savegame);
+
+	}
+
+	/**
 	 * Creates {@link GameDefinition} from a given path to the json file.
 	 * 
 	 * @param jsonPath
