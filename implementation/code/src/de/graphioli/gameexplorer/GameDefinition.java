@@ -2,7 +2,6 @@ package de.graphioli.gameexplorer;
 
 import de.graphioli.model.GameResources;
 import de.graphioli.model.MenuItem;
-
 import java.io.Serializable;
 import java.net.URI;
 import java.util.ArrayList;
@@ -16,9 +15,9 @@ import java.util.ArrayList;
 public final class GameDefinition implements Serializable {
 
 	/**
-	 * 
+	 * Serialization UID
 	 */
-	private static final long serialVersionUID = -9032856528106026142L;
+	private static final long serialVersionUID = 6466462368240633154L;
 
 	/**
 	 * The name of the game.
@@ -76,6 +75,11 @@ public final class GameDefinition implements Serializable {
 	private boolean isDirectedGraph;
 
 	/**
+	 * Whether the game supports saving and loading of savegames or not.
+	 */
+	private boolean supportsSavegames;
+
+	/**
 	 * Private constructor to ensure that no instance is created of this class.
 	 */
 	private GameDefinition() {
@@ -98,47 +102,6 @@ public final class GameDefinition implements Serializable {
 		}
 		String keyString = s.replaceFirst("@", "");
 		return res.getStringResource(keyString);
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
-			return true;
-		}
-		if (obj == null) {
-			return false;
-		}
-		if (getClass() != obj.getClass()) {
-			return false;
-		}
-		GameDefinition other = (GameDefinition) obj;
-		if (this.className == null) {
-			if (other.className != null) {
-				return false;
-			}
-		} else if (!this.className.equals(other.className)) {
-			return false;
-		}
-		if (this.horizontalGridPointCount != other.horizontalGridPointCount) {
-			return false;
-		}
-		if (this.isDirectedGraph != other.isDirectedGraph) {
-			return false;
-		}
-		if (this.name == null) {
-			if (other.name != null) {
-				return false;
-			}
-		} else if (!this.name.equals(other.name)) {
-			return false;
-		}
-		if (this.verticalGridPointCount != other.verticalGridPointCount) {
-			return false;
-		}
-		return true;
 	}
 
 	/**
@@ -233,21 +196,6 @@ public final class GameDefinition implements Serializable {
 	}
 
 	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((this.className == null) ? 0 : this.className.hashCode());
-		result = prime * result + this.horizontalGridPointCount;
-		result = prime * result + (this.isDirectedGraph ? 1231 : 1237);
-		result = prime * result + ((this.name == null) ? 0 : this.name.hashCode());
-		result = prime * result + this.verticalGridPointCount;
-		return result;
-	}
-
-	/**
 	 * Returns whether the {@link Graph} of the game is directed or not.
 	 * 
 	 * @return <code>true</code> if the graph of the game is directed,
@@ -255,6 +203,16 @@ public final class GameDefinition implements Serializable {
 	 */
 	public boolean isDirectedGraph() {
 		return this.isDirectedGraph;
+	}
+
+	/**
+	 * Returns whether the game supports saving and loading of savegames or not.
+	 * 
+	 * @return <code>true</code> if the game supports savegames,
+	 *         <code>false</code> otherwise
+	 */
+	public boolean supportsSavegames() {
+		return this.supportsSavegames;
 	}
 
 	/**
@@ -284,6 +242,92 @@ public final class GameDefinition implements Serializable {
 	@Override
 	public String toString() {
 		return this.getName();
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result
+				+ ((className == null) ? 0 : className.hashCode());
+		result = prime * result
+				+ ((gamePath == null) ? 0 : gamePath.hashCode());
+		result = prime * result + horizontalGridPointCount;
+		result = prime * result + (isDirectedGraph ? 1231 : 1237);
+		result = prime * result + maxPlayerCount;
+		result = prime * result + ((menu == null) ? 0 : menu.hashCode());
+		result = prime * result + minPlayerCount;
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		result = prime * result + (supportsSavegames ? 1231 : 1237);
+		result = prime * result + verticalGridPointCount;
+		return result;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (obj == null) {
+			return false;
+		}
+		if (getClass() != obj.getClass()) {
+			return false;
+		}
+		GameDefinition other = (GameDefinition) obj;
+		if (className == null) {
+			if (other.className != null) {
+				return false;
+			}
+		} else if (!className.equals(other.className)) {
+			return false;
+		}
+		if (gamePath == null) {
+			if (other.gamePath != null) {
+				return false;
+			}
+		} else if (!gamePath.equals(other.gamePath)) {
+			return false;
+		}
+		if (horizontalGridPointCount != other.horizontalGridPointCount) {
+			return false;
+		}
+		if (isDirectedGraph != other.isDirectedGraph) {
+			return false;
+		}
+		if (maxPlayerCount != other.maxPlayerCount) {
+			return false;
+		}
+		if (menu == null) {
+			if (other.menu != null) {
+				return false;
+			}
+		} else if (!menu.equals(other.menu)) {
+			return false;
+		}
+		if (minPlayerCount != other.minPlayerCount) {
+			return false;
+		}
+		if (name == null) {
+			if (other.name != null) {
+				return false;
+			}
+		} else if (!name.equals(other.name)) {
+			return false;
+		}
+		if (supportsSavegames != other.supportsSavegames) {
+			return false;
+		}
+		if (verticalGridPointCount != other.verticalGridPointCount) {
+			return false;
+		}
+		return true;
 	}
 
 }
