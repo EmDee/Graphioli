@@ -3,7 +3,6 @@ package de.graphioli.gameexplorer;
 import de.graphioli.model.GameResources;
 import de.graphioli.model.MenuItem;
 import java.io.Serializable;
-import java.net.URI;
 import java.util.ArrayList;
 
 /**
@@ -15,7 +14,7 @@ import java.util.ArrayList;
 public final class GameDefinition implements Serializable {
 
 	/**
-	 * Serialization UID
+	 * Serialization UID.
 	 */
 	private static final long serialVersionUID = 6466462368240633154L;
 
@@ -48,11 +47,6 @@ public final class GameDefinition implements Serializable {
 	 * The name of the game class.
 	 */
 	private String className;
-
-	/**
-	 * The URI to the help file of the game.
-	 */
-	private URI helpFile;
 
 	/**
 	 * The list of additional menu items.
@@ -129,15 +123,6 @@ public final class GameDefinition implements Serializable {
 	 */
 	public String getGamePath() {
 		return this.gamePath;
-	}
-
-	/**
-	 * Returns the URI to the help file of the game.
-	 * 
-	 * @return the URI to the help file of the game
-	 */
-	public URI getHelpFile() {
-		return this.helpFile;
 	}
 
 	/**
@@ -251,18 +236,16 @@ public final class GameDefinition implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result
-				+ ((className == null) ? 0 : className.hashCode());
-		result = prime * result
-				+ ((gamePath == null) ? 0 : gamePath.hashCode());
-		result = prime * result + horizontalGridPointCount;
-		result = prime * result + (isDirectedGraph ? 1231 : 1237);
-		result = prime * result + maxPlayerCount;
-		result = prime * result + ((menu == null) ? 0 : menu.hashCode());
-		result = prime * result + minPlayerCount;
-		result = prime * result + ((name == null) ? 0 : name.hashCode());
-		result = prime * result + (supportsSavegames ? 1231 : 1237);
-		result = prime * result + verticalGridPointCount;
+		result = prime * result + ((this.className == null) ? 0 : this.className.hashCode());
+		result = prime * result + ((this.gamePath == null) ? 0 : this.gamePath.hashCode());
+		result = prime * result + this.horizontalGridPointCount;
+		result = prime * result + (this.isDirectedGraph ? 1231 : 1237);
+		result = prime * result + this.maxPlayerCount;
+		result = prime * result + ((this.menu == null) ? 0 : this.menu.hashCode());
+		result = prime * result + this.minPlayerCount;
+		result = prime * result + ((this.name == null) ? 0 : this.name.hashCode());
+		result = prime * result + (this.supportsSavegames ? 1231 : 1237);
+		result = prime * result + this.verticalGridPointCount;
 		return result;
 	}
 
@@ -281,50 +264,50 @@ public final class GameDefinition implements Serializable {
 			return false;
 		}
 		GameDefinition other = (GameDefinition) obj;
-		if (className == null) {
+		if (this.className == null) {
 			if (other.className != null) {
 				return false;
 			}
-		} else if (!className.equals(other.className)) {
+		} else if (!this.className.equals(other.className)) {
 			return false;
 		}
-		if (gamePath == null) {
+		if (this.gamePath == null) {
 			if (other.gamePath != null) {
 				return false;
 			}
-		} else if (!gamePath.equals(other.gamePath)) {
+		} else if (!this.gamePath.equals(other.gamePath)) {
 			return false;
 		}
-		if (horizontalGridPointCount != other.horizontalGridPointCount) {
+		if (this.horizontalGridPointCount != other.horizontalGridPointCount) {
 			return false;
 		}
-		if (isDirectedGraph != other.isDirectedGraph) {
+		if (this.isDirectedGraph != other.isDirectedGraph) {
 			return false;
 		}
-		if (maxPlayerCount != other.maxPlayerCount) {
+		if (this.maxPlayerCount != other.maxPlayerCount) {
 			return false;
 		}
-		if (menu == null) {
+		if (this.menu == null) {
 			if (other.menu != null) {
 				return false;
 			}
-		} else if (!menu.equals(other.menu)) {
+		} else if (!this.menu.equals(other.menu)) {
 			return false;
 		}
-		if (minPlayerCount != other.minPlayerCount) {
+		if (this.minPlayerCount != other.minPlayerCount) {
 			return false;
 		}
-		if (name == null) {
+		if (this.name == null) {
 			if (other.name != null) {
 				return false;
 			}
-		} else if (!name.equals(other.name)) {
+		} else if (!this.name.equals(other.name)) {
 			return false;
 		}
-		if (supportsSavegames != other.supportsSavegames) {
+		if (this.supportsSavegames != other.supportsSavegames) {
 			return false;
 		}
-		if (verticalGridPointCount != other.verticalGridPointCount) {
+		if (this.verticalGridPointCount != other.verticalGridPointCount) {
 			return false;
 		}
 		return true;
