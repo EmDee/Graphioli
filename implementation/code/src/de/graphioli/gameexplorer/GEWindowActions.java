@@ -112,7 +112,6 @@ public class GEWindowActions extends WindowAdapter implements ListSelectionListe
 		LOG.finer("GEWindowActions.<em>valueChanged([...])</em> called.");
 
 		// Get new selected GameDefinition
-		@SuppressWarnings("unchecked") // We only have one list in the GameExplorer, so this cast should be safe.
 		JList sourceList = (JList) event.getSource();
 		GameDefinition selectedGameDefinition = (GameDefinition) sourceList.getSelectedValue();
 
