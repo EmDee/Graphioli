@@ -1,6 +1,7 @@
 package de.graphioli.view;
 
 import de.graphioli.model.MenuItem;
+import de.graphioli.utils.GameFileDialog;
 import de.graphioli.utils.Localization;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -8,11 +9,9 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
-import javax.swing.JFileChooser;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-import javax.swing.filechooser.FileFilter;
 
 /**
  * The {@link MenuBar} contains the game menu, options menu and help menu. It is
@@ -32,11 +31,6 @@ public class MenuBar extends JMenuBar implements ActionListener {
 	 * Logging instance.
 	 */
 	private static final Logger LOG = Logger.getLogger(MenuBar.class.getName());
-
-	/**
-	 * The file extension for savegames.
-	 */
-	private static final String SAVE_FILE_EXT = ".save";
 	
 	/**
 	 * The game menu.
@@ -181,12 +175,10 @@ public class MenuBar extends JMenuBar implements ActionListener {
 	private void loadGame() {
 		String gameName = this.parentGameWindow.getViewManager().getGameManager().getGame().getClass().getName();
 		gameName = gameName.substring(gameName.indexOf('.') + 1, gameName.length());
-		JFileChooser fc = new JFileChooser(new File("games/" + gameName + "/"));
-		SaveGameFilter filter = new SaveGameFilter();
-		fc.setFileFilter(filter);
-		int returnVal = fc.showOpenDialog(this.parentGameWindow);
-		if (returnVal == JFileChooser.APPROVE_OPTION) {
-			File fileToLoad = fc.getSelectedFile();
+
+		File fileToLoad = GameFileDialog.loadGame(gameName, this.parentGameWindow);
+
+		if (fileToLoad != null) {
 			this.parentGameWindow.getViewManager().getGameManager().loadGame(fileToLoad);
 		}
 	}
@@ -197,35 +189,11 @@ public class MenuBar extends JMenuBar implements ActionListener {
 	private void saveGame() {
 		String gameName = this.parentGameWindow.getViewManager().getGameManager().getGame().getClass().getName();
 		gameName = gameName.substring(gameName.indexOf('.') + 1, gameName.length());
-		JFileChooser fc = new JFileChooser(new File("games/" + gameName + "/"));
-		SaveGameFilter filter = new SaveGameFilter();
-		fc.setFileFilter(filter);
-		int returnVal = fc.showSaveDialog(this.parentGameWindow);
-		if (returnVal == JFileChooser.APPROVE_OPTION) {
-			File fileToSave = fc.getSelectedFile();
-			String filePath = fileToSave.getAbsolutePath();
-			if (!filePath.endsWith(SAVE_FILE_EXT)) {
-				int seperatorIndex = filePath.lastIndexOf('.');
-				if (seperatorIndex == -1) {
-					filePath = filePath + SAVE_FILE_EXT;
-				} else {
-					filePath = filePath.substring(0, seperatorIndex) + SAVE_FILE_EXT;
-				}
-				fileToSave = new File(filePath);
-			}
+
+		File fileToSave = GameFileDialog.saveGame(gameName, this.parentGameWindow);
+
+		if (fileToSave != null) {
 			this.parentGameWindow.getViewManager().getGameManager().saveGame(fileToSave);
-		}
-	}
-
-	private class SaveGameFilter extends FileFilter {
-
-		public boolean accept(File file) {
-			String filename = file.getName();
-			return filename.endsWith(SAVE_FILE_EXT) || file.isDirectory();
-		}
-
-		public String getDescription() {
-			return "*" + SAVE_FILE_EXT;
 		}
 	}
 
