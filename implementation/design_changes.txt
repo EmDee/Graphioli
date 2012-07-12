@@ -72,6 +72,7 @@
 - GEWindowActions
 - GraphColoringLevel
 - GameResources
+- GameFileDialog (utils)
 
 == New libraries ==
 - GSON
