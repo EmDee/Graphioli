@@ -1,11 +1,15 @@
 package de.graphioli.utils;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.net.MalformedURLException;
+import java.net.URI;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.jar.JarFile;
@@ -40,7 +44,8 @@ public final class JarParser {
 	 * @param fileName
 	 *            the file to get
 	 * @return an {@link InputStream} of the file
-	 * @throws InvalidJarException if specified JAR file does not exist
+	 * @throws InvalidJarException
+	 *             if specified JAR file does not exist
 	 */
 	public static InputStream getFileAsInputStream(String gameName, String fileName) throws InvalidJarException {
 		LOG.finer("JarParser.<em>getFileAsInputStream()</em> called.");
@@ -72,7 +77,8 @@ public final class JarParser {
 	 * @param gameName
 	 *            name of the game to get the property file from
 	 * @return the property file as {@link Reader}
-	 * @throws InvalidJarException if specified property file or parent JAR file doesn't exist
+	 * @throws InvalidJarException
+	 *             if specified property file or parent JAR file doesn't exist
 	 */
 	public static Reader getPropertyFile(String gameName) throws InvalidJarException {
 		LOG.finer("JarParser.<em>getPropertyFileFromJar()</em> called.");
@@ -91,7 +97,8 @@ public final class JarParser {
 	 * @param gameName
 	 *            name of the game
 	 * @return the game's class file
-	 * @throws InvalidJarException if the specified JAR file doesn't exist
+	 * @throws InvalidJarException
+	 *             if the specified JAR file doesn't exist
 	 */
 	public static Class<?> getClass(String gamePackagePath, String gameName) throws InvalidJarException {
 		Class<?> classToLoad = null;
@@ -119,4 +126,42 @@ public final class JarParser {
 		return classToLoad;
 	}
 
+	/**
+	 * Gets the help file within the jar, parses it to a {@link String} and
+	 * convert it to a {@link URI}.
+	 * 
+	 * @param gameName
+	 *            name of the game
+	 * @return the help file as {@link URI}
+	 */
+	public static URI getHelpFileURI(String gameName) {
+		URI helpFileURI = null;
+		String helpString;
+
+		try {
+			File tmpHelpFile = File.createTempFile("tmpHelp", ".htm");
+			InputStream is = getFileAsInputStream(gameName, "help.html");
+			BufferedReader br = new BufferedReader(new InputStreamReader(is));
+			BufferedWriter bw = new BufferedWriter(new FileWriter(tmpHelpFile));
+
+			while ((helpString = br.readLine()) != null) {
+				bw.write(helpString);
+				bw.newLine();
+			}
+
+			br.close();
+			bw.close();
+
+			helpFileURI = tmpHelpFile.toURI();
+			tmpHelpFile.deleteOnExit();
+		} catch (InvalidJarException e) {
+			String errorMsg = "Could not load help file from \"" + gameName + ".jar\" (InvalidJarException).";
+			LOG.severe(errorMsg);
+		} catch (IOException e) {
+			String errorMsg = "Could not get text from help file (IOException).";
+			LOG.severe(errorMsg);
+		}
+
+		return helpFileURI;
+	}
 }
