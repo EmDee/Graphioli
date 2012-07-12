@@ -79,14 +79,15 @@ public class GraphConsistencyTest {
 		assertTrue(vtecies[1].getIncomingEdges().contains(edgeOne));
 		assertTrue(vtecies[2].getIncomingEdges().contains(edgeTwo));
 		
-		graph.removeEdge(edgeOne);
+		assertTrue(graph.removeEdge(edgeOne));
+		assertFalse(graph.removeEdge(edgeOne));
 		
 		assertFalse(vtecies[0].getOutgoingEdges().contains(edgeOne));
 		assertTrue(vtecies[1].getOutgoingEdges().contains(edgeTwo));
 		assertFalse(vtecies[1].getIncomingEdges().contains(edgeOne));
 		assertTrue(vtecies[2].getIncomingEdges().contains(edgeTwo));
 		
-		graph.removeEdge(edgeTwo);
+		assertTrue(graph.removeEdge(edgeTwo));
 		
 		assertFalse(vtecies[1].getOutgoingEdges().contains(edgeTwo));
 		assertFalse(vtecies[2].getIncomingEdges().contains(edgeTwo));
