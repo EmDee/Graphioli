@@ -202,7 +202,7 @@ public final class GameManager {
 	 * @param savegame
 	 *            The savegame file
 	 * @return <code>true</code> if the action was performed successfully,
-	 *         <code>false</code> otherwise TODO: Implement
+	 *         <code>false</code> otherwise
 	 */
 	public boolean loadGame(File savegame) {
 
@@ -260,7 +260,7 @@ public final class GameManager {
 		}
 
 		this.viewManager.updatePlayerStatus(this.playerManager.getActivePlayer());
-		
+
 		this.viewManager.updateView();
 
 		return true;
@@ -297,7 +297,7 @@ public final class GameManager {
 	}
 
 	/**
-	 * Opens the help file with the link in the given {@link GameDefinition}.
+	 * Opens the help file within the game's jar.
 	 * 
 	 * @param gameDefinition
 	 *            given {@link GameDefinition}
@@ -307,12 +307,8 @@ public final class GameManager {
 	public boolean openHelpFile(GameDefinition gameDefinition) {
 		LOG.info("GameManager.<em>openHelpFile([...])</em> called.");
 
-		// TODO: getDesktop().browse only works for Java 6
-		// TODO: currently it doesn't load local help files; find correct path
-
-		String url = gameDefinition.getHelpFile().toString();
 		try {
-			java.awt.Desktop.getDesktop().browse(java.net.URI.create(url));
+			java.awt.Desktop.getDesktop().browse(JarParser.getHelpFileURI(gameDefinition.getClassName()));
 		} catch (IOException e) {
 			LOG.severe("IOException: " + e.getMessage());
 			e.printStackTrace();
@@ -342,7 +338,7 @@ public final class GameManager {
 	 * @param savegame
 	 *            The savegame file
 	 * @return <code>true</code> if the action was performed successfully,
-	 *         <code>false</code> otherwise TODO Implement
+	 *         <code>false</code> otherwise
 	 */
 	public boolean saveGame(File savegame) {
 		GameCapsule capsule = new GameCapsule(this.gameBoard, this.playerManager.getPlayers(),
@@ -385,6 +381,7 @@ public final class GameManager {
 
 	/**
 	 * Returns the current {@link GameDefinition}.
+	 * 
 	 * @return the current GameDefinition
 	 */
 	public GameDefinition getCurrentGameDefinition() {
@@ -407,11 +404,6 @@ public final class GameManager {
 
 		this.initializeFramework(gameDefinition, players);
 
-		// get game class from Jar
-		// Class<?> classToLoad = JarParser.getClass(this.gamePackagePath,
-		// gameDefinition.getClassName());
-		// TODO: Remove this method for production
-		
 		Class<?> classToLoad;
 		try {
 			classToLoad = JarParser.getClass("game.", gameDefinition.getClassName());
