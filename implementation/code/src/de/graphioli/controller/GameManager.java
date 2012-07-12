@@ -227,7 +227,9 @@ public final class GameManager {
 			return false;
 		}
 
-		if (!capsule.getGameDefinition().equals(this.currentGameDefinition)) {
+		if (!capsule.getGameDefinition().getClassName().equalsIgnoreCase(this.currentGameDefinition.getClassName())) {
+			System.out.println(this.currentGameDefinition.getClassName());
+			System.out.println(capsule.getGameDefinition().getClassName());
 			this.viewManager.displayPopUp(Localization.getLanguageString("savegame_not_compatible"));
 			return true;
 		}
