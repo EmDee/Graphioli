@@ -7,7 +7,7 @@ import java.util.ArrayList;
 /**
  * This class can check if a path between two given vertices exists.
  * 
- * @author Graphioli
+ * @author Team Graphioli
  */
 public final class FindPath {
 

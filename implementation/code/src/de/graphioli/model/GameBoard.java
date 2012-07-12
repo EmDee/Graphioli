@@ -9,7 +9,7 @@ import java.util.logging.Logger;
  * combines the logical {@link Graph} with the {@link Grid} and has access to
  * both of them.
  * 
- * @author Graphioli
+ * @author Team Graphioli
  */
 public class GameBoard implements Serializable {
 

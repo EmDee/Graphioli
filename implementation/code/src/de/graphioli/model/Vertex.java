@@ -9,7 +9,7 @@ import java.util.UUID;
 /**
  * This class represents a logical vertex.
  * 
- * @author Graphioli
+ * @author Team Graphioli
  */
 public class Vertex implements Serializable {
 

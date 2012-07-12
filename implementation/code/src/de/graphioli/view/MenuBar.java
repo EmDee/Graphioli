@@ -19,7 +19,7 @@ import javax.swing.JMenuItem;
  * displayed at the top of the {@link GameWindow} and starts the standard menu
  * item specific methods.
  * 
- * @author Graphioli
+ * @author Team Graphioli
  */
 public class MenuBar extends JMenuBar implements ActionListener {
 

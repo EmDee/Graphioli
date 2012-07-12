@@ -10,7 +10,7 @@ import java.util.logging.Logger;
  * This class is used to create a HTML formatted log file for the Graphioli
  * framework.
  * 
- * @author Graphioli
+ * @author Team Graphioli
  */
 public final class GraphioliLogger {
 

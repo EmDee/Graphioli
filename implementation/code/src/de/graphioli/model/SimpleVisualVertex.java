@@ -9,7 +9,7 @@ import java.awt.Stroke;
  * This class represents a simple {@link VisualVertex} with predefined
  * attributes.
  * 
- * @author Graphioli
+ * @author Team Graphioli
  */
 public class SimpleVisualVertex extends VisualVertex {
 

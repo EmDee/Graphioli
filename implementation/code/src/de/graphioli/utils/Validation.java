@@ -1,28 +1,15 @@
 package de.graphioli.utils;
 
 import de.graphioli.model.GridPoint;
-import java.io.File;
 
 /**
  * This class provides static methods for checking the validity of given values.
  * 
- * @author Graphioli
+ * @author Team Graphioli
  */
 public final class Validation {
 
 	private Validation() {
-	}
-
-	/**
-	 * Checks if the specified file is valid.
-	 * 
-	 * @param file
-	 *            The file to check for validity
-	 * @return <code>true</code> if the given file is valid, <code>false</code>
-	 *         otherwise
-	 */
-	public static boolean isValidFile(File file) {
-		return true;
 	}
 
 	/**

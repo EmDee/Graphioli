@@ -7,7 +7,7 @@ import de.graphioli.model.VisualEdge;
 /**
  * This class represents a level of a graph coloring game.
  * 
- * @author Graphioli
+ * @author Team Graphioli
  */
 public final class GraphColoringLevel {
 

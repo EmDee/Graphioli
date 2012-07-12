@@ -7,7 +7,7 @@ import java.util.ArrayList;
  * This class is responsible for keeping information about a game's
  * {@link Player}s.
  * 
- * @author Graphioli
+ * @author Team Graphioli
  */
 public class PlayerManager {
 

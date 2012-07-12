@@ -3,7 +3,7 @@ package de.graphioli.model;
 /**
  * This class represents a local {@link Player}.
  * 
- * @author Graphioli
+ * @author Team Graphioli
  */
 public class LocalPlayer extends Player {
 

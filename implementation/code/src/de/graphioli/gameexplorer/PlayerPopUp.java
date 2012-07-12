@@ -2,8 +2,10 @@ package de.graphioli.gameexplorer;
 
 import de.graphioli.model.LocalPlayer;
 import de.graphioli.model.Player;
+import de.graphioli.utils.GameFileDialog;
 import de.graphioli.utils.Localization;
 import de.graphioli.utils.Validation;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.logging.Logger;
@@ -14,7 +16,7 @@ import javax.swing.JOptionPane;
  * Represents a pop-up window that is used to select the the number of players
  * and their names for a {@link Game}.
  * 
- * @author Graphioli
+ * @author Team Graphioli
  */
 public class PlayerPopUp extends JFrame {
 
@@ -47,30 +49,60 @@ public class PlayerPopUp extends JFrame {
 	 *            The minimum number of players required
 	 * @param maxPlayer
 	 *            The maximum number of players required
+	 * @param supportsSavegames
+	 * 			  Whether the game supports loading of savegames or not
 	 */
-	public PlayerPopUp(GEWindow geWindow, int minPlayer, int maxPlayer) {
+	public PlayerPopUp(GEWindow geWindow, int minPlayer, int maxPlayer, boolean supportsSavegames) {
 
 		// Register controlling GEWindow
 		this.geWindow = geWindow;
 
 		LOG.info("PlayerPopUp instantiated.");
 
-		// Get number of players
-		int playerCount = this.askForPlayerCount(minPlayer, maxPlayer);
+		// If game supports savegames, ask for it
+		File savegame = null;
+		if (supportsSavegames) {
+			int askForSavegame = this.askForSavegame();
 
-		// If user pressed 'Cancel', close window
-		if (playerCount == 0) {
-			LOG.fine("User cancelled game initialization.");
-			return;
+			if (askForSavegame == 2) {
+				savegame = GameFileDialog.loadGame(geWindow.getCurrentClassName(), geWindow);
+
+				if (savegame == null) {
+					LOG.fine("User cancelled savegame selection.");
+					return;
+				}
+			} else if(askForSavegame == 0) {
+				LOG.fine("User cancelled at savegame decision.");
+				return;
+			}
 		}
 
-		LOG.fine("Number of players chosen: " + playerCount);
+		if (savegame != null) {
 
-		// Instantiate players
-		if (this.instantiatePlayers(playerCount)) {
-			this.geWindow.onPlayerPopUpReturn(this.players);
+			LOG.fine("Loading existing savegame.");
+			this.geWindow.onPlayerPopUpReturn(savegame);
+
+		} else {
+
+			LOG.fine("Initializing new game.");
+
+			// Get number of players
+			int playerCount = this.askForPlayerCount(minPlayer, maxPlayer);
+
+			// If user pressed 'Cancel', close window
+			if (playerCount == 0) {
+				LOG.fine("User cancelled game initialization.");
+				return;
+			}
+
+			LOG.fine("Number of players chosen: " + playerCount);
+
+			// Instantiate players
+			if (this.instantiatePlayers(playerCount)) {
+				this.geWindow.onPlayerPopUpReturn(this.players);
+			}
+
 		}
-
 	}
 
 	/**
@@ -186,6 +218,30 @@ public class PlayerPopUp extends JFrame {
 	}
 
 	/**
+	 * Asks the user whether to load savegames or to instantiate a new game.
+	 * 
+	 * @return <code>0</code> if the user cancelled,
+	 *         <code>1</code> if the user wants to start a new game,
+	 * 		   <code>2</code> if the user wants to load an existing savegame
+	 */
+	private int askForSavegame() {
+		String optionCancel = Localization.getLanguageString("player_pop_up_cancel");
+		String optionNewGame = Localization.getLanguageString("player_pop_up_new_game");
+		String optionLoadGame = Localization.getLanguageString("player_pop_up_load_savegame");
+		String[] options = {optionCancel, optionNewGame, optionLoadGame};
+
+		String choice = (String) this.showDecisionDialog(Localization.getLanguageString("player_pop_up_ask_load_savegame"), options, 1);
+
+		if (choice == optionNewGame) {
+			return 1;
+		} else if(choice == optionLoadGame) {
+			return 2;
+		}
+
+		return 0;
+	}
+
+	/**
 	 * Displays the Pop-Ups for entering the player names.
 	 * 
 	 * @param playerCount
@@ -218,7 +274,8 @@ public class PlayerPopUp extends JFrame {
 						break;
 					}
 				}
-				// If name is already taken, get user to choose a different one
+
+			// If name is already taken, get user to choose a different one
 			} while (!isNewName);
 
 			Player player = new LocalPlayer(playerName);
@@ -228,6 +285,33 @@ public class PlayerPopUp extends JFrame {
 
 		}
 		return true;
+	}
+
+	/**
+	 * Shows a dialog where the user has to decide between different options.
+	 * 
+	 * @param message The message to display with the decision dialog
+	 * @param availableOptions Array of available options
+	 * @param defaultOption The position in the array that is the default option
+	 * @return The choice the user made
+	 */
+	private Object showDecisionDialog(String message, Object[] availableOptions, int defaultOption) {
+
+		int decisionChoice = JOptionPane.showOptionDialog(this,
+                message,
+                this.geWindow.getTitle(),
+                JOptionPane.DEFAULT_OPTION,
+                JOptionPane.QUESTION_MESSAGE,
+                null,
+                availableOptions,
+                availableOptions[defaultOption]);
+
+		if (decisionChoice == JOptionPane.CLOSED_OPTION) {
+			return null;
+		}
+
+		return availableOptions[decisionChoice];
+
 	}
 
 	/**

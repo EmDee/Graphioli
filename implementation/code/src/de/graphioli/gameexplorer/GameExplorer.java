@@ -17,7 +17,7 @@ import java.util.logging.Logger;
  * The GameExplorer lists the available games and enables the user to select and
  * start one of it.
  * 
- * @author Graphioli
+ * @author Team Graphioli
  */
 public class GameExplorer {
 
@@ -127,6 +127,27 @@ public class GameExplorer {
 		// Forward call to GameManager with the selected GameDefinition and
 		// Players
 		return this.gameManager.startGame(gameDefinition, players);
+
+	}
+
+	/**
+	 * Calls the {@link GameManager} to restart the game of the given
+	 * savegame file.
+	 * 
+	 * @param gameDefinition
+	 *            The GameDefinition of the selected game.
+	 * @param savegame
+	 *            The savegame file to load
+	 * @return <code>true</code> if the action was performed successfully,
+	 *         <code>false</code> otherwise
+	 */
+	public boolean selectGame(GameDefinition gameDefinition, File savegame) {
+
+		LOG.finer("GameExplorer.<em>selectGame([...])</em> called.");
+
+		// Forward call to GameManager with the selected GameDefinition and
+		// Players
+		return this.gameManager.startGame(gameDefinition, savegame);
 
 	}
 

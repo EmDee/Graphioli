@@ -11,7 +11,7 @@ import java.util.HashMap;
  * data about the game state. A savegame will be saved in such a
  * {@code GameCapsule}, which later on can be loaded to resume the game.
  * 
- * @author Graphioli
+ * @author Team Graphioli
  */
 public class GameCapsule implements Serializable {
 

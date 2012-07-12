@@ -7,7 +7,7 @@ import javax.swing.AbstractListModel;
 /**
  * Represents a data model that provides the {@link JList} with its content.
  * 
- * @author Graphioli
+ * @author Team Graphioli
  */
 public class GameDefinitionListModel extends AbstractListModel {
 

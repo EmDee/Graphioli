@@ -7,7 +7,7 @@ import java.util.logging.Logger;
 /**
  * This class is responsible for loading the correct localization file.
  * 
- * @author Graphioli
+ * @author Team Graphioli
  */
 public final class Localization {
 
@@ -33,8 +33,6 @@ public final class Localization {
 
 		ResourceBundle bundle = null;
 
-		// Load resource bundle for Locale.UK locale. The resource
-		// bundle will load the MessagesBundle_en_GB.properties file.
 		try {
 			bundle = ResourceBundle.getBundle("language/lang");
 			return bundle.getString(key);
@@ -43,7 +41,5 @@ public final class Localization {
 		}
 
 		return "";
-
 	}
-
 }

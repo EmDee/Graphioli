@@ -6,6 +6,7 @@ import de.graphioli.model.Edge;
 import de.graphioli.model.GameBoard;
 import de.graphioli.model.GameCapsule;
 import de.graphioli.model.GameResources;
+import de.graphioli.model.LocalPlayer;
 import de.graphioli.model.Player;
 import de.graphioli.model.Vertex;
 import de.graphioli.model.VisualEdge;
@@ -14,7 +15,6 @@ import de.graphioli.utils.GraphioliLogger;
 import de.graphioli.utils.InvalidJarException;
 import de.graphioli.utils.JarParser;
 import de.graphioli.utils.Localization;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -32,7 +32,7 @@ import java.util.logging.Logger;
  * model and the view. Any communication between model, view and controller will
  * be managed by the GameManager.
  * 
- * @author Graphioli
+ * @author Team Graphioli
  */
 public final class GameManager {
 
@@ -216,23 +216,19 @@ public final class GameManager {
 			capsule = (GameCapsule) in.readObject();
 			in.close();
 			LOG.info("Loaded GameCapsule from File: " + savegame.getName());
-
 		} catch (FileNotFoundException e) {
 			LOG.severe("FileNotFoundException: " + e.getMessage());
-			e.printStackTrace();
 			return false;
 		} catch (IOException e) {
 			LOG.severe("IOException: " + e.getMessage());
-			e.printStackTrace();
 			return false;
 		} catch (ClassNotFoundException e) {
 			LOG.severe("ClassNotFoundException: " + e.getMessage());
-			e.printStackTrace();
 			return false;
 		}
 
 		if (!capsule.getGameDefinition().equals(this.currentGameDefinition)) {
-			this.viewManager.displayPopUp(Localization.getLanguageString("savegeme_not_compatible"));
+			this.viewManager.displayPopUp(Localization.getLanguageString("savegame_not_compatible"));
 			return true;
 		}
 
@@ -426,12 +422,57 @@ public final class GameManager {
 
 		this.game.registerController(this, new GameResources(gameDefinition.getClassName()));
 
-		if (!runGame()) {
+		if (!this.runGame()) {
 			this.viewManager.displayPopUp(Localization.getLanguageString("init_err"));
 			this.closeGame();
 		}
 
 		return true;
+	}
+
+	/**
+	 * Start the savegame specified by the {@link File}.
+	 * 
+	 * @param gameDefinition
+	 *            The GameDefinition of the selected game.
+	 * @param savegame
+	 *            The specified savegame to start
+	 * @return <code>true</code> if the action was performed successfully,
+	 *         <code>false</code> otherwise
+	 */
+	public boolean startGame(GameDefinition gameDefinition, File savegame) {
+
+		LOG.info("Try starting savegame '" + savegame.getAbsolutePath() + "'.");
+
+		// Initialize framework with dummy players
+		ArrayList<Player> dummyPlayerList = new ArrayList<Player>();
+		dummyPlayerList.add(new LocalPlayer("dummy"));
+		this.initializeFramework(gameDefinition, dummyPlayerList);
+
+		Class<?> classToLoad;
+		try {
+			classToLoad = JarParser.getClass("game.", gameDefinition.getClassName());
+		} catch (InvalidJarException ije) {
+			LOG.severe("Jar of \"" + gameDefinition.getClassName() + "\" corrupted : " + ije.getMessage());
+			this.viewManager.displayPopUp(Localization.getLanguageString("jar_err"));
+			return false;
+		}
+
+		// Instantiate game
+		try {
+			this.game = (Game) classToLoad.newInstance();
+		} catch (InstantiationException e) {
+			LOG.severe("InstantiationException: " + e.getMessage());
+			return false;
+		} catch (IllegalAccessException e) {
+			LOG.severe("IllegalAccessException: " + e.getMessage());
+			return false;
+		}
+
+		this.game.registerController(this, new GameResources(gameDefinition.getClassName()));
+
+		return this.loadGame(savegame);
+
 	}
 
 	/**
@@ -443,6 +484,9 @@ public final class GameManager {
 	 *            The list of players for this game
 	 */
 	private void initializeFramework(GameDefinition gameDefinition, ArrayList<Player> players) {
+
+		this.currentGameDefinition = gameDefinition;
+
 		// Create GameBoard
 		this.gameBoard = new GameBoard(gameDefinition.isDirectedGraph(), gameDefinition.getHorizontalGridPointCount(),
 				gameDefinition.getVerticalGridPointCount());
@@ -461,7 +505,6 @@ public final class GameManager {
 
 		this.playerManager.initializePlayers();
 
-		this.currentGameDefinition = gameDefinition;
 	}
 
 	/**

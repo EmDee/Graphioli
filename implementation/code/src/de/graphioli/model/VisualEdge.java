@@ -6,7 +6,7 @@ import java.util.logging.Logger;
 /**
  * This class represents an {@link Edge} with its visual representation.
  * 
- * @author Graphioli
+ * @author Team Graphioli
  */
 public abstract class VisualEdge extends Edge {
 

@@ -9,7 +9,7 @@ import java.util.logging.Logger;
 /**
  * This class represents a {@link Vertex} with its graphical representation.
  * 
- * @author Graphioli
+ * @author Team Graphioli
  */
 public abstract class VisualVertex extends Vertex {
 

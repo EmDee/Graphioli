@@ -11,7 +11,7 @@ import java.util.List;
  * The View interface defines the methods a graphical user interface (GUI) for
  * the Graphioli framework has to implement.
  * 
- * @author Graphioli
+ * @author Team Graphioli
  */
 public interface View {
 

@@ -17,7 +17,7 @@ import javax.swing.border.BevelBorder;
  * The StatusBar displays which Player is currently active and a short status or
  * error message.
  * 
- * @author Graphioli
+ * @author Team Graphioli
  */
 public class StatusBar extends JPanel {
 

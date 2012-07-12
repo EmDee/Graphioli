@@ -10,7 +10,7 @@ import de.graphioli.model.VisualVertex;
 /**
  * Test game class.
  * 
- * @author Graphioli
+ * @author Team Graphioli
  */
 public class GameTest extends Game {
 

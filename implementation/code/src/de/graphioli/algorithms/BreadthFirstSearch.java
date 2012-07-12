@@ -8,7 +8,7 @@ import java.util.LinkedList;
 /**
  * This class performs the breadth-first-search algorithm.
  * 
- * @author Graphioli
+ * @author Team Graphioli
  */
 public final class BreadthFirstSearch {
 	private static ArrayList<Vertex> reachableVertex = new ArrayList<Vertex>();

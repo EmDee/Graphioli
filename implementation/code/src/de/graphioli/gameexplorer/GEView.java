@@ -4,7 +4,7 @@ package de.graphioli.gameexplorer;
  * This interface defines the methods the {@link GameExplorer} uses to
  * communicate with its graphical user interface (GUI).
  * 
- * @author Graphioli
+ * @author Team Graphioli
  */
 public interface GEView {
 

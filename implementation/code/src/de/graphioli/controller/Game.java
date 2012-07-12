@@ -14,7 +14,7 @@ import java.util.logging.Logger;
  * Graphioli framework. It defines the callback functions that the game
  * developer needs in order to implement the game's logic.
  * 
- * @author Graphioli
+ * @author Team Graphioli
  */
 public abstract class Game {
 

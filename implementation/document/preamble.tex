@@ -20,6 +20,7 @@
 \usepackage{todonotes} % use temporary for todo notes
 % \usepackage{lineno} % temporary use for correcting
 \usepackage{xspace}
+\usepackage{listings}
 % \linenumbers
 \usepackage{lipsum} % just to generate some text
 \usepackage{../../materials/resources/dashrule} % for dashed rules
@@ -27,6 +28,7 @@
 
 \setlength{\parindent}{0cm}
 \setlength{\parskip}{8pt}
+\setlength{\LTpost}{0pt} % space after `longtable`
 
 \widowpenalty=10000 % Prevent single line after pagebreak
 \clubpenalty=10000  % Prevent single line before pagebreak
@@ -37,7 +39,7 @@
 \newcounter{row}
 \newcolumntype{L}{%
   >{\stepcounter{row}%
-  \pgfmathtruncatemacro{\j}{int(Mod(\therow,2))}
+  \pgfmathtruncatemacro{\j}{int(Mod(\therow,4))}
   \ifnum\j<2 
     \global\rownum=1
   \else
@@ -46,6 +48,30 @@
 l}
 
 \BeforeBeginEnvironment{longtable}{\setcounter{row}{-1}} % set first row in table to -1 for title
+
+% generates auto indented lists like in JavaDoc for inheritance hierarchy
+\ExplSyntaxOn
+\NewDocumentCommand{\createindentedlist}{m}
+ {
+  \parbox{\textwidth}{
+    \skip_zero:N \parskip
+    \skip_set:Nn \parindent { 1.5em }
+    \cil_iterate:n { #1 }
+    \bigskip
+  }
+ }
+\cs_new_protected:Npn \cil_iterate:n #1
+ {
+  \int_set:Nn \cil_iteration_int { -1 }
+  \clist_map_inline:nn { #1 }
+   {
+    \hspace*{\cil_iteration_int \parindent} \textcolor{NavyBlue}{\textsf{##1}}
+    \int_incr:N \cil_iteration_int
+    \par\nobreak
+   }
+ }
+\int_new:N \cil_iteration_int
+\ExplSyntaxOff
 
 % change size of sectioning
 \setkomafont{section}{\huge}

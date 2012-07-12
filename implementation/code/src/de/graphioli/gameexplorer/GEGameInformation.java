@@ -17,7 +17,7 @@ import javax.swing.SwingConstants;
 /**
  * Displays information about the currently selected game.
  * 
- * @author Graphioli
+ * @author Team Graphioli
  */
 public class GEGameInformation extends JPanel {
 

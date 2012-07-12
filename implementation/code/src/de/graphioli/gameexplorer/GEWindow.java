@@ -8,6 +8,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -23,7 +24,7 @@ import javax.swing.ListSelectionModel;
 /**
  * This class represents the main window of the {@link GameExplorer}.
  * 
- * @author Graphioli
+ * @author Team Graphioli
  */
 public class GEWindow extends JFrame implements GEView {
 
@@ -165,6 +166,18 @@ public class GEWindow extends JFrame implements GEView {
 	}
 
 	/**
+	 * Returns the class name of the currently select game.
+	 * 
+	 * @return the class name of the currently select game
+	 */
+	public String getCurrentClassName() {
+
+		LOG.finer("GEWindow.<em>getCurrentClassName()</em> called.");
+		return this.selectedGameDefinition.getClassName();
+
+	}
+
+	/**
 	 * Called by the {@link PlayerPopUp} when it has finished and triggers the
 	 * start of the {@link Game}. For this method to perform its task
 	 * successfully, a {@link GameDefinition} must be selected from the list of
@@ -192,6 +205,34 @@ public class GEWindow extends JFrame implements GEView {
 
 		// Forward call to GameExplorer
 		return this.gameExplorer.selectGame(this.selectedGameDefinition, players);
+
+	}
+
+	/**
+	 * Called by the {@link PlayerPopUp} when it has finished and triggers the
+	 * start of the {@link Game}. For this method to perform its task
+	 * successfully, a {@link GameDefinition} must be selected from the list of
+	 * available definitions.
+	 * 
+	 * @param savegame
+	 *            The specified savegame to load
+	 * @return <code>true</code> if the action was performed successfully,
+	 *         <code>false</code> otherwise
+	 */
+	public boolean onPlayerPopUpReturn(File savegame) {
+
+		LOG.finer("GEWindow.<em>onPlayerPopUpReturn([...])</em> called.");
+
+		if (!savegame.exists()) {
+			LOG.severe("Cannot start game: Specified savegame doesn't exist.");
+			return false;
+		}
+
+		// Close window
+		this.setVisible(false);
+
+		// Forward call to GameExplorer
+		return this.gameExplorer.selectGame(this.selectedGameDefinition, savegame);
 
 	}
 
@@ -230,8 +271,10 @@ public class GEWindow extends JFrame implements GEView {
 		LOG.fine("GEWindow.<em>openPlayerPopUp()</em> called.");
 
 		// Create new Player pop-up (will call onPlayerPopUpReturn)
-		new PlayerPopUp(this, this.selectedGameDefinition.getMinPlayerCount(),
-				this.selectedGameDefinition.getMaxPlayerCount());
+		new PlayerPopUp(this,
+				this.selectedGameDefinition.getMinPlayerCount(),
+				this.selectedGameDefinition.getMaxPlayerCount(),
+				this.selectedGameDefinition.supportsSavegames());
 
 		return true;
 
