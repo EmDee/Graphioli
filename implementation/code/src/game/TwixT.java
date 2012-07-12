@@ -1,8 +1,5 @@
 package game;
 
-import java.awt.Color;
-import java.util.HashMap;
-
 import de.graphioli.algorithms.FindPath;
 import de.graphioli.algorithms.PlanarityCheck;
 import de.graphioli.controller.Game;
@@ -15,14 +12,22 @@ import de.graphioli.model.SimpleVisualEdge;
 import de.graphioli.model.Vertex;
 import de.graphioli.model.VisualVertex;
 
+import java.awt.Color;
+import java.util.HashMap;
+
+/**
+ * Our implemented game containing the game’s logic of TwixT.
+ * 
+ * @author Team Graphioli
+ */
 public class TwixT extends Game {
-		
+
 	private static String playerOneImgFile = "Awesome1.png";
 	private static String playerTwoImgFile = "Awesome2.png";
 
 	private static Color playerOneColor = Color.MAGENTA;
 	private static Color playerTwoColor = Color.GREEN;
-	
+
 	private PlayerManager playerManager;
 	private GameBoard board;
 	private int gridSize;
@@ -38,7 +43,16 @@ public class TwixT extends Game {
 	private TwixTVertex originVertex;
 
 	/**
-	 * {@inheritDoc}
+	 * Selects a tower on the {@link GameBoard} and creates an {@link Edge}
+	 * between this {@link Vertex} and the one previously selected if they
+	 * belong to the same {@link Player} and the new Edge would not intersect
+	 * with another one. It then checks if the baselines are connected and the
+	 * game is finished.
+	 * 
+	 * @param vertex
+	 *            The VisualVertex that was clicked
+	 * @return <code>true</code> if the action was performed successfully,
+	 *         <code>false</code> otherwise
 	 */
 	@Override
 	protected boolean onVertexClick(VisualVertex vertex) {
@@ -48,24 +62,27 @@ public class TwixT extends Game {
 			// Tower not belonging to active player.
 			if (this.originVertex != null) {
 				this.originVertex.setHighlighted(false);
-			this.originVertex = null;
+				this.originVertex = null;
 			}
-			this.getGameManager().getViewManager().displayErrorMessage(this.getGameResources().getStringResource("enemy_tower"));		
+			this.getGameManager().getViewManager()
+					.displayErrorMessage(this.getGameResources().getStringResource("enemy_tower"));
 			return true;
 		}
 
 		if (this.originVertex == null) {
 			// First tower selected.
 			this.originVertex = vex;
-			originVertex.setHighlighted(true);
-			this.getGameManager().getViewManager().displayErrorMessage(this.getGameResources().getStringResource("select_second"));
+			this.originVertex.setHighlighted(true);
+			this.getGameManager().getViewManager()
+					.displayErrorMessage(this.getGameResources().getStringResource("select_second"));
 			return true;
 		}
 
 		if (this.originVertex == vex) {
 			// Undo selection
-			this.getGameManager().getViewManager().displayErrorMessage(this.getGameResources().getStringResource("place"));
-			originVertex.setHighlighted(false);
+			this.getGameManager().getViewManager()
+					.displayErrorMessage(this.getGameResources().getStringResource("place"));
+			this.originVertex.setHighlighted(false);
 			this.originVertex = null;
 			return true;
 		}
@@ -74,54 +91,64 @@ public class TwixT extends Game {
 			SimpleVisualEdge edge = new SimpleVisualEdge(this.originVertex, vex);
 			Graph graph = this.board.getGraph();
 			if (PlanarityCheck.performAlgorithm(graph, edge)) {
-				edge = new SimpleVisualEdge(originVertex, vex);
+				edge = new SimpleVisualEdge(this.originVertex, vex);
 				if (!this.board.addVisualEdge(edge)) {
-					this.getGameManager().getViewManager().displayErrorMessage(this.getGameResources().getStringResource("already_wall"));
-					originVertex.setHighlighted(false);
+					this.getGameManager().getViewManager()
+							.displayErrorMessage(this.getGameResources().getStringResource("already_wall"));
+					this.originVertex.setHighlighted(false);
 					this.originVertex = null;
 					return true;
 				}
-				if (playerOne == this.playerManager.getActivePlayer()) {
-					edge.setStrokeColor(this.playerOneColor);
+				if (this.playerOne == this.playerManager.getActivePlayer()) {
+					edge.setStrokeColor(TwixT.playerOneColor);
 					// Checks if Player One has a path connecting his two
 					// sides
 
-					if (FindPath.performAlgorithm(graph, startVertexOne, endVertexOne)) {
+					if (FindPath.performAlgorithm(graph, this.startVertexOne, this.endVertexOne)) {
 						this.playerManager.setActivePlayerAsWinning();
 						this.getGameManager().finishGame();
 						return true;
 					}
 				} else {
-					edge.setStrokeColor(this.playerTwoColor);
+					edge.setStrokeColor(playerTwoColor);
 					// Checks if Player Two has a path connecting his two
 					// sides
-					if (FindPath.performAlgorithm(graph, startVertexTwo, endVertexTwo)) {
+					if (FindPath.performAlgorithm(graph, this.startVertexTwo, this.endVertexTwo)) {
 						this.playerManager.setActivePlayerAsWinning();
 						this.getGameManager().finishGame();
 						return true;
 					}
 				}
-				this.getGameManager().getViewManager().displayErrorMessage(this.getGameResources().getStringResource("place"));
-				originVertex.setHighlighted(false);
+				this.getGameManager().getViewManager()
+						.displayErrorMessage(this.getGameResources().getStringResource("place"));
+				this.originVertex.setHighlighted(false);
 				this.originVertex = null;
 				this.playerManager.nextPlayer();
 				return true;
 			} else {
-				originVertex.setHighlighted(false);
+				this.originVertex.setHighlighted(false);
 				this.originVertex = null;
-				this.getGameManager().getViewManager().displayErrorMessage(this.getGameResources().getStringResource("intersecting"));
+				this.getGameManager().getViewManager()
+						.displayErrorMessage(this.getGameResources().getStringResource("intersecting"));
 			}
 		} else {
-			originVertex.setHighlighted(false);
+			this.originVertex.setHighlighted(false);
 			this.originVertex = null;
-			this.getGameManager().getViewManager().displayErrorMessage(this.getGameResources().getStringResource("invalid"));
+			this.getGameManager().getViewManager()
+					.displayErrorMessage(this.getGameResources().getStringResource("invalid"));
 		}
 
 		return true;
 	}
 
 	/**
-	 * {@inheritDoc}
+	 * Sets a new {@link TwixTVertex} belonging to the active {@link Player}
+	 * onto the given {@link GridPoint}, if possible.
+	 * 
+	 * @param gridPoint
+	 *            The empty GridPoint that was clicked
+	 * @return <code>true</code> if the action was performed successfully,
+	 *         <code>false</code> otherwise
 	 */
 	@Override
 	protected boolean onEmptyGridPointClick(GridPoint gridPoint) {
@@ -133,9 +160,10 @@ public class TwixT extends Game {
 			addVertex.setPlayer(this.playerManager.getActivePlayer());
 			this.board.addVisualVertex(addVertex);
 			this.playerManager.nextPlayer();
-			this.getGameManager().getViewManager().displayErrorMessage(this.getGameResources().getStringResource("place"));
+			this.getGameManager().getViewManager()
+					.displayErrorMessage(this.getGameResources().getStringResource("place"));
 			if (this.originVertex != null) {
-				originVertex.setHighlighted(false);
+				this.originVertex.setHighlighted(false);
 				this.originVertex = null;
 			}
 			return true;
@@ -160,12 +188,12 @@ public class TwixT extends Game {
 		for (int i = 1; i < this.gridSize - 1; i++) {
 			tmpGridPoint = new GridPoint(i, 0);
 			tmpVertex = new TwixTVertex(tmpGridPoint);
-			tmpVertex.setPlayer(playerOne);
+			tmpVertex.setPlayer(this.playerOne);
 			this.board.addVisualVertex(tmpVertex);
 
 			if (prevVertex != null) {
 				tmpEdge = new SimpleVisualEdge(prevVertex, tmpVertex);
-				tmpEdge.setStrokeColor(this.playerOneColor);
+				tmpEdge.setStrokeColor(playerOneColor);
 				this.board.addVisualEdge(tmpEdge);
 			}
 			prevVertex = tmpVertex;
@@ -176,12 +204,12 @@ public class TwixT extends Game {
 		for (int i = 1; i < this.gridSize - 1; i++) {
 			tmpGridPoint = new GridPoint(i, this.gridSize - 1);
 			tmpVertex = new TwixTVertex(tmpGridPoint);
-			tmpVertex.setPlayer(playerOne);
+			tmpVertex.setPlayer(this.playerOne);
 			this.board.addVisualVertex(tmpVertex);
 
 			if (prevVertex != null) {
 				tmpEdge = new SimpleVisualEdge(prevVertex, tmpVertex);
-				tmpEdge.setStrokeColor(this.playerOneColor);
+				tmpEdge.setStrokeColor(playerOneColor);
 				this.board.addVisualEdge(tmpEdge);
 			}
 			prevVertex = tmpVertex;
@@ -192,12 +220,12 @@ public class TwixT extends Game {
 		for (int i = 1; i < this.gridSize - 1; i++) {
 			tmpGridPoint = new GridPoint(0, i);
 			tmpVertex = new TwixTVertex(tmpGridPoint);
-			tmpVertex.setPlayer(playerTwo);
+			tmpVertex.setPlayer(this.playerTwo);
 			this.board.addVisualVertex(tmpVertex);
 
 			if (prevVertex != null) {
 				tmpEdge = new SimpleVisualEdge(prevVertex, tmpVertex);
-				tmpEdge.setStrokeColor(this.playerTwoColor);
+				tmpEdge.setStrokeColor(playerTwoColor);
 				this.board.addVisualEdge(tmpEdge);
 			}
 			prevVertex = tmpVertex;
@@ -208,12 +236,12 @@ public class TwixT extends Game {
 		for (int i = 1; i < this.gridSize - 1; i++) {
 			tmpGridPoint = new GridPoint(this.gridSize - 1, i);
 			tmpVertex = new TwixTVertex(tmpGridPoint);
-			tmpVertex.setPlayer(playerTwo);
+			tmpVertex.setPlayer(this.playerTwo);
 			this.board.addVisualVertex(tmpVertex);
 
 			if (prevVertex != null) {
 				tmpEdge = new SimpleVisualEdge(prevVertex, tmpVertex);
-				tmpEdge.setStrokeColor(this.playerTwoColor);
+				tmpEdge.setStrokeColor(playerTwoColor);
 				this.board.addVisualEdge(tmpEdge);
 			}
 			prevVertex = tmpVertex;
@@ -227,14 +255,14 @@ public class TwixT extends Game {
 	 */
 	@Override
 	protected boolean onGameStart() {
-		
+
 		String turnMessage;
-		if (this.getGameManager().getPlayerManager().getActivePlayer() == playerOne) {
+		if (this.getGameManager().getPlayerManager().getActivePlayer() == this.playerOne) {
 			turnMessage = this.getGameResources().getStringResource("pink_turn");
 		} else {
 			turnMessage = this.getGameResources().getStringResource("green_turn");
 		}
-		
+
 		this.getGameManager().getViewManager().displayErrorMessage(turnMessage);
 
 		return true;
@@ -247,37 +275,31 @@ public class TwixT extends Game {
 	protected boolean onGameLoad(HashMap<Integer, Object> customValues) {
 		this.initFields();
 
-		startVertexOne = (TwixTVertex) this.board.getGrid().getVisualVertexAtGridPoint(
+		this.startVertexOne = (TwixTVertex) this.board.getGrid().getVisualVertexAtGridPoint(
 				new GridPoint(this.gridSize - 2, 0));
-		endVertexOne = (TwixTVertex) this.board.getGrid().getVisualVertexAtGridPoint(
+		this.endVertexOne = (TwixTVertex) this.board.getGrid().getVisualVertexAtGridPoint(
 				new GridPoint(this.gridSize - 2, this.gridSize - 1));
-		startVertexTwo = (TwixTVertex) this.board.getGrid().getVisualVertexAtGridPoint(
+		this.startVertexTwo = (TwixTVertex) this.board.getGrid().getVisualVertexAtGridPoint(
 				new GridPoint(0, this.gridSize - 2));
-		endVertexTwo = (TwixTVertex) this.board.getGrid().getVisualVertexAtGridPoint(
+		this.endVertexTwo = (TwixTVertex) this.board.getGrid().getVisualVertexAtGridPoint(
 				new GridPoint(this.gridSize - 1, this.gridSize - 2));
 
 		// Refresh vertices... -.-"
-		for (Vertex vtex : board.getGraph().getVertices()) {
+		for (Vertex vtex : this.board.getGraph().getVertices()) {
 			((TwixTVertex) vtex).update();
 		}
-		
+
 		return true;
 	}
 
 	private void initFields() {
 		this.originVertex = null;
 		this.playerManager = this.getGameManager().getPlayerManager();
-		playerOne = this.playerManager.getPlayers().get(0);
-		playerTwo = this.playerManager.getPlayers().get(1);
+		this.playerOne = this.playerManager.getPlayers().get(0);
+		this.playerTwo = this.playerManager.getPlayers().get(1);
 
-		TwixTVertex.initImages(playerOne, this.getGameResources().getImageRessource(playerOneImgFile), playerTwo, this
-				.getGameResources().getImageRessource(playerTwoImgFile));
-		
-		
-		
-		
-		
-		
+		TwixTVertex.initImages(this.playerOne, this.getGameResources().getImageRessource(playerOneImgFile),
+				this.playerTwo, this.getGameResources().getImageRessource(playerTwoImgFile));
 
 		this.board = this.getGameManager().getGameBoard();
 
@@ -287,7 +309,7 @@ public class TwixT extends Game {
 	}
 
 	/**
-	 * Checks if the target Vertex has the right distance to the originVertex
+	 * Checks if the target Vertex has the right distance to the originVertex.
 	 * 
 	 * @param targetVertex
 	 *            The target vertex
@@ -300,7 +322,7 @@ public class TwixT extends Game {
 		int x2 = targetVertex.getGridPoint().getPositionX();
 		int y2 = targetVertex.getGridPoint().getPositionY();
 
-		return ((Math.abs(x1 - x2) == 2 && Math.abs(y1 - y2) == 1) || (Math.abs(x1 - x2) == 1 && Math.abs(y1 - y2) == 2));
+		return (Math.abs(x1 - x2) == 2 && Math.abs(y1 - y2) == 1) || (Math.abs(x1 - x2) == 1 && Math.abs(y1 - y2) == 2);
 	}
 
 	/**
