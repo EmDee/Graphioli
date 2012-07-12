@@ -32,7 +32,7 @@ import java.util.logging.Logger;
  * model and the view. Any communication between model, view and controller will
  * be managed by the GameManager.
  * 
- * @author Graphioli
+ * @author Team Graphioli
  */
 public final class GameManager {
 

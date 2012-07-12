@@ -9,7 +9,7 @@ import java.util.UUID;
 /**
  * This class represents a player.
  * 
- * @author Graphioli
+ * @author Team Graphioli
  */
 public abstract class Player implements Serializable {
 

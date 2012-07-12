@@ -17,7 +17,7 @@ import java.util.logging.Logger;
  * The GameExplorer lists the available games and enables the user to select and
  * start one of it.
  * 
- * @author Graphioli
+ * @author Team Graphioli
  */
 public class GameExplorer {
 

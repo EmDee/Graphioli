@@ -8,7 +8,7 @@ import java.util.logging.Logger;
 /**
  * This class represents the logical graph.
  * 
- * @author Graphioli
+ * @author Team Graphioli
  */
 public class Graph implements Serializable {
 

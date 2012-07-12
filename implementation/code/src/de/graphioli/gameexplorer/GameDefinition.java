@@ -9,7 +9,7 @@ import java.util.ArrayList;
  * This class represents the game’s definition, containing crucial information
  * that is needed to start a {@link Game}.
  * 
- * @author Graphioli
+ * @author Team Graphioli
  */
 public final class GameDefinition implements Serializable {
 

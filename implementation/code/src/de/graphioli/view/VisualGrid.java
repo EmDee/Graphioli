@@ -13,7 +13,7 @@ import java.awt.event.MouseListener;
  * This class handles mouse input, serves as a connector between {@link Grid}
  * and display and handles the size of the drawn {@link VisualVertex}.
  * 
- * @author Graphioli
+ * @author Team Graphioli
  */
 public class VisualGrid implements MouseListener {
 

@@ -20,7 +20,7 @@ import javax.swing.JPanel;
 /**
  * This class represents the canvas where the {@link Graph} will be drawn on.
  * 
- * @author Graphioli
+ * @author Team Graphioli
  */
 public class GraphCanvas extends JPanel {
 

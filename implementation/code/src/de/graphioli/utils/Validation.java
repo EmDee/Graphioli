@@ -5,7 +5,7 @@ import de.graphioli.model.GridPoint;
 /**
  * This class provides static methods for checking the validity of given values.
  * 
- * @author Graphioli
+ * @author Team Graphioli
  */
 public final class Validation {
 

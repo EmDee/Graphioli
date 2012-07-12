@@ -7,7 +7,7 @@ import java.io.Serializable;
 /**
  * This class represents the grid, on which the {@link Graph} will be located.
  * 
- * @author Graphioli
+ * @author Team Graphioli
  */
 public class Grid implements Serializable {
 

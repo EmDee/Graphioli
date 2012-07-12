@@ -11,7 +11,7 @@ import java.util.logging.LogRecord;
  * This class is used by the {@link GraphioliLogger} to generate HTML formatted
  * log messages.
  * 
- * @author Graphioli
+ * @author Team Graphioli
  */
 public class GraphioliLogFormatter extends Formatter {
 

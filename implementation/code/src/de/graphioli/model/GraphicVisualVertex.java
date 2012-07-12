@@ -11,7 +11,7 @@ import java.util.logging.Logger;
 /**
  * This class represents a {@link VisualVertex} with a custom icon.
  * 
- * @author Graphioli
+ * @author Team Graphioli
  */
 public class GraphicVisualVertex extends VisualVertex {
 

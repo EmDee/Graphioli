@@ -5,7 +5,7 @@ import java.io.Serializable;
 /**
  * This class represents a logical {@link Edge}.
  * 
- * @author Graphioli
+ * @author Team Graphioli
  */
 public class Edge implements Serializable {
 	

@@ -378,7 +378,7 @@ public class GameWindow extends JFrame implements View {
 	/**
 	 * Listens for closing attempts performed by the main GameWindow.
 	 * 
-	 * @author Graphioli
+	 * @author Team Graphioli
 	 */
 	private class CloseListener extends WindowAdapter {
 

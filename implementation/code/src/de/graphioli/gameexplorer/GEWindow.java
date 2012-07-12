@@ -24,7 +24,7 @@ import javax.swing.ListSelectionModel;
 /**
  * This class represents the main window of the {@link GameExplorer}.
  * 
- * @author Graphioli
+ * @author Team Graphioli
  */
 public class GEWindow extends JFrame implements GEView {
 

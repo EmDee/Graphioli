@@ -16,7 +16,7 @@ import java.util.logging.Logger;
  * and the other parts of the framework. It pushes update notifications to the
  * view and receives user input from it.
  * 
- * @author Graphioli
+ * @author Team Graphioli
  */
 public class ViewManager {
 

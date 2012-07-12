@@ -11,7 +11,7 @@ import javax.swing.JPanel;
  * This class represents the button panel in the main window of the
  * {@link GameExplorer}.
  * 
- * @author Graphioli
+ * @author Team Graphioli
  */
 public class GEButtonPanel extends JPanel implements ActionListener {
 

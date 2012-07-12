@@ -16,7 +16,7 @@ import javax.swing.JOptionPane;
  * Represents a pop-up window that is used to select the the number of players
  * and their names for a {@link Game}.
  * 
- * @author Graphioli
+ * @author Team Graphioli
  */
 public class PlayerPopUp extends JFrame {
 

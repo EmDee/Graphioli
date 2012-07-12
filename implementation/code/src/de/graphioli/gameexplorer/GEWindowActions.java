@@ -14,7 +14,7 @@ import javax.swing.event.ListSelectionListener;
 /**
  * This class handles the action and event listeners for the GEWindow.
  * 
- * @author Graphioli
+ * @author Team Graphioli
  */
 public class GEWindowActions extends WindowAdapter implements ListSelectionListener, KeyListener, MouseListener {
 

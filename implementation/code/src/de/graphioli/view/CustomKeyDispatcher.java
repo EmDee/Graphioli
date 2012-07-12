@@ -6,7 +6,7 @@ import java.awt.event.KeyEvent;
 /**
  * This class handles the keyboard input.
  * 
- * @author Graphioli
+ * @author Team Graphioli
  */
 public class CustomKeyDispatcher implements KeyEventDispatcher {
 

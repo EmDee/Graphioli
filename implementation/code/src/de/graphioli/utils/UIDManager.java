@@ -7,7 +7,7 @@ import java.util.UUID;
  * This class is responsible for creating unique identifications (IDs) by using
  * the java.util.UUID package.
  * 
- * @author Graphioli
+ * @author Team Graphioli
  */
 public final class UIDManager {
 

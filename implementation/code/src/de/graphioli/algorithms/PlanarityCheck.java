@@ -8,7 +8,7 @@ import de.graphioli.model.VisualVertex;
  * This class checks if a newly added edge makes the drawing of the graph
  * unplanar.
  * 
- * @author Graphioli
+ * @author Team Graphioli
  */
 public final class PlanarityCheck {
 
