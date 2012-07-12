@@ -1,5 +1,6 @@
 package de.graphioli.view;
 
+import de.graphioli.gameexplorer.GameDefinition;
 import de.graphioli.model.MenuItem;
 import de.graphioli.utils.GameFileDialog;
 import de.graphioli.utils.Localization;
@@ -87,9 +88,9 @@ public class MenuBar extends JMenuBar implements ActionListener {
 		JMenuItem sourceItem = (JMenuItem) event.getSource();
 
 		if (sourceItem.equals(this.saveItem)) {
-			saveGame();
+			this.saveGame();
 		} else if (sourceItem.equals(this.loadItem)) {
-			loadGame();
+			this.loadGame();
 		} else if (sourceItem.equals(this.quitItem)) {
 			this.parentGameWindow.closeGame();
 		} else if (sourceItem.equals(this.helpItem)) {
@@ -141,6 +142,13 @@ public class MenuBar extends JMenuBar implements ActionListener {
 
 		this.saveItem = new JMenuItem(Localization.getLanguageString("menu_item_save"));
 		this.loadItem = new JMenuItem(Localization.getLanguageString("menu_item_load"));
+
+		GameDefinition currentGameDefinition = this.parentGameWindow.getViewManager().getGameManager().getCurrentGameDefinition();
+		if (!currentGameDefinition.supportsSavegames()) {
+			this.saveItem.setEnabled(false);
+			this.loadItem.setEnabled(false);
+		}
+
 		this.quitItem = new JMenuItem(Localization.getLanguageString("menu_item_quit"));
 		this.helpItem = new JMenuItem(Localization.getLanguageString("menu_item_help"));
 		this.restartItem = new JMenuItem(Localization.getLanguageString("menu_item_restart"));

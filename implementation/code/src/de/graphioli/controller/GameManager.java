@@ -384,6 +384,14 @@ public final class GameManager {
 	}
 
 	/**
+	 * Returns the current {@link GameDefinition}.
+	 * @return the current GameDefinition
+	 */
+	public GameDefinition getCurrentGameDefinition() {
+		return this.currentGameDefinition;
+	}
+
+	/**
 	 * Starts the game specified by the {@link GameDefinition}.
 	 * 
 	 * @param gameDefinition
