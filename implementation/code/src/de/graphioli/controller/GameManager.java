@@ -216,7 +216,6 @@ public final class GameManager {
 			capsule = (GameCapsule) in.readObject();
 			in.close();
 			LOG.info("Loaded GameCapsule from File: " + savegame.getName());
-
 		} catch (FileNotFoundException e) {
 			LOG.severe("FileNotFoundException: " + e.getMessage());
 			e.printStackTrace();
@@ -232,7 +231,7 @@ public final class GameManager {
 		}
 
 		if (!capsule.getGameDefinition().equals(this.currentGameDefinition)) {
-			this.viewManager.displayPopUp(Localization.getLanguageString("savegeme_not_compatible"));
+			this.viewManager.displayPopUp(Localization.getLanguageString("savegame_not_compatible"));
 			return true;
 		}
 
@@ -426,11 +425,16 @@ public final class GameManager {
 
 		this.game.registerController(this, new GameResources(gameDefinition.getClassName()));
 
-		if (!runGame()) {
+		if (!this.runGame()) {
 			this.viewManager.displayPopUp(Localization.getLanguageString("init_err"));
 			this.closeGame();
 		}
 
+		return true;
+	}
+
+	public boolean startGame(File savegame) {
+		
 		return true;
 	}
 
@@ -443,6 +447,9 @@ public final class GameManager {
 	 *            The list of players for this game
 	 */
 	private void initializeFramework(GameDefinition gameDefinition, ArrayList<Player> players) {
+
+		this.currentGameDefinition = gameDefinition;
+
 		// Create GameBoard
 		this.gameBoard = new GameBoard(gameDefinition.isDirectedGraph(), gameDefinition.getHorizontalGridPointCount(),
 				gameDefinition.getVerticalGridPointCount());
@@ -461,7 +468,6 @@ public final class GameManager {
 
 		this.playerManager.initializePlayers();
 
-		this.currentGameDefinition = gameDefinition;
 	}
 
 	/**
