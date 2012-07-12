@@ -28,12 +28,14 @@ public final class GameFileDialog {
 	/**
 	 * Displays a load game dialog.
 	 * 
-	 * @param gameName The name of the game to load
-	 * @param parentWindow The parent window for the dialog
+	 * @param gameName
+	 *            The name of the game to load
+	 * @param parentWindow
+	 *            The parent window for the dialog
 	 * @return The game file to load
 	 */
 	public static File loadGame(String gameName, JFrame parentWindow) {
-		
+
 		JFileChooser fc = new JFileChooser(new File("games/" + gameName + "/"));
 		SaveGameFilter filter = new SaveGameFilter();
 		fc.setFileFilter(filter);
@@ -50,8 +52,10 @@ public final class GameFileDialog {
 	/**
 	 * Displays a save game dialog.
 	 * 
-	 * @param gameName The name of the game to save
-	 * @param parentWindow The parent window for the dialog
+	 * @param gameName
+	 *            The name of the game to save
+	 * @param parentWindow
+	 *            The parent window for the dialog
 	 * @return The file to save the game
 	 */
 	public static File saveGame(String gameName, JFrame parentWindow) {
@@ -70,7 +74,7 @@ public final class GameFileDialog {
 				fileToSave = fc.getSelectedFile();
 				String filePath = fileToSave.getAbsolutePath();
 
-				if (filePath.endsWith(SAVE_FILE_EXT)) {
+				if (!filePath.endsWith(SAVE_FILE_EXT)) {
 
 					int seperatorIndex = filePath.lastIndexOf('.');
 
@@ -79,23 +83,20 @@ public final class GameFileDialog {
 					} else {
 						filePath = filePath.substring(0, seperatorIndex) + SAVE_FILE_EXT;
 					}
+				}
 
-					fileToSave = new File(filePath);
+				fileToSave = new File(filePath);
 
-					if (fileToSave.exists()) {
-						int confirmChoice = JOptionPane.showConfirmDialog(parentWindow,
-								Localization.getLanguageString("file_dialog_confirm_overwrite"),
-								parentWindow.getTitle(),
-								JOptionPane.YES_NO_OPTION);
+				if (fileToSave.exists()) {
+					int confirmChoice = JOptionPane.showConfirmDialog(parentWindow,
+							Localization.getLanguageString("file_dialog_confirm_overwrite"), parentWindow.getTitle(),
+							JOptionPane.YES_NO_OPTION);
 
-						// confirmChoice == 0: Yes
-						// confirmChoice == 1: No
-						if (confirmChoice == 0) {
-							fileChosen = true;
-						}
-					} else {
-						fileChosen = true;
-					}
+					// confirmChoice == 0: Yes
+					// confirmChoice == 1: No
+					fileChosen = confirmChoice == 0;
+				} else {
+					fileChosen = true;
 				}
 			} else {
 				return null;
