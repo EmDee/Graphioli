@@ -30,12 +30,6 @@ public abstract class VisualVertex extends Vertex {
 	 * Log instance.
 	 */
 	private static final Logger LOG = Logger.getLogger(VisualVertex.class.getName());
-
-	/**
-	 * The default color value for a {@link VisualVertex}.
-	 */
-	private static final int DEFAULT_COLOR = 255;
-	
 	
 	/**
 	 * The image cache of this visual vertex.
@@ -130,8 +124,7 @@ public abstract class VisualVertex extends Vertex {
 	 */
 	private void clearBufferedImage() {
 		Graphics2D g2d = this.bufferedImage.createGraphics();
-		g2d.setBackground(new Color(VisualVertex.DEFAULT_COLOR, VisualVertex.DEFAULT_COLOR, VisualVertex.DEFAULT_COLOR,
-				0));
+		g2d.setBackground(new Color(255, 255, 255, 0));
 		g2d.clearRect(0, 0, PIXELS_PER_SIDE, PIXELS_PER_SIDE);
 	}
 
