@@ -75,13 +75,11 @@ public class GameBoardTest {
 		
 		assertFalse(undirectedBoard.addVisualEdge(opEdge));
 		opEdge = undirectedBoard.getVisualEdge(vtexTwo, vtexOne);
-		assertNotNull(opEdge);
+
+		assertEquals(edge, opEdge);
 		
-		assertTrue(opEdge.isOpposingEdge());
-		assertFalse(opEdge.hasOpposingEdge());
-		
-		assertEquals(vtexOne.getIncomingEdges().get(0), opEdge);
-		assertEquals(vtexTwo.getOutgoingEdges().get(0), opEdge);	
+		assertEquals(vtexOne.getIncomingEdges().size(), 1);
+		assertEquals(vtexTwo.getOutgoingEdges().size(), 1);	
 		
 		undirectedBoard.flush();
 	}
@@ -124,18 +122,156 @@ public class GameBoardTest {
 	}
 
 	@Test
-	public void testGetVisualEdge() {
-		fail("Not yet implemented");
+	public void testGetVisualEdgeDirected() {
+		VisualVertex vtexOne = new SimpleVisualVertex(new GridPoint(1, 1));
+		VisualVertex vtexTwo = new SimpleVisualVertex(new GridPoint(2, 2));
+		
+		VisualEdge edge = new SimpleVisualEdge(vtexOne, vtexTwo);
+		
+		assertNull(directedBoard.getVisualEdge(vtexOne, vtexTwo));	
+		directedBoard.addVisualVertex(vtexOne);
+		assertNull(directedBoard.getVisualEdge(vtexOne, vtexTwo));
+		directedBoard.addVisualVertex(vtexTwo);	
+		assertNull(directedBoard.getVisualEdge(vtexOne, vtexTwo));
+		
+		directedBoard.addVisualEdge(edge);
+		
+		assertEquals(directedBoard.getVisualEdge(vtexOne, vtexTwo), edge);
+		assertNull(directedBoard.getVisualEdge(vtexTwo, vtexOne));
+		
+		directedBoard.flush();
+	}
+	
+	@Test
+	public void testGetVisualEdgeUnirected() {
+		VisualVertex vtexOne = new SimpleVisualVertex(new GridPoint(1, 1));
+		VisualVertex vtexTwo = new SimpleVisualVertex(new GridPoint(2, 2));
+		
+		VisualEdge edge = new SimpleVisualEdge(vtexOne, vtexTwo);
+		
+		assertNotNull(undirectedBoard);
+		assertNull(undirectedBoard.getVisualEdge(vtexOne, vtexTwo));	
+		undirectedBoard.addVisualVertex(vtexOne);
+		assertNull(undirectedBoard.getVisualEdge(vtexOne, vtexTwo));
+		undirectedBoard.addVisualVertex(vtexTwo);	
+		assertNull(undirectedBoard.getVisualEdge(vtexOne, vtexTwo));
+		
+		assertTrue(undirectedBoard.addVisualEdge(edge));
+		
+		assertEquals(undirectedBoard.getVisualEdge(vtexOne, vtexTwo), edge);
+		assertNotNull(undirectedBoard.getVisualEdge(vtexTwo, vtexOne));
+		
+		undirectedBoard.flush();
 	}
 
 	@Test
-	public void testRemoveVisualEdge() {
-		fail("Not yet implemented");
+	public void testRemoveVisualEdgeDirected() {
+		VisualVertex vtexOne = new SimpleVisualVertex(new GridPoint(1, 1));
+		VisualVertex vtexTwo = new SimpleVisualVertex(new GridPoint(2, 2));
+		
+		VisualEdge edge = new SimpleVisualEdge(vtexOne, vtexTwo);
+		
+		directedBoard.addVisualVertex(vtexOne);
+		directedBoard.addVisualVertex(vtexTwo);	
+		
+		assertFalse(directedBoard.removeVisualEdge(edge));
+		
+		directedBoard.addVisualEdge(edge);
+		
+		assertTrue(directedBoard.removeVisualEdge(edge));
+		assertFalse(directedBoard.removeVisualEdge(edge));
+		
+		assertNull(directedBoard.getVisualEdge(vtexOne, vtexTwo));
+		
+		assertEquals(vtexOne.getOutgoingEdges().size(), 0);
+		assertEquals(vtexTwo.getIncomingEdges().size(), 0);		
+
+		directedBoard.flush();
+	}
+	
+	@Test
+	public void testRemoveVisualEdgeUndirected() {
+		VisualVertex vtexOne = new SimpleVisualVertex(new GridPoint(1, 1));
+		VisualVertex vtexTwo = new SimpleVisualVertex(new GridPoint(2, 2));
+		
+		VisualEdge edge = new SimpleVisualEdge(vtexOne, vtexTwo);
+		VisualEdge opEdge = new SimpleVisualEdge(vtexTwo, vtexOne);
+		
+		undirectedBoard.addVisualVertex(vtexOne);
+		undirectedBoard.addVisualVertex(vtexTwo);	
+		
+		assertFalse(undirectedBoard.removeVisualEdge(edge));
+		
+		undirectedBoard.addVisualEdge(edge);
+		
+		assertTrue(undirectedBoard.removeVisualEdge(edge));
+		assertFalse(undirectedBoard.removeVisualEdge(edge));
+		
+		assertEquals(vtexOne.getOutgoingEdges().size(), 0);
+		assertEquals(vtexTwo.getIncomingEdges().size(), 0);	
+		assertEquals(vtexOne.getIncomingEdges().size(), 0);
+		assertEquals(vtexTwo.getOutgoingEdges().size(), 0);	
+		
+		undirectedBoard.addVisualEdge(opEdge);
+		
+		assertTrue(undirectedBoard.removeVisualEdge(edge));
+		assertFalse(undirectedBoard.removeVisualEdge(edge));
+		assertFalse(undirectedBoard.removeVisualEdge(opEdge));
+		
+		assertNull(undirectedBoard.getVisualEdge(vtexOne, vtexTwo));
+		assertNull(undirectedBoard.getVisualEdge(vtexTwo, vtexOne));
+		
+		assertEquals(vtexOne.getOutgoingEdges().size(), 0);
+		assertEquals(vtexTwo.getIncomingEdges().size(), 0);	
+		assertEquals(vtexOne.getIncomingEdges().size(), 0);
+		assertEquals(vtexTwo.getOutgoingEdges().size(), 0);	
+
+		undirectedBoard.flush();
 	}
 
 	@Test
-	public void testRemoveVisualVertex() {
-		fail("Not yet implemented");
+	public void testRemoveVisualVertexDirected() {
+		VisualVertex vtexOne = new SimpleVisualVertex(new GridPoint(1, 1));
+		VisualVertex vtexTwo = new SimpleVisualVertex(new GridPoint(2, 2));
+		
+		VisualEdge edge = new SimpleVisualEdge(vtexOne, vtexTwo);
+		
+		directedBoard.addVisualVertex(vtexOne);
+		
+		assertFalse(directedBoard.removeVisualVertex(vtexTwo));
+		
+		directedBoard.addVisualVertex(vtexTwo);			
+		directedBoard.addVisualEdge(edge);
+		
+		assertTrue(directedBoard.removeVisualVertex(vtexTwo));
+		assertFalse(directedBoard.removeVisualVertex(vtexTwo));
+		
+		assertEquals(vtexOne.getOutgoingEdges().size(), 0);
+		
+		directedBoard.flush();		
+	}
+	
+	@Test
+	public void testRemoveVisualVertexUndirected() {
+		VisualVertex vtexOne = new SimpleVisualVertex(new GridPoint(1, 1));
+		VisualVertex vtexTwo = new SimpleVisualVertex(new GridPoint(2, 2));
+		
+		VisualEdge edge = new SimpleVisualEdge(vtexOne, vtexTwo);
+		
+		undirectedBoard.addVisualVertex(vtexOne);
+		
+		assertFalse(undirectedBoard.removeVisualVertex(vtexTwo));
+		
+		undirectedBoard.addVisualVertex(vtexTwo);			
+		undirectedBoard.addVisualEdge(edge);
+		
+		assertTrue(undirectedBoard.removeVisualVertex(vtexTwo));
+		assertFalse(undirectedBoard.removeVisualVertex(vtexTwo));
+		
+		assertEquals(vtexOne.getOutgoingEdges().size(), 0);
+		assertEquals(vtexOne.getIncomingEdges().size(), 0);
+		
+		undirectedBoard.flush();
 	}
 
 }
