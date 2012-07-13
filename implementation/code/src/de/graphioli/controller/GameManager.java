@@ -35,6 +35,7 @@ import java.util.logging.Logger;
  * @author Team Graphioli
  */
 public final class GameManager {
+	// Checkstyle warning: More than 20 classes (22). Don't think there is a sensible way to fix that.
 
 	/**
 	 * Logging instance.
@@ -228,8 +229,6 @@ public final class GameManager {
 		}
 
 		if (!capsule.getGameDefinition().getClassName().equalsIgnoreCase(this.currentGameDefinition.getClassName())) {
-			System.out.println(this.currentGameDefinition.getClassName());
-			System.out.println(capsule.getGameDefinition().getClassName());
 			this.viewManager.displayPopUp(Localization.getLanguageString("savegame_not_compatible"));
 			return true;
 		}
