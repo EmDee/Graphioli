@@ -85,7 +85,7 @@ public class GraphCanvas extends JPanel {
 	 * @return <code>true</code> if the action was performed successfully,
 	 *         <code>false</code> otherwise
 	 */
-	public boolean updateCanvas() {
+	boolean updateCanvas() {
 		this.clearBufferedImage();
 		this.drawBoard();
 		this.repaint();

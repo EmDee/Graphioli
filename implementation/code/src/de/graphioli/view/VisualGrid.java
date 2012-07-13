@@ -33,12 +33,6 @@ public class VisualGrid implements MouseListener {
 	private Grid grid;
 
 	/**
-	 * The size of the {@link VisualVertex}es displayed in the
-	 * {@link GraphCanvas}.
-	 */
-	private int visualVertexSize;
-
-	/**
 	 * The distance of two {@link GridPoint}s in the {@link GraphCanvas}.
 	 */
 	private int gridScale;
@@ -50,7 +44,7 @@ public class VisualGrid implements MouseListener {
 	 *            The {@link GameWindow} that contains the {@link GraphCanvas}
 	 *            to this {@link VisualGrid}
 	 */
-	public VisualGrid(GameWindow parentGameWindow) {
+	VisualGrid(GameWindow parentGameWindow) {
 		this.parentGameWindow = parentGameWindow;
 		this.grid = this.parentGameWindow.getViewManager().getGameManager().getGameBoard().getGrid();
 		// default gridScale based on VertexSize for now
@@ -58,11 +52,49 @@ public class VisualGrid implements MouseListener {
 	}
 
 	/**
+	 * Invoked if the mouse button has been clicked, calls parseCoordinates(int
+	 * xCoord, int yCoord) and forwards the selected {@link GridPoint} to its
+	 * parent {@link GameWindow}.
+	 * 
+	 * @param event
+	 *            The {@link MouseEvent} containing the coordinates of the mouse
+	 *            click
+	 */
+	@Override
+	public void mouseClicked(MouseEvent event) {
+		GridPoint gridPointClicked = this.parseCoordinates(event.getX(), event.getY());
+		if (gridPointClicked != null) {
+			this.parentGameWindow.getViewManager().onGridPointClick(gridPointClicked);
+		}
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent arg0) {
+		// Not needed
+	}
+	
+	@Override
+	public void mouseExited(MouseEvent arg0) {
+		// Not needed
+	}
+
+	@Override
+	public void mousePressed(MouseEvent arg0) {
+		// Not needed
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent arg0) {
+		// Not needed
+	}
+	
+	
+	/**
 	 * Calculates the size of this grid.
 	 * 
 	 * @return the size in pixels.
 	 */
-	public Dimension calculateSize() {
+	Dimension calculateSize() {
 		int xCoord = (this.grid.getHorizontalGridPoints() + 1) * this.gridScale;
 		int yCoord = (this.grid.getVerticalGridPoints() + 1) * this.gridScale;
 				
@@ -75,7 +107,7 @@ public class VisualGrid implements MouseListener {
 	 * @param g2d
 	 *            the Graphics object to draw this grid on.
 	 */
-	public void draw(Graphics2D g2d) {
+	void draw(Graphics2D g2d) {
 		// Drawing grid
 		int xScaled;
 		int yScaled;
@@ -95,13 +127,13 @@ public class VisualGrid implements MouseListener {
 			g2d.drawLine(0, yScaled, width, yScaled);
 		}
 	}
-	
+
 	/**
 	 * Returns the {@link Grid} associated with the {@link VisualGrid}.
 	 * 
 	 * @return Grid The of this
 	 */
-	public Grid getGrid() {
+	Grid getGrid() {
 		return this.grid;
 	}
 
@@ -110,55 +142,8 @@ public class VisualGrid implements MouseListener {
 	 * 
 	 * @return The gridScale
 	 */
-	public int getGridScale() {
+	int getGridScale() {
 		return this.gridScale;
-	}
-
-	/**
-	 * Returns the size of the displayed {@link VisualVertex}es.
-	 * 
-	 * @return size The size of the vertices
-	 */
-	public int getVisualVertexSize() {
-		return this.visualVertexSize;
-	}
-
-	/**
-	 * Invoked if the mouse button has been clicked, calls parseCoordinates(int
-	 * xCoord, int yCoord) and forwards the selected {@link GridPoint} to its
-	 * parent {@link GameWindow}.
-	 * 
-	 * @param event
-	 *            The {@link MouseEvent} containing the coordinates of the mouse
-	 *            click
-	 */
-	@Override
-	public void mouseClicked(MouseEvent event) {
-		GridPoint gridPointClicked = this.parseCoordinates(event.getX(), event.getY());
-		if (gridPointClicked != null) {
-			this.parentGameWindow.getViewManager().onGridPointClick(gridPointClicked);
-		}
-	}
-	
-	
-	@Override
-	public void mouseEntered(MouseEvent arg0) {
-		// Not needed
-	}
-
-	@Override
-	public void mouseExited(MouseEvent arg0) {
-		// Not needed
-	}
-
-	@Override
-	public void mousePressed(MouseEvent arg0) {
-		// Not needed
-	}
-
-	@Override
-	public void mouseReleased(MouseEvent arg0) {
-		// Not needed
 	}
 
 	/**
@@ -172,7 +157,7 @@ public class VisualGrid implements MouseListener {
 	 * @return GridPoint The {@link GridPoint} to the responsible mouse click
 	 *         coordinates
 	 */
-	public GridPoint parseCoordinates(int xCoord, int yCoord) {
+	GridPoint parseCoordinates(int xCoord, int yCoord) {
 		int xpos = Math.round((xCoord - VisualVertex.PIXELS_PER_SIDE / 2) / this.gridScale) + 1;
 		int ypos = Math.round((yCoord - VisualVertex.PIXELS_PER_SIDE / 2) / this.gridScale) + 1;
 		if (((xpos * this.gridScale + VisualVertex.PIXELS_PER_SIDE / 2) > xCoord)
@@ -182,20 +167,6 @@ public class VisualGrid implements MouseListener {
 			return new GridPoint(xpos - 1, ypos - 1);
 		}
 		return null;
-	}
-
-	/**
-	 * Sets the size of the displayed {@link VisualVertex}es up to a
-	 * {@link Grid} specific maximum value.
-	 * 
-	 * @param size
-	 *            The size of the vertices
-	 * @return <code>true</code> if the action was performed successfully,
-	 *         <code>false</code> otherwise
-	 */
-	public boolean setVisualVertexSize(int size) {
-		this.visualVertexSize = size;
-		return true;
 	}
 
 }
