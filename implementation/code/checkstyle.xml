@@ -116,6 +116,7 @@
     <module name="EqualsHashCode"/>
     <module name="FallThrough"/>
     <module name="MagicNumber">
+      <property name="ignoreNumbers" value="-1, 0, 1, 2, 255"/>
       <property name="ignoreHashCodeMethod" value="true"/>
     </module>
     <module name="ModifiedControlVariable"/>
