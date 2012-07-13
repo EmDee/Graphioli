@@ -131,6 +131,7 @@ public final class GameManager {
 	 */
 	public boolean closeGame() {
 		LOG.info("Closing game.");
+		this.game = null;
 		this.viewManager.closeView();
 		this.openGameExplorer();
 		return true;
@@ -230,7 +231,7 @@ public final class GameManager {
 
 		if (!capsule.getGameDefinition().getClassName().equalsIgnoreCase(this.currentGameDefinition.getClassName())) {
 			this.viewManager.displayPopUp(Localization.getLanguageString("savegame_not_compatible"));
-			return true;
+			return false;
 		}
 
 		// Recreating game data
@@ -254,6 +255,7 @@ public final class GameManager {
 		} catch (TimeoutException e) {
 			this.viewManager.displayPopUp(Localization.getLanguageString("timeout_err"));
 			this.closeGame();
+			return false;
 		}
 
 		this.viewManager.updatePlayerStatus(this.playerManager.getActivePlayer());
@@ -456,6 +458,7 @@ public final class GameManager {
 		} catch (InvalidJarException ije) {
 			LOG.severe("Jar of \"" + gameDefinition.getClassName() + "\" corrupted : " + ije.getMessage());
 			this.viewManager.displayPopUp(Localization.getLanguageString("jar_err"));
+			this.closeGame();
 			return false;
 		}
 
@@ -464,15 +467,23 @@ public final class GameManager {
 			this.game = (Game) classToLoad.newInstance();
 		} catch (InstantiationException e) {
 			LOG.severe("InstantiationException: " + e.getMessage());
+			this.closeGame();
 			return false;
 		} catch (IllegalAccessException e) {
+			this.closeGame();
 			LOG.severe("IllegalAccessException: " + e.getMessage());
 			return false;
 		}
 
 		this.game.registerController(this, new GameResources(gameDefinition.getClassName()));
 
-		return this.loadGame(savegame);
+		if (!this.loadGame(savegame)) {
+			this.closeGame();
+			return false;
+		} else {
+			return true;
+		}
+			
 
 	}
 
