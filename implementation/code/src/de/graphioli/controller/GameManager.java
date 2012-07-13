@@ -550,6 +550,7 @@ public final class GameManager {
 	 */
 	void checkFinished() {
 		if (this.finishFlag) {
+			this.finishFlag = false;
 			if (this.playerManager.getWinningPlayer() == null) {
 				this.viewManager.displayPopUp(Localization.getLanguageString("draw_mess"));
 			} else {
