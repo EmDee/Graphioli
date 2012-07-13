@@ -110,7 +110,7 @@ public class MenuBar extends JMenuBar implements ActionListener {
 	 * Adds menu items to the options menu.
 	 * @param menuItems the items to add.
 	 */
-	public void addOptionsItems(List<MenuItem> menuItems) {
+	void addOptionsItems(List<MenuItem> menuItems) {
 		if (menuItems.size() == 0) {
 			return;
 		}

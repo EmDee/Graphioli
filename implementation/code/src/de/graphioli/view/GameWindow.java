@@ -108,26 +108,6 @@ public class GameWindow extends JFrame implements View {
 	}
 
 	/**
-	 * Closes this Game window.
-	 */
-	public void closeGame() {
-
-		LOG.finer("GameWindow.<em>closeGame()</em> called.");
-
-		// Ask user, if he/she really wants to quit
-		boolean choice = this.showConfirmDialog(Localization.getLanguageString("gw_confirm_quit"));
-
-		if (choice) {
-
-			LOG.fine("Forwarding call to GameManager.");
-			// Forward call to GameManager
-			this.getViewManager().getGameManager().closeGame();
-
-		}
-
-	}
-
-	/**
 	 * Disposes all components of the GameWindow.
 	 * 
 	 * @return {@code true} when closing was successful.
@@ -158,17 +138,6 @@ public class GameWindow extends JFrame implements View {
 	}
 
 	/**
-	 * Adds a custom {@link MenuItem} to the menu.
-	 * 
-	 * @param item
-	 *            The MenuItem to add
-	 * @return <code>true</code> if the action was performed successfully,
-	 *         <code>false</code> otherwise
-	 * @todo Facultative
-	 */
-	// public boolean addCustomMenuItem(MenuItem item);
-
-	/**
 	 * Displays a message in a pop-up.
 	 * 
 	 * @param message
@@ -183,34 +152,15 @@ public class GameWindow extends JFrame implements View {
 	}
 
 	/**
-	 * Returns the {@link ViewManager} associated with the {@link GameWindow}.
+	 * Adds a custom {@link MenuItem} to the menu.
 	 * 
-	 * @return The associated {@link ViewManager}
-	 */
-	public ViewManager getViewManager() {
-		return this.viewManager;
-	}
-
-	/**
-	 * Returns the {@link VisualGrid} associated with the {@link GameWindow}.
-	 * 
-	 * @return The associated {@link ViusalGrid}
-	 */
-	public VisualGrid getVisualGrid() {
-		return this.visualGrid;
-	}
-
-	/**
-	 * Forwards the key input to the {@link ViewManager}.
-	 * 
-	 * @param keyCode
-	 *            The code of the key that was released
+	 * @param item
+	 *            The MenuItem to add
 	 * @return <code>true</code> if the action was performed successfully,
 	 *         <code>false</code> otherwise
+	 * @todo Facultative
 	 */
-	public boolean onKeyRelease(int keyCode) {
-		return this.viewManager.onKeyRelease(keyCode);
-	}
+	// public boolean addCustomMenuItem(MenuItem item);
 
 	/**
 	 * Redraws the {@link Graph}.
@@ -239,22 +189,6 @@ public class GameWindow extends JFrame implements View {
 		this.generateView();
 		this.addEventListeners();
 		return true;
-	}
-
-	/**
-	 * Opens a save file dialog.
-	 * 
-	 * @return The file the game should be saved
-	 */
-	public File saveFileDialog() {
-		JFileChooser fc = new JFileChooser();
-		int returnVal = fc.showSaveDialog(this);
-		if (returnVal == JFileChooser.APPROVE_OPTION) {
-			LOG.info("Selected file to save: " + fc.getSelectedFile().getName());
-			return fc.getSelectedFile();
-		}
-		return null;
-
 	}
 
 	/**
@@ -372,6 +306,72 @@ public class GameWindow extends JFrame implements View {
 		// confirmChoice == 0: Yes
 		// confirmChoice == 1: No
 		return confirmChoice == 0;
+
+	}
+
+	/**
+	 * Closes this Game window.
+	 */
+	void closeGame() {
+
+		LOG.finer("GameWindow.<em>closeGame()</em> called.");
+
+		// Ask user, if he/she really wants to quit
+		boolean choice = this.showConfirmDialog(Localization.getLanguageString("gw_confirm_quit"));
+
+		if (choice) {
+
+			LOG.fine("Forwarding call to GameManager.");
+			// Forward call to GameManager
+			this.getViewManager().getGameManager().closeGame();
+
+		}
+
+	}
+
+	/**
+	 * Returns the {@link ViewManager} associated with the {@link GameWindow}.
+	 * 
+	 * @return The associated {@link ViewManager}
+	 */
+	ViewManager getViewManager() {
+		return this.viewManager;
+	}
+
+	/**
+	 * Returns the {@link VisualGrid} associated with the {@link GameWindow}.
+	 * 
+	 * @return The associated {@link ViusalGrid}
+	 */
+	VisualGrid getVisualGrid() {
+		return this.visualGrid;
+	}
+
+	/**
+	 * Forwards the key input to the {@link ViewManager}.
+	 * 
+	 * @param keyCode
+	 *            The code of the key that was released
+	 * @return <code>true</code> if the action was performed successfully,
+	 *         <code>false</code> otherwise
+	 */
+	boolean onKeyRelease(int keyCode) {
+		return this.viewManager.onKeyRelease(keyCode);
+	}
+
+	/**
+	 * Opens a save file dialog.
+	 * 
+	 * @return The file the game should be saved
+	 */
+	File saveFileDialog() {
+		JFileChooser fc = new JFileChooser();
+		int returnVal = fc.showSaveDialog(this);
+		if (returnVal == JFileChooser.APPROVE_OPTION) {
+			LOG.info("Selected file to save: " + fc.getSelectedFile().getName());
+			return fc.getSelectedFile();
+		}
+		return null;
 
 	}
 

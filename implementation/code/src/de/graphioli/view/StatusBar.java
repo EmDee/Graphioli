@@ -82,7 +82,7 @@ public class StatusBar extends JPanel {
 	 * @return <code>true</code> if the action was performed successfully,
 	 *         <code>false</code> otherwise
 	 */
-	public boolean updatePlayerStatus(Player player) {
+	boolean updatePlayerStatus(Player player) {
 		this.playerLabel.setText(player.getName());
 		return true;
 	}
@@ -95,7 +95,7 @@ public class StatusBar extends JPanel {
 	 * @return <code>true</code> if the action was performed successfully,
 	 *         <code>false</code> otherwise
 	 */
-	public boolean displayErrorMessage(String errorMessage) {
+	boolean displayErrorMessage(String errorMessage) {
 		this.statusLabel.setText(errorMessage);
 		return true;
 	}
