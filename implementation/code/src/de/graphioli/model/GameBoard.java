@@ -176,6 +176,11 @@ public class GameBoard implements Serializable {
 	 */
 	public VisualEdge getVisualEdge(VisualVertex vertexA, VisualVertex vertexB) {
 		VisualEdge edge = (VisualEdge) this.graph.getEdge(vertexA, vertexB);
+		
+		if (edge == null) {
+			return null;
+		}
+		
 		if (this.isDirectedGraph || !edge.isOpposingEdge()) {
 			return edge;
 		} else {
