@@ -1,10 +1,45 @@
 \subsubsection{Modified Classes}
-\paragraph*{\textcolor{Blue}{Class: Blabla}}
+% Vertex
+\paragraph*{\textcolor{Blue}{Class: Vertex}}
 \paragraph*{}
-\begin{longtable}{c|lp{4cm}p{4cm}}
+\begin{longtable}{c|p{6cm}p{4cm}p{4cm}}
 	\hline\rowcolor{white}{} & \textbf{Method name} & \textbf{Description} & \textbf{Note} \\ \hline
-	\newmethod{reallyLongMethodNameWoWoWoW}{\lipsum[6]}{\lipsum[4]} \\
-	\removedmethod{Another one}{was doing nothing}{don't need anymore} \\
-	\alteredmethod{Method name}{does this}{only changed name} \\
-	\hline
+	\alteredmethod{addIncomingEdge([...])}{Adds an incoming edge to the list of incoming edges.}{changed access modifier from public to protected} \\ \hline
+	\alteredmethod{removeIncomingEdge([...])}{Removes an incoming edge from the list of incoming edges}{\ditto} \\ \hline
+	\alteredmethod{addOutgoingEdge([...])}{Adds an outgoing edge to the list of outgoing edges.}{\ditto} \\ \hline
+	\alteredmethod{removeOutgoingEdge([...])}{Removes an outgoing edge from the list of outgoing edges}{\ditto} \\ \hline
+\end{longtable}
+
+% Game
+\paragraph*{\textcolor{Blue}{Class: Game}}
+\paragraph*{}
+\begin{longtable}{c|p{6cm}p{4cm}p{4cm}}
+	\hline\rowcolor{white}{} & \textbf{Method name} & \textbf{Description} & \textbf{Note} \\ \hline
+	\alteredmethod{registerController([...])}{Associates this game with a GameManager and its GameResources}{Added `GameResources as parameter'} \\ \hline
+	\newmethod{callOnEmptyGridPointClick([...]}{This method executes a onEmptyGridPointClick call}{} \\ \hline
+	\newmethod{callOnGameSave([...])}{This method executes a onGameSave call.}{} \\ \hline
+	\newmethod{callOnGameLoad([...])}{This method executes a onGameLoad call.}{} \\ \hline
+\end{longtable}
+
+% VisualVertex
+\paragraph*{\textcolor{Blue}{Class: VisualVertex}}
+\paragraph*{}
+\begin{longtable}{c|p{6cm}p{4cm}p{4cm}}
+	\hline\rowcolor{white}{} & \textbf{Method name} & \textbf{Description} & \textbf{Note} \\ \hline
+	\newmethod{reload()}{Recreates the fields that are not serialized.}{} \\ \hline
+\end{longtable}
+
+% VisualEdge
+\paragraph*{\textcolor{Blue}{Class: VisualEdge}}
+\paragraph*{}
+\begin{longtable}{c|p{6cm}p{4cm}p{4cm}}
+	\hline\rowcolor{white}{} & \textbf{Method name} & \textbf{Description} & \textbf{Note} \\ \hline
+	\newmethod{reload()}{Recreates the fields that are not serialized.}{} \\ \hline
+\end{longtable}
+
+% GameDefinition
+\paragraph*{\textcolor{Blue}{Class: VisualEdge}}
+\paragraph*{}
+\begin{longtable}{c|p{6cm}p{4cm}p{4cm}}
+	\hline\rowcolor{white}{} & \textbf{Method name} & \textbf{Description} & \textbf{Note} \\ \hline
 \end{longtable}
