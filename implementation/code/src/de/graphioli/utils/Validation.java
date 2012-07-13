@@ -1,6 +1,9 @@
 package de.graphioli.utils;
 
+import java.util.ArrayList;
+
 import de.graphioli.model.GridPoint;
+import de.graphioli.model.Player;
 
 /**
  * This class provides static methods for checking the validity of given values.
@@ -36,14 +39,29 @@ public final class Validation {
 	}
 
 	/**
-	 * Checks if the specified string is a valid {@link Player} name.
+	 * Checks if the specified string is a valid and unique {@link Player} name.
 	 * 
 	 * @param name
 	 *            The name to check for validity
+	 * @param createdPlayers the players already created (can be {{@code null}).
 	 * @return <code>true</code> if the given name is valid, <code>false</code>
 	 *         otherwise
 	 */
-	public static boolean isValidPlayerName(String name) {
-		return !name.isEmpty();
+	public static boolean isValidPlayerName(String name, ArrayList<Player> createdPlayers) {
+		if (name == null || name.trim().isEmpty()) {
+			return false;
+		}
+		
+		if (createdPlayers == null) {
+			return true;
+		}
+		
+		for (int i = 0; i < createdPlayers.size(); i++) {
+			if (createdPlayers.get(i) != null && createdPlayers.get(i).getName().equals(name)) {
+				return false;
+			}
+		}
+		
+		return true;		
 	}
 }

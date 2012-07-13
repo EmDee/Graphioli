@@ -39,7 +39,7 @@ public abstract class Player implements Serializable {
 	 */
 	public Player(String name) {
 
-		if (Validation.isValidPlayerName(name)) {
+		if (Validation.isValidPlayerName(name, null)) {
 			this.name = name;
 		} else {
 			// TODO: Find consistent form for exceptions.
