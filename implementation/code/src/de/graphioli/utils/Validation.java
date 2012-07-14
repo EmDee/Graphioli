@@ -1,9 +1,10 @@
 package de.graphioli.utils;
 
-import java.util.ArrayList;
 
 import de.graphioli.model.GridPoint;
 import de.graphioli.model.Player;
+
+import java.util.ArrayList;
 
 /**
  * This class provides static methods for checking the validity of given values.

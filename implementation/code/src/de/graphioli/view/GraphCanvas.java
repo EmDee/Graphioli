@@ -80,19 +80,6 @@ public class GraphCanvas extends JPanel {
 	}
 
 	/**
-	 * Updates and redraws the {@link GraphCanvas}.
-	 * 
-	 * @return <code>true</code> if the action was performed successfully,
-	 *         <code>false</code> otherwise
-	 */
-	boolean updateCanvas() {
-		this.clearBufferedImage();
-		this.drawBoard();
-		this.repaint();
-		return true;
-	}
-
-	/**
 	 * Resets the buffered image of this {@code VisualVertex} to a completely
 	 * transparent state.
 	 */
@@ -164,6 +151,19 @@ public class GraphCanvas extends JPanel {
 		if (this.bufferedImage != null) {
 			g.drawImage(this.bufferedImage, 0, 0, null);
 		}
+	}
+
+	/**
+	 * Updates and redraws the {@link GraphCanvas}.
+	 * 
+	 * @return <code>true</code> if the action was performed successfully,
+	 *         <code>false</code> otherwise
+	 */
+	boolean updateCanvas() {
+		this.clearBufferedImage();
+		this.drawBoard();
+		this.repaint();
+		return true;
 	}
 
 }

@@ -17,6 +17,7 @@ import java.util.logging.Logger;
  * @author Team Graphioli
  */
 public abstract class Game {
+	// Checkstyle warning: More than 20 classes (28). Don't think there is a sensible way to fix that.
 
 	/**
 	 * Logging instance.

@@ -107,28 +107,6 @@ public class MenuBar extends JMenuBar implements ActionListener {
 	}
 
 	/**
-	 * Adds menu items to the options menu.
-	 * @param menuItems the items to add.
-	 */
-	void addOptionsItems(List<MenuItem> menuItems) {
-		if (menuItems.size() == 0) {
-			return;
-		}
-
-		this.customItems = new ArrayList<OptionsMenuItem>(menuItems.size());
-
-		OptionsMenuItem tmpCustItem;
-		for (MenuItem tmpMenItem : menuItems) {
-			tmpCustItem = new OptionsMenuItem(tmpMenItem);
-			tmpCustItem.addActionListener(this);
-			this.customItems.add(tmpCustItem);
-			this.optionsMenu.add(tmpCustItem);
-		}
-
-		this.optionsMenu.setEnabled(true);
-	}
-
-	/**
 	 * Creates the standard menus including their menu items.
 	 * 
 	 * @return <code>true</code> if the action was performed successfully,
@@ -143,7 +121,8 @@ public class MenuBar extends JMenuBar implements ActionListener {
 		this.saveItem = new JMenuItem(Localization.getLanguageString("menu_item_save"));
 		this.loadItem = new JMenuItem(Localization.getLanguageString("menu_item_load"));
 
-		GameDefinition currentGameDefinition = this.parentGameWindow.getViewManager().getGameManager().getCurrentGameDefinition();
+		GameDefinition currentGameDefinition = this.parentGameWindow.getViewManager().getGameManager()
+				.getCurrentGameDefinition();
 		if (!currentGameDefinition.supportsSavegames()) {
 			this.saveItem.setEnabled(false);
 			this.loadItem.setEnabled(false);
@@ -203,6 +182,28 @@ public class MenuBar extends JMenuBar implements ActionListener {
 		if (fileToSave != null) {
 			this.parentGameWindow.getViewManager().getGameManager().saveGame(fileToSave);
 		}
+	}
+
+	/**
+	 * Adds menu items to the options menu.
+	 * @param menuItems the items to add.
+	 */
+	void addOptionsItems(List<MenuItem> menuItems) {
+		if (menuItems.size() == 0) {
+			return;
+		}
+
+		this.customItems = new ArrayList<OptionsMenuItem>(menuItems.size());
+
+		OptionsMenuItem tmpCustItem;
+		for (MenuItem tmpMenItem : menuItems) {
+			tmpCustItem = new OptionsMenuItem(tmpMenItem);
+			tmpCustItem.addActionListener(this);
+			this.customItems.add(tmpCustItem);
+			this.optionsMenu.add(tmpCustItem);
+		}
+
+		this.optionsMenu.setEnabled(true);
 	}
 
 }
