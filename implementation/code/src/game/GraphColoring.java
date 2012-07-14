@@ -148,7 +148,6 @@ public class GraphColoring extends Game {
 	@Override
 	protected boolean onGameStart() {
 		this.singleplayer = this.getGameManager().getPlayerManager().getPlayers().size() == 1;
-
 		return true;
 	}
 
@@ -156,6 +155,7 @@ public class GraphColoring extends Game {
 	 * Builds a level for the game.
 	 */
 	private void generateLevel() {
+		this.getGameManager().getViewManager().displayErrorMessage(this.getGameResources().getStringResource("START"));
 		GraphColoringLevel level = GraphColoringLevel.getLevelInstance(this.selectedLevel + 1);
 
 		// Adding level to board
@@ -245,7 +245,7 @@ public class GraphColoring extends Game {
 	private void handleSingleplayerMove(GraphColoringVertex vtex) {
 		vtex.setColorID(this.selectedButton.getColorID());
 		if (this.isGraphColored()) {
-			this.nextLevel();
+//			this.nextLevel();
 		}
 	}
 
@@ -368,6 +368,12 @@ public class GraphColoring extends Game {
 			this.selectedButton.setHighlighted(false);
 			this.selectedButton = this.buttons[keyCode - KeyEvent.VK_F1];
 			this.selectedButton.setHighlighted(true);
+		}
+
+		if (keyCode == KeyEvent.VK_SPACE) {
+			if (this.isGraphColored()) {
+				this.nextLevel();
+			}
 		}
 		return true;
 	}
