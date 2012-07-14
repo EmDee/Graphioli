@@ -29,6 +29,14 @@
 	\newmethod{reload()}{Recreates the fields that are not serialized.}{} \\ \hline
 \end{longtable}
 
+% GraphicVisualVertex
+\paragraph*{\textcolor{Blue}{Class: GraphicVisualVertex}}
+\paragraph*{}
+\begin{longtable}{c|p{5.5cm}p{4cm}p{4cm}}
+	\hline\rowcolor{white}{} & \textbf{Method name} & \textbf{Description} & \textbf{Note} \\ \hline
+	\removedmethod{loadBufferedImage([...])}{Loads the image file at the given \texttt{fileName} and returns it as a \texttt{BufferedImage}.} \\ \hline
+\end{longtable}
+
 % VisualEdge
 \paragraph*{\textcolor{Blue}{Class: VisualEdge}}
 \paragraph*{}
@@ -59,7 +67,7 @@
 \end{longtable}
 
 % GameManager
-\paragraph*{\textcolor{Blue}{Class: GameBoard}}
+\paragraph*{\textcolor{Blue}{Class: GameManager}}
 \paragraph*{}
 \begin{longtable}{c|p{5.5cm}p{4cm}p{4cm}}
 	\hline\rowcolor{white}{} & \textbf{Method name} & \textbf{Description} & \textbf{Note} \\ \hline
@@ -70,3 +78,115 @@
 	\newmethod{\textlabel{checkFinished()}{gm:checkfinished}}{Checks whether the finishFlag is set and if so closes the game with a winner pop-up.}{} \\ \hline
 	\newmethod{logGameAction([...])}{Logs an event in a game}{} \\ \hline
 \end{longtable}
+
+% ViewManager
+\paragraph*{\textcolor{Blue}{Class: ViewManager}}
+\paragraph*{}
+\begin{longtable}{c|p{5.5cm}p{4cm}p{4cm}}
+	\hline\rowcolor{white}{} & \textbf{Method name} & \textbf{Description} & \textbf{Note} \\ \hline
+	\newmethod{askForRestart()}{Informs the View to ask the player if the game should be restarted.}{} \\ \hline
+\end{longtable}
+
+% View
+\paragraph*{\textcolor{Blue}{Class: View}}
+\paragraph*{}
+\begin{longtable}{c|p{5.5cm}p{4cm}p{4cm}}
+	\hline\rowcolor{white}{} & \textbf{Method name} & \textbf{Description} & \textbf{Note} \\ \hline
+	\newmethod{askForRestart()}{Asks the player if the game should be restarted.}{} \\ \hline
+\end{longtable}
+
+% GameWindow
+\paragraph*{\textcolor{Blue}{Class: GameWindow}}
+\paragraph*{}
+\begin{longtable}{c|p{5.5cm}p{4cm}p{4cm}}
+	\hline\rowcolor{white}{} & \textbf{Method name} & \textbf{Description} & \textbf{Note} \\ \hline
+	\newmethod{askForRestart()}{Asks the player if the game should be restarted.}{} \\ \hline
+\end{longtable}
+
+% PlayerPopUp
+\paragraph*{\textcolor{Blue}{Class: PlayerPopUp}}
+\paragraph*{}
+\begin{longtable}{c|p{5.5cm}p{4cm}p{4cm}}
+	\hline\rowcolor{white}{} & \textbf{Method name} & \textbf{Description} & \textbf{Note} \\ \hline
+	\removedmethod{actionPerformed()}{Callback method for the JButtons that creates the \texttt{Players} based on the input.}{PlayerPopUp doesn't implement \texttt{ActionListener} anymore.} \\ \hline
+	\alteredmethod{PlayerPopUp([...])}{Creates a PlayerPopUp.}{Added two new parameters: \texttt{GEWindow geWindow} and \texttt{boolean supportsSavegames}.} \\ \hline
+\end{longtable}
+
+% Graph
+\paragraph*{\textcolor{Blue}{Class: Graph}}
+\paragraph*{}
+\begin{longtable}{c|p{5.5cm}p{4cm}p{4cm}}
+	\hline\rowcolor{white}{} & \textbf{Method name} & \textbf{Description} & \textbf{Note} \\ \hline
+	\alteredmethod{addEdge([...])}{Adds the given edge to this graph. An edge can only be added, if both of its vertices are already in the graph but the edge does not yet exist. Also the target and origin vertices must not be the same.}{Before this method needed to vertices as attribute, now an edge object will be added.} \\ \hline
+	\newmethod{getEdge([...])}{Returns the edge between two given vertices.}{} \\ \hline
+\end{longtable}
+
+% VisualEdge
+\paragraph*{\textcolor{Blue}{Class: VisualEdge}}
+\paragraph*{}
+\begin{longtable}{c|p{5.5cm}p{4cm}p{4cm}}
+	\hline\rowcolor{white}{} & \textbf{Method name} & \textbf{Description} & \textbf{Note} \\ \hline
+	\alteredmethod{draw()}{Draws the VisualEdge onto the given Graphics2D object.}{Is splitted into \ref{ve:directed} and \ref{ve:undirected}} \\ \hline
+	\newmethod{generateOpposedEdge()}{Generates an Edge from this one where target and origin vertices are swapped.}{} \\ \hline
+	\newmethod{isOpposingEdge()}{Returns \texttt{true} if this edge is a opposing edge.}{} \\ \hline
+	\newmethod{hasOpposingEdge()}{Returns \texttt{true} if this edge has an opposing edge.}{} \\ \hline
+	\newmethod{\textlabel{drawDirected([...])}{ve:directed}}{Draws this edge as directed edge onto the given \texttt{Graphics2D} object.}{} \\ \hline
+	\newmethod{\textlabel{drawUndirected([...])}{ve:undirected}}{Draws this edge as undirected edge onto the given \texttt{Graphics2D} object.} \\ \hline
+	\newmethod{callDrawDirected([...])}{Calculates an offset for the edge and then calls \ref{ve:directed} with the adapted coordinates.}{} \\ \hline
+	\newmethod{callDrawUndirected([...])}{Calls \ref{ve:undirected} if this edge is not flagged as an opposing edge.}{} \\ \hline
+\end{longtable}
+
+% VisualVertex
+\paragraph*{\textcolor{Blue}{Class: VisualVertex}}
+\paragraph*{}
+\begin{longtable}{c|p{5.5cm}p{4cm}p{4cm}}
+	\hline\rowcolor{white}{} & \textbf{Method name} & \textbf{Description} & \textbf{Note} \\ \hline
+	\alteredmethod{update()}{Recreates the buffered image of this \texttt{VisualVertex}. Has to be called to change the visualization.}{Changed access modifier from \texttt{protected} to \texttt{public.}} \\ \hline
+\end{longtable}
+
+% VisualGrid
+\paragraph*{\textcolor{Blue}{Class: VisualGrid}}
+\paragraph*{}
+\begin{longtable}{c|p{5.5cm}p{4cm}p{4cm}}
+	\hline\rowcolor{white}{} & \textbf{Method name} & \textbf{Description} & \textbf{Note} \\ \hline
+	\alteredmethod{VisualGrid([...])}{Creates a \texttt{VisualGrid} and registers its parent \texttt{GameWindow}.}{Added attribute GraphCanvas to constructor to get the size of the canvas.} \\ \hline
+\end{longtable}
+
+% PlayerManager
+\paragraph*{\textcolor{Blue}{Class: PlayerManager}}
+\paragraph*{}
+\begin{longtable}{c|p{5.5cm}p{4cm}p{4cm}}
+	\hline\rowcolor{white}{} & \textbf{Method name} & \textbf{Description} & \textbf{Note} \\ \hline
+	\alteredmethod{PlayerManager([...])}{Constructs a \texttt{PlayerManager} with the given set of \texttt{Playres}.}{Added reference to \texttt{GameManager} as parameter.} \\ \hline
+	\newmethod{getWinningPlayer()}{Returns the player that is displayed as winner when the game is finished.}{} \\ \hline
+	\newmethod{setActivePlayerAsWinning()}{Defines the player currently active as the player currently winning.}{} \\ \hline
+\end{longtable}
+
+% GameExplorer
+\paragraph*{\textcolor{Blue}{Class: GameExplorer}}
+\paragraph*{}
+\begin{longtable}{c|p{5.5cm}p{4cm}p{4cm}}
+	\hline\rowcolor{white}{} & \textbf{Method name} & \textbf{Description} & \textbf{Note} \\ \hline
+	\removedmethod{scanGameFolder()}{Scans the game folder for games and returns the GameDef- initions of the games in it.}{Replaced by \ref{ge:scangamefolder}.} \\ \hline
+	\newmethod{\textlabel{scanGameFolderAndCreateGameDefinitions()}{ge:scangamefolder}}{Scans the game folder for games, creates \texttt{GameDefinitions} and adds these to the gameDefinition's list.}{} \\
+	\newmethod{close()}{Closes this GameExplorer.}{} \\ \hline
+\end{longtable}
+
+% GEWindow
+\paragraph*{\textcolor{Blue}{Class: GEWindow}}
+\paragraph*{}
+\todo{add GEWindow changes: pretty much everything}
+
+% GameCapsule
+\paragraph*{\textcolor{Blue}{Class: GameCapsule}}
+\paragraph*{}
+\begin{longtable}{c|p{5.5cm}p{4cm}p{4cm}}
+	\hline\rowcolor{white}{} & \textbf{Method name} & \textbf{Description} & \textbf{Note} \\ \hline
+	\alteredmethod{GameCapsule([...])}{Creates a new \texttt{GameCapsule} with the given parameters.}{Added \texttt{GameDefinition} to constructor's parameters.} \\ \hline
+	\newmethod{getGameDefinition()}{Returns the saved active \texttt{GameDefintion}.}{} \\ \hline
+\end{longtable}
+
+% CustomMenuItemListener
+\paragraph*{\textcolor{Blue}{Class: CustomMenuItemListener}}
+\paragraph*{}
+This class was completely removed and replaced by \ref{cls:optionsmenuitem}.

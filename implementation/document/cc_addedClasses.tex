@@ -86,5 +86,24 @@ This class is responsible for loading the correct localization file.
 \begin{longtable}{Lp{10cm}}
 	\startmethodtable
 	\method{public static String}{getLanguageString(String key)}{locale:getlanguagestring} \\
-	& Gets the respective string to a given key value.
+	& Gets the respective string to a given key value. \\
+	\hline
+\end{longtable}
+
+\pagebreak
+
+% OptionsMenuItem
+\class{OptionsMenuItem}{optionsmenuitem}
+\createindentedlist{java.lang.Object, java.awt.Component, java.awt.Container, javax.swing.JComponent, javax.swing.AbstractButton, javax.swing.JMenuItem, de.graphioli.view.OptionsMenuItem}
+This class implements the \texttt{MenuItem} as a Swing \texttt{JMenuItem}.
+
+\paragraph*{Method Summary}
+\paragraph*{}
+\begin{longtable}{Lp{10cm}}
+	\startmethodtable
+	\method{public}{OptionsMenuItem(MenuItem item)}{omi:optionsmenuitem} \\
+	& Creates a OptionsMenuItem from the given MenuItem. \\
+	\method{protected MenuItem}{getCustomItem()}{omi:getcustomitem} \\
+	& Returns the menu item. \\
+	\hline
 \end{longtable}
