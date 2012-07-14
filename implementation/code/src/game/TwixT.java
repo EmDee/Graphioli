@@ -22,8 +22,8 @@ import java.util.HashMap;
  */
 public class TwixT extends Game {
 
-	private static String playerOneImgFile = "Awesome1.png";
-	private static String playerTwoImgFile = "Awesome2.png";
+	private static String playerOneImgFile = "TowerRot.png";
+	private static String playerTwoImgFile = "TowerGruen.png";
 
 	private static Color playerOneColor = Color.MAGENTA;
 	private static Color playerTwoColor = Color.GREEN;
