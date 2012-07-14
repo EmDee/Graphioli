@@ -2,7 +2,7 @@
 % Vertex
 \paragraph*{\textcolor{Blue}{Class: Vertex}}
 \paragraph*{}
-\begin{longtable}{c|p{6cm}p{4cm}p{4cm}}
+\begin{longtable}{c|p{5.5cm}p{4cm}p{4cm}}
 	\hline\rowcolor{white}{} & \textbf{Method name} & \textbf{Description} & \textbf{Note} \\ \hline
 	\alteredmethod{addIncomingEdge([...])}{Adds an incoming edge to the list of incoming edges.}{changed access modifier from public to protected} \\ \hline
 	\alteredmethod{removeIncomingEdge([...])}{Removes an incoming edge from the list of incoming edges}{\ditto} \\ \hline
@@ -13,10 +13,10 @@
 % Game
 \paragraph*{\textcolor{Blue}{Class: Game}}
 \paragraph*{}
-\begin{longtable}{c|p{6cm}p{4cm}p{4cm}}
+\begin{longtable}{c|p{5.5cm}p{4cm}p{4cm}}
 	\hline\rowcolor{white}{} & \textbf{Method name} & \textbf{Description} & \textbf{Note} \\ \hline
 	\alteredmethod{registerController([...])}{Associates this game with a GameManager and its GameResources}{Added `GameResources as parameter'} \\ \hline
-	\newmethod{callOnEmptyGridPointClick([...]}{This method executes a onEmptyGridPointClick call}{} \\ \hline
+	\newmethod{callOnEmptyGridPointClick([...])}{This method executes a onEmptyGridPointClick call}{} \\ \hline
 	\newmethod{callOnGameSave([...])}{This method executes a onGameSave call.}{} \\ \hline
 	\newmethod{callOnGameLoad([...])}{This method executes a onGameLoad call.}{} \\ \hline
 \end{longtable}
@@ -24,7 +24,7 @@
 % VisualVertex
 \paragraph*{\textcolor{Blue}{Class: VisualVertex}}
 \paragraph*{}
-\begin{longtable}{c|p{6cm}p{4cm}p{4cm}}
+\begin{longtable}{c|p{5.5cm}p{4cm}p{4cm}}
 	\hline\rowcolor{white}{} & \textbf{Method name} & \textbf{Description} & \textbf{Note} \\ \hline
 	\newmethod{reload()}{Recreates the fields that are not serialized.}{} \\ \hline
 \end{longtable}
@@ -32,14 +32,41 @@
 % VisualEdge
 \paragraph*{\textcolor{Blue}{Class: VisualEdge}}
 \paragraph*{}
-\begin{longtable}{c|p{6cm}p{4cm}p{4cm}}
+\begin{longtable}{c|p{5.5cm}p{4cm}p{4cm}}
 	\hline\rowcolor{white}{} & \textbf{Method name} & \textbf{Description} & \textbf{Note} \\ \hline
 	\newmethod{reload()}{Recreates the fields that are not serialized.}{} \\ \hline
 \end{longtable}
 
 % GameDefinition
-\paragraph*{\textcolor{Blue}{Class: VisualEdge}}
+\paragraph*{\textcolor{Blue}{Class: GameDefinition}}
 \paragraph*{}
-\begin{longtable}{c|p{6cm}p{4cm}p{4cm}}
+\begin{longtable}{c|p{5.5cm}p{4cm}p{4cm}}
 	\hline\rowcolor{white}{} & \textbf{Method name} & \textbf{Description} & \textbf{Note} \\ \hline
+	\removedmethod{GameDefinition([...])}{Creates a new GameDefinition with the specified parameters.}{Due to the use of GSON, there is no need for a constructor anymore.} \\ \hline
+	\alteredmethod{getFullyQualifiedClassName()}{Returns the fully qualified class name of this specific game.}{Changed to getClassName() and only returns the class name.} \\ \hline
+	\removedmethod{getScreenshot()}{Returns a String to this game’s screenshot file.}{Screenshots have fixed name and location.} \\ \hline
+	\removedmethod{getLocalizationFilePath()}{Returns a String telling which language file should be used in this game.}{\ref{cls:localization} is now responsible for setting the correct language.} \\ \hline
+	\removedmethod{getHelpFile()}{Returns the URI that links to the help file of this game.}{Help files have fixed name and location.} \\ \hline
+	\newmethod{supportsSavegames()}{Returns whether the game supports saving and loading of savegames or not.}{} \\ \hline
+\end{longtable}
+
+% GameBoard
+\paragraph*{\textcolor{Blue}{Class: GameBoard}}
+\paragraph*{}
+\begin{longtable}{c|p{5.5cm}p{4cm}p{4cm}}
+	\hline\rowcolor{white}{} & \textbf{Method name} & \textbf{Description} & \textbf{Note} \\ \hline
+	\newmethod{flush()}{Resets this GameBoard to an empty state.}{} \\ \hline
+\end{longtable}
+
+% GameManager
+\paragraph*{\textcolor{Blue}{Class: GameBoard}}
+\paragraph*{}
+\begin{longtable}{c|p{5.5cm}p{4cm}p{4cm}}
+	\hline\rowcolor{white}{} & \textbf{Method name} & \textbf{Description} & \textbf{Note} \\ \hline
+	\newmethod{\textlabel{openHelpFile([...])}{gm:openhelpfile}}{Opens the help file within the game's jar.}{} \\ \hline
+	\newmethod{openHelpFile()}{Calls \ref{gm:openhelpfile} with the current GameDefinition.}{Overloaded function of openHelpFile([...])} \\ \hline
+	\removedmethod{killGame()}{Kills the currently running game.}{Is handled by closeGame().} \\ \hline
+	\removedmethod{finishGame([...])}{Finishes the game and displays the winning Player in a pop-up.}{Removed overloaded finishGame() method, is handled by \ref{gm:checkfinished}.} \\ \hline
+	\newmethod{\textlabel{checkFinished()}{gm:checkfinished}}{Checks whether the finishFlag is set and if so closes the game with a winner pop-up.}{} \\ \hline
+	\newmethod{logGameAction([...])}{Logs an event in a game}{} \\ \hline
 \end{longtable}
