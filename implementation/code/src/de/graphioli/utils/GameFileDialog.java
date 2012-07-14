@@ -1,10 +1,14 @@
 package de.graphioli.utils;
 
 import java.io.File;
+import java.util.logging.Logger;
+
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileFilter;
+
+import de.graphioli.model.VisualVertex;
 
 /**
  * This class provides save and load dialogs for savegames.
@@ -12,7 +16,17 @@ import javax.swing.filechooser.FileFilter;
  * @author Team Graphioli
  */
 public final class GameFileDialog {
+	
+	/**
+	 * Log instance.
+	 */
+	private static final Logger LOG = Logger.getLogger(GameFileDialog.class.getName());
 
+	/**
+	 * The name of the savegame directory.
+	 */
+	private static final String DIRECTORY = "save";
+	
 	/**
 	 * The file extension for savegames.
 	 */
@@ -35,8 +49,19 @@ public final class GameFileDialog {
 	 * @return The game file to load
 	 */
 	public static File loadGame(String gameName, JFrame parentWindow) {
+		
+		File saveDir = new File("games/" + gameName + "/" + DIRECTORY + "/");
+		
+		if (!saveDir.exists()) {
+			LOG.fine("Creating savegame directory.");
+			
+			if (!saveDir.mkdir()) {
+				LOG.warning("Creating savegame directory failed!");
+				return null;
+			}
+		}
 
-		JFileChooser fc = new JFileChooser(new File("games/" + gameName + "/"));
+		JFileChooser fc = new JFileChooser(saveDir);
 		SaveGameFilter filter = new SaveGameFilter();
 		fc.setFileFilter(filter);
 
@@ -60,7 +85,18 @@ public final class GameFileDialog {
 	 */
 	public static File saveGame(String gameName, JFrame parentWindow) {
 
-		JFileChooser fc = new JFileChooser(new File("games/" + gameName + "/"));
+		File saveDir = new File("games/" + gameName + "/" + DIRECTORY + "/");
+		
+		if (!saveDir.exists()) {
+			LOG.fine("Creating savegame directory.");
+			
+			if (!saveDir.mkdir()) {
+				LOG.warning("Creating savegame directory failed!");
+				return null;
+			}
+		}
+
+		JFileChooser fc = new JFileChooser(saveDir);
 		SaveGameFilter filter = new SaveGameFilter();
 		fc.setFileFilter(filter);
 
