@@ -1,14 +1,4 @@
 \subsubsection{Modified Classes}
-% Vertex
-\paragraph*{\textcolor{Blue}{Class: Vertex}}
-\paragraph*{}
-\begin{longtable}{c|p{5.5cm}p{4cm}p{4cm}}
-	\hline\rowcolor{white}{} & \textbf{Method name} & \textbf{Description} & \textbf{Note} \\ \hline
-	\alteredmethod{addIncomingEdge([...])}{Adds an incoming edge to the list of incoming edges.}{changed access modifier from public to protected} \\ \hline
-	\alteredmethod{removeIncomingEdge([...])}{Removes an incoming edge from the list of incoming edges}{\ditto} \\ \hline
-	\alteredmethod{addOutgoingEdge([...])}{Adds an outgoing edge to the list of outgoing edges.}{\ditto} \\ \hline
-	\alteredmethod{removeOutgoingEdge([...])}{Removes an outgoing edge from the list of outgoing edges}{\ditto} \\ \hline
-\end{longtable}
 
 % Game
 \paragraph*{\textcolor{Blue}{Class: Game}}
@@ -27,6 +17,19 @@
 \begin{longtable}{c|p{5.5cm}p{4cm}p{4cm}}
 	\hline\rowcolor{white}{} & \textbf{Method name} & \textbf{Description} & \textbf{Note} \\ \hline
 	\newmethod{reload()}{Recreates the fields that are not serialized.}{} \\ \hline
+	\newmethod{init()}{Initializes this VisualVertex}{} \\ \hline
+	\newmethod{onReload()}{Implement this method to recreates the fields, that are not serialized.}{Abstract method called by \texttt{reload()}} \\ \hline
+\end{longtable}
+
+% SimpleVisualVertex
+\paragraph*{\textcolor{Blue}{Class: SimpleVisualVertex}}
+\paragraph*{}
+\begin{longtable}{c|p{5.5cm}p{4cm}p{4cm}}
+	\hline\rowcolor{white}{} & \textbf{Method name} & \textbf{Description} & \textbf{Note} \\ \hline
+	\alteredmethod{getColor())}{Returns the fill color.}{Renamed to \texttt{getFillColor()}.} \\ \hline
+	\alteredmethod{setColor([...]))}{Sets the fill color.}{Renamed to \texttt{setFillColor()}.} \\ \hline
+	\newmethod{init()}{Initializes this SimpleVisualVertex}{Overrides \texttt{VisualVertex.init()}} \\ \hline
+	\newmethod{onReload()}{Recreates the fields, that are not serialized.}{Implements \texttt{VisualVertex.onReload()}} \\ \hline
 \end{longtable}
 
 % GraphicVisualVertex
@@ -64,6 +67,16 @@
 \begin{longtable}{c|p{5.5cm}p{4cm}p{4cm}}
 	\hline\rowcolor{white}{} & \textbf{Method name} & \textbf{Description} & \textbf{Note} \\ \hline
 	\newmethod{flush()}{Resets this GameBoard to an empty state.}{} \\ \hline
+	\alteredmethod{addVisualEdge([...])}{Adds the given VisualEdge to the board. If the used graph is undirected the opposing edge is also added.}{Gets an already created edge as parameter instead of its two vertices.}\\ \hline
+\end{longtable}
+
+% Grid
+\paragraph*{\textcolor{Blue}{Class: Grid}}
+\paragraph*{}
+\begin{longtable}{c|p{5.5cm}p{4cm}p{4cm}}
+	\hline\rowcolor{white}{} & \textbf{Method name} & \textbf{Description} & \textbf{Note} \\ \hline
+	\newmethod{getHorizontalGridPoints}{Returns the horizontal dimension of this grid.}{} \\ \hline
+	\newmethod{getVerticalGridPoints}{Returns the vertical dimension of this grid.}{} \\ \hline
 \end{longtable}
 
 % GameManager
