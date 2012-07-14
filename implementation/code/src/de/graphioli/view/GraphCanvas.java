@@ -57,15 +57,13 @@ public class GraphCanvas extends JPanel {
 	 */
 	private Dimension canvasSize;
 
-	/**
-	 * The {@link VisualGrid} associated with this {@link GraphCanvas}. private
-	 * VisualGrid visualGrid; /** Creates a {@link GraphCanvas} and registers
+	/** Creates a {@link GraphCanvas} with a {@link VisualGrid} and registers
 	 * its parent {@link GameWindow}.
 	 * 
 	 * @param parentGameWindow
 	 *            The {@link GameWindow} that contains this {@link GraphCanvas}
 	 * @param grid
-	 *            the visual grid which is diplayed in ths canvas.
+	 *            the visual grid which is displayed in this canvas.
 	 */
 	public GraphCanvas(GameWindow parentGameWindow, VisualGrid grid) {
 		LOG.fine("GraphCanvas instantiated");

@@ -21,7 +21,7 @@ public interface View {
 	 * @param menu the menu items to add.
 	 * @return {@code true} if the adding was successful
 	 */
-	boolean addMenuItems(List<MenuItem> menu);
+	boolean addCustomMenuItems(List<MenuItem> menu);
 
 	/**
 	 * Asks the player if the game should be restarted.
@@ -86,15 +86,6 @@ public interface View {
 	 */
 	boolean registerController(ViewManager viewManager);
 	
-	/**
-	 * Sets the size of the {@link VisualVertex}es displayed.
-	 * 
-	 * @param size
-	 *            The size of the vertices
-	 * @return <code>true</code> if the action was performed successfully,
-	 *         <code>false</code> otherwise
-	 */
-	boolean setVisualVertexSize(int size);
 
 	/**
 	 * Updates which {@link Player} is displayed as active.

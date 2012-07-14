@@ -173,7 +173,7 @@ public class ViewManager {
 	 * @return {@code true} on success.
 	 */
 	boolean addCustomMenuItems(List<MenuItem> items) {
-		return this.view.addMenuItems(items);
+		return this.view.addCustomMenuItems(items);
 	}
 
 	/**

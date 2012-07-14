@@ -92,7 +92,7 @@ public class GameWindow extends JFrame implements View {
 	}
 
 	@Override
-	public boolean addMenuItems(List<MenuItem> menu) {
+	public boolean addCustomMenuItems(List<MenuItem> menu) {
 		this.menuBar.addOptionsItems(menu);
 		return true;
 	}
@@ -188,19 +188,6 @@ public class GameWindow extends JFrame implements View {
 		
 		this.generateView();
 		this.addEventListeners();
-		return true;
-	}
-
-	/**
-	 * Sets the size of the {@link VisualVertex}es displayed.
-	 * 
-	 * @param size
-	 *            The size of the vertices
-	 * @return <code>true</code> if the action was performed successfully,
-	 *         <code>false</code> otherwise
-	 */
-	@Override
-	public boolean setVisualVertexSize(int size) {
 		return true;
 	}
 
@@ -338,14 +325,6 @@ public class GameWindow extends JFrame implements View {
 		return this.viewManager;
 	}
 
-	/**
-	 * Returns the {@link VisualGrid} associated with the {@link GameWindow}.
-	 * 
-	 * @return The associated {@link ViusalGrid}
-	 */
-	VisualGrid getVisualGrid() {
-		return this.visualGrid;
-	}
 
 	/**
 	 * Forwards the key input to the {@link ViewManager}.
@@ -357,22 +336,6 @@ public class GameWindow extends JFrame implements View {
 	 */
 	boolean onKeyRelease(int keyCode) {
 		return this.viewManager.onKeyRelease(keyCode);
-	}
-
-	/**
-	 * Opens a save file dialog.
-	 * 
-	 * @return The file the game should be saved
-	 */
-	File saveFileDialog() {
-		JFileChooser fc = new JFileChooser();
-		int returnVal = fc.showSaveDialog(this);
-		if (returnVal == JFileChooser.APPROVE_OPTION) {
-			LOG.info("Selected file to save: " + fc.getSelectedFile().getName());
-			return fc.getSelectedFile();
-		}
-		return null;
-
 	}
 
 	/**

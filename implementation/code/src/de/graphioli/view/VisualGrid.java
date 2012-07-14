@@ -128,19 +128,11 @@ public class VisualGrid implements MouseListener {
 		}
 	}
 
-	/**
-	 * Returns the {@link Grid} associated with the {@link VisualGrid}.
-	 * 
-	 * @return Grid The of this
-	 */
-	Grid getGrid() {
-		return this.grid;
-	}
 
 	/**
-	 * Returns the gridScale.
+	 * Returns the grid scale (i.e. the distance of two {@link GridPoint}s).
 	 * 
-	 * @return The gridScale
+	 * @return The grid scale
 	 */
 	int getGridScale() {
 		return this.gridScale;
