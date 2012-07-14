@@ -126,7 +126,7 @@ public abstract class VisualVertex extends Vertex {
 	protected abstract boolean draw(Graphics2D graphics);
 
 	/**
-	 * Initialize this {@code VisualVertex}.
+	 * Initializes this {@code VisualVertex}.
 	 * Call {@code super()} when overriding!
 	 */
 	protected void init() {
