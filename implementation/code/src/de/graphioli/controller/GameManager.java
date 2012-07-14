@@ -35,7 +35,8 @@ import java.util.logging.Logger;
  * @author Team Graphioli
  */
 public final class GameManager {
-	// Checkstyle warning: More than 20 classes (22). Don't think there is a sensible way to fix that.
+	// Checkstyle warning: More than 20 classes (22). Don't think there is a
+	// sensible way to fix that.
 
 	/**
 	 * Logging instance.
@@ -149,7 +150,7 @@ public final class GameManager {
 	}
 
 	/**
-	 * Notifies this {@link GameManager}, that the game is supposed to be
+	 * Notifies this {@link GameManager} that the game is supposed to be
 	 * finished.
 	 * 
 	 * @return <code>true</code> if the action was performed successfully,
@@ -285,7 +286,8 @@ public final class GameManager {
 	}
 
 	/**
-	 * Opens the help file with the link of the current {@link GameDefinition}.
+	 * Calls {@link GameManager#openHelpFile(GameDefinition)} with the current
+	 * {@link GameDefinition}.
 	 * 
 	 * @return <code>true</code> if the action was performed successfully,
 	 *         <code>false</code> otherwise
@@ -483,7 +485,6 @@ public final class GameManager {
 		} else {
 			return true;
 		}
-			
 
 	}
 
