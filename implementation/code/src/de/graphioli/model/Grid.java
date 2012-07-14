@@ -48,6 +48,8 @@ public class Grid implements Serializable {
 	}
 
 	/**
+	 * Returns the horizontal dimension of this grid.
+	 * 
 	 * @return horizontalGridPoints.
 	 */
 	public int getHorizontalGridPoints() {
@@ -55,6 +57,8 @@ public class Grid implements Serializable {
 	}
 
 	/**
+	 * Returns the vertical dimension of this grid.
+	 * 
 	 * @return verticalGridPoints
 	 */
 	public int getVerticalGridPoints() {

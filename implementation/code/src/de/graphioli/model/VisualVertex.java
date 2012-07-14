@@ -83,19 +83,6 @@ public abstract class VisualVertex extends Vertex {
 		this.onReload();
 		this.update();
 	}
-	/**
-	 * @param gridPoint
-	 *            the gridPoint to set
-	 */
-	public void setGridPoint(GridPoint gridPoint) {
-		// TODO: Take out this method?
-		LOG.warning("Resetting the position of a VisualVertex from "
-				+ this.gridPoint
-				+ " to "
-				+ gridPoint
-				+ ". This might lead to inconsistencies!");
-		this.gridPoint = gridPoint;
-	}
 
 	/**
 	 * Recreates the buffered image of this {@code VisualVertex}. Has to be
@@ -139,7 +126,7 @@ public abstract class VisualVertex extends Vertex {
 	protected abstract boolean draw(Graphics2D graphics);
 
 	/**
-	 * Initialize this {@code VisualVertex}.
+	 * Initializes this {@code VisualVertex}.
 	 * Call {@code super()} when overriding!
 	 */
 	protected void init() {

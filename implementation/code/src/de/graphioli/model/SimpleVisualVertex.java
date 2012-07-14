@@ -127,6 +127,7 @@ public class SimpleVisualVertex extends VisualVertex {
 	 */
 	@Override
 	protected void init() {
+		super.init();
 		this.fillColor = Color.WHITE;
 		this.strokeColor = Color.BLACK;
 		this.strokeWeight = 1;
