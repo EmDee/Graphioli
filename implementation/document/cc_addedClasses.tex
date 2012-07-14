@@ -107,3 +107,22 @@ This class implements the \texttt{MenuItem} as a Swing \texttt{JMenuItem}.
 	& Returns the menu item. \\
 	\hline
 \end{longtable}
+
+% GEWindowActions
+\class{GEWindowActions}{gewindowactions}
+This class handles the action and event listeners for the GEWindow.
+
+\paragraph*{Method Summary}
+\paragraph*{}
+\begin{longtable}{Lp{10cm}}
+	\startmethodtable
+	\method{public}{GEWindowActions(GEWindow geWindow)}{gewa:gewindowactions} \\
+	& Constructs a new GEWindowActions action listener. \\
+	\method{public void}{keyPressed(KeyEvent e)}{gewa:keypresses} \\
+	& Listens to keyboard key presses. \\
+	\method{public void}{mouseClicked(MouseEvent e)}{gewa:mouseclicked} \\
+	& Listens to mouse clicks. \\
+	\method{public void}{valueChanged(ListSelectionEvent event)}{gewa:valuechanged} \\
+	& Listens to the list of available game definitions. \\
+	\hline
+\end{longtable}

@@ -19,6 +19,7 @@
 	\newmethod{callOnGameStart([...])}{This method executes a onGameStart call.}{\ditto} \\ \hline
 \end{longtable}
 
+
 % VisualVertex
 \paragraph*{\textcolor{Blue}{Class: VisualVertex}}
 \paragraph*{}
@@ -257,12 +258,29 @@
 	\removedmethod{scanGameFolder()}{Scans the game folder for games and returns the GameDef- initions of the games in it.}{Replaced by \ref{ge:scangamefolder}.} \\ \hline
 	\newmethod{\textlabel{scanGameFolderAndCreateGameDefinitions()}{ge:scangamefolder}}{Scans the game folder for games, creates \texttt{GameDefinitions} and adds these to the gameDefinition's list.}{} \\
 	\newmethod{close()}{Closes this GameExplorer.}{} \\ \hline
+	\newmethod{selectGame([...])}{Calls the \texttt{GameManager} to restart the game of the given savegame file.}{Overloaded method to start savegames directly.} \\ \hline
+\end{longtable}
+
+% GameDefinition
+\paragraph*{\textcolor{Blue}{Class: GameDefinition}}
+\paragraph*{}
+\begin{longtable}{c|p{5.5cm}p{4cm}p{4cm}}
+	\hline\rowcolor{white}{} & \textbf{Method name} & \textbf{Description} & \textbf{Note} \\ \hline
+	\newmethod{supportsSavegame()}{Returns whether the game supports saving and loading of savegames or not.}{} \\ \hline
+	\newmethod{localizeInstance()}{Localizes the strings in this game definition based on its "'lang"' files.}{} \\ \hline
 \end{longtable}
 
 % GEWindow
 \paragraph*{\textcolor{Blue}{Class: GEWindow}}
 \paragraph*{}
-\todo{add GEWindow changes: pretty much everything}
+\begin{longtable}{c|p{5.5cm}p{4cm}p{4cm}}
+	\hline\rowcolor{white}{} & \textbf{Method name} & \textbf{Description} & \textbf{Note} \\ \hline
+	\newmethod{closeGameExplorer()}{Closes this GameExplorer window.}{} \\ \hline
+	\newmethod{getCurrentScreenshot()}{Returns a BufferedImage containing the screenshot of the currently select game.}{} \\ \hline
+	\newmethod{getCurrentClassName()}{Returns the class name of the currently select game.}{} \\ \hline
+	\newmethod{onPlayerPopUpReturn([...])}{Called by the \texttt{PlayerPopUp} when it has finished and triggers the start of the \texttt{Game}.}{Overloaded method for loading savegame directly.} \\ \hline
+	\removedmethod{valueChanged([...])}{Called by the \texttt{JList} when its selection has changed to update the remaining graphical elements of this \texttt{GEWindow}.}{Moved to \ref{cls:gewindowactions}} \\ \hline
+	\end{longtable}
 
 % GameCapsule
 \paragraph*{\textcolor{Blue}{Class: GameCapsule}}
