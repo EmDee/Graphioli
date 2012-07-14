@@ -15,6 +15,11 @@ import java.awt.Color;
 public class GraphColoringVertex extends SimpleVisualVertex {
 
 	/**
+	 * Serialization UID.
+	 */
+	private static final long serialVersionUID = 4424132625615868115L;
+
+	/**
 	 * The color ID of this vertex.
 	 */
 	private int colorID;

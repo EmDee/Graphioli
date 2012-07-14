@@ -2,13 +2,10 @@ package de.graphioli.utils;
 
 import java.io.File;
 import java.util.logging.Logger;
-
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileFilter;
-
-import de.graphioli.model.VisualVertex;
 
 /**
  * This class provides save and load dialogs for savegames.
