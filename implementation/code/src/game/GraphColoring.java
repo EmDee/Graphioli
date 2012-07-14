@@ -73,7 +73,7 @@ public class GraphColoring extends Game {
 
 	/**
 	 * If the given VisualVertex is an GraphColoringButtonVertex its color is
-	 * selected otherwise it colors the given vertex – if possible – with the
+	 * selected otherwise it colors the given vertex if possible with the
 	 * selected color and decides if the game is finished by this move.
 	 * 
 	 * @param vertex
@@ -115,7 +115,7 @@ public class GraphColoring extends Game {
 	}
 
 	/**
-	 * {@inheritDoc}
+	 * Builds up the game's board.
 	 */
 	@Override
 	protected boolean onGameInit() {
@@ -143,7 +143,7 @@ public class GraphColoring extends Game {
 	}
 
 	/**
-	 * {@inheritDoc}
+	 * Decides whether the game is started in single- or multiplayer mode.
 	 */
 	@Override
 	protected boolean onGameStart() {
