@@ -2,10 +2,6 @@ package game;
 
 import java.awt.Color;
 import java.awt.event.KeyEvent;
-import java.awt.image.BufferedImage;
-
-import javax.swing.JComboBox.KeySelectionManager;
-
 import de.graphioli.controller.Game;
 import de.graphioli.model.GridPoint;
 import de.graphioli.model.MenuItem;

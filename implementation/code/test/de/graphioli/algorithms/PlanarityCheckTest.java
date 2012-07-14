@@ -1,9 +1,7 @@
 package de.graphioli.algorithms;
 
 import static org.junit.Assert.*;
-
 import org.junit.Test;
-
 import de.graphioli.model.*;
 
 public class PlanarityCheckTest {
@@ -23,7 +21,6 @@ public class PlanarityCheckTest {
 		 SimpleVisualVertex v4 = new SimpleVisualVertex(p4);
 		 SimpleVisualEdge e12 = new SimpleVisualEdge(v1,v2);
 		 SimpleVisualEdge e23 = new SimpleVisualEdge(v2,v3);
-		 SimpleVisualEdge e24 = new SimpleVisualEdge(v2,v4);
 		 
 		 graph = new Graph();
 		 

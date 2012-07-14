@@ -13,6 +13,11 @@ import de.graphioli.model.GridPoint;
 public class GraphColoringButtonVertex extends GraphColoringVertex {
 
 	/**
+	 * Serialization UID
+	 */
+	private static final long serialVersionUID = -7148091699613322445L;
+
+	/**
 	 * Constructs a GraphColoringButtonVertex with the given GridPoint.
 	 * 
 	 * @param gridPoint
