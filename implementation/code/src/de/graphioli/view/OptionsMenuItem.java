@@ -31,7 +31,9 @@ public class OptionsMenuItem extends JMenuItem {
 	
 	/**
 	 * Creates a OptionsMenuItem from the given MenuItem.
-	 * @param item the menu item.
+	 * 
+	 * @param item
+	 *            the menu item.
 	 */
 	public OptionsMenuItem(MenuItem item) {
 		super(item.getName());

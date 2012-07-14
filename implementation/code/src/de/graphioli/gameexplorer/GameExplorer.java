@@ -189,7 +189,6 @@ public class GameExplorer {
 		GameDefinition gameDefinition;
 		Reader propertyFile = null;
 
-		// TODO: Different path for different environments
 		for (File tmpGame : gamesDirectory.listFiles()) {
 			if (tmpGame.isDirectory()) {
 				try {

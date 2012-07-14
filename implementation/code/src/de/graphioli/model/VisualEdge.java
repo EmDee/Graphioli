@@ -38,7 +38,7 @@ public abstract class VisualEdge extends Edge {
 	}
 
 	/**
-	 * Calculates an offset for the edge and then calls {@link VisualEdge#drawDirected(Graphics2D, int, int, int, int)
+	 * Calculates an offset for the edge and then calls {@link VisualEdge#drawDirected(Graphics2D, int, int, int, int)}
 	 * with the adapted coordinates.
 	 * 
 	 * @param g2d
