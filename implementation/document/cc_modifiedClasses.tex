@@ -6,9 +6,17 @@
 \begin{longtable}{c|p{5.5cm}p{4cm}p{4cm}}
 	\hline\rowcolor{white}{} & \textbf{Method name} & \textbf{Description} & \textbf{Note} \\ \hline
 	\alteredmethod{registerController([...])}{Associates this game with a GameManager and its GameResources}{Added `GameResources as parameter'} \\ \hline
-	\newmethod{callOnEmptyGridPointClick([...])}{This method executes a onEmptyGridPointClick call}{} \\ \hline
-	\newmethod{callOnGameSave([...])}{This method executes a onGameSave call.}{} \\ \hline
-	\newmethod{callOnGameLoad([...])}{This method executes a onGameLoad call.}{} \\ \hline
+	\newmethod{onGameSave([...])}{Called before a savegame is stored.}{} \\ \hline
+	\newmethod{onGameLoad([...])}{Called after a savegame is loaded.}{} \\ \hline
+	\newmethod{callOnEmptyGridPointClick([...])}{This method executes a onEmptyGridPointClick call}{Used to execute calls in a separate thread.} \\ \hline
+	\newmethod{callOnGameSave([...])}{This method executes a onGameSave call.}{\ditto} \\ \hline
+	\newmethod{callOnGameSave([...])}{This method executes a onGameSave call.}{\ditto} \\ \hline
+	\newmethod{callOnGameLoad([...])}{This method executes a onGameLoad call.}{\ditto} \\ \hline
+	\newmethod{callOnVertexClick([...])}{This method executes a onVertexClick call.}{\ditto} \\ \hline
+	\newmethod{callOnKeyRelease([...])}{This method executes a onKeyRelease call.}{\ditto} \\ \hline
+	\newmethod{callOnMenuItemClick([...])}{This method executes a onMenuItemClick call.}{\ditto} \\ \hline
+	\newmethod{callOnGameInit([...])}{This method executes a onGameInit call.}{\ditto} \\ \hline
+	\newmethod{callOnGameStart([...])}{This method executes a onGameStart call.}{\ditto} \\ \hline
 \end{longtable}
 
 % VisualVertex
@@ -19,7 +27,7 @@
 	\alteredmethod{update()}{Recreates the buffered image of this \texttt{VisualVertex}. Has to be called to change the visualization.}{Changed access modifier from \texttt{protected} to \texttt{public.}} \\ \hline
 	\newmethod{reload()}{Recreates the fields that are not serialized.}{} \\ \hline
 	\newmethod{init()}{Initializes this VisualVertex}{} \\ \hline
-	\newmethod{onReload()}{Implement this method to recreates the fields, that are not serialized.}{Abstract method called by \texttt{reload()}} \\ \hline
+	\newmethod{onReload()}{Implement this method to recreate the fields, that are not serialized.}{Abstract method called by \texttt{reload()}} \\ \hline
 \end{longtable}
 
 % SimpleVisualVertex
@@ -73,14 +81,6 @@
 	\newmethod{draw([...])}{Draws this vertex.}{Overrides \texttt{GraphicVisualVertex.draw([...])}} \\ \hline
 \end{longtable}
 
-% VisualEdge
-\paragraph*{\textcolor{Blue}{Class: VisualEdge}}
-\paragraph*{}
-\begin{longtable}{c|p{5.5cm}p{4cm}p{4cm}}
-	\hline\rowcolor{white}{} & \textbf{Method name} & \textbf{Description} & \textbf{Note} \\ \hline
-	\newmethod{reload()}{Recreates the fields that are not serialized.}{} \\ \hline
-\end{longtable}
-
 % GameDefinition
 \paragraph*{\textcolor{Blue}{Class: GameDefinition}}
 \paragraph*{}
@@ -117,8 +117,12 @@
 \paragraph*{}
 \begin{longtable}{c|p{5.5cm}p{4cm}p{4cm}}
 	\hline\rowcolor{white}{} & \textbf{Method name} & \textbf{Description} & \textbf{Note} \\ \hline
+	\alteredmethod{finishGame()}{Finishes the game and displays the winning Player in a pop-up.}{Now only sets the finishFlag.} \\ \hline
 	\newmethod{\textlabel{openHelpFile([...])}{gm:openhelpfile}}{Opens the help file within the game's jar.}{} \\ \hline
 	\newmethod{openHelpFile()}{Calls \ref{gm:openhelpfile} with the current GameDefinition.}{Overloaded function of openHelpFile([...])} \\ \hline
+	\newmethod{startGame([...])}{Start the savegame specified by the \texttt{File}.}{Overloaded method to start savegames directly.} \\ \hline
+	\newmethod{exit()}{Exits the whole program.}{} \\ \hline
+	\newmethod{getCurrentGameDefinition()}{Returns the current \texttt{GameDefinition}}{} \\ \hline
 	\removedmethod{killGame()}{Kills the currently running game.}{Is handled by closeGame().} \\ \hline
 	\removedmethod{finishGame([...])}{Finishes the game and displays the winning Player in a pop-up.}{Removed overloaded finishGame() method, is handled by \ref{gm:checkfinished}.} \\ \hline
 	\newmethod{\textlabel{checkFinished()}{gm:checkfinished}}{Checks whether the finishFlag is set and if so closes the game with a winner pop-up.}{} \\ \hline
@@ -130,6 +134,10 @@
 \paragraph*{}
 \begin{longtable}{c|p{5.5cm}p{4cm}p{4cm}}
 	\hline\rowcolor{white}{} & \textbf{Method name} & \textbf{Description} & \textbf{Note} \\ \hline
+	\alteredmethod{onMenuItemClick()}{Callback function used by the View to notify about a click on a previously added MenuItem}{Renamed to \texttt{onCutomMenuItemClick()}} \\ \hline
+	\alteredmethod{addGameMenuItem()}{Notifies the View to add the given MenuItem to the menu.}{Renamed to \texttt{addCustomMenuItems} and takes a list of \texttt{MenuItems}.}. \\ \hline
+	\newmethod{updateView()}{Notifies the view to update itself.}{} \\ \hline
+	\newmethod{closeView()}{Closes the View and all its components.}{} \\ \hline
 	\newmethod{askForRestart()}{Informs the View to ask the player if the game should be restarted.}{} \\ \hline
 \end{longtable}
 
@@ -174,14 +182,29 @@
 	\hline\rowcolor{white}{} & \textbf{Method name} & \textbf{Description} & \textbf{Note} \\ \hline
 	\alteredmethod{draw()}{Draws the VisualEdge onto the given Graphics2D object.}{Is splitted into \ref{ve:directed} and \ref{ve:undirected}} \\ \hline
 	\newmethod{generateOpposedEdge()}{Generates an Edge from this one where target and origin vertices are swapped.}{} \\ \hline
-	\newmethod{isOpposingEdge()}{Returns \texttt{true} if this edge is a opposing edge.}{} \\ \hline
+	\newmethod{isOpposingEdge()}{Returns \texttt{true} if this edge is an opposing edge.}{} \\ \hline
 	\newmethod{hasOpposingEdge()}{Returns \texttt{true} if this edge has an opposing edge.}{} \\ \hline
 	\newmethod{\textlabel{drawDirected([...])}{ve:directed}}{Draws this edge as directed edge onto the given \texttt{Graphics2D} object.}{} \\ \hline
 	\newmethod{\textlabel{drawUndirected([...])}{ve:undirected}}{Draws this edge as undirected edge onto the given \texttt{Graphics2D} object.} \\ \hline
 	\newmethod{callDrawDirected([...])}{Calculates an offset for the edge and then calls \ref{ve:directed} with the adapted coordinates.}{} \\ \hline
 	\newmethod{callDrawUndirected([...])}{Calls \ref{ve:undirected} if this edge is not flagged as an opposing edge.}{} \\ \hline
+	\newmethod{reload()}{Recreates the fields that are not serialized.}{} \\ \hline
+	\newmethod{onReload()}{Implement this method to recreate the fields, that are not serialized.}{Abstract method called by \texttt{reload()}} \\ \hline
 \end{longtable}
 
+% SimpleVisualEdge
+\paragraph*{\textcolor{Blue}{Class: SimpleVisualEdge}}
+\paragraph*{}
+\begin{longtable}{c|p{5.5cm}p{4cm}p{4cm}}
+	\hline\rowcolor{white}{} & \textbf{Method name} & \textbf{Description} & \textbf{Note} \\ \hline
+	\alteredmethod{draw()}{Draws the VisualEdge onto the given Graphics2D object.}{Is splitted into \ref{ve:directed} and \ref{ve:undirected}} \\ \hline
+	\alteredmethod{getColor()}{Returns the stroke color.}{Renamed to \texttt{getStrokeColor()}.} \\ \hline
+	\alteredmethod{setColor([...])}{Sets the stroke color.}{Renamed to \texttt{setStrokeColor()}.} \\ \hline
+	\newmethod{generateOpposedEdge()}{Generates an Edge from this one where target and origin vertices are swapped.}{} \\ \hline
+	\newmethod{\textlabel{drawDirected([...])}{ve:directed}}{Draws this edge as an arrow onto the given \texttt{Graphics2D} object.}{} \\ \hline
+	\newmethod{\textlabel{drawUndirected([...])}{ve:undirected}}{Draws this edge as a line onto the given \texttt{Graphics2D} object.}{} \\ \hline
+	\newmethod{onReload()}{Recreates the fields, that are not serialized.}{} \\ \hline
+\end{longtable}
 
 % VisualGrid
 \paragraph*{\textcolor{Blue}{Class: VisualGrid}}
@@ -225,6 +248,7 @@
 	\hline\rowcolor{white}{} & \textbf{Method name} & \textbf{Description} & \textbf{Note} \\ \hline
 	\alteredmethod{GameCapsule([...])}{Creates a new \texttt{GameCapsule} with the given parameters.}{Added \texttt{GameDefinition} to constructor's parameters.} \\ \hline
 	\newmethod{getGameDefinition()}{Returns the saved active \texttt{GameDefintion}.}{} \\ \hline
+	\newmethod{getHashMap()}{Returns the hash map for custom values.}{}\\ \hline
 \end{longtable}
 
 % CustomMenuItemListener
