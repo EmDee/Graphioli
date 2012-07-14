@@ -63,9 +63,12 @@
 \newcommand{\startmethodtable}{\hline\rowcolor{white}\textbf{Modifier and Type} & \textbf{Method and Description} \\ \hline}
 
 % added, removed and minor changed methods
-\newcommand{\newmethod}[3]{\rowcolor{green!10} + & #1 & #2 & #3}
-\newcommand{\removedmethod}[3]{\rowcolor{red!10} - & #1 & #2 & #3}
-\newcommand{\alteredmethod}[3]{\rowcolor{blue!10} = & #1 & #2 & #3}
+\newcommand{\newmethod}[3]{\rowcolor{green!20} + & #1 & #2 & #3}
+\newcommand{\removedmethod}[3]{\rowcolor{red!20} - & #1 & #2 & #3}
+\newcommand{\alteredmethod}[3]{\rowcolor{blue!20} = & #1 & #2 & #3}
 
 % ditto mark
-\newcommand{\ditto}[1][.4pt]{\xrfill{#1}~\textquotedbl~\xrfill{#1}}
+%\newcommand{\ditto}[1][.4pt]{\xrfill{#1}~\textquotedbl~\xrfill{#1}}
+\renewcommand{\textquotedbl}{\texttt{"}}
+\newcommand{\dittomark}[1][1ex]{\xrfill[.7ex]{.4pt}~\rule{0pt}{#1}\textquotedbl~\xrfill[.7ex]{.4pt}}
+\newcommand{\ditto}{\dittomark[\normalbaselineskip]}
