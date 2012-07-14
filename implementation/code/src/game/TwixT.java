@@ -25,8 +25,8 @@ public class TwixT extends Game {
 	private static String playerOneImgFile = "TowerRot.png";
 	private static String playerTwoImgFile = "TowerGruen.png";
 
-	private static Color playerOneColor = Color.MAGENTA;
-	private static Color playerTwoColor = Color.GREEN;
+	private static Color playerOneColor = Color.RED;
+	private static Color playerTwoColor = new Color(34, 179, 78);
 
 	private PlayerManager playerManager;
 	private GameBoard board;
