@@ -135,7 +135,7 @@
 \begin{longtable}{c|p{5.5cm}p{4cm}p{4cm}}
 	\hline\rowcolor{white}{} & \textbf{Method name} & \textbf{Description} & \textbf{Note} \\ \hline
 	\alteredmethod{onMenuItemClick()}{Callback function used by the View to notify about a click on a previously added MenuItem}{Renamed to \texttt{onCutomMenuItemClick()}} \\ \hline
-	\alteredmethod{addGameMenuItem()}{Notifies the View to add the given MenuItem to the menu.}{Renamed to \texttt{addCustomMenuItems} and takes a list of \texttt{MenuItems}.}. \\ \hline
+	\alteredmethod{addGameMenuItem()}{Notifies the View to add the given MenuItem to the menu.}{Renamed to \texttt{addCustomMenuItems([...])} and takes a list of \texttt{MenuItems}.}. \\ \hline
 	\newmethod{updateView()}{Notifies the view to update itself.}{} \\ \hline
 	\newmethod{closeView()}{Closes the View and all its components.}{} \\ \hline
 	\newmethod{askForRestart()}{Informs the View to ask the player if the game should be restarted.}{} \\ \hline
@@ -147,6 +147,8 @@
 \begin{longtable}{c|p{5.5cm}p{4cm}p{4cm}}
 	\hline\rowcolor{white}{} & \textbf{Method name} & \textbf{Description} & \textbf{Note} \\ \hline
 	\newmethod{askForRestart()}{Asks the player if the game should be restarted.}{} \\ \hline
+	\newmethod{closeView()}{Disposes all components of the View.}{} \\ \hline
+	\alteredmethod{addCustomMenuItem([...])}{Adds a list of menu items to the options menu.}{Renamed to \texttt{addCustomMenuItems( [...])} and now takes a list of menu items.}
 \end{longtable}
 
 % GameWindow
@@ -155,6 +157,10 @@
 \begin{longtable}{c|p{5.5cm}p{4cm}p{4cm}}
 	\hline\rowcolor{white}{} & \textbf{Method name} & \textbf{Description} & \textbf{Note} \\ \hline
 	\newmethod{askForRestart()}{Asks the player if the game should be restarted.}{} \\ \hline
+	\newmethod{closeView()}{Disposes all components of the GameWindow.}{} \\ \hline
+	\newmethod{closeGame()}{Closes this Game window.}{} \\ \hline
+	\newmethod{onKeyRelease([...])}{Forwards the key input to the \texttt{ViewManager}.}{} \\ \hline
+	\alteredmethod{addCustomMenuItem([...])}{Adds a list of menu items to the \texttt{MenuBar}.}{Renamed to \texttt{addCustomMenuItems( [...])} and now takes a list of menu items.}
 \end{longtable}
 
 % PlayerPopUp
@@ -206,14 +212,31 @@
 	\newmethod{onReload()}{Recreates the fields, that are not serialized.}{} \\ \hline
 \end{longtable}
 
+% GraphCanvas
+\paragraph*{\textcolor{Blue}{Class: GraphCanvas}}
+\paragraph*{}
+\begin{longtable}{c|p{5.5cm}p{4cm}p{4cm}}
+	\hline\rowcolor{white}{} & \textbf{Method name} & \textbf{Description} & \textbf{Note} \\ \hline
+	\alteredmethod{GraphCanvas([...])}{Creates a \texttt{GraphCanvas} with a \texttt{VisualGrid} and registers its parent \texttt{GameWindow}.}{Added attribute VisualGrid to constructor.} \\ \hline
+\end{longtable}
+
+
 % VisualGrid
 \paragraph*{\textcolor{Blue}{Class: VisualGrid}}
 \paragraph*{}
 \begin{longtable}{c|p{5.5cm}p{4cm}p{4cm}}
 	\hline\rowcolor{white}{} & \textbf{Method name} & \textbf{Description} & \textbf{Note} \\ \hline
-	\alteredmethod{VisualGrid([...])}{Creates a \texttt{VisualGrid} and registers its parent \texttt{GameWindow}.}{Added attribute GraphCanvas to constructor to get the size of the canvas.} \\ \hline
+	\newmethod{calculateSize()}{Calculates the size of this grid.}{} \\ \hline
+	\newmethod{getGridScale()}{Returns the grid scale (i.e. the distance of two \texttt{GridPoint}s).}{} \\ \hline
 \end{longtable}
 
+% MenuBar
+\paragraph*{\textcolor{Blue}{Class: MenuBar}}
+\paragraph*{}
+\begin{longtable}{c|p{5.5cm}p{4cm}p{4cm}}
+	\hline\rowcolor{white}{} & \textbf{Method name} & \textbf{Description} & \textbf{Note} \\ \hline
+	\alteredmethod{addCustomMenuItem([...])}{Adds menu items to the options menu.}{Renamed to \texttt{addOptionsItems([...])} and now takes a list of menu items.}
+\end{longtable}
 
 
 % PlayerManager
@@ -249,6 +272,15 @@
 	\alteredmethod{GameCapsule([...])}{Creates a new \texttt{GameCapsule} with the given parameters.}{Added \texttt{GameDefinition} to constructor's parameters.} \\ \hline
 	\newmethod{getGameDefinition()}{Returns the saved active \texttt{GameDefintion}.}{} \\ \hline
 	\newmethod{getHashMap()}{Returns the hash map for custom values.}{}\\ \hline
+\end{longtable}
+
+% Validation
+\paragraph*{\textcolor{Blue}{Class: Validation}}
+\paragraph*{}
+\begin{longtable}{c|p{5.5cm}p{4cm}p{4cm}}
+	\hline\rowcolor{white}{} & \textbf{Method name} & \textbf{Description} & \textbf{Note} \\ \hline
+	\newmethod{isValidGridPoint([...])}{Checks if a \texttt{GridPoint} is within the range of a \texttt{Grid}'s dimensions.}{} \\ \hline
+	\removedmethod{isValidFileName([...])}{Checks if the specified file is valid.}{Not used.}
 \end{longtable}
 
 % CustomMenuItemListener
