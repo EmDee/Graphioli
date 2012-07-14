@@ -81,34 +81,6 @@ public class TwixTVertex extends GraphicVisualVertex {
 	}
 
 	/**
-	 * Returns the Player.
-	 * 
-	 * @return The 'owner' of this vertex.
-	 */
-	public Player getPlayer() {
-		return this.player;
-	}
-
-	/**
-	 * Sets the image that represents this GraphicVisualVertex.
-	 * 
-	 * @param player
-	 *            The 'owner' of this vertex
-	 */
-	public void setPlayer(Player player) {
-		this.player = player;
-		if (this.player.equals(playerOne)) {
-			this.setImage(this.highlighted ? playerOneHLTower : playerOneTower);
-		} else if (this.player.equals(playerTwo)) {
-			this.setImage(this.highlighted ? playerTwoHLTower : playerTwoTower);
-		} else {
-			// System.out.println("Unknown player");
-			this.setImage(null);
-		}
-		this.update();
-	}
-
-	/**
 	 * Initializes the two BufferedImages used for the towers of both players.
 	 * 
 	 * @param playerOne the first player of the game
@@ -141,6 +113,44 @@ public class TwixTVertex extends GraphicVisualVertex {
 	}
 
 	/**
+	 * Returns the Player.
+	 * 
+	 * @return The 'owner' of this vertex.
+	 */
+	public Player getPlayer() {
+		return this.player;
+	}
+
+
+	/**
+	 * Sets the highlighted attribute of this vertex.
+	 * @param highlighted the highlighted attribute of this vertex.
+	 */
+	public void setHighlighted(boolean highlighted) {
+		this.highlighted = highlighted;
+		this.setPlayer(this.player);
+	}
+	
+	/**
+	 * Sets the image that represents this GraphicVisualVertex.
+	 * 
+	 * @param player
+	 *            The 'owner' of this vertex
+	 */
+	public void setPlayer(Player player) {
+		this.player = player;
+		if (this.player.equals(playerOne)) {
+			this.setImage(this.highlighted ? playerOneHLTower : playerOneTower);
+		} else if (this.player.equals(playerTwo)) {
+			this.setImage(this.highlighted ? playerTwoHLTower : playerTwoTower);
+		} else {
+			// System.out.println("Unknown player");
+			this.setImage(null);
+		}
+		this.update();
+	}
+	
+	/**
 	 * {@inheritDoc}
 	 */
 	/*
@@ -158,23 +168,6 @@ public class TwixTVertex extends GraphicVisualVertex {
 			}
 		}
 		return super.draw(g2d);
-	}
-	
-	/**
-	 * Sets the highlighted attribute of this vertex.
-	 * @param highlighted the highlighted attribute of this vertex.
-	 */
-	public void setHighlighted(boolean highlighted) {
-		this.highlighted = highlighted;
-		this.setPlayer(this.player);
-	}
-	
-	/**
-	 * Returns {@code true} if this vertex is highlighted.
-	 * @return {@code true} if this vertex is highlighted.
-	 */
-	public boolean isHighlighted() {
-		return this.highlighted;
 	}
 	/**
 	 * {@inheritDoc}
