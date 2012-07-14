@@ -93,9 +93,9 @@ public class GameCapsule implements Serializable {
 	}
 
 	/**
-	 * Returns the saved active {@link GameDefinition}.
+	 * Returns the hash map for custom values.
 	 * 
-	 * @return the saved active {@link GameDefinition}
+	 * @return the hash map for custom values
 	 */
 	public HashMap<Integer, Object> getHashMap() {
 		return this.hashMap;
