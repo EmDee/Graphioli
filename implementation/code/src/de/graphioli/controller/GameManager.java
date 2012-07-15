@@ -11,6 +11,7 @@ import de.graphioli.model.Player;
 import de.graphioli.model.Vertex;
 import de.graphioli.model.VisualEdge;
 import de.graphioli.model.VisualVertex;
+import de.graphioli.utils.ClassLoaderObjectInputStream;
 import de.graphioli.utils.GraphioliLogger;
 import de.graphioli.utils.InvalidJarException;
 import de.graphioli.utils.JarParser;
@@ -20,8 +21,10 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.ObjectStreamClass;
 import java.util.ArrayList;
 import java.util.concurrent.TimeoutException;
 import java.util.logging.Level;
@@ -124,8 +127,8 @@ public final class GameManager {
 	}
 
 	/**
-	 * Closes the game with its {@link de.graphioli.view.GameWindow GameWindow} and returns the focus to the
-	 * {@link GameExplorer}.
+	 * Closes the game with its {@link de.graphioli.view.GameWindow GameWindow}
+	 * and returns the focus to the {@link GameExplorer}.
 	 * 
 	 * @return <code>true</code> if the action was performed successfully,
 	 *         <code>false</code> otherwise
@@ -212,10 +215,10 @@ public final class GameManager {
 		LOG.info("Loading savegame: " + savegame.getPath());
 
 		// Unserializing capsule
-		GameCapsule capsule;
+		GameCapsule capsule = null;
 		try {
 			FileInputStream fis = new FileInputStream(savegame);
-			ObjectInputStream in = new ObjectInputStream(fis);
+			ClassLoaderObjectInputStream in = new ClassLoaderObjectInputStream(fis, this.game.getClass().getClassLoader());
 			capsule = (GameCapsule) in.readObject();
 			in.close();
 			LOG.info("Loaded GameCapsule from File: " + savegame.getName());
@@ -226,6 +229,7 @@ public final class GameManager {
 			LOG.severe("IOException: " + e.getMessage());
 			return false;
 		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
 			LOG.severe("ClassNotFoundException: " + e.getMessage());
 			return false;
 		}
@@ -598,5 +602,7 @@ public final class GameManager {
 		return true;
 
 	}
+
+	
 
 }
