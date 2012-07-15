@@ -533,10 +533,10 @@ public final class GameManager {
 		this.finishFlag = false;
 		LOG.finer("Calling <em>onGameInit()</em>.");
 
+		this.viewManager.displayErrorMessage(Localization.getLanguageString("mess_running"));
 		try {
 			if (this.game.callOnGameInit()) {
 				LOG.fine("<em>onGameInit()</em> returned <em>true</em>.");
-				this.viewManager.displayErrorMessage(Localization.getLanguageString("mess_running"));
 				LOG.finer("Calling <em>onGameStart()</em>.");
 
 				if (this.game.callOnGameStart()) {
