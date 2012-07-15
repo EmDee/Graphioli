@@ -1,55 +1,54 @@
 \subsubsection{Modified Classes}
 
-% Game
-\paragraph*{\textcolor{Blue}{Class: Game}}
+% GameBoard
+\paragraph*{\textcolor{Blue}{Class: GameBoard}}
 \paragraph*{}
 \begin{longtable}{c|p{5.5cm}p{4cm}p{4cm}}
 	\hline\rowcolor{white}{} & \textbf{Method name} & \textbf{Description} & \textbf{Note} \\ \hline
-	\alteredmethod{registerController([...])}{Associates this game with a GameManager and its GameResources}{Added `GameResources as parameter'} \\ \hline
-	\newmethod{onGameSave([...])}{Called before a savegame is stored.}{} \\ \hline
-	\newmethod{onGameLoad([...])}{Called after a savegame is loaded.}{} \\ \hline
-	\newmethod{callOnEmptyGridPointClick([...])}{This method executes a onEmptyGridPointClick call}{Used to execute calls in a separate thread.} \\ \hline
-	\newmethod{callOnGameSave([...])}{This method executes a onGameSave call.}{\ditto} \\ \hline
-	\newmethod{callOnGameSave([...])}{This method executes a onGameSave call.}{\ditto} \\ \hline
-	\newmethod{callOnGameLoad([...])}{This method executes a onGameLoad call.}{\ditto} \\ \hline
-	\newmethod{callOnVertexClick([...])}{This method executes a onVertexClick call.}{\ditto} \\ \hline
-	\newmethod{callOnKeyRelease([...])}{This method executes a onKeyRelease call.}{\ditto} \\ \hline
-	\newmethod{callOnMenuItemClick([...])}{This method executes a onMenuItemClick call.}{\ditto} \\ \hline
-	\newmethod{callOnGameInit([...])}{This method executes a onGameInit call.}{\ditto} \\ \hline
-	\newmethod{callOnGameStart([...])}{This method executes a onGameStart call.}{\ditto} \\ \hline
+	\newmethod{flush()}{Resets this GameBoard to an empty state.}{} \\ \hline
+	\alteredmethod{addVisualEdge([...])}{Adds the given VisualEdge to the board. If the used graph is undirected the opposing edge is also added.}{Gets an already created edge as parameter instead of its two vertices.}\\ \hline
 \end{longtable}
 
+% Grid
+\paragraph*{\textcolor{Blue}{Class: Grid}}
+\paragraph*{}
+\begin{longtable}{c|p{5.5cm}p{4cm}p{4cm}}
+	\hline\rowcolor{white}{} & \textbf{Method name} & \textbf{Description} & \textbf{Note} \\ \hline
+	\newmethod{getHorizontalGridPoints}{Returns the horizontal dimension of this grid.}{} \\ \hline
+	\newmethod{getVerticalGridPoints}{Returns the vertical dimension of this grid.}{} \\ \hline
+\end{longtable}
+
+% Graph
+\paragraph*{\textcolor{Blue}{Class: Graph}}
+\paragraph*{}
+\begin{longtable}{c|p{5.5cm}p{4cm}p{4cm}}
+	\hline\rowcolor{white}{} & \textbf{Method name} & \textbf{Description} & \textbf{Note} \\ \hline
+	\newmethod{getEdge([...])}{Returns the edge between two given vertices.}{} \\ \hline
+	\alteredmethod{addEdge([...])}{Adds the given edge to this graph. An edge can only be added, if both of its vertices are already in the graph but the edge does not yet exist. Also the target and origin vertices must not be the same.}{Before this method needed to vertices as attribute, now an edge object will be added.} \\ \hline
+\end{longtable}
 
 % VisualVertex
 \paragraph*{\textcolor{Blue}{Class: VisualVertex}}
 \paragraph*{}
 \begin{longtable}{c|p{5.5cm}p{4cm}p{4cm}}
 	\hline\rowcolor{white}{} & \textbf{Method name} & \textbf{Description} & \textbf{Note} \\ \hline
-	\alteredmethod{update()}{Recreates the buffered image of this \texttt{VisualVertex}. Has to be called to change the visualization.}{Changed access modifier from \texttt{protected} to \texttt{public.}} \\ \hline
 	\newmethod{reload()}{Recreates the fields that are not serialized.}{} \\ \hline
 	\newmethod{init()}{Initializes this VisualVertex}{} \\ \hline
 	\newmethod{onReload()}{Implement this method to recreate the fields, that are not serialized.}{Abstract method called by \texttt{reload()}} \\ \hline
+	\alteredmethod{update()}{Recreates the buffered image of this \texttt{VisualVertex}. Has to be called to change the visualization.}{Changed access modifier from \texttt{protected} to \texttt{public.}} \\ \hline
 \end{longtable}
+
+\pagebreak
 
 % SimpleVisualVertex
 \paragraph*{\textcolor{Blue}{Class: SimpleVisualVertex}}
 \paragraph*{}
 \begin{longtable}{c|p{5.5cm}p{4cm}p{4cm}}
 	\hline\rowcolor{white}{} & \textbf{Method name} & \textbf{Description} & \textbf{Note} \\ \hline
-	\alteredmethod{getColor())}{Returns the fill color.}{Renamed to \texttt{getFillColor()}.} \\ \hline
-	\alteredmethod{setColor([...]))}{Sets the fill color.}{Renamed to \texttt{setFillColor()}.} \\ \hline
 	\newmethod{init()}{Initializes this SimpleVisualVertex}{Overrides \texttt{VisualVertex.init()}} \\ \hline
 	\newmethod{onReload()}{Recreates the fields, that are not serialized.}{Implements \texttt{VisualVertex.onReload()}} \\ \hline
-\end{longtable}
-
-% GraphicVisualVertex
-\paragraph*{\textcolor{Blue}{Class: GraphicVisualVertex}}
-\paragraph*{}
-\begin{longtable}{c|p{5.5cm}p{4cm}p{4cm}}
-	\hline\rowcolor{white}{} & \textbf{Method name} & \textbf{Description} & \textbf{Note} \\ \hline
-	\newmethod{onReload()}{Recreates the fields, that are not serialized.}{Implements \texttt{VisualVertex.onReload()}} \\ \hline
-	\removedmethod{GraphicVisualVertex(BufferedImage image)}{Creates a new GraphicVisualVertex using the speciffied BufferedImage as icon.}{Not used.} \\ \hline
-	\removedmethod{loadBufferedImage([...])}{Loads the image file at the given \texttt{fileName} and returns it as a \texttt{BufferedImage}.} \\ \hline
+	\alteredmethod{getColor())}{Returns the fill color.}{Renamed to \texttt{getFillColor()}.} \\ \hline
+	\alteredmethod{setColor([...]))}{Sets the fill color.}{Renamed to \texttt{setFillColor()}.} \\ \hline
 \end{longtable}
 
 % GraphColoringVertex
@@ -69,77 +68,146 @@
 	\removedmethod{isHighlighted()}{Returns true if this GraphColoringButtonVertex is selected.}{Not used.} \\ \hline
 \end{longtable}
 
+\pagebreak
+
+% GraphicVisualVertex
+\paragraph*{\textcolor{Blue}{Class: GraphicVisualVertex}}
+\paragraph*{}
+\begin{longtable}{c|p{5.5cm}p{4cm}p{4cm}}
+	\hline\rowcolor{white}{} & \textbf{Method name} & \textbf{Description} & \textbf{Note} \\ \hline
+	\newmethod{onReload()}{Recreates the fields, that are not serialized.}{Implements \texttt{VisualVertex.onReload()}} \\ \hline
+	\removedmethod{GraphicVisualVertex(BufferedImage image)}{Creates a new GraphicVisualVertex using the speciffied BufferedImage as icon.}{Not used.} \\ \hline
+	\removedmethod{loadBufferedImage([...])}{Loads the image file at the given \texttt{fileName} and returns it as a \texttt{BufferedImage}.} \\ \hline
+\end{longtable}
+
 % TwixTVertex
 \paragraph*{\textcolor{Blue}{Class: TwixTVertex}}
 \paragraph*{}
 \begin{longtable}{c|p{5.5cm}p{4cm}p{4cm}}
 	\hline\rowcolor{white}{} & \textbf{Method name} & \textbf{Description} & \textbf{Note} \\ \hline
-	\alteredmethod{TwixTVertex([...])}{Creates a new TwixtVertex and associates it with the Player of the given playerID.}{Constructor now takes a \texttt{GridPoint} instead of a \texttt{playerID}.} \\ \hline
-	\alteredmethod{getPlayerID()}{Returns the Player's identification.}{Renamed to \texttt{getPlayer()} and returns the \texttt{Player} instance.} \\ \hline
 	\newmethod{setPlayerID([...])}{Sets the player of this vertex and adapts the graphic.}{} \\ \hline
 	\newmethod{setHighlighted([...])}{Sets the highlighted attribute of this vertex.}{} \\ \hline
 	\newmethod{init()}{Initializes this TwixTVertex}{Overrides \texttt{GraphicVisualVertex.init()}} \\ \hline
 	\newmethod{draw([...])}{Draws this vertex.}{Overrides \texttt{GraphicVisualVertex.draw([...])}} \\ \hline
+	\alteredmethod{TwixTVertex([...])}{Creates a new TwixtVertex and associates it with the Player of the given playerID.}{Constructor now takes a \texttt{GridPoint} instead of a \texttt{playerID}.} \\ \hline
+	\alteredmethod{getPlayerID()}{Returns the Player's identification.}{Renamed to \texttt{getPlayer()} and returns the \texttt{Player} instance.} \\ \hline
 \end{longtable}
 
-% GameDefinition
-\paragraph*{\textcolor{Blue}{Class: GameDefinition}}
+% VisualEdge
+\paragraph*{\textcolor{Blue}{Class: VisualEdge}}
 \paragraph*{}
 \begin{longtable}{c|p{5.5cm}p{4cm}p{4cm}}
 	\hline\rowcolor{white}{} & \textbf{Method name} & \textbf{Description} & \textbf{Note} \\ \hline
-	\removedmethod{GameDefinition([...])}{Creates a new GameDefinition with the specified parameters.}{Due to the use of GSON, there is no need for a constructor anymore.} \\ \hline
-	\alteredmethod{getFullyQualifiedClassName()}{Returns the fully qualified class name of this specific game.}{Changed to getClassName() and only returns the class name.} \\ \hline
-	\removedmethod{getScreenshot()}{Returns a String to this game’s screenshot file.}{Screenshots have fixed name and location.} \\ \hline
-	\removedmethod{getLocalizationFilePath()}{Returns a String telling which language file should be used in this game.}{\ref{cls:localization} is now responsible for setting the correct language.} \\ \hline
-	\removedmethod{getHelpFile()}{Returns the URI that links to the help file of this game.}{Help files have fixed name and location.} \\ \hline
-	\newmethod{supportsSavegames()}{Returns whether the game supports saving and loading of savegames or not.}{} \\ \hline
+	\newmethod{generateOpposedEdge()}{Generates an Edge from this one where target and origin vertices are swapped.}{} \\ \hline
+	\newmethod{isOpposingEdge()}{Returns \texttt{true} if this edge is an opposing edge.}{} \\ \hline
+	\newmethod{hasOpposingEdge()}{Returns \texttt{true} if this edge has an opposing edge.}{} \\ \hline
+	\newmethod{\textlabel{drawDirected([...])}{ve:directed}}{Draws this edge as directed edge onto the given \texttt{Graphics2D} object.}{} \\ \hline
+	\newmethod{\textlabel{drawUndirected([...])}{ve:undirected}}{Draws this edge as undirected edge onto the given \texttt{Graphics2D} object.} \\ \hline
+	\newmethod{callDrawDirected([...])}{Calculates an offset for the edge and then calls \ref{ve:directed} with the adapted coordinates.}{} \\ \hline
+	\newmethod{callDrawUndirected([...])}{Calls \ref{ve:undirected} if this edge is not flagged as an opposing edge.}{} \\ \hline
+	\newmethod{reload()}{Recreates the fields that are not serialized.}{} \\ \hline
+	\newmethod{onReload()}{Implement this method to recreate the fields, that are not serialized.}{Abstract method called by \texttt{reload()}} \\ \hline
+	\alteredmethod{draw()}{Draws the VisualEdge onto the given Graphics2D object.}{Is splitted into \ref{ve:directed} and \ref{ve:undirected}} \\ \hline
 \end{longtable}
 
-% GameBoard
-\paragraph*{\textcolor{Blue}{Class: GameBoard}}
+% SimpleVisualEdge
+\paragraph*{\textcolor{Blue}{Class: SimpleVisualEdge}}
 \paragraph*{}
 \begin{longtable}{c|p{5.5cm}p{4cm}p{4cm}}
 	\hline\rowcolor{white}{} & \textbf{Method name} & \textbf{Description} & \textbf{Note} \\ \hline
-	\newmethod{flush()}{Resets this GameBoard to an empty state.}{} \\ \hline
-	\alteredmethod{addVisualEdge([...])}{Adds the given VisualEdge to the board. If the used graph is undirected the opposing edge is also added.}{Gets an already created edge as parameter instead of its two vertices.}\\ \hline
+	\newmethod{generateOpposedEdge()}{Generates an Edge from this one where target and origin vertices are swapped.}{} \\ \hline
+	\newmethod{\textlabel{drawDirected([...])}{ve:directed}}{Draws this edge as an arrow onto the given \texttt{Graphics2D} object.}{} \\ \hline
+	\newmethod{\textlabel{drawUndirected([...])}{ve:undirected}}{Draws this edge as a line onto the given \texttt{Graphics2D} object.}{} \\ \hline
+	\newmethod{onReload()}{Recreates the fields, that are not serialized.}{} \\ \hline
+	\alteredmethod{draw()}{Draws the VisualEdge onto the given Graphics2D object.}{Is splitted into \ref{ve:directed} and \ref{ve:undirected}} \\ \hline
+	\alteredmethod{getColor()}{Returns the stroke color.}{Renamed to \texttt{getStrokeColor()}.} \\ \hline
+	\alteredmethod{setColor([...])}{Sets the stroke color.}{Renamed to \texttt{setStrokeColor()}.} \\ \hline
 \end{longtable}
 
-% Grid
-\paragraph*{\textcolor{Blue}{Class: Grid}}
+% GameCapsule
+\paragraph*{\textcolor{Blue}{Class: GameCapsule}}
 \paragraph*{}
 \begin{longtable}{c|p{5.5cm}p{4cm}p{4cm}}
 	\hline\rowcolor{white}{} & \textbf{Method name} & \textbf{Description} & \textbf{Note} \\ \hline
-	\newmethod{getHorizontalGridPoints}{Returns the horizontal dimension of this grid.}{} \\ \hline
-	\newmethod{getVerticalGridPoints}{Returns the vertical dimension of this grid.}{} \\ \hline
+	\newmethod{getGameDefinition()}{Returns the saved active \texttt{GameDefintion}.}{} \\ \hline
+	\newmethod{getHashMap()}{Returns the hash map for custom values.}{}\\ \hline
+	\alteredmethod{GameCapsule([...])}{Creates a new \texttt{GameCapsule} with the given parameters.}{Added \texttt{GameDefinition} to constructor's parameters.} \\ \hline
 \end{longtable}
+
+\pagebreak
+
+% Game
+\paragraph*{\textcolor{Blue}{Class: Game}}
+\paragraph*{}
+\begin{longtable}{c|p{5.5cm}p{4cm}p{4cm}}
+	\hline\rowcolor{white}{} & \textbf{Method name} & \textbf{Description} & \textbf{Note} \\ \hline
+	\newmethod{onGameSave([...])}{Called before a savegame is stored.}{} \\ \hline
+	\newmethod{onGameLoad([...])}{Called after a savegame is loaded.}{} \\ \hline
+	\newmethod{callOnEmptyGridPointClick([...])}{This method executes a onEmptyGridPointClick call}{Used to execute calls in a separate thread.} \\ \hline
+	\newmethod{callOnGameSave([...])}{This method executes a onGameSave call.}{\ditto} \\ \hline
+	\newmethod{callOnGameSave([...])}{This method executes a onGameSave call.}{\ditto} \\ \hline
+	\newmethod{callOnGameLoad([...])}{This method executes a onGameLoad call.}{\ditto} \\ \hline
+	\newmethod{callOnVertexClick([...])}{This method executes a onVertexClick call.}{\ditto} \\ \hline
+	\newmethod{callOnKeyRelease([...])}{This method executes a onKeyRelease call.}{\ditto} \\ \hline
+	\newmethod{callOnMenuItemClick([...])}{This method executes a onMenuItemClick call.}{\ditto} \\ \hline
+	\newmethod{callOnGameInit([...])}{This method executes a onGameInit call.}{\ditto} \\ \hline
+	\newmethod{callOnGameStart([...])}{This method executes a onGameStart call.}{\ditto} \\ \hline
+	\alteredmethod{registerController([...])}{Associates this game with a GameManager and its GameResources}{Added `GameResources as parameter'} \\ \hline
+\end{longtable}
+
+\pagebreak
 
 % GameManager
 \paragraph*{\textcolor{Blue}{Class: GameManager}}
 \paragraph*{}
 \begin{longtable}{c|p{5.5cm}p{4cm}p{4cm}}
 	\hline\rowcolor{white}{} & \textbf{Method name} & \textbf{Description} & \textbf{Note} \\ \hline
-	\alteredmethod{finishGame()}{Finishes the game and displays the winning Player in a pop-up.}{Now only sets the finishFlag.} \\ \hline
 	\newmethod{\textlabel{openHelpFile([...])}{gm:openhelpfile}}{Opens the help file within the game's jar.}{} \\ \hline
 	\newmethod{openHelpFile()}{Calls \ref{gm:openhelpfile} with the current GameDefinition.}{Overloaded function of openHelpFile([...])} \\ \hline
 	\newmethod{startGame([...])}{Start the savegame specified by the \texttt{File}.}{Overloaded method to start savegames directly.} \\ \hline
 	\newmethod{exit()}{Exits the whole program.}{} \\ \hline
 	\newmethod{getCurrentGameDefinition()}{Returns the current \texttt{GameDefinition}}{} \\ \hline
-	\removedmethod{killGame()}{Kills the currently running game.}{Is handled by closeGame().} \\ \hline
-	\removedmethod{finishGame([...])}{Finishes the game and displays the winning Player in a pop-up.}{Removed overloaded finishGame() method, is handled by \ref{gm:checkfinished}.} \\ \hline
 	\newmethod{\textlabel{checkFinished()}{gm:checkfinished}}{Checks whether the finishFlag is set and if so closes the game with a winner pop-up.}{} \\ \hline
 	\newmethod{logGameAction([...])}{Logs an event in a game}{} \\ \hline
+	\alteredmethod{finishGame()}{Finishes the game and displays the winning Player in a pop-up.}{Now only sets the finishFlag.} \\ \hline
+	\removedmethod{killGame()}{Kills the currently running game.}{Is handled by closeGame().} \\ \hline
+	\removedmethod{finishGame([...])}{Finishes the game and displays the winning Player in a pop-up.}{Removed overloaded finishGame() method, is handled by \ref{gm:checkfinished}.} \\ \hline
+	
 \end{longtable}
+
+\pagebreak
 
 % ViewManager
 \paragraph*{\textcolor{Blue}{Class: ViewManager}}
 \paragraph*{}
 \begin{longtable}{c|p{5.5cm}p{4cm}p{4cm}}
 	\hline\rowcolor{white}{} & \textbf{Method name} & \textbf{Description} & \textbf{Note} \\ \hline
-	\alteredmethod{onMenuItemClick()}{Callback function used by the View to notify about a click on a previously added MenuItem}{Renamed to \texttt{onCutomMenuItemClick()}} \\ \hline
-	\alteredmethod{addGameMenuItem()}{Notifies the View to add the given MenuItem to the menu.}{Renamed to \texttt{addCustomMenuItems([...])} and takes a list of \texttt{MenuItems}.}. \\ \hline
 	\newmethod{updateView()}{Notifies the view to update itself.}{} \\ \hline
 	\newmethod{closeView()}{Closes the View and all its components.}{} \\ \hline
 	\newmethod{askForRestart()}{Informs the View to ask the player if the game should be restarted.}{} \\ \hline
+	\alteredmethod{onMenuItemClick()}{Callback function used by the View to notify about a click on a previously added MenuItem}{Renamed to \texttt{onCutomMenuItemClick()}} \\ \hline
+	\alteredmethod{addGameMenuItem()}{Notifies the View to add the given MenuItem to the menu.}{Renamed to \texttt{addCustomMenuItems([...])} and takes a list of \texttt{MenuItems}.}. \\ \hline
+\end{longtable}
+
+% PlayerManager
+\paragraph*{\textcolor{Blue}{Class: PlayerManager}}
+\paragraph*{}
+\begin{longtable}{c|p{5.5cm}p{4cm}p{4cm}}
+	\hline\rowcolor{white}{} & \textbf{Method name} & \textbf{Description} & \textbf{Note} \\ \hline
+	\newmethod{getWinningPlayer()}{Returns the player that is displayed as winner when the game is finished.}{} \\ \hline
+	\newmethod{setActivePlayerAsWinning()}{Defines the player currently active as the player currently winning.}{} \\ \hline
+	\alteredmethod{PlayerManager([...])}{Constructs a \texttt{PlayerManager} with the given set of \texttt{Playres}.}{Added reference to \texttt{GameManager} as parameter.} \\ \hline
+\end{longtable}
+
+\pagebreak
+
+% Validation
+\paragraph*{\textcolor{Blue}{Class: Validation}}
+\paragraph*{}
+\begin{longtable}{c|p{5.5cm}p{4cm}p{4cm}}
+	\hline\rowcolor{white}{} & \textbf{Method name} & \textbf{Description} & \textbf{Note} \\ \hline
+	\newmethod{isValidGridPoint([...])}{Checks if a \texttt{GridPoint} is within the range of a \texttt{Grid}'s dimensions.}{} \\ \hline
+	\removedmethod{isValidFileName([...])}{Checks if the specified file is valid.}{Not used.}
 \end{longtable}
 
 % View
@@ -151,6 +219,8 @@
 	\newmethod{closeView()}{Disposes all components of the View.}{} \\ \hline
 	\alteredmethod{addCustomMenuItem([...])}{Adds a list of menu items to the options menu.}{Renamed to \texttt{addCustomMenuItems( [...])} and now takes a list of menu items.}
 \end{longtable}
+
+\pagebreak
 
 % GameWindow
 \paragraph*{\textcolor{Blue}{Class: GameWindow}}
@@ -164,54 +234,6 @@
 	\alteredmethod{addCustomMenuItem([...])}{Adds a list of menu items to the \texttt{MenuBar}.}{Renamed to \texttt{addCustomMenuItems( [...])} and now takes a list of menu items.}
 \end{longtable}
 
-% PlayerPopUp
-\paragraph*{\textcolor{Blue}{Class: PlayerPopUp}}
-\paragraph*{}
-\begin{longtable}{c|p{5.5cm}p{4cm}p{4cm}}
-	\hline\rowcolor{white}{} & \textbf{Method name} & \textbf{Description} & \textbf{Note} \\ \hline
-	\removedmethod{actionPerformed()}{Callback method for the JButtons that creates the \texttt{Players} based on the input.}{PlayerPopUp doesn't implement \texttt{ActionListener} anymore.} \\ \hline
-	\alteredmethod{PlayerPopUp([...])}{Creates a PlayerPopUp.}{Added two new parameters: \texttt{GEWindow geWindow} and \texttt{boolean supportsSavegames}.} \\ \hline
-\end{longtable}
-
-% Graph
-\paragraph*{\textcolor{Blue}{Class: Graph}}
-\paragraph*{}
-\begin{longtable}{c|p{5.5cm}p{4cm}p{4cm}}
-	\hline\rowcolor{white}{} & \textbf{Method name} & \textbf{Description} & \textbf{Note} \\ \hline
-	\alteredmethod{addEdge([...])}{Adds the given edge to this graph. An edge can only be added, if both of its vertices are already in the graph but the edge does not yet exist. Also the target and origin vertices must not be the same.}{Before this method needed to vertices as attribute, now an edge object will be added.} \\ \hline
-	\newmethod{getEdge([...])}{Returns the edge between two given vertices.}{} \\ \hline
-\end{longtable}
-
-% VisualEdge
-\paragraph*{\textcolor{Blue}{Class: VisualEdge}}
-\paragraph*{}
-\begin{longtable}{c|p{5.5cm}p{4cm}p{4cm}}
-	\hline\rowcolor{white}{} & \textbf{Method name} & \textbf{Description} & \textbf{Note} \\ \hline
-	\alteredmethod{draw()}{Draws the VisualEdge onto the given Graphics2D object.}{Is splitted into \ref{ve:directed} and \ref{ve:undirected}} \\ \hline
-	\newmethod{generateOpposedEdge()}{Generates an Edge from this one where target and origin vertices are swapped.}{} \\ \hline
-	\newmethod{isOpposingEdge()}{Returns \texttt{true} if this edge is an opposing edge.}{} \\ \hline
-	\newmethod{hasOpposingEdge()}{Returns \texttt{true} if this edge has an opposing edge.}{} \\ \hline
-	\newmethod{\textlabel{drawDirected([...])}{ve:directed}}{Draws this edge as directed edge onto the given \texttt{Graphics2D} object.}{} \\ \hline
-	\newmethod{\textlabel{drawUndirected([...])}{ve:undirected}}{Draws this edge as undirected edge onto the given \texttt{Graphics2D} object.} \\ \hline
-	\newmethod{callDrawDirected([...])}{Calculates an offset for the edge and then calls \ref{ve:directed} with the adapted coordinates.}{} \\ \hline
-	\newmethod{callDrawUndirected([...])}{Calls \ref{ve:undirected} if this edge is not flagged as an opposing edge.}{} \\ \hline
-	\newmethod{reload()}{Recreates the fields that are not serialized.}{} \\ \hline
-	\newmethod{onReload()}{Implement this method to recreate the fields, that are not serialized.}{Abstract method called by \texttt{reload()}} \\ \hline
-\end{longtable}
-
-% SimpleVisualEdge
-\paragraph*{\textcolor{Blue}{Class: SimpleVisualEdge}}
-\paragraph*{}
-\begin{longtable}{c|p{5.5cm}p{4cm}p{4cm}}
-	\hline\rowcolor{white}{} & \textbf{Method name} & \textbf{Description} & \textbf{Note} \\ \hline
-	\alteredmethod{draw()}{Draws the VisualEdge onto the given Graphics2D object.}{Is splitted into \ref{ve:directed} and \ref{ve:undirected}} \\ \hline
-	\alteredmethod{getColor()}{Returns the stroke color.}{Renamed to \texttt{getStrokeColor()}.} \\ \hline
-	\alteredmethod{setColor([...])}{Sets the stroke color.}{Renamed to \texttt{setStrokeColor()}.} \\ \hline
-	\newmethod{generateOpposedEdge()}{Generates an Edge from this one where target and origin vertices are swapped.}{} \\ \hline
-	\newmethod{\textlabel{drawDirected([...])}{ve:directed}}{Draws this edge as an arrow onto the given \texttt{Graphics2D} object.}{} \\ \hline
-	\newmethod{\textlabel{drawUndirected([...])}{ve:undirected}}{Draws this edge as a line onto the given \texttt{Graphics2D} object.}{} \\ \hline
-	\newmethod{onReload()}{Recreates the fields, that are not serialized.}{} \\ \hline
-\end{longtable}
 
 % GraphCanvas
 \paragraph*{\textcolor{Blue}{Class: GraphCanvas}}
@@ -221,6 +243,7 @@
 	\alteredmethod{GraphCanvas([...])}{Creates a \texttt{GraphCanvas} with a \texttt{VisualGrid} and registers its parent \texttt{GameWindow}.}{Added attribute VisualGrid to constructor.} \\ \hline
 \end{longtable}
 
+\pagebreak
 
 % VisualGrid
 \paragraph*{\textcolor{Blue}{Class: VisualGrid}}
@@ -239,27 +262,25 @@
 	\alteredmethod{addCustomMenuItem([...])}{Adds menu items to the options menu.}{Renamed to \texttt{addOptionsItems([...])} and now takes a list of menu items.}
 \end{longtable}
 
-
-% PlayerManager
-\paragraph*{\textcolor{Blue}{Class: PlayerManager}}
+% CustomMenuItemListener
+\paragraph*{\textcolor{Blue}{Class: CustomMenuItemListener}}
 \paragraph*{}
-\begin{longtable}{c|p{5.5cm}p{4cm}p{4cm}}
-	\hline\rowcolor{white}{} & \textbf{Method name} & \textbf{Description} & \textbf{Note} \\ \hline
-	\alteredmethod{PlayerManager([...])}{Constructs a \texttt{PlayerManager} with the given set of \texttt{Playres}.}{Added reference to \texttt{GameManager} as parameter.} \\ \hline
-	\newmethod{getWinningPlayer()}{Returns the player that is displayed as winner when the game is finished.}{} \\ \hline
-	\newmethod{setActivePlayerAsWinning()}{Defines the player currently active as the player currently winning.}{} \\ \hline
-\end{longtable}
+This class was completely removed and replaced by \ref{cls:optionsmenuitem}.
+
+\pagebreak
 
 % GameExplorer
 \paragraph*{\textcolor{Blue}{Class: GameExplorer}}
 \paragraph*{}
 \begin{longtable}{c|p{5.5cm}p{4cm}p{4cm}}
 	\hline\rowcolor{white}{} & \textbf{Method name} & \textbf{Description} & \textbf{Note} \\ \hline
-	\removedmethod{scanGameFolder()}{Scans the game folder for games and returns the GameDef- initions of the games in it.}{Replaced by \ref{ge:scangamefolder}.} \\ \hline
 	\newmethod{\textlabel{scanGameFolderAndCreateGameDefinitions()}{ge:scangamefolder}}{Scans the game folder for games, creates \texttt{GameDefinitions} and adds these to the gameDefinition's list.}{} \\
 	\newmethod{close()}{Closes this GameExplorer.}{} \\ \hline
 	\newmethod{selectGame([...])}{Calls the \texttt{GameManager} to restart the game of the given savegame file.}{Overloaded method to start savegames directly.} \\ \hline
+	\removedmethod{scanGameFolder()}{Scans the game folder for games and returns the GameDef- initions of the games in it.}{Replaced by \ref{ge:scangamefolder}.} \\ \hline
 \end{longtable}
+
+\pagebreak
 
 % GameDefinition
 \paragraph*{\textcolor{Blue}{Class: GameDefinition}}
@@ -268,7 +289,14 @@
 	\hline\rowcolor{white}{} & \textbf{Method name} & \textbf{Description} & \textbf{Note} \\ \hline
 	\newmethod{supportsSavegame()}{Returns whether the game supports saving and loading of savegames or not.}{} \\ \hline
 	\newmethod{localizeInstance()}{Localizes the strings in this game definition based on its "'lang"' files.}{} \\ \hline
+	\alteredmethod{getFullyQualifiedClassName()}{Returns the fully qualified class name of this specific game.}{Changed to getClassName() and only returns the class name.} \\ \hline
+	\removedmethod{GameDefinition([...])}{Creates a new GameDefinition with the specified parameters.}{Due to the use of GSON, there is no need for a constructor anymore.} \\ \hline
+	\removedmethod{getScreenshot()}{Returns a String to this game’s screenshot file.}{Screenshots have fixed name and location.} \\ \hline
+	\removedmethod{getLocalizationFilePath()}{Returns a String telling which language file should be used in this game.}{\ref{cls:localization} is now responsible for setting the correct language.} \\ \hline
+	\removedmethod{getHelpFile()}{Returns the URI that links to the help file of this game.}{Help files have fixed name and location.} \\ \hline
 \end{longtable}
+
+\pagebreak
 
 % GEWindow
 \paragraph*{\textcolor{Blue}{Class: GEWindow}}
@@ -280,28 +308,58 @@
 	\newmethod{getCurrentClassName()}{Returns the class name of the currently select game.}{} \\ \hline
 	\newmethod{onPlayerPopUpReturn([...])}{Called by the \texttt{PlayerPopUp} when it has finished and triggers the start of the \texttt{Game}.}{Overloaded method for loading savegame directly.} \\ \hline
 	\removedmethod{valueChanged([...])}{Called by the \texttt{JList} when its selection has changed to update the remaining graphical elements of this \texttt{GEWindow}.}{Moved to \ref{cls:gewindowactions}} \\ \hline
-	\end{longtable}
+\end{longtable}
 
-% GameCapsule
-\paragraph*{\textcolor{Blue}{Class: GameCapsule}}
+% PlayerPopUp
+\paragraph*{\textcolor{Blue}{Class: PlayerPopUp}}
 \paragraph*{}
 \begin{longtable}{c|p{5.5cm}p{4cm}p{4cm}}
 	\hline\rowcolor{white}{} & \textbf{Method name} & \textbf{Description} & \textbf{Note} \\ \hline
-	\alteredmethod{GameCapsule([...])}{Creates a new \texttt{GameCapsule} with the given parameters.}{Added \texttt{GameDefinition} to constructor's parameters.} \\ \hline
-	\newmethod{getGameDefinition()}{Returns the saved active \texttt{GameDefintion}.}{} \\ \hline
-	\newmethod{getHashMap()}{Returns the hash map for custom values.}{}\\ \hline
+	\alteredmethod{PlayerPopUp([...])}{Creates a PlayerPopUp.}{Added two new parameters: \texttt{GEWindow geWindow} and \texttt{boolean supportsSavegames}.} \\ \hline
+	\removedmethod{actionPerformed()}{Callback method for the JButtons that creates the \texttt{Players} based on the input.}{PlayerPopUp doesn't implement \texttt{ActionListener} anymore.} \\ \hline
 \end{longtable}
 
-% Validation
-\paragraph*{\textcolor{Blue}{Class: Validation}}
-\paragraph*{}
-\begin{longtable}{c|p{5.5cm}p{4cm}p{4cm}}
-	\hline\rowcolor{white}{} & \textbf{Method name} & \textbf{Description} & \textbf{Note} \\ \hline
-	\newmethod{isValidGridPoint([...])}{Checks if a \texttt{GridPoint} is within the range of a \texttt{Grid}'s dimensions.}{} \\ \hline
-	\removedmethod{isValidFileName([...])}{Checks if the specified file is valid.}{Not used.}
-\end{longtable}
 
-% CustomMenuItemListener
-\paragraph*{\textcolor{Blue}{Class: CustomMenuItemListener}}
-\paragraph*{}
-This class was completely removed and replaced by \ref{cls:optionsmenuitem}.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
