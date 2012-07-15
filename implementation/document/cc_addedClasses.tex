@@ -128,3 +128,21 @@ This class implements the \texttt{MenuItem} as a Swing \texttt{JMenuItem}.
 	\hline
 \end{longtable}
 
+\pagebreak
+
+% ClassLoaderObjectInputStream
+\class{ClassLoaderObjectInputStream}{classloaderobjectinputstream}
+\createindentedlist{java.lang.Object, java.io.InputStream, java.io.ObjectInputStream, de.graphioli.utils.ClassLoaderObjectInputStream}
+This class is used for deserializing objects that need to be loaded by a specific class loader.
+
+\paragraph*{Method Summary}
+\paragraph*{}
+\begin{longtable}{Lp{10cm}}
+	\startmethodtable
+	\method{public}{ClassLoaderObjectInputStream(InputStream in, ClassLoader classLoader)}{clois:clois} \\
+	& Creates a \texttt{ClassLoaderObjectInputStream} based on the given input stream and class loader.. \\
+	\method{public Class}{resolveClass(ObjectStreamClass desc)}{clois:resolveclass} \\
+	& Load the local class equivalent of the specified stream class description. \\
+	\hline
+\end{longtable}
+
