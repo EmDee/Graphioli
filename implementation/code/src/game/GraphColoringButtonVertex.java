@@ -1,8 +1,8 @@
 package game;
 
-import java.awt.Color;
-
 import de.graphioli.model.GridPoint;
+
+import java.awt.Color;
 
 /**
  * This class represents a special vertex for the GraphColoring game used as
@@ -13,7 +13,7 @@ import de.graphioli.model.GridPoint;
 public class GraphColoringButtonVertex extends GraphColoringVertex {
 
 	/**
-	 * Serialization UID
+	 * Serialization UID.
 	 */
 	private static final long serialVersionUID = -7148091699613322445L;
 
@@ -25,7 +25,6 @@ public class GraphColoringButtonVertex extends GraphColoringVertex {
 	 */
 	public GraphColoringButtonVertex(GridPoint gridPoint) {
 		super(gridPoint);
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
