@@ -108,14 +108,7 @@ public final class GameFileDialog {
 				String filePath = fileToSave.getAbsolutePath();
 
 				if (!filePath.endsWith(SAVE_FILE_EXT)) {
-
-					int seperatorIndex = filePath.lastIndexOf('.');
-
-					if (seperatorIndex == -1) {
-						filePath = filePath + SAVE_FILE_EXT;
-					} else {
-						filePath = filePath.substring(0, seperatorIndex) + SAVE_FILE_EXT;
-					}
+					filePath = filePath + SAVE_FILE_EXT;
 				}
 
 				fileToSave = new File(filePath);
