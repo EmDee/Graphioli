@@ -14,7 +14,7 @@ public final class GraphColoringLevel {
 	/*
 	 * the number of levels that are implemented
 	 */
-	public static final int IMPLEMENTED_LEVEL_COUNT = 7;
+	public static final int IMPLEMENTED_LEVEL_COUNT = 8;
 
 	/**
 	 * The number of colors to color the graph.
@@ -70,6 +70,8 @@ public final class GraphColoringLevel {
 				return generateLevelSix();
 			case 7:
 				return generateLevelSeven();
+			case 8:
+				return generateLevelEight();
 			default:
 				return null;
 		}
@@ -165,13 +167,52 @@ public final class GraphColoringLevel {
 
 		return new GraphColoringLevel(3, vertices, edges);
 	}
-
+	
 	/**
 	 * Generates the fourth level of graph coloring.
 	 * 
 	 * @return the fourth level
 	 */
 	private static GraphColoringLevel generateLevelFour() {
+		GraphColoringVertex[] vertices = new GraphColoringVertex[10];
+		VisualEdge[] edges = new VisualEdge[15];
+		
+		vertices[0] = new GraphColoringVertex(new GridPoint(4, 1));
+		vertices[1] = new GraphColoringVertex(new GridPoint(4, 2));
+		vertices[2] = new GraphColoringVertex(new GridPoint(1, 3));
+		vertices[3] = new GraphColoringVertex(new GridPoint(7, 3));
+		vertices[4] = new GraphColoringVertex(new GridPoint(2, 4));
+		vertices[5] = new GraphColoringVertex(new GridPoint(6, 4));
+		vertices[6] = new GraphColoringVertex(new GridPoint(3, 6));
+		vertices[7] = new GraphColoringVertex(new GridPoint(5, 6));
+		vertices[8] = new GraphColoringVertex(new GridPoint(2, 7));
+		vertices[9] = new GraphColoringVertex(new GridPoint(6, 7));
+		
+		edges[0] = new SimpleVisualEdge(vertices[0], vertices[1]);
+		edges[1] = new SimpleVisualEdge(vertices[0], vertices[2]);
+		edges[2] = new SimpleVisualEdge(vertices[0], vertices[3]);
+		edges[3] = new SimpleVisualEdge(vertices[1], vertices[6]);
+		edges[4] = new SimpleVisualEdge(vertices[1], vertices[7]);
+		edges[5] = new SimpleVisualEdge(vertices[2], vertices[4]);
+		edges[6] = new SimpleVisualEdge(vertices[2], vertices[8]);
+		edges[7] = new SimpleVisualEdge(vertices[3], vertices[5]);
+		edges[8] = new SimpleVisualEdge(vertices[3], vertices[9]);
+		edges[9] = new SimpleVisualEdge(vertices[4], vertices[5]);
+		edges[10] = new SimpleVisualEdge(vertices[4], vertices[7]);
+		edges[11] = new SimpleVisualEdge(vertices[5], vertices[6]);
+		edges[12] = new SimpleVisualEdge(vertices[6], vertices[8]);
+		edges[13] = new SimpleVisualEdge(vertices[7], vertices[9]);
+		edges[14] = new SimpleVisualEdge(vertices[8], vertices[9]);
+		
+		return new GraphColoringLevel(3, vertices, edges);
+	}
+
+	/**
+	 * Generates the fifth level of graph coloring.
+	 * 
+	 * @return the fifth level
+	 */
+	private static GraphColoringLevel generateLevelFive() {
 
 		GraphColoringVertex[] vertices = new GraphColoringVertex[14];
 		VisualEdge[] edges = new VisualEdge[29];
@@ -225,11 +266,11 @@ public final class GraphColoringLevel {
 	}
 
 	/**
-	 * Generates the fifth level of graph coloring.
+	 * Generates the sixth level of graph coloring.
 	 * 
-	 * @return the fifth level
+	 * @return the sixth level
 	 */
-	private static GraphColoringLevel generateLevelFive() {
+	private static GraphColoringLevel generateLevelSix() {
 
 		GraphColoringVertex[] vertices = new GraphColoringVertex[29];
 		VisualEdge[] edges = new VisualEdge[74];
@@ -322,11 +363,11 @@ public final class GraphColoringLevel {
 	}
 	
 	/**
-	 * Generates the sixth level of graph coloring.
+	 * Generates the seventh level of graph coloring.
 	 * 
-	 * @return the sixth level
+	 * @return the seventh level
 	 */
-	private static GraphColoringLevel generateLevelSix(){
+	private static GraphColoringLevel generateLevelSeven(){
 		GraphColoringVertex[] vertices = new GraphColoringVertex[25];
 		VisualEdge[] edges = new VisualEdge[37];
 		
@@ -376,11 +417,11 @@ public final class GraphColoringLevel {
 	}
 	
 	/**
-	 * Generates the seventh level of graph coloring.
+	 * Generates the eighth level of graph coloring.
 	 * 
-	 * @return the seventh level
+	 * @return the eighth level
 	 */
-	private static GraphColoringLevel generateLevelSeven() {
+	private static GraphColoringLevel generateLevelEight() {
 		GraphColoringVertex[] vertices = new GraphColoringVertex[26];
 		VisualEdge[] edges = new VisualEdge[52]; 
 		
