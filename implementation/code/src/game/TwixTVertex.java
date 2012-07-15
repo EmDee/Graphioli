@@ -144,7 +144,6 @@ public class TwixTVertex extends GraphicVisualVertex {
 		} else if (this.player.equals(playerTwo)) {
 			this.setImage(this.highlighted ? playerTwoHLTower : playerTwoTower);
 		} else {
-			// System.out.println("Unknown player");
 			this.setImage(null);
 		}
 		this.update();
