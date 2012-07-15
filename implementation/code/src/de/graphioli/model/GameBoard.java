@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.logging.Logger;
 
 /**
- * This class represents the game board of a {@link Game}. The GameBoard
+ * This class represents the game board of a {@link de.graphioli.controller.Game Game}. The GameBoard
  * combines the logical {@link Graph} with the {@link Grid} and has access to
  * both of them.
  * 

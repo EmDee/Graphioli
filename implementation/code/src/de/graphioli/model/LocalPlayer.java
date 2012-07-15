@@ -19,7 +19,7 @@ public class LocalPlayer extends Player {
 	 *            The player's name
 	 * @throws IllegalArgumentException
 	 *             if param <code>name</code> is invalid
-	 * @see Validator#isvalidPlayerName
+	 * @see de.graphioli.utils.Validation#isValidPlayerName(String, java.util.ArrayList)
 	 */
 	public LocalPlayer(String name) {
 		super(name);

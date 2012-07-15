@@ -22,6 +22,8 @@ import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 
 /**
+ * This class is a swing based implemnetation of a {@code Graphioli} view.
+ * 
  * @author Team Graphioli
  */
 public class GameWindow extends JFrame implements View {
@@ -163,7 +165,7 @@ public class GameWindow extends JFrame implements View {
 	// public boolean addCustomMenuItem(MenuItem item);
 
 	/**
-	 * Redraws the {@link Graph}.
+	 * Redraws the {@link de.graphioli.model.Graph Graph}.
 	 * 
 	 * @return <code>true</code> if the action was performed successfully,
 	 *         <code>false</code> otherwise

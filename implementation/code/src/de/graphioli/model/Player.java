@@ -35,7 +35,7 @@ public abstract class Player implements Serializable {
 	 *            The player's name
 	 * @throws IllegalArgumentException
 	 *             if param <code>name</code> is invalid
-	 * @see Validator#isvalidPlayerName
+	 * @see de.graphioli.utils.Validation#isValidPlayerName(String, java.util.ArrayList)
 	 */
 	public Player(String name) {
 

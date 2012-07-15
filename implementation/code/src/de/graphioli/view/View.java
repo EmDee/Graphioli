@@ -69,7 +69,7 @@ public interface View {
 	boolean displayPopUp(String message);
 
 	/**
-	 * Redraws the {@link Graph}.
+	 * Redraws the {@link de.graphioli.model.Graph Graph}.
 	 * 
 	 * @return <code>true</code> if the action was performed successfully,
 	 *         <code>false</code> otherwise

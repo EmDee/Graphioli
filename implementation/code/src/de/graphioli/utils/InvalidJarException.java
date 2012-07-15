@@ -1,7 +1,7 @@
 package de.graphioli.utils;
 
 /**
- * This exception gets thrown, when a Jar file does not match the format for a {@link Game}.
+ * This exception gets thrown, when a Jar file does not match the format for a {@link de.graphioli.controller.Game Game}.
  * @author Team Graphioli
  *
  */

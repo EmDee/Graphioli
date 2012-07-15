@@ -64,7 +64,7 @@ public class GEWindow extends JFrame implements GEView {
 	private GameDefinition selectedGameDefinition;
 
 	/**
-	 * The data model providing the list of available {@link GameDefintion}s.
+	 * The data model providing the list of available {@link GameDefinition}s.
 	 */
 	private GameDefinitionListModel gameDefinitionList;
 
@@ -179,7 +179,7 @@ public class GEWindow extends JFrame implements GEView {
 
 	/**
 	 * Called by the {@link PlayerPopUp} when it has finished and triggers the
-	 * start of the {@link Game}. For this method to perform its task
+	 * start of the {@link de.graphioli.controller.Game Game}. For this method to perform its task
 	 * successfully, a {@link GameDefinition} must be selected from the list of
 	 * available definitions.
 	 * 
@@ -210,7 +210,7 @@ public class GEWindow extends JFrame implements GEView {
 
 	/**
 	 * Called by the {@link PlayerPopUp} when it has finished and triggers the
-	 * start of the {@link Game}. For this method to perform its task
+	 * start of the {@link de.graphioli.controller.Game Game}. For this method to perform its task
 	 * successfully, a {@link GameDefinition} must be selected from the list of
 	 * available definitions.
 	 * 

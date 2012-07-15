@@ -97,7 +97,7 @@ public final class JarParser {
 	 * @param gameName
 	 *            name of the game
 	 * @param parentClassLoader
-	 *            the class loader of the {@link Game} class.
+	 *            the class loader of the {@link de.graphioli.controller.Game Game} class.
 	 * @return the game's class file
 	 * @throws InvalidJarException
 	 *             if the specified JAR file doesn't exist

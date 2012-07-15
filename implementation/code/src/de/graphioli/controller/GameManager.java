@@ -124,7 +124,7 @@ public final class GameManager {
 	}
 
 	/**
-	 * Closes the game with its {@link GameWindow} and returns the focus to the
+	 * Closes the game with its {@link de.graphioli.view.GameWindow GameWindow} and returns the focus to the
 	 * {@link GameExplorer}.
 	 * 
 	 * @return <code>true</code> if the action was performed successfully,

@@ -6,8 +6,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
- * This class represents the game’s definition, containing crucial information
- * that is needed to start a {@link Game}.
+ * This class represents the game's definition, containing crucial information
+ * that is needed to start a {@link de.graphioli.controller.Game Game}.
  * 
  * @author Team Graphioli
  */
@@ -64,7 +64,7 @@ public final class GameDefinition implements Serializable {
 	private int verticalGridPointCount;
 
 	/**
-	 * Whether the {@link Graph} of the game is directed or not.
+	 * Whether the {@link de.graphioli.model.Graph Graph} of the game is directed or not.
 	 */
 	private boolean isDirectedGraph;
 
@@ -181,7 +181,7 @@ public final class GameDefinition implements Serializable {
 	}
 
 	/**
-	 * Returns whether the {@link Graph} of the game is directed or not.
+	 * Returns whether the {@link de.graphioli.model.Graph Graph} of the game is directed or not.
 	 * 
 	 * @return <code>true</code> if the graph of the game is directed,
 	 *         <code>false</code> otherwise
