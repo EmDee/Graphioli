@@ -70,6 +70,11 @@ public class GraphColoring extends Game {
 	 * Whether this is a singleplayer instance or not.
 	 */
 	private boolean singleplayer;
+	
+	/**
+	 * Indicates if the graph is already fully colored.
+	 */
+	private boolean graphColored;
 
 	/**
 	 * If the given VisualVertex is an GraphColoringButtonVertex its color is
@@ -116,6 +121,9 @@ public class GraphColoring extends Game {
 
 	/**
 	 * Builds up the game's board.
+	 * 
+	 * @return <code>true</code> if the action was performed successfully,
+	 *         <code>false</code> otherwise
 	 */
 	@Override
 	protected boolean onGameInit() {
@@ -144,6 +152,9 @@ public class GraphColoring extends Game {
 
 	/**
 	 * Decides whether the game is started in single- or multiplayer mode.
+	 * 
+	 * @return <code>true</code> if the action was performed successfully,
+	 *         <code>false</code> otherwise
 	 */
 	@Override
 	protected boolean onGameStart() {
@@ -162,6 +173,7 @@ public class GraphColoring extends Game {
 		final GameBoard mBoard = this.getGameManager().getGameBoard();
 		this.colorCount = level.getColorCount();
 		this.vertices = level.getVertices();
+		this.graphColored = false;
 
 		for (int i = 0; i < this.vertices.length; i++) {
 			mBoard.addVisualVertex(this.vertices[i]);
@@ -243,9 +255,9 @@ public class GraphColoring extends Game {
 	 *            the vertex clicked on.
 	 */
 	private void handleSingleplayerMove(GraphColoringVertex vtex) {
-		vtex.setColorID(this.selectedButton.getColorID());
-		if (this.isGraphColored()) {
-//			this.nextLevel();
+		if (!this.graphColored) {
+			vtex.setColorID(this.selectedButton.getColorID());
+			this.graphColored = this.isGraphColored();
 		}
 	}
 
@@ -313,6 +325,7 @@ public class GraphColoring extends Game {
 		Integer selection = (Integer) customValues.get(KEY_SELECTED);
 		this.selectedLevel = (Integer) customValues.get(KEY_SELECTED_LEVEL);
 		this.colorCount = (Integer) customValues.get(KEY_COLORCOUNT);
+		this.graphColored = this.isGraphColored();
 		for (int i = 0; i < this.buttons.length; i++) {
 			if (this.buttons[i].getColorID() == selection) {
 				this.buttons[i].setHighlighted(true);
