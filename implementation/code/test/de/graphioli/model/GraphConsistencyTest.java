@@ -10,8 +10,6 @@ import de.graphioli.model.Edge;
 
 public class GraphConsistencyTest {
 
-	// TODO: More tests.
-
 	@Test
 	public void testAddingVertices() {
 		Graph graph = new Graph();

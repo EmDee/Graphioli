@@ -42,7 +42,6 @@ public abstract class Player implements Serializable {
 		if (Validation.isValidPlayerName(name, null)) {
 			this.name = name;
 		} else {
-			// TODO: Find consistent form for exceptions.
 			throw new IllegalArgumentException("Param 'name' is invalid.");
 		}
 

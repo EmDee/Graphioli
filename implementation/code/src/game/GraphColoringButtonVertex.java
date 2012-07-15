@@ -25,7 +25,6 @@ public class GraphColoringButtonVertex extends GraphColoringVertex {
 	 */
 	public GraphColoringButtonVertex(GridPoint gridPoint) {
 		super(gridPoint);
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
