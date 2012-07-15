@@ -186,6 +186,11 @@ public class GameExplorer {
 	 */
 	private void scanGameFolderAndCreateGameDefinitions() {
 		File gamesDirectory = new File("games/");
+		
+		if (!gamesDirectory.exists()) {
+			LOG.severe("Cannot find games directory. Exitting");
+			this.close();
+		}
 		GameDefinition gameDefinition;
 		Reader propertyFile = null;
 
