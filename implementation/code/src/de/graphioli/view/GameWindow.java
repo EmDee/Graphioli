@@ -11,10 +11,8 @@ import java.awt.GridBagLayout;
 import java.awt.KeyboardFocusManager;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.io.File;
 import java.util.List;
 import java.util.logging.Logger;
-import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -22,7 +20,7 @@ import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 
 /**
- * This class is a swing based implemnetation of a {@code Graphioli} view.
+ * This class is a swing based implementation of a {@code Graphioli} view.
  * 
  * @author Team Graphioli
  */
