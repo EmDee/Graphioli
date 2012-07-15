@@ -312,7 +312,10 @@ public final class GameManager {
 			java.awt.Desktop.getDesktop().browse(JarParser.getHelpFileURI(gameDefinition.getClassName()));
 		} catch (IOException e) {
 			LOG.severe("IOException: " + e.getMessage());
-			e.printStackTrace();
+			return false;
+		} catch (NullPointerException e) {
+			LOG.severe("NullPointerException: " + e.getMessage());
+			return false;
 		}
 
 		return true;
