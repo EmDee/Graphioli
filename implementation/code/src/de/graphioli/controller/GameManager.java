@@ -407,7 +407,7 @@ public final class GameManager {
 
 		Class<?> classToLoad;
 		try {
-			classToLoad = JarParser.getClass("game.", gameDefinition.getClassName());
+			classToLoad = JarParser.getClass("game.", gameDefinition.getClassName(), this.getClass().getClassLoader());
 		} catch (InvalidJarException ije) {
 			LOG.severe("Jar of \"" + gameDefinition.getClassName() + "\" corrupted : " + ije.getMessage());
 			this.viewManager.displayPopUp(Localization.getLanguageString("jar_err"));
@@ -456,7 +456,7 @@ public final class GameManager {
 
 		Class<?> classToLoad;
 		try {
-			classToLoad = JarParser.getClass("game.", gameDefinition.getClassName());
+			classToLoad = JarParser.getClass("game.", gameDefinition.getClassName(), this.getClass().getClassLoader());
 		} catch (InvalidJarException ije) {
 			LOG.severe("Jar of \"" + gameDefinition.getClassName() + "\" corrupted : " + ije.getMessage());
 			this.viewManager.displayPopUp(Localization.getLanguageString("jar_err"));

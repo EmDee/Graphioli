@@ -70,7 +70,7 @@ This class is part of the \texttt{de.graphioli.utils} package and is able to sca
 	& Returns a file of a given jar as InputStream. \\
 	\method{public static Reader}{getPropertyFile(String gameName)}{jp:getpropertyfile} \\
 	& Returns the property file of a given game as \texttt{Reader}. \\
-	\method{public static Class}{getClass(String gamePackagePath, String gameName)}{jp:getclass} \\
+	\method{public static Class}{getClass(String gamePackagePath, String gameName, ClassLoader parentClassLoader)}{jp:getclass} \\
 	& Returns the game's class file within the jar. \\
 	\method{public static URI}{getHelpFileURI(String gameName)}{jp:gethelpfileuri} \\
 	& Gets the help file within the jar, parses it to a string and convert it to a URI. \\

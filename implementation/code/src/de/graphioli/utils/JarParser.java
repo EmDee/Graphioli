@@ -96,11 +96,14 @@ public final class JarParser {
 	 *            the fully qualified class name
 	 * @param gameName
 	 *            name of the game
+	 * @param parentClassLoader
+	 *            the class loader of the {@link Game} class.
 	 * @return the game's class file
 	 * @throws InvalidJarException
 	 *             if the specified JAR file doesn't exist
 	 */
-	public static Class<?> getClass(String gamePackagePath, String gameName) throws InvalidJarException {
+	public static Class<?> getClass(String gamePackagePath, String gameName, ClassLoader parentClassLoader)
+			throws InvalidJarException {
 		Class<?> classToLoad = null;
 		URL jarURL = null;
 
@@ -114,7 +117,7 @@ public final class JarParser {
 		}
 		URL[] classes = new URL[] { jarURL };
 
-		URLClassLoader classLoader = new URLClassLoader(classes);
+		URLClassLoader classLoader = new URLClassLoader(classes, parentClassLoader);
 		try {
 			classToLoad = Class.forName(gamePackagePath + gameName, true, classLoader);
 		} catch (ClassNotFoundException e) {
