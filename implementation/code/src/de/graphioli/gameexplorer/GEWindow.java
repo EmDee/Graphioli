@@ -53,6 +53,8 @@ public class GEWindow extends JFrame implements GEView {
 	 */
 	private static final long serialVersionUID = 1L;
 
+	private static final String SCREENSHOT_FILE = "screenshot.png";
+
 	/**
 	 * The {@link GameExplorer} controlling this GEView implementation.
 	 */
@@ -144,9 +146,9 @@ public class GEWindow extends JFrame implements GEView {
 		InputStream screenshotInputStream;
 		try {
 			screenshotInputStream = JarParser.getFileAsInputStream(this.selectedGameDefinition.getClassName(),
-					"screenshot.jpg");
+					SCREENSHOT_FILE);
 		} catch (InvalidJarException e1) {
-			LOG.severe("JAR file doesn't provide valid creenshot for " + this.selectedGameDefinition.getClassName());
+			LOG.warning("JAR file doesn't provide valid creenshot for " + this.selectedGameDefinition.getClassName());
 			return null;
 		}
 

@@ -149,6 +149,7 @@ public class GEGameInformation extends JPanel {
 			
 			if (screenshotBuffer != null) {
 				screenshot = new ImageIcon(this.geWindow.getCurrentScreenshot());
+				this.screenshotLabel.setText("");
 			} else {
 				// Remove image
 				screenshot = null;
@@ -160,8 +161,14 @@ public class GEGameInformation extends JPanel {
 
 		}
 
-		// Display screenshot
-		this.screenshotLabel.setText("");
+		// Display screenshot	
+		
+		if (screenshot == null) {
+			this.screenshotLabel.setText(Localization.getLanguageString("ge_screenshotlabel"));
+		} else {
+			this.screenshotLabel.setText("");
+		}
+		
 		this.screenshotLabel.setIcon(screenshot);
 		this.screenshotLabel.revalidate();
 
@@ -227,8 +234,8 @@ public class GEGameInformation extends JPanel {
 		this.screenshotLabel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		this.screenshotLabel.setHorizontalAlignment(SwingConstants.CENTER);
 
-		// Add default text
-		this.screenshotLabel.setText(Localization.getLanguageString("ge_screenshotlabel"));
+		
+
 
 		// Add screenshot label to parent panel
 		this.add(this.screenshotLabel);
