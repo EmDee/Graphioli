@@ -321,6 +321,11 @@ public final class GraphColoringLevel {
 		return new GraphColoringLevel(4, vertices, edges);
 	}
 	
+	/**
+	 * Generates the sixth level of graph coloring.
+	 * 
+	 * @return the sixth level
+	 */
 	private static GraphColoringLevel generateLevelSix(){
 		GraphColoringVertex[] vertices = new GraphColoringVertex[25];
 		VisualEdge[] edges = new VisualEdge[37];
@@ -370,6 +375,11 @@ public final class GraphColoringLevel {
 		return new GraphColoringLevel(4, vertices, edges);
 	}
 	
+	/**
+	 * Generates the seventh level of graph coloring.
+	 * 
+	 * @return the seventh level
+	 */
 	private static GraphColoringLevel generateLevelSeven() {
 		GraphColoringVertex[] vertices = new GraphColoringVertex[26];
 		VisualEdge[] edges = new VisualEdge[52]; 

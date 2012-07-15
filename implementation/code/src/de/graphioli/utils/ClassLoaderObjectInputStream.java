@@ -5,9 +5,8 @@ import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectStreamClass;
 
-
 /**
- * This class is used for deserializing objects that need to be loaded by a 
+ * This class is used for unserializing objects that need to be loaded by a 
  * specific class loader.
  * 
  * @author Team Graphioli
@@ -36,7 +35,7 @@ public class ClassLoaderObjectInputStream extends ObjectInputStream {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Class resolveClass(ObjectStreamClass desc) throws IOException, ClassNotFoundException {
+	public Class<?> resolveClass(ObjectStreamClass desc) throws IOException, ClassNotFoundException {
 		return Class.forName(desc.getName(), false, this.classLoader);
 	}
 
