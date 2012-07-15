@@ -165,10 +165,8 @@ public class GameExplorer {
 			gameDefinition = new Gson().fromJson(jsonStream, GameDefinition.class);
 		} catch (JsonSyntaxException e) {
 			LOG.severe("JsonSyntaxException: " + e.getMessage());
-			e.printStackTrace();
 		} catch (JsonIOException e) {
 			LOG.severe("JsonIOException: " + e.getMessage());
-			e.printStackTrace();
 		}
 
 		if (gameDefinition != null) {

@@ -64,7 +64,6 @@ public abstract class Game {
 			callThread.join(CALL_TIMEOUT);
 		} catch (InterruptedException e) {
 			LOG.severe("Call interrupted: " + e.getMessage());
-			e.printStackTrace();
 			return true;
 		}
 

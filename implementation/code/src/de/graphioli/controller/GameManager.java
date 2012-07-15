@@ -226,7 +226,6 @@ public final class GameManager {
 			LOG.severe("IOException: " + e.getMessage());
 			return false;
 		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
 			LOG.severe("ClassNotFoundException: " + e.getMessage());
 			return false;
 		}
@@ -373,11 +372,11 @@ public final class GameManager {
 			LOG.info("Saved game to file: " + savegame.getName());
 		} catch (FileNotFoundException e) {
 			LOG.severe("FileNotFoundException: " + e.getMessage());
-			e.printStackTrace();
+			this.getViewManager().displayPopUp(Localization.getLanguageString("io_write_err"));
 			return false;
 		} catch (IOException e) {
 			LOG.severe("IOException: " + e.getMessage());
-			e.printStackTrace();
+			this.getViewManager().displayPopUp(Localization.getLanguageString("io_write_err"));
 			return false;
 		}
 
