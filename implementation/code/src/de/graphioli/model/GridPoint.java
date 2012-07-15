@@ -7,7 +7,6 @@ import java.io.Serializable;
  * 
  * @author Team Graphioli
  */
-// TODO Implement ValidParameters checks.
 public class GridPoint implements Serializable {
 
 	/**
