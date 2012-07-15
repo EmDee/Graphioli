@@ -1,1 +1,47 @@
 \section{JUnit Tests}
+The following methods were tested extensively using \texttt{JUnit}:
+
+
+\begin{itemize}
+\item BreadthFirstSearchTest
+	\begin{itemize}
+	\item \texttt{performAlgorithm(Graph graph, Vertex vertex, int depth)}
+	\end{itemize}
+	
+\item FindPath
+	\begin{itemize}
+	\item \texttt{performAlgorithm(Graph graph, Vertex vertexA, Vertex vertexB)}
+	\end{itemize}
+
+\item GameBoard
+	\begin{itemize}
+	\item \texttt{addVisualEdge(VisualEdge vEdge)}
+	\item \texttt{addVisualVertex(VisualVertex visualVertex)}
+	\item \texttt{flush()}
+	\item \texttt{getVisualEdge(VisualVertex vertexA, VisualVertex vertexB)}
+	\item \texttt{removeVisualEdge(VisualEdge visualEdge)}
+	\item \texttt{removeVisualVertex(VisualVertex visualVertex)}
+	\end{itemize}
+	
+\item Graph
+	\begin{itemize}
+	\item \texttt{addEdge(Edge edge)}
+	\item \texttt{addVertex(Vertex vertex)}
+	\item \texttt{removeEdge(Edge edge)}
+	\item \texttt{removeVertex(Vertex vertex)}
+	\end{itemize}
+	
+\item Grid
+	\begin{itemize}
+	\item \texttt{addVisualVertexToGrid(VisualVertex visualVertex)}
+	\item \texttt{getVisualVertexAtGridPoint(GridPoint gridPoint))}
+	\item \texttt{removeVisualVertexAtGridPoint(GridPoint gridPoint)}
+	\end{itemize}
+	
+\item PlanarityCheck
+	\begin{itemize}
+	\item \texttt{performAlgorithm(Graph graph, Edge newEdge)}
+	\end{itemize}
+\end{itemize}
+
+All tests were successful.
