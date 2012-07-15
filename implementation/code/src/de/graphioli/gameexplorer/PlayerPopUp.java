@@ -228,7 +228,7 @@ public class PlayerPopUp extends JFrame {
 		String optionCancel = Localization.getLanguageString("player_pop_up_cancel");
 		String optionNewGame = Localization.getLanguageString("player_pop_up_new_game");
 		String optionLoadGame = Localization.getLanguageString("player_pop_up_load_savegame");
-		String[] options = { optionCancel, optionNewGame, optionLoadGame };
+		String[] options = {optionLoadGame, optionNewGame, optionCancel};
 
 		String choice = (String) this.showDecisionDialog(
 				Localization.getLanguageString("player_pop_up_ask_load_savegame"), options, 1);
