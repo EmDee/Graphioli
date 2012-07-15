@@ -57,8 +57,9 @@ public class GraphCanvas extends JPanel {
 	 */
 	private Dimension canvasSize;
 
-	/** Creates a {@link GraphCanvas} with a {@link VisualGrid} and registers
-	 * its parent {@link GameWindow}.
+	/**
+	 * Creates a {@link GraphCanvas} with a {@link VisualGrid} and registers its
+	 * parent {@link GameWindow}.
 	 * 
 	 * @param parentGameWindow
 	 *            The {@link GameWindow} that contains this {@link GraphCanvas}
@@ -77,6 +78,47 @@ public class GraphCanvas extends JPanel {
 				BufferedImage.TYPE_4BYTE_ABGR);
 	}
 
+	/**
+	 * Helper function that draws an directed edge.
+	 * 
+	 * @param g2d the graphics to draw on.
+	 * @param edge the edge to be drawn.
+	 * @param gridScale the scale of the grid.
+	 */
+	private static void drawEdgeDirected(Graphics2D g2d, Edge edge, int gridScale) {
+		VisualVertex originVertex = (VisualVertex) edge.getOriginVertex();
+		VisualVertex targetVertex = (VisualVertex) edge.getTargetVertex();
+		VisualEdge vEdge = (VisualEdge) edge;
+
+		vEdge.callDrawDirected(
+				g2d,
+				(originVertex.getGridPoint().getPositionX() + 1) * gridScale,
+				(originVertex.getGridPoint().getPositionY() + 1) * gridScale,
+				(targetVertex.getGridPoint().getPositionX() + 1) * gridScale,
+				(targetVertex.getGridPoint().getPositionY() + 1) * gridScale,
+				VisualVertex.PIXELS_PER_SIDE / 4);
+	}
+
+	/**
+	 * Helper function that draws an undirected edge.
+	 * 
+	 * @param g2d the graphics to draw on.
+	 * @param edge the edge to be drawn.
+	 * @param gridScale the scale of the grid.
+	 */
+	private static void drawEdgeUndirected(Graphics2D g2d, Edge edge, int gridScale) {
+		VisualVertex originVertex = (VisualVertex) edge.getOriginVertex();
+		VisualVertex targetVertex = (VisualVertex) edge.getTargetVertex();
+		VisualEdge vEdge = (VisualEdge) edge;
+		
+		vEdge.callDrawUndirected(
+				g2d,
+				(originVertex.getGridPoint().getPositionX() + 1) * gridScale,
+				(originVertex.getGridPoint().getPositionY() + 1) * gridScale,
+				(targetVertex.getGridPoint().getPositionX() + 1) * gridScale,
+				(targetVertex.getGridPoint().getPositionY() + 1) * gridScale);
+	}
+	
 	/**
 	 * Resets the buffered image of this {@code VisualVertex} to a completely
 	 * transparent state.
@@ -105,29 +147,14 @@ public class GraphCanvas extends JPanel {
 		g2d.setStroke(this.gridStroke);
 		this.visualGrid.draw(g2d);
 
-		//TODO: Beautify
-		// Drawing edges of the graph from the canvas (PROTOTYPE)
+		// Drawing edges of the graph from the canvas
 		if (board.isDirectedGraph()) {
-			// Draw directed
 			for (Edge edge : graph.getEdges()) {
-				VisualVertex originVertex = (VisualVertex) edge.getOriginVertex();
-				VisualVertex targetVertex = (VisualVertex) edge.getTargetVertex();
-
-				((VisualEdge) edge).callDrawDirected(g2d, (originVertex.getGridPoint().getPositionX() + 1) * gridScale,
-						(originVertex.getGridPoint().getPositionY() + 1) * gridScale, (targetVertex.getGridPoint()
-								.getPositionX() + 1) * gridScale, (targetVertex.getGridPoint().getPositionY() + 1)
-								* gridScale, VisualVertex.PIXELS_PER_SIDE / 4);
+				drawEdgeDirected(g2d, edge, gridScale);
 			}
 		} else {
-			// Draw Undirected
 			for (Edge edge : graph.getEdges()) {
-				VisualVertex originVertex = (VisualVertex) edge.getOriginVertex();
-				VisualVertex targetVertex = (VisualVertex) edge.getTargetVertex();
-
-				((VisualEdge) edge).callDrawUndirected(g2d, (originVertex.getGridPoint().getPositionX() + 1)
-						* gridScale, (originVertex.getGridPoint().getPositionY() + 1) * gridScale, (targetVertex
-						.getGridPoint().getPositionX() + 1) * gridScale,
-						(targetVertex.getGridPoint().getPositionY() + 1) * gridScale);
+				drawEdgeUndirected(g2d, edge, gridScale);
 			}
 		}
 
@@ -135,9 +162,12 @@ public class GraphCanvas extends JPanel {
 		for (Vertex v : graph.getVertices()) {
 
 			VisualVertex vertex = (VisualVertex) v;
-			g2d.drawImage(vertex.getBufferedImage(), ((1 + vertex.getGridPoint().getPositionX()) * gridScale)
-					- (VisualVertex.PIXELS_PER_SIDE / 2), ((1 + vertex.getGridPoint().getPositionY()) * gridScale)
-					- (VisualVertex.PIXELS_PER_SIDE / 2), VisualVertex.PIXELS_PER_SIDE, VisualVertex.PIXELS_PER_SIDE,
+			g2d.drawImage(
+					vertex.getBufferedImage(),
+					((1 + vertex.getGridPoint().getPositionX()) * gridScale) - (VisualVertex.PIXELS_PER_SIDE / 2),
+					((1 + vertex.getGridPoint().getPositionY()) * gridScale) - (VisualVertex.PIXELS_PER_SIDE / 2),
+					VisualVertex.PIXELS_PER_SIDE,
+					VisualVertex.PIXELS_PER_SIDE,
 					null);
 
 		}
