@@ -52,6 +52,7 @@ implementation/*.pdf
 implementation/**/*.pdf
 implementation/document/*.pdf
 implementation/document/ganttChart/*.pdf
+quality/**/*.pdf
 
 # eclipse specific file
 .classpath
