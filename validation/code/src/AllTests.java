@@ -14,6 +14,8 @@ import de.graphioli.model.GridTest;
 @SuiteClasses({
 	// gui
 	//GameExplorerTest.class,
+	//GraphColoringTest.class,
+	//DirectedEdgeTest.class,
 	
 	// algorithms
 	BreadthFirstSearchTest.class,
