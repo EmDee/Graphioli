@@ -1,4 +1,27 @@
 \section{Tests}
+
 \subsection{Type of tests}
 
+\subsubsection{JUnit}
+
+\todo{Add picture of JUnit code e.g. testing controller}\par
+\emph{JUnit} is the most commonly used framework to write repeatable unit tests for Java applications.\par
+Every object can be tested separately using defined input values and expected output values. Methods and object correlations not working as intended will attract attention reliably.\par
+
+\subsubsection{Sikuli}
+
+\todo{Add picture of SIKULI code e.g. testing GameExplorer}\par
+For extensive tests of our graphical user interfaces (GUIs), we drew on open-source \emph{Project SIKULI}. Sikuli is a visual technology to automate and test those interfaces using screenshots.\par
+The tests are developed using a pseudo language connected with cropped images from the application's screenshots. A click on a button for instance would look like this:\par
+\todo{Add picture of SIKULI code for button click}\par
+Once all clickable items are saved as screenshot parts, every possible scenario can be executed semi-automatically. These tests can also be designed as regression test.\par
+
+\subsubsection{Manual tests}
+
+As defined in the \emph{Pflichtenheft}, we conducted 18 test cases and four test scenarios. As those have been defined before design and implementation, they give some indication of whether the framework and the games in general have been deployed as planned.\par
+
 \subsection{Implementation details}
+We implemented unit tests during the implementation phase, achieving a code coverage in some packages of almost 90\%\todo{Verify number}.\par
+A lot more unit test have been added since and by the end of the validation phase, we beat the number of 98\% of code coverage with unit tests.\par
+However, a lot of possible errors could be embedded in the GUIs. And as Java does not provide easy and free frameworks for GUI testing, we used the above described Sikuli to act out almost all possible click combinations in both \gameexplorer and \emph{GameWindow}.\par
+The - mainly positive - results of all tests are outlined in the next sections.\par
