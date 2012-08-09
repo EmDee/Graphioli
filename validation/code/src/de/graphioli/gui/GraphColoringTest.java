@@ -5,16 +5,15 @@ package de.graphioli.gui;
 
 import static org.junit.Assert.*;
 
-import java.awt.AWTException;
-
+import org.junit.After;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.sikuli.script.FindFailed;
 import org.sikuli.script.Key;
 import org.sikuli.script.KeyModifier;
 import org.sikuli.script.Pattern;
 import org.sikuli.script.Screen;
-import org.sikuli.script.SikuliScript;
 
 import de.graphioli.controller.GameManager;
 
@@ -32,7 +31,6 @@ public class GraphColoringTest {
 	private String playerTwo = "Alice";
 
 	private Screen screen = new Screen();
-	private SikuliScript sikuliSkript;
 
 	// buttons
 	private Pattern okBtn = new Pattern(this.screensDir + "ok_btn.png");
@@ -91,26 +89,57 @@ public class GraphColoringTest {
 
 	// miscellaneous
 	private Pattern graphColoringText = new Pattern(this.screensDir + "graphColoringSelect.png");
+	private Pattern directedGameText = new Pattern(this.screensDir + "directedGame.png");
+	private Pattern graphColoringSelected = new Pattern(this.graphColoringScreenPath + "gcSelectionSelected.png");
 	private Pattern graphColoringGame = new Pattern(this.screensDir + "graphColoringGame.png");
 	private Pattern helpPage = new Pattern(this.graphColoringScreenPath + "gcHelp.png");
 	private Pattern loadedGame = new Pattern(this.graphColoringScreenPath + "gcLoadedGame.png");
 	private Pattern saveGame = new Pattern(this.screensDir + "saveGame.png");
 	private Pattern overrideSavegame = new Pattern(this.screensDir + "overrideSavegame.png");
 
-	public GraphColoringTest() {
+	/**
+	 * Set up one instance of the GameExplorer before all tests.
+	 */
+	@BeforeClass
+	public static void beforeClass() {
+		GameManager.main(null);
+	}
+
+	/**
+	 * General set up before every test.
+	 */
+	@Before
+	public void setUp() {
 		try {
-			this.sikuliSkript = new SikuliScript();
-		} catch (AWTException e) {
-			fail("Couldn't initialize SikuliScript");
+			this.screen.click(this.graphColoringText, 0);
+			this.screen.click(this.startBtn);
+			this.screen.click(this.newGameBtn);
+		} catch (FindFailed e) {
+			fail("Set up failed due to: " + e.getMessage());
 		}
 	}
 
 	/**
-	 * Create a new instance of the GameExplorer befor eevery test.
+	 * If the game window is existent, then close it to return to GameExplorer.
 	 */
-	@Before
-	public void setUp() {
-		GameManager.main(null);
+	@After
+	public void tearDown() {
+		if (this.screen.exists(this.gameMenuItem) != null) {
+			try {
+				this.screen.click(this.gameMenuItem);
+				this.screen.click(this.quitMenuItem);
+				this.screen.click(this.yesBtn);
+			} catch (FindFailed e) {
+				fail("Tear down failed due to: " + e.getMessage());
+			}
+		}
+		if (this.screen.exists(this.graphColoringSelected) != null) {
+			try {
+				this.screen.click(this.directedGameText);
+			} catch (FindFailed e) {
+				fail("Couldn't click on directedGameText, due to: " + e.getMessage());
+			}
+		}
 	}
 
 	/**
@@ -121,6 +150,7 @@ public class GraphColoringTest {
 	@Test
 	public void testGraphColoringExistence() {
 		try {
+			this.screen.click(this.cancelBtn);
 			this.screen.click(this.graphColoringText, 0);
 		} catch (FindFailed e) {
 			System.out.println("Couldn't find GraphColoring text in menu list");
@@ -135,6 +165,7 @@ public class GraphColoringTest {
 	@Test
 	public void testNewOrLoadSelection() {
 		try {
+			this.screen.click(this.cancelBtn);
 			this.screen.click(this.graphColoringText, 0);
 			this.screen.click(this.startBtn);
 		} catch (FindFailed e) {
@@ -156,16 +187,13 @@ public class GraphColoringTest {
 	@Test
 	public void testGameWindow() {
 		try {
-			this.screen.click(this.graphColoringText, 0);
-			this.screen.click(this.screensDir + "start_btn.png");
-			this.screen.click(this.screensDir + "newGame.png");
 			this.screen.click(this.okBtn);
-			this.screen.wait(this.screensDir + "player_input.png");
+			this.screen.wait(this.playerInput);
 			this.screen.type(null, this.playerOne, 0);
 			this.screen.click(this.okBtn);
 			assertTrue(this.screen.exists(this.graphCanvas.similar((float) 0.6)) != null);
 		} catch (FindFailed e) {
-			System.out.println("Mop!");
+			fail("Test failed due to: " + e.getMessage());
 		}
 
 	}
@@ -176,16 +204,13 @@ public class GraphColoringTest {
 	@Test
 	public void testOnePlayerGame() {
 		try {
-			this.screen.click(this.graphColoringText, 0);
-			this.screen.click(this.startBtn);
-			this.screen.click(this.newGameBtn);
 			this.screen.click(this.okBtn);
 			this.screen.wait(this.playerInput, 2);
 			this.screen.type(null, this.playerOne, 0);
 			this.screen.click(this.okBtn);
 
 			// TODO: F1-F3 keys for changing colors
-			
+
 			// red button should be selected by default
 			assertTrue(this.screen.exists(this.redSelected) != null);
 
@@ -207,7 +232,7 @@ public class GraphColoringTest {
 			this.screen.click(this.bottomRightCorner);
 
 			assertTrue(this.screen.exists(this.graphColored) != null);
-			
+
 			// TODO: Space for next level
 		} catch (FindFailed e) {
 			fail("Test didn't succeed, due to: " + e.getMessage());
@@ -220,10 +245,6 @@ public class GraphColoringTest {
 	@Test
 	public void testTwoPlayerGame() {
 		try {
-			this.screen.click(this.graphColoringText, 0);
-			this.screen.click(this.startBtn);
-			this.screen.click(this.screensDir + "newGame.png");
-
 			// select two players
 			this.screen.click(this.playerSelection);
 			this.screen.click(this.twoPlayers);
@@ -284,11 +305,8 @@ public class GraphColoringTest {
 	@Test
 	public void testNextAndPrevLevel() {
 		try {
-			this.screen.click(this.graphColoringText, 0);
-			this.screen.click(this.screensDir + "start_btn.png");
-			this.screen.click(this.screensDir + "newGame.png");
 			this.screen.click(this.okBtn);
-			this.screen.wait(this.screensDir + "player_input.png");
+			this.screen.wait(this.playerInput);
 			this.screen.type(null, this.playerOne, 0);
 			this.screen.click(this.okBtn);
 
@@ -316,11 +334,8 @@ public class GraphColoringTest {
 	@Test
 	public void testQuitGame() {
 		try {
-			this.screen.click(this.graphColoringText, 0);
-			this.screen.click(this.screensDir + "start_btn.png");
-			this.screen.click(this.screensDir + "newGame.png");
 			this.screen.click(this.okBtn);
-			this.screen.wait(this.screensDir + "player_input.png");
+			this.screen.wait(this.playerInput);
 			this.screen.type(null, this.playerOne, 0);
 			this.screen.click(this.okBtn);
 
@@ -340,11 +355,8 @@ public class GraphColoringTest {
 	 * Tests the functionality of saving and loading a game.
 	 */
 	@Test
-	public void saveAndLoadGame() {
+	public void testSaveAndLoadGame() {
 		try {
-			this.screen.click(this.graphColoringText, 0);
-			this.screen.click(this.startBtn);
-			this.screen.click(this.newGameBtn);
 			this.screen.click(this.okBtn);
 			this.screen.wait(this.playerInput, 2);
 			this.screen.type(null, this.playerOne, 0);
@@ -388,7 +400,7 @@ public class GraphColoringTest {
 			fail("Test didn't succeed, due to: " + e.getMessage());
 		}
 	}
-	
+
 	/**
 	 * Test the functionality of the help button and partially compare the help
 	 * page.
@@ -396,6 +408,7 @@ public class GraphColoringTest {
 	@Test
 	public void testHelpPage() {
 		try {
+			this.screen.click(this.cancelBtn);
 			this.screen.click(this.graphColoringText, 0);
 			this.screen.click(this.helpBtn);
 			assertTrue(this.screen.exists(this.helpPage) != null);
