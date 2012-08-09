@@ -14,7 +14,7 @@ public final class GraphColoringLevel {
 	/*
 	 * the number of levels that are implemented
 	 */
-	public static final int IMPLEMENTED_LEVEL_COUNT = 8;
+	public static final int IMPLEMENTED_LEVEL_COUNT = 9;
 
 	/**
 	 * The number of colors to color the graph.
@@ -72,6 +72,8 @@ public final class GraphColoringLevel {
 				return generateLevelSeven();
 			case 8:
 				return generateLevelEight();
+			case 9:
+				return generateLevelNine();
 			default:
 				return null;
 		}
@@ -505,6 +507,27 @@ public final class GraphColoringLevel {
 		edges[50] = new SimpleVisualEdge(vertices[23], vertices[25]);
 		edges[51] = new SimpleVisualEdge(vertices[13], vertices[14]);
 		
+		return new GraphColoringLevel(3, vertices, edges);
+	}
+	
+	/**
+	 * 
+	 * @return
+	 */
+	private static GraphColoringLevel generateLevelNine() {
+		GraphColoringVertex[] vertices = new GraphColoringVertex[4];
+		VisualEdge[] edges = new VisualEdge[4];
+
+		vertices[0] = new GraphColoringVertex(new GridPoint(2, 2));
+		vertices[1] = new GraphColoringVertex(new GridPoint(2, 5));
+		vertices[2] = new GraphColoringVertex(new GridPoint(5, 2));
+		vertices[3] = new GraphColoringVertex(new GridPoint(5, 5));
+		
+		edges[0] = new SimpleVisualEdge(vertices[0], vertices[1]);
+		edges[1] = new SimpleVisualEdge(vertices[0], vertices[2]);
+		edges[2] = new SimpleVisualEdge(vertices[0], vertices[3]);
+		edges[3] = new SimpleVisualEdge(vertices[1], vertices[3]);
+
 		return new GraphColoringLevel(3, vertices, edges);
 	}
 
