@@ -29,16 +29,22 @@ public class DirectedEdgeTest {
 	private Pattern playerInput = new Pattern(this.screensDir + "player_input.png");
 
 	private Pattern vertex = new Pattern(this.screensDir + "vertex.png");
+	private Pattern pinkVertex = new Pattern(this.directedEdgeScreenPath + "dePinkVertex.png");
 	private Pattern vertexSelected = new Pattern(this.screensDir + "vertex_selected.png");
 	private Pattern spot = new Pattern(this.screensDir + "spot.png");
+	private Pattern emptyGraphCanvas = new Pattern(this.screensDir + "emptyGraphCanvas.png");
 
 	private Pattern oneEdge = new Pattern(this.directedEdgeScreenPath + "deOneEdge.png");
 	private Pattern twoEdge = new Pattern(this.directedEdgeScreenPath + "deTwoEdge.png");
 
 	private Pattern afterRemoval = new Pattern(this.directedEdgeScreenPath + "deAfterRemoval.png");
+	
+	private Pattern pinkMenuItem = new Pattern(this.directedEdgeScreenPath + "dePink.png");
+	private Pattern optionsMenuItem = new Pattern(this.screensDir + "optionsMenuItem.png");
+	private Pattern flushMenuItem = new Pattern(this.directedEdgeScreenPath + "deFlush.png");
 
 	/**
-	 * Create a new instance of the GameExplorer befor eevery test.
+	 * Create a new instance of the GameExplorer before every test.
 	 */
 	@Before
 	public void setUp() {
@@ -49,7 +55,7 @@ public class DirectedEdgeTest {
 	 * Test the pop up for name input.
 	 */
 	@Test
-	public void onePlayerPopUpTest() {
+	public void testOnePlayerPopUp() {
 		try {
 			this.screen.click(this.startBtn);
 			assertTrue(this.screen.exists(this.playerInput) != null);
@@ -256,7 +262,52 @@ public class DirectedEdgeTest {
 			region1.click(this.vertex);
 			// TODO: Fix delete key
 			this.screen.type(Key.DELETE);
-			assertTrue(this.screen.exists(this.afterRemoval) != null);
+			assertFalse(this.screen.exists(this.twoEdge) != null);
+		} catch (FindFailed e) {
+			fail("Test failed due to: " + e.getMessage());
+		}
+	}
+	
+	/**
+	 * Test custom menu item; pink vertex
+	 */
+	@Test
+	public void testPinkVertex() {
+		try {
+			this.screen.click(this.startBtn);
+			this.screen.wait(this.playerInput);
+			this.screen.type(null, playerName, 0);
+			this.screen.type(Key.ENTER);
+			this.screen.click(this.optionsMenuItem);
+			this.screen.click(this.pinkMenuItem);
+			if (this.screen.exists(this.spot) != null) {
+				this.screen.click(this.spot);
+				assertTrue(this.screen.exists(this.pinkVertex) != null);
+			}
+		} catch (FindFailed e) {
+			fail("Test failed due to: " + e.getMessage());
+		}
+	}
+	
+	/**
+	 * Test custom menu item; flush
+	 */
+	@Test
+	public void testFlush() {
+		try {
+			this.screen.click(this.startBtn);
+			this.screen.wait(this.playerInput);
+			this.screen.type(null, playerName, 0);
+			this.screen.type(Key.ENTER);
+			if (this.screen.exists(this.spot) != null) {
+				for (int i = 0; i < 80; i ++) {
+					this.screen.click(this.spot);
+				}
+			}
+			assertFalse(this.screen.exists(this.emptyGraphCanvas.similar((float) 0.7)) != null);
+			this.screen.click(this.optionsMenuItem);
+			this.screen.click(this.flushMenuItem);
+			assertTrue(this.screen.exists(this.emptyGraphCanvas) != null);
 		} catch (FindFailed e) {
 			fail("Test failed due to: " + e.getMessage());
 		}
