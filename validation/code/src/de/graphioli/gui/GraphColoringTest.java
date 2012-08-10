@@ -102,7 +102,7 @@ public class GraphColoringTest {
 	 */
 	@BeforeClass
 	public static void beforeClass() {
-		GameManager.main(null);
+		//GameManager.main(null);
 	}
 
 	/**
@@ -110,12 +110,21 @@ public class GraphColoringTest {
 	 */
 	@Before
 	public void setUp() {
-		try {
-			this.screen.click(this.graphColoringText, 0);
-			this.screen.click(this.startBtn);
-			this.screen.click(this.newGameBtn);
-		} catch (FindFailed e) {
-			fail("Set up failed due to: " + e.getMessage());
+		if (this.screen.exists(this.graphColoringSelected) == null) {
+			try {
+				this.screen.click(this.graphColoringText, 0);
+				this.screen.click(this.startBtn);
+				this.screen.click(this.newGameBtn);
+			} catch (FindFailed e) {
+				fail("Set up failed due to: " + e.getMessage());
+			}
+		} else {
+			try {
+				this.screen.click(this.directedGameText);
+				this.setUp();
+			} catch (FindFailed e) {
+				fail("Set up failed due to: " + e.getMessage());
+			}
 		}
 	}
 
@@ -306,7 +315,7 @@ public class GraphColoringTest {
 	public void testNextAndPrevLevel() {
 		try {
 			this.screen.click(this.okBtn);
-			this.screen.wait(this.playerInput);
+			this.screen.wait(this.playerInput, 5);
 			this.screen.type(null, this.playerOne, 0);
 			this.screen.click(this.okBtn);
 

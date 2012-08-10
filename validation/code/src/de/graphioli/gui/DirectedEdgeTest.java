@@ -28,6 +28,7 @@ public class DirectedEdgeTest {
 
 	private Pattern startBtn = new Pattern(this.screensDir + "start_btn.png");
 	private Pattern yesBtn = new Pattern(this.screensDir + "yes_btn.png");
+	private Pattern okBtn = new Pattern(this.screensDir + "ok_btn.png");
 
 	private Pattern playerInput = new Pattern(this.screensDir + "player_input.png");
 
@@ -56,7 +57,7 @@ public class DirectedEdgeTest {
 	 */
 	@BeforeClass
 	public static void beforeClass() {
-		GameManager.main(null);
+		//GameManager.main(null);
 	}
 
 	/**
@@ -65,10 +66,10 @@ public class DirectedEdgeTest {
 	@Before
 	public void setUp() {
 		try {
-			this.screen.click(this.startBtn);
-			this.screen.wait(this.playerInput);
+			this.screen.click(this.startBtn, 5);
+			this.screen.wait(this.playerInput, 5);
 			this.screen.type(null, playerName, 0);
-			this.screen.type(Key.ENTER);
+			this.screen.click(this.okBtn, 5);
 		} catch (FindFailed e) {
 			fail("Set up failed due to: " + e.getMessage());
 		}
