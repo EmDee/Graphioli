@@ -1,7 +1,8 @@
 \section{Results}
 \subsection{Unit tests}
 
-\todo{Results and statistics of unit tests here.}
+All unit tests passed successfully and didn't show any implementation errors. Statistics about the code coverage of these tests can be found in figure \ref{img:codeCoverage}.\par
+Our problem with unit tests was the huge impact of GUI elements in our program. While algorithms, models and controllers could be unit testes easily, view elements and e.g. vertices cannot be validated since JUnit doesn't provide this functionality.\par
 
 \subsection{GUI tests}
 
@@ -158,4 +159,9 @@ For details about the test scenarios please refer to section \emph{11.3 Test sce
 
 \subsection{Code coverage}
 
-\todo{Statistics about code coverage here.}
+\begin{figure}[!h]
+	\centering
+	\includegraphics{code_coverage.png}
+	\caption{Code coverage of the unit tests.}
+	\label{img:codeCoverage}
+\end{figure}
