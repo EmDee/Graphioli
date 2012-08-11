@@ -46,20 +46,23 @@
 	\hline
 	\textbf{Test} & \textbf{Description} & \textbf{Result} & \textbf{Remark} \\
 	\hline
-	\ref{T:050} & \ref{T:050T} & Not verified & \\
-	\ref{T:060} & \ref{T:060T} & Not verified & \\
-	\ref{T:070} & \ref{T:070T} & Not verified & \\
-	\ref{T:080} & \ref{T:080T} & Not verified & \\
-	\ref{T:090} & \ref{T:090T} & Not verified & \\
-	\ref{T:100} & \ref{T:100T} & Not verified & \\
-	\ref{T:110} & \ref{T:110T} & Not verified & \\
+	\ref{T:050} & \ref{T:050T} & Passed & Implementation changed \\
+	\ref{T:060} & \ref{T:060T} & Passed & \\
+	\ref{T:070} & \ref{T:070T} & Passed & \\
+	\ref{T:080} & \ref{T:080T} & Passed & Implementation changed \\
+	\ref{T:090} & \ref{T:090T} & Passed & Implementation changed\\
+	\ref{T:100} & \ref{T:100T} \footnotemark & Passed & Implementation changed\\
+	\ref{T:110} & \ref{T:110T} & Passed & \\
 	\hline
 \end{tabular}
+
+\footnotetext{Testcase changed, since it is no longer possible to lose a single-player game.}
 
 \begin{description}
 	\item[\textlabel{/T050/}{T:050}] \textbf{\textlabel{Start the game}{T:050T}} \\
 	\textbf{Input:} \graphcoloring has been selected and the tester clicks on the start button. \\
-	\textbf{Exp. Output:} The game window opens and the graph of the first level is displayed.
+	\textbf{Former exp. Output:} The game window opens and the graph of the first level is displayed. \\
+	\textbf{Changed exp. Output:} A pop-up opens to choose a new or saved game. Then the Player-Pop-up opens to choose player number and names. After that the game window opens and the graph of the first level is displayed.
 	
 	\item[\textlabel{/T060/}{T:060}] \textbf{\textlabel{Save and load a game}{T:060T}} \\
 	\textbf{Input:} Some vertices have been colored. The tester saves the current state, closes and reopens \graphcoloring and loads the savegame. \\
@@ -71,15 +74,18 @@
 	
 	\item[\textlabel{/T080/}{T:080}] \textbf{\textlabel{Color a colored vertex}{T:080T}} \\
 	\textbf{Input:} The tester selects a color and clicks on a colored vertex. \\
-	\textbf{Exp. Output:} Nothing changes.
+	\textbf{Former exp. Output:} Nothing changes. \\
+	\textbf{Changed exp. Output:} \emph{Single-player:} The vertex changes its color to the selected one. \emph{Multiplayer:} Nothing changes.
 	
 	\item[\textlabel{/T090/}{T:090}] \textbf{\textlabel{Color adjacent vertices in the same color}{T:090T}} \\
 	\textbf{Input:} The tester selects a color and clicks on an uncolored vertex that is adjacent to one in the same color. \\
-	\textbf{Exp. Output:} The vertex does not change. An error message is displayed.
+	\textbf{Former exp. Output:} The vertex does not change. An error message is displayed. \\
+	\textbf{Changed exp. Output:} \emph{Single-player:} The vertex changes its color to the selected one. An error message is displayed. \emph{Multiplayer:} The vertex does not change. An error message is displayed.
 	
-	\item[\textlabel{/T100/}{T:100}] \textbf{\textlabel{Win/Lose a single-player game}{T:100T}} \\
-	\textbf{Input:} The tester plays until he or she wins/loses the game. \\
-	\textbf{Exp. Output:} A win/lose message is displayed and the next/same level is loaded.
+	\item[\textlabel{/T100/}{T:100}] \textbf{\textlabel{Win a single-player game}{T:100T}} \\
+	\textbf{Input:} The tester plays until he or she wins the game. \\
+	\textbf{Former exp. Output:} A win message is displayed and the next level is loaded. \\
+	\textbf{Changed exp. Output:} A win message is displayed and after pressing space the next level is loaded.
 
 	\item[\textlabel{/T110/}{T:110}] \textbf{\textlabel{Win/Lose a multiplayer game}{T:110T}} \\
 	\textbf{Input:} The tester plays for both players until one wins the game. \\
