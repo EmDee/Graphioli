@@ -19,7 +19,7 @@ public class TwixTTest {
 	private String playerOne = "Bob";
 	private String playerTwo = "Alice";
 	
-	private Screen screen = new Screen();
+	private static Screen screen = new Screen();
 	
 	// buttons
 	private Pattern startBtn = new Pattern(this.screensDir + "start_btn.png");
@@ -40,23 +40,31 @@ public class TwixTTest {
 	private Pattern twixtSelection = new Pattern(this.twixtScreenPath + "twixtSelection.png");
 	private Pattern twixtSelectionOld = new Pattern(this.twixtScreenPath + "twixtSelectionOld.png");
 
+	/**
+	 * Set up one instance of the GameExplorer before all tests.
+	 */
 	@BeforeClass
 	public static void beforeClass() {
-		//GameManager.main(null);
+		// indication for existence of GameExplorer
+		Pattern gameExplorerExistance = new Pattern("./application/screens/gameExplorerExistence.png");
+
+		if (TwixTTest.screen.exists(gameExplorerExistance) == null) {
+			GameManager.main(null);
+		}
 	}
 	
 	@Before
 	public void setUp() {
 		try {
-			this.screen.click(this.twixtSelectionOld);
-			this.screen.click(this.startBtn);
-			this.screen.click(this.newGameBtn);
-			this.screen.wait(this.firstPlayerInput);
-			this.screen.type(null, this.playerOne, 0);
-			this.screen.click(this.okBtn);
-			this.screen.wait(this.secondPlayerInput);
-			this.screen.type(null, this.playerTwo, 0);
-			this.screen.click(this.okBtn);
+			TwixTTest.screen.click(this.twixtSelectionOld);
+			TwixTTest.screen.click(this.startBtn);
+			TwixTTest.screen.click(this.newGameBtn);
+			TwixTTest.screen.wait(this.firstPlayerInput);
+			TwixTTest.screen.type(null, this.playerOne, 0);
+			TwixTTest.screen.click(this.okBtn);
+			TwixTTest.screen.wait(this.secondPlayerInput);
+			TwixTTest.screen.type(null, this.playerTwo, 0);
+			TwixTTest.screen.click(this.okBtn);
 		} catch (FindFailed e) {
 			fail("Set up failed due to: " + e.getMessage());
 		}
@@ -66,9 +74,9 @@ public class TwixTTest {
 	public void tearDown() {
 		// quit first
 		try {
-			this.screen.click(this.gameMenuItem);
-			this.screen.click(this.quitMenuItem);
-			this.screen.click(this.yesBtn);
+			TwixTTest.screen.click(this.gameMenuItem);
+			TwixTTest.screen.click(this.quitMenuItem);
+			TwixTTest.screen.click(this.yesBtn);
 		} catch (FindFailed e) {
 			fail("Couldn't tear down previous test due to: " + e.getMessage());
 		}
@@ -76,6 +84,6 @@ public class TwixTTest {
 	
 	@Test
 	public void testTwixtExistence() {
-		//assertTrue(this.screen.exists(this.twixtStart) != null);
+		//assertTrue(TwixTTest.screen.exists(this.twixtStart) != null);
 	}
 }

@@ -30,7 +30,7 @@ public class GraphColoringTest {
 	private String playerOne = "Bob";
 	private String playerTwo = "Alice";
 
-	private Screen screen = new Screen();
+	private static Screen screen = new Screen();
 
 	// buttons
 	private Pattern okBtn = new Pattern(this.screensDir + "ok_btn.png");
@@ -102,7 +102,12 @@ public class GraphColoringTest {
 	 */
 	@BeforeClass
 	public static void beforeClass() {
-		//GameManager.main(null);
+		// indication for existence of GameExplorer
+		Pattern gameExplorerExistance = new Pattern("./application/screens/gameExplorerExistence.png");
+
+		if (GraphColoringTest.screen.exists(gameExplorerExistance) == null) {
+			GameManager.main(null);
+		}
 	}
 
 	/**
@@ -110,18 +115,18 @@ public class GraphColoringTest {
 	 */
 	@Before
 	public void setUp() {
-		if (this.screen.exists(this.graphColoringSelected) == null) {
+		if (GraphColoringTest.screen.exists(this.graphColoringSelected) == null) {
 			try {
-				this.screen.click(this.graphColoringText, 0);
-				this.screen.click(this.startBtn);
-				this.screen.click(this.newGameBtn);
+				GraphColoringTest.screen.click(this.graphColoringText, 0);
+				GraphColoringTest.screen.click(this.startBtn);
+				GraphColoringTest.screen.click(this.newGameBtn);
 			} catch (FindFailed e) {
 				fail("Set up failed due to: " + e.getMessage());
 			}
 		} else {
 			try {
-				this.screen.click(this.directedGameText);
-				this.setUp();
+				GraphColoringTest.screen.click(this.startBtn);
+				GraphColoringTest.screen.click(this.newGameBtn);
 			} catch (FindFailed e) {
 				fail("Set up failed due to: " + e.getMessage());
 			}
@@ -133,18 +138,18 @@ public class GraphColoringTest {
 	 */
 	@After
 	public void tearDown() {
-		if (this.screen.exists(this.gameMenuItem) != null) {
+		if (GraphColoringTest.screen.exists(this.gameMenuItem) != null) {
 			try {
-				this.screen.click(this.gameMenuItem);
-				this.screen.click(this.quitMenuItem);
-				this.screen.click(this.yesBtn);
+				GraphColoringTest.screen.click(this.gameMenuItem);
+				GraphColoringTest.screen.click(this.quitMenuItem);
+				GraphColoringTest.screen.click(this.yesBtn);
 			} catch (FindFailed e) {
 				fail("Tear down failed due to: " + e.getMessage());
 			}
 		}
-		if (this.screen.exists(this.graphColoringSelected) != null) {
+		if (GraphColoringTest.screen.exists(this.graphColoringSelected) != null) {
 			try {
-				this.screen.click(this.directedGameText);
+				GraphColoringTest.screen.click(this.directedGameText);
 			} catch (FindFailed e) {
 				fail("Couldn't click on directedGameText, due to: " + e.getMessage());
 			}
@@ -159,12 +164,12 @@ public class GraphColoringTest {
 	@Test
 	public void testGraphColoringExistence() {
 		try {
-			this.screen.click(this.cancelBtn);
-			this.screen.click(this.graphColoringText, 0);
+			GraphColoringTest.screen.click(this.cancelBtn);
+			GraphColoringTest.screen.click(this.graphColoringText, 0);
 		} catch (FindFailed e) {
 			System.out.println("Couldn't find GraphColoring text in menu list");
 		}
-		assertTrue(this.screen.exists(this.graphColoringGame.similar((float) 0.4)) != null);
+		assertTrue(GraphColoringTest.screen.exists(this.graphColoringGame.similar((float) 0.4)) != null);
 	}
 
 	/**
@@ -174,17 +179,17 @@ public class GraphColoringTest {
 	@Test
 	public void testNewOrLoadSelection() {
 		try {
-			this.screen.click(this.cancelBtn);
-			this.screen.click(this.graphColoringText, 0);
-			this.screen.click(this.startBtn);
+			GraphColoringTest.screen.click(this.cancelBtn);
+			GraphColoringTest.screen.click(this.graphColoringText, 0);
+			GraphColoringTest.screen.click(this.startBtn);
 		} catch (FindFailed e) {
 			System.out.println("Couldn't find GraphColoring text in menu list");
 		}
-		assertTrue(this.screen.exists(this.newOrLoadGame) != null);
+		assertTrue(GraphColoringTest.screen.exists(this.newOrLoadGame) != null);
 
 		// cancel
 		try {
-			this.screen.click(this.cancelBtn);
+			GraphColoringTest.screen.click(this.cancelBtn);
 		} catch (FindFailed e) {
 			fail("Couldn't find cancel button");
 		}
@@ -196,11 +201,11 @@ public class GraphColoringTest {
 	@Test
 	public void testGameWindow() {
 		try {
-			this.screen.click(this.okBtn);
-			this.screen.wait(this.playerInput);
-			this.screen.type(null, this.playerOne, 0);
-			this.screen.click(this.okBtn);
-			assertTrue(this.screen.exists(this.graphCanvas.similar((float) 0.6)) != null);
+			GraphColoringTest.screen.click(this.okBtn);
+			GraphColoringTest.screen.wait(this.playerInput);
+			GraphColoringTest.screen.type(null, this.playerOne, 0);
+			GraphColoringTest.screen.click(this.okBtn);
+			assertTrue(GraphColoringTest.screen.exists(this.graphCanvas.similar((float) 0.6)) != null);
 		} catch (FindFailed e) {
 			fail("Test failed due to: " + e.getMessage());
 		}
@@ -213,34 +218,34 @@ public class GraphColoringTest {
 	@Test
 	public void testOnePlayerGame() {
 		try {
-			this.screen.click(this.okBtn);
-			this.screen.wait(this.playerInput, 2);
-			this.screen.type(null, this.playerOne, 0);
-			this.screen.click(this.okBtn);
+			GraphColoringTest.screen.click(this.okBtn);
+			GraphColoringTest.screen.wait(this.playerInput, 2);
+			GraphColoringTest.screen.type(null, this.playerOne, 0);
+			GraphColoringTest.screen.click(this.okBtn);
 
 			// TODO: F1-F3 keys for changing colors
 
 			// red button should be selected by default
-			assertTrue(this.screen.exists(this.redSelected) != null);
+			assertTrue(GraphColoringTest.screen.exists(this.redSelected) != null);
 
-			this.screen.click(this.topLeftCorner);
+			GraphColoringTest.screen.click(this.topLeftCorner);
 
 			// error, because same adjacent color
-			this.screen.click(this.topRightCorner);
-			assertTrue(this.screen.exists(this.invalidColor) != null);
+			GraphColoringTest.screen.click(this.topRightCorner);
+			assertTrue(GraphColoringTest.screen.exists(this.invalidColor) != null);
 
 			// select green color
-			this.screen.click(this.greenButton);
-			assertTrue(this.screen.exists(this.greenSelected) != null);
-			this.screen.click(this.topRightCornerRed);
+			GraphColoringTest.screen.click(this.greenButton);
+			assertTrue(GraphColoringTest.screen.exists(this.greenSelected) != null);
+			GraphColoringTest.screen.click(this.topRightCornerRed);
 
 			// select blue color
-			this.screen.click(this.blueButton);
-			assertTrue(this.screen.exists(this.blueSelected) != null);
-			this.screen.click(this.bottomLeftCorner);
-			this.screen.click(this.bottomRightCorner);
+			GraphColoringTest.screen.click(this.blueButton);
+			assertTrue(GraphColoringTest.screen.exists(this.blueSelected) != null);
+			GraphColoringTest.screen.click(this.bottomLeftCorner);
+			GraphColoringTest.screen.click(this.bottomRightCorner);
 
-			assertTrue(this.screen.exists(this.graphColored) != null);
+			assertTrue(GraphColoringTest.screen.exists(this.graphColored) != null);
 
 			// TODO: Space for next level
 		} catch (FindFailed e) {
@@ -255,54 +260,54 @@ public class GraphColoringTest {
 	public void testTwoPlayerGame() {
 		try {
 			// select two players
-			this.screen.click(this.playerSelection);
-			this.screen.click(this.twoPlayers);
-			this.screen.click(this.okBtn);
+			GraphColoringTest.screen.click(this.playerSelection);
+			GraphColoringTest.screen.click(this.twoPlayers);
+			GraphColoringTest.screen.click(this.okBtn);
 
 			// enter names for players
-			this.screen.wait(this.firstPlayerInput);
-			this.screen.type(null, this.playerOne, 0);
-			this.screen.click(this.okBtn);
-			this.screen.wait(this.secondPlayerInput);
-			this.screen.type(null, this.playerOne, 0);
-			this.screen.click(this.okBtn);
+			GraphColoringTest.screen.wait(this.firstPlayerInput);
+			GraphColoringTest.screen.type(null, this.playerOne, 0);
+			GraphColoringTest.screen.click(this.okBtn);
+			GraphColoringTest.screen.wait(this.secondPlayerInput);
+			GraphColoringTest.screen.type(null, this.playerOne, 0);
+			GraphColoringTest.screen.click(this.okBtn);
 
-			assertTrue(this.screen.exists(this.duplicateName.similar((float) 0.2)) != null);
-			this.screen.type(Key.ENTER);
-			// this.screen.click(this.okBtn);
+			assertTrue(GraphColoringTest.screen.exists(this.duplicateName.similar((float) 0.2)) != null);
+			GraphColoringTest.screen.type(Key.ENTER);
+			// GraphColoringTest.screen.click(this.okBtn);
 
-			this.screen.type(null, this.playerTwo, 0);
-			this.screen.click(this.okBtn);
+			GraphColoringTest.screen.type(null, this.playerTwo, 0);
+			GraphColoringTest.screen.click(this.okBtn);
 
 			// red button should be selected by default
-			assertTrue(this.screen.exists(this.redSelected) != null);
+			assertTrue(GraphColoringTest.screen.exists(this.redSelected) != null);
 
-			this.screen.click(this.topRightCorner);
+			GraphColoringTest.screen.click(this.topRightCorner);
 
 			// already colored
-			this.screen.click(this.topRightCornerRed);
-			assertTrue(this.screen.exists(this.alreadyColored) != null);
+			GraphColoringTest.screen.click(this.topRightCornerRed);
+			assertTrue(GraphColoringTest.screen.exists(this.alreadyColored) != null);
 
 			// invalid move
-			this.screen.click(this.topLeftCorner);
-			assertTrue(this.screen.exists(this.invalidMove) != null);
+			GraphColoringTest.screen.click(this.topLeftCorner);
+			assertTrue(GraphColoringTest.screen.exists(this.invalidMove) != null);
 
 			// select green color
-			this.screen.click(this.greenButton);
-			assertTrue(this.screen.exists(this.greenSelected) != null);
-			this.screen.click(this.topLeftCorner);
+			GraphColoringTest.screen.click(this.greenButton);
+			assertTrue(GraphColoringTest.screen.exists(this.greenSelected) != null);
+			GraphColoringTest.screen.click(this.topLeftCorner);
 
 			// select blue color
-			this.screen.click(this.blueButton);
-			assertTrue(this.screen.exists(this.blueSelected) != null);
-			this.screen.click(this.bottomLeftCorner);
-			this.screen.click(this.bottomRightCorner);
+			GraphColoringTest.screen.click(this.blueButton);
+			assertTrue(GraphColoringTest.screen.exists(this.blueSelected) != null);
+			GraphColoringTest.screen.click(this.bottomLeftCorner);
+			GraphColoringTest.screen.click(this.bottomRightCorner);
 
-			assertTrue(this.screen.exists(this.aliceWins) != null);
-			this.screen.click(this.okBtn.similar((float) 0.4));
-			this.screen.type(Key.TAB);
-			this.screen.type(Key.SPACE);
-			this.screen.click(this.noBtn.similar((float) 0.4));
+			assertTrue(GraphColoringTest.screen.exists(this.aliceWins) != null);
+			GraphColoringTest.screen.click(this.okBtn.similar((float) 0.4));
+			GraphColoringTest.screen.type(Key.TAB);
+			GraphColoringTest.screen.type(Key.SPACE);
+			GraphColoringTest.screen.click(this.noBtn.similar((float) 0.4));
 		} catch (FindFailed e) {
 			fail("Test didn't succeed, due to: " + e.getMessage());
 		}
@@ -314,24 +319,24 @@ public class GraphColoringTest {
 	@Test
 	public void testNextAndPrevLevel() {
 		try {
-			this.screen.click(this.okBtn);
-			this.screen.wait(this.playerInput, 5);
-			this.screen.type(null, this.playerOne, 0);
-			this.screen.click(this.okBtn);
+			GraphColoringTest.screen.click(this.okBtn);
+			GraphColoringTest.screen.wait(this.playerInput, 5);
+			GraphColoringTest.screen.type(null, this.playerOne, 0);
+			GraphColoringTest.screen.click(this.okBtn);
 
-			// next level (9 times to cover all levels)
-			for (int i = 0; i < 9; i++) {
-				this.screen.click(this.optionsMenuItem);
-				this.screen.click(this.nextLevelItem);
+			// next level (10 times to cover all levels)
+			for (int i = 0; i < 10; i++) {
+				GraphColoringTest.screen.click(this.optionsMenuItem);
+				GraphColoringTest.screen.click(this.nextLevelItem);
 			}
 
-			assertTrue(this.screen.exists(this.secondLevel) != null);
+			assertTrue(GraphColoringTest.screen.exists(this.secondLevel) != null);
 
 			// prev level
-			this.screen.click(this.optionsMenuItem);
-			this.screen.click(this.prevLevelItem);
+			GraphColoringTest.screen.click(this.optionsMenuItem);
+			GraphColoringTest.screen.click(this.prevLevelItem);
 
-			assertTrue(this.screen.exists(this.graphCanvas) != null);
+			assertTrue(GraphColoringTest.screen.exists(this.graphCanvas) != null);
 		} catch (FindFailed e) {
 			fail("Test didn't succeed, due to: " + e.getMessage());
 		}
@@ -343,18 +348,18 @@ public class GraphColoringTest {
 	@Test
 	public void testQuitGame() {
 		try {
-			this.screen.click(this.okBtn);
-			this.screen.wait(this.playerInput);
-			this.screen.type(null, this.playerOne, 0);
-			this.screen.click(this.okBtn);
+			GraphColoringTest.screen.click(this.okBtn);
+			GraphColoringTest.screen.wait(this.playerInput);
+			GraphColoringTest.screen.type(null, this.playerOne, 0);
+			GraphColoringTest.screen.click(this.okBtn);
 
 			// quit
-			this.screen.click(this.gameMenuItem);
-			this.screen.click(this.quitMenuItem);
+			GraphColoringTest.screen.click(this.gameMenuItem);
+			GraphColoringTest.screen.click(this.quitMenuItem);
 
-			assertTrue(this.screen.exists(this.quitDialog) != null);
+			assertTrue(GraphColoringTest.screen.exists(this.quitDialog) != null);
 
-			this.screen.type(Key.ENTER);
+			GraphColoringTest.screen.type(Key.ENTER);
 		} catch (FindFailed e) {
 			fail("Test didn't succeed, due to: " + e.getMessage());
 		}
@@ -366,45 +371,45 @@ public class GraphColoringTest {
 	@Test
 	public void testSaveAndLoadGame() {
 		try {
-			this.screen.click(this.okBtn);
-			this.screen.wait(this.playerInput, 2);
-			this.screen.type(null, this.playerOne, 0);
-			this.screen.click(this.okBtn);
+			GraphColoringTest.screen.click(this.okBtn);
+			GraphColoringTest.screen.wait(this.playerInput, 2);
+			GraphColoringTest.screen.type(null, this.playerOne, 0);
+			GraphColoringTest.screen.click(this.okBtn);
 
-			this.screen.click(this.topLeftCorner);
-			this.screen.click(this.gameMenuItem);
-			this.screen.click(this.saveMenuItem);
-			this.screen.wait(this.saveDialog, 2);
+			GraphColoringTest.screen.click(this.topLeftCorner);
+			GraphColoringTest.screen.click(this.gameMenuItem);
+			GraphColoringTest.screen.click(this.saveMenuItem);
+			GraphColoringTest.screen.wait(this.saveDialog, 2);
 
-			assertTrue(this.screen.exists(this.saveDialog) != null);
+			assertTrue(GraphColoringTest.screen.exists(this.saveDialog) != null);
 
-			this.screen.type(null, "Test", 0);
-			this.screen.click(this.saveBtn);
+			GraphColoringTest.screen.type(null, "Test", 0);
+			GraphColoringTest.screen.click(this.saveBtn);
 
-			if (this.screen.exists(this.overrideSavegame) != null) {
-				assertTrue(this.screen.exists(this.overrideSavegame) != null);
-				this.screen.click(this.yesBtn);
+			if (GraphColoringTest.screen.exists(this.overrideSavegame) != null) {
+				assertTrue(GraphColoringTest.screen.exists(this.overrideSavegame) != null);
+				GraphColoringTest.screen.click(this.yesBtn);
 			} else {
 				// cause override dialog
-				this.screen.click(this.topLeftCorner);
-				this.screen.click(this.gameMenuItem);
-				this.screen.click(this.saveMenuItem);
-				this.screen.wait(this.saveDialog, 2);
+				GraphColoringTest.screen.click(this.topLeftCorner);
+				GraphColoringTest.screen.click(this.gameMenuItem);
+				GraphColoringTest.screen.click(this.saveMenuItem);
+				GraphColoringTest.screen.wait(this.saveDialog, 2);
 
-				this.screen.type(null, "Test", 0);
-				this.screen.click(this.saveBtn);
+				GraphColoringTest.screen.type(null, "Test", 0);
+				GraphColoringTest.screen.click(this.saveBtn);
 			}
 
 			// restart game
-			this.screen.click(this.gameMenuItem);
-			this.screen.click(this.restartMenuItem);
+			GraphColoringTest.screen.click(this.gameMenuItem);
+			GraphColoringTest.screen.click(this.restartMenuItem);
 
 			// load game
-			this.screen.click(this.gameMenuItem);
-			this.screen.click(this.loadMenuItem);
-			this.screen.click(this.saveGame);
-			this.screen.click(this.openBtn);
-			assertTrue(this.screen.exists(this.loadedGame) != null);
+			GraphColoringTest.screen.click(this.gameMenuItem);
+			GraphColoringTest.screen.click(this.loadMenuItem);
+			GraphColoringTest.screen.click(this.saveGame);
+			GraphColoringTest.screen.click(this.openBtn);
+			assertTrue(GraphColoringTest.screen.exists(this.loadedGame) != null);
 		} catch (FindFailed e) {
 			fail("Test didn't succeed, due to: " + e.getMessage());
 		}
@@ -417,12 +422,12 @@ public class GraphColoringTest {
 	@Test
 	public void testHelpPage() {
 		try {
-			this.screen.click(this.cancelBtn);
-			this.screen.click(this.graphColoringText, 0);
-			this.screen.click(this.helpBtn);
-			assertTrue(this.screen.exists(this.helpPage) != null);
-			this.screen.wait(this.helpPage, 5);
-			this.screen.type(Key.TAB, KeyModifier.CMD);
+			GraphColoringTest.screen.click(this.cancelBtn);
+			GraphColoringTest.screen.click(this.graphColoringText, 0);
+			GraphColoringTest.screen.click(this.helpBtn);
+			assertTrue(GraphColoringTest.screen.exists(this.helpPage) != null);
+			GraphColoringTest.screen.wait(this.helpPage, 5);
+			GraphColoringTest.screen.type(Key.TAB, KeyModifier.CMD);
 		} catch (FindFailed e) {
 			fail("Test didn't succeed, due to: " + e.getMessage());
 		}

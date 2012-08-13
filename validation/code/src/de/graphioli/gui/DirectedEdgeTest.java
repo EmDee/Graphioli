@@ -23,8 +23,9 @@ import de.graphioli.controller.GameManager;
 public class DirectedEdgeTest {
 	private String screensDir = "./application/screens/";
 	private String directedEdgeScreenPath = "./application/screens/DirectedEdge/";
-	private Screen screen = new Screen();
 	private String playerName = "Team Graphioli";
+
+	private static Screen screen = new Screen();
 
 	private Pattern startBtn = new Pattern(this.screensDir + "start_btn.png");
 	private Pattern yesBtn = new Pattern(this.screensDir + "yes_btn.png");
@@ -57,7 +58,12 @@ public class DirectedEdgeTest {
 	 */
 	@BeforeClass
 	public static void beforeClass() {
-		//GameManager.main(null);
+		// indication for existence of GameExplorer
+		Pattern gameExplorerExistance = new Pattern("./application/screens/gameExplorerExistence.png");
+
+		if (DirectedEdgeTest.screen.exists(gameExplorerExistance) == null) {
+			GameManager.main(null);
+		}
 	}
 
 	/**
@@ -66,10 +72,10 @@ public class DirectedEdgeTest {
 	@Before
 	public void setUp() {
 		try {
-			this.screen.click(this.startBtn, 5);
-			this.screen.wait(this.playerInput, 5);
-			this.screen.type(null, playerName, 0);
-			this.screen.click(this.okBtn, 5);
+			DirectedEdgeTest.screen.click(this.startBtn, 5);
+			DirectedEdgeTest.screen.wait(this.playerInput, 5);
+			DirectedEdgeTest.screen.type(null, playerName, 0);
+			DirectedEdgeTest.screen.click(this.okBtn, 5);
 		} catch (FindFailed e) {
 			fail("Set up failed due to: " + e.getMessage());
 		}
@@ -82,9 +88,9 @@ public class DirectedEdgeTest {
 	public void tearDown() {
 		// quit first
 		try {
-			this.screen.click(this.gameMenuItem);
-			this.screen.click(this.quitMenuItem);
-			this.screen.click(this.yesBtn);
+			DirectedEdgeTest.screen.click(this.gameMenuItem);
+			DirectedEdgeTest.screen.click(this.quitMenuItem);
+			DirectedEdgeTest.screen.click(this.yesBtn);
 		} catch (FindFailed e) {
 			fail("Couldn't tear down previous test due to: " + e.getMessage());
 		}
@@ -97,14 +103,14 @@ public class DirectedEdgeTest {
 	public void testOnePlayerPopUp() {
 		try {
 			// quit first
-			this.screen.click(this.gameMenuItem);
-			this.screen.click(this.quitMenuItem);
-			this.screen.click(this.yesBtn);
+			DirectedEdgeTest.screen.click(this.gameMenuItem);
+			DirectedEdgeTest.screen.click(this.quitMenuItem);
+			DirectedEdgeTest.screen.click(this.yesBtn);
 
-			this.screen.click(this.startBtn);
-			assertTrue(this.screen.exists(this.playerInput) != null);
-			this.screen.type(null, playerName, 0);
-			this.screen.type(Key.ENTER);
+			DirectedEdgeTest.screen.click(this.startBtn);
+			assertTrue(DirectedEdgeTest.screen.exists(this.playerInput) != null);
+			DirectedEdgeTest.screen.type(null, playerName, 0);
+			DirectedEdgeTest.screen.type(Key.ENTER);
 		} catch (FindFailed e) {
 			fail("Test failed due to: " + e.getMessage());
 		}
@@ -115,7 +121,7 @@ public class DirectedEdgeTest {
 	 */
 	@Test
 	public void testStartDirectedEdgeGame() {
-		assertTrue(this.screen.exists(this.screensDir + "directedEdgeGame.png") != null);
+		assertTrue(DirectedEdgeTest.screen.exists(this.screensDir + "directedEdgeGame.png") != null);
 	}
 
 	/**
@@ -124,8 +130,8 @@ public class DirectedEdgeTest {
 	@Test
 	public void testAddVertex() {
 		try {
-			this.screen.click(this.spot);
-			assertTrue(this.screen.exists(this.vertex) != null);
+			DirectedEdgeTest.screen.click(this.spot);
+			assertTrue(DirectedEdgeTest.screen.exists(this.vertex) != null);
 		} catch (FindFailed e) {
 			fail("Test failed due to: " + e.getMessage());
 		}
@@ -137,10 +143,10 @@ public class DirectedEdgeTest {
 	@Test
 	public void testSelectVertex() {
 		try {
-			if (this.screen.exists(this.spot) != null) {
-				this.screen.click(this.spot);
-				this.screen.click(this.vertex);
-				assertTrue(this.screen.exists(this.vertexSelected) != null);
+			if (DirectedEdgeTest.screen.exists(this.spot) != null) {
+				DirectedEdgeTest.screen.click(this.spot);
+				DirectedEdgeTest.screen.click(this.vertex);
+				assertTrue(DirectedEdgeTest.screen.exists(this.vertexSelected) != null);
 			}
 		} catch (FindFailed e) {
 			fail("Test failed due to: " + e.getMessage());
@@ -161,8 +167,8 @@ public class DirectedEdgeTest {
 			if (region.exists(this.spot) != null) {
 				region.click(this.spot);
 				region.click(this.vertex);
-				this.screen.type(null, Key.DELETE, 0);
-				assertFalse(this.screen.exists(this.vertex) != null);
+				DirectedEdgeTest.screen.type(null, Key.DELETE, 0);
+				assertFalse(DirectedEdgeTest.screen.exists(this.vertex) != null);
 			}
 		} catch (FindFailed e) {
 			fail("Test failed due to: " + e.getMessage());
@@ -195,7 +201,7 @@ public class DirectedEdgeTest {
 
 			region2.click(this.vertex);
 			region1.click(this.vertex);
-			assertTrue(this.screen.exists(this.oneEdge) != null);
+			assertTrue(DirectedEdgeTest.screen.exists(this.oneEdge) != null);
 		} catch (FindFailed e) {
 			fail("Test failed due to: " + e.getMessage());
 		}
@@ -289,7 +295,7 @@ public class DirectedEdgeTest {
 			region1.click(this.vertex);
 			region1.click(this.vertex);
 			region2.click(this.vertex);
-			assertTrue(this.screen.exists(this.twoEdge) != null);
+			assertTrue(DirectedEdgeTest.screen.exists(this.twoEdge) != null);
 		} catch (FindFailed e) {
 			fail("Test failed due to: " + e.getMessage());
 		}
@@ -325,7 +331,7 @@ public class DirectedEdgeTest {
 			region2.click(this.vertex);
 
 			region1.click(this.vertex);
-			this.screen.type(null, Key.DELETE, 0);
+			DirectedEdgeTest.screen.type(null, Key.DELETE, 0);
 			assertFalse(region1.exists(this.vertex) != null);
 		} catch (FindFailed e) {
 			fail("Test failed due to: " + e.getMessage());
@@ -338,11 +344,11 @@ public class DirectedEdgeTest {
 	@Test
 	public void testPinkVertex() {
 		try {
-			this.screen.click(this.optionsMenuItem);
-			this.screen.click(this.pinkMenuItem);
-			if (this.screen.exists(this.spot) != null) {
-				this.screen.click(this.spot);
-				assertTrue(this.screen.exists(this.pinkVertex) != null);
+			DirectedEdgeTest.screen.click(this.optionsMenuItem);
+			DirectedEdgeTest.screen.click(this.pinkMenuItem);
+			if (DirectedEdgeTest.screen.exists(this.spot) != null) {
+				DirectedEdgeTest.screen.click(this.spot);
+				assertTrue(DirectedEdgeTest.screen.exists(this.pinkVertex) != null);
 			}
 		} catch (FindFailed e) {
 			fail("Test failed due to: " + e.getMessage());
@@ -355,15 +361,15 @@ public class DirectedEdgeTest {
 	@Test
 	public void testFlush() {
 		try {
-			if (this.screen.exists(this.spot) != null) {
+			if (DirectedEdgeTest.screen.exists(this.spot) != null) {
 				for (int i = 0; i < 80; i++) {
-					this.screen.click(this.spot);
+					DirectedEdgeTest.screen.click(this.spot);
 				}
 			}
-			assertFalse(this.screen.exists(this.emptyGraphCanvas.similar((float) 0.7)) != null);
-			this.screen.click(this.optionsMenuItem);
-			this.screen.click(this.flushMenuItem);
-			assertTrue(this.screen.exists(this.emptyGraphCanvas) != null);
+			assertFalse(DirectedEdgeTest.screen.exists(this.emptyGraphCanvas.similar((float) 0.7)) != null);
+			DirectedEdgeTest.screen.click(this.optionsMenuItem);
+			DirectedEdgeTest.screen.click(this.flushMenuItem);
+			assertTrue(DirectedEdgeTest.screen.exists(this.emptyGraphCanvas) != null);
 		} catch (FindFailed e) {
 			fail("Test failed due to: " + e.getMessage());
 		}
@@ -375,11 +381,11 @@ public class DirectedEdgeTest {
 	@Test
 	public void testHelpInGameWindow() {
 		try {
-			this.screen.click(this.helpMenuItem);
-			this.screen.click(this.openHelpFileMenuItem);
-			assertTrue(this.screen.exists(this.helpPage) != null);
-			this.screen.wait(this.helpPage, 3);
-			this.screen.type(Key.TAB, KeyModifier.CMD);
+			DirectedEdgeTest.screen.click(this.helpMenuItem);
+			DirectedEdgeTest.screen.click(this.openHelpFileMenuItem);
+			assertTrue(DirectedEdgeTest.screen.exists(this.helpPage) != null);
+			DirectedEdgeTest.screen.wait(this.helpPage, 3);
+			DirectedEdgeTest.screen.type(Key.TAB, KeyModifier.CMD);
 		} catch (FindFailed e) {
 			fail("Test didn't succeed, due to: " + e.getMessage());
 		}

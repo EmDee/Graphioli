@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.sikuli.script.Pattern;
 import org.sikuli.script.Screen;
 
 import de.graphioli.controller.GameManager;
@@ -15,14 +16,19 @@ import de.graphioli.controller.GameManager;
  */
 public class GameExplorerTest {
 	private String screensDir = "./application/screens/";
-	private Screen screen = new Screen();
+	private static Screen screen = new Screen();
 
 	/**
-	 * Set up the GameExplorer.
+	 * Set up one instance of the GameExplorer before all tests.
 	 */
 	@BeforeClass
 	public static void beforeClass() {
-		GameManager.main(null);
+		// indication for existence of GameExplorer
+		Pattern gameExplorerExistance = new Pattern("./application/screens/gameExplorerExistence.png");
+
+		if (GameExplorerTest.screen.exists(gameExplorerExistance) == null) {
+			GameManager.main(null);
+		}
 	}
 
 	/**
@@ -30,7 +36,7 @@ public class GameExplorerTest {
 	 */
 	@Test
 	public void testStartGameExplorer() {
-		assertTrue(this.screen.exists(this.screensDir + "gameExplorer.png") != null);
+		assertTrue(GameExplorerTest.screen.exists(this.screensDir + "gameExplorer.png") != null);
 	}
 
 	/**
@@ -38,8 +44,8 @@ public class GameExplorerTest {
 	 */
 	@Test
 	public void testVisibilityOfButtons() {
-		assertTrue(this.screen.exists(this.screensDir + "start_btn.png") != null);
-		assertTrue(this.screen.exists(this.screensDir + "help_btn.png") != null);
-		assertTrue(this.screen.exists(this.screensDir + "quit_btn.png") != null);
+		assertTrue(GameExplorerTest.screen.exists(this.screensDir + "start_btn.png") != null);
+		assertTrue(GameExplorerTest.screen.exists(this.screensDir + "help_btn.png") != null);
+		assertTrue(GameExplorerTest.screen.exists(this.screensDir + "quit_btn.png") != null);
 	}
 }
