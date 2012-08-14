@@ -23,6 +23,7 @@ public class FindPathTest {
 		Edge edge1 = new Edge(vertex1, vertex2);
 		Edge edge2 = new Edge(vertex2, vertex3);
 		
+		assertFalse(FindPath.performAlgorithm(graph, vertex1, vertex3));
 		graph.addVertex(vertex1);
 		graph.addVertex(vertex2);
 		graph.addVertex(vertex3);

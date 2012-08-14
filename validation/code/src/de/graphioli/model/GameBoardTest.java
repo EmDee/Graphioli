@@ -2,6 +2,8 @@ package de.graphioli.model;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -272,6 +274,33 @@ public class GameBoardTest {
 		assertEquals(vtexOne.getIncomingEdges().size(), 0);
 		
 		undirectedBoard.flush();
+	}
+	
+	@Test
+	public void errorCatches() {
+		// addVisualVertex (error: graph inconsistent)
+		SimpleVisualVertex v = new SimpleVisualVertex(new GridPoint(1, 1));
+		undirectedBoard.getGraph().addVertex(v);
+		assertFalse(undirectedBoard.addVisualVertex(v));
+		
+		// addVisualVertices (error: graph inconsistent)
+		ArrayList<VisualVertex> listVertex = new ArrayList<VisualVertex>();
+		listVertex.add(v);
+		assertFalse(undirectedBoard.addVisualVertices(listVertex));
+		
+		// removeVisualEdge (undirected)
+		undirectedBoard.flush();
+		undirectedBoard.addVisualVertex(v);
+		SimpleVisualVertex b = new SimpleVisualVertex(new GridPoint(2, 2));
+		undirectedBoard.addVisualVertex(b);
+		SimpleVisualEdge e = new SimpleVisualEdge(v, b);
+		undirectedBoard.addVisualEdge(e);
+		undirectedBoard.getGraph().removeEdge(undirectedBoard.getGraph().getEdge(b, v));
+		assertFalse(undirectedBoard.removeVisualEdge(e));
+		
+		// removeVisualVertex
+		undirectedBoard.getGraph().removeVertex(v);
+		assertFalse(undirectedBoard.removeVisualVertex(v));
 	}
 
 }
