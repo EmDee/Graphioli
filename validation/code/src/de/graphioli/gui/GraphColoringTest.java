@@ -304,15 +304,15 @@ public class GraphColoringTest {
 			GraphColoringTest.screen.click(this.bottomRightCorner);
 
 			assertTrue(GraphColoringTest.screen.exists(this.aliceWins) != null);
-			GraphColoringTest.screen.click(this.okBtn);
+			GraphColoringTest.screen.click(this.okBtn.similar((float) 0.4));
 			GraphColoringTest.screen.type(Key.TAB);
 			GraphColoringTest.screen.type(Key.SPACE);
-			GraphColoringTest.screen.click(this.noBtn);
+			GraphColoringTest.screen.click(this.noBtn.similar((float) 0.4));
 		} catch (FindFailed e) {
 			fail("Test didn't succeed, due to: " + e.getMessage());
 		}
 	}
-	
+
 	/**
 	 * Test restart.
 	 */
@@ -341,13 +341,13 @@ public class GraphColoringTest {
 			// select blue color
 			GraphColoringTest.screen.type(Key.F3);
 			GraphColoringTest.screen.click(this.bottomLeftCorner);
-			
+
 			// select red and blue again
 			GraphColoringTest.screen.type(Key.F1);
 			GraphColoringTest.screen.type(Key.F3);
 			GraphColoringTest.screen.click(this.bottomRightCorner);
 
-			GraphColoringTest.screen.click(this.okBtn);
+			GraphColoringTest.screen.click(this.okBtn.similar((float) 0.4));
 			GraphColoringTest.screen.click(this.yesBtn);
 			assertTrue(GraphColoringTest.screen.exists(this.graphCanvas) != null);
 		} catch (FindFailed e) {

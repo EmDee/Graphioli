@@ -438,6 +438,7 @@ public class TwixTTest {
 	public void testHelpPage() {
 		try {
 			this.tearDown();
+			TwixTTest.screen.click(this.twixtSelection);
 			TwixTTest.screen.click(this.helpBtn);
 			assertTrue(TwixTTest.screen.exists(this.helpPage) != null);
 			TwixTTest.screen.wait(this.helpPage, 5);
