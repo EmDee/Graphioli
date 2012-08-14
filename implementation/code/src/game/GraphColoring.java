@@ -205,7 +205,6 @@ public class GraphColoring extends Game {
 				}
 			}
 		}
-		vm.displayErrorMessage(this.getGameResources().getStringResource("COLORED"));
 		return true;
 	}
 
@@ -258,6 +257,13 @@ public class GraphColoring extends Game {
 		if (!this.graphColored) {
 			vtex.setColorID(this.selectedButton.getColorID());
 			this.graphColored = this.isGraphColored();
+			
+			if (this.graphColored)
+			{
+				this.getGameManager().getViewManager()
+					.displayErrorMessage(this.getGameResources().getStringResource("COLORED"));
+				
+			}
 		}
 	}
 
@@ -383,7 +389,7 @@ public class GraphColoring extends Game {
 			this.selectedButton.setHighlighted(true);
 		}
 
-		if (keyCode == KeyEvent.VK_SPACE) {
+		if (keyCode == KeyEvent.VK_SPACE && singleplayer) {
 			if (this.isGraphColored()) {
 				this.nextLevel();
 			}
