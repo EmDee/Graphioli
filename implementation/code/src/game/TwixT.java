@@ -153,9 +153,9 @@ public class TwixT extends Game {
 	@Override
 	protected boolean onEmptyGridPointClick(GridPoint gridPoint) {
 		if (gridPoint.getPositionX() > 0
-				&& gridPoint.getPositionX() < this.gridSize
+				&& gridPoint.getPositionX() < this.gridSize - 1
 				&& gridPoint.getPositionY() > 0
-				&& gridPoint.getPositionY() < this.gridSize) {
+				&& gridPoint.getPositionY() < this.gridSize - 1) {
 			TwixTVertex addVertex = new TwixTVertex(gridPoint);
 			addVertex.setPlayer(this.playerManager.getActivePlayer());
 			this.board.addVisualVertex(addVertex);
