@@ -227,6 +227,7 @@ public final class GameManager {
 			return false;
 		} catch (ClassNotFoundException e) {
 			LOG.severe("ClassNotFoundException: " + e.getMessage());
+			this.viewManager.displayPopUp(Localization.getLanguageString("savegame_not_compatible"));
 			return false;
 		}
 
