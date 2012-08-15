@@ -7,15 +7,13 @@ import org.junit.Test;
 public class EdgeTest {
 
 	@Test
-	public void equalsErrorCatches() {
+	public void testEqualsErrorCatches() {
 		Vertex v1 = new Vertex();
 		Vertex v2 = new Vertex();
 		Edge e1 = null;
 		Edge e2 = new Edge(v1, v2);
 		
 		assertFalse(e2.equals(e1));
-		//TODO ???? Nulls nicht abgefangen
-		//assertFalse(e1.equals(e2));
 		e1 = new Edge(null, null);
 		assertFalse(e1.equals(e2));
 		e1 = new Edge(v1, null);
@@ -23,7 +21,7 @@ public class EdgeTest {
 	}
 	
 	@Test
-	public void getterAndSetter() {
+	public void testGetterAndSetter() {
 		Vertex v1 = new Vertex();
 		Vertex v2 = new Vertex();
 		Edge e = new Edge(v1,v2);
