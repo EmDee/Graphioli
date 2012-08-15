@@ -19,6 +19,10 @@
 	\item[\textlabel{/E020/}{E:020}] \textbf{\textlabel{Game Graph-Coloring shows unwanted status message}{E:020D}} \\
 	\textbf{Details:} In multi-player mode \graphcoloring shows message `Graph colored, press space to continue' after a graph has been fully covered. Expectation was the lack of a message since in multi-player mode a pop-up is displayed stating which player won the game. \\
 	\textbf{Level:} \textlabel{Style}{E:020L}
+	
+	\item[\textlabel{/E030/}{E:030}] \textbf{\textlabel{No error message when loading invalid savegame}{E:030D}} \\
+	\textbf{Details:} When the player tries to load a savegame that does not belong to the selected game an error message 
+						was supposed to be displayed in a pop-up. This did not happen. \\
+	\textbf{Level:} \textlabel{Style}{E:030L}
 \end{description}
-
-\todo{Document new error: ClassNotFoundException when loading invalid savegames}
+\todo{Adapt error levels.}
