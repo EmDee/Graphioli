@@ -277,7 +277,7 @@ public class GameBoardTest {
 	}
 	
 	@Test
-	public void errorCatches() {
+	public void testErrorCatches() {
 		// addVisualVertex (error: graph inconsistent)
 		SimpleVisualVertex v = new SimpleVisualVertex(new GridPoint(1, 1));
 		undirectedBoard.getGraph().addVertex(v);
@@ -301,6 +301,9 @@ public class GameBoardTest {
 		// removeVisualVertex
 		undirectedBoard.getGraph().removeVertex(v);
 		assertFalse(undirectedBoard.removeVisualVertex(v));
+
+		undirectedBoard.flush();
+		directedBoard.flush();
 	}
 
 }

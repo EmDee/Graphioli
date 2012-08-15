@@ -19,6 +19,7 @@ public class FindPathTest {
 		Vertex vertex1 = new Vertex();
 		Vertex vertex2 = new Vertex();
 		Vertex vertex3 = new Vertex();
+		Vertex vertex4 = new Vertex();
 
 		Edge edge1 = new Edge(vertex1, vertex2);
 		Edge edge2 = new Edge(vertex2, vertex3);
@@ -30,6 +31,7 @@ public class FindPathTest {
 		graph.addEdge(edge1);
 		graph.addEdge(edge2);
 		
+		assertFalse(FindPath.performAlgorithm(graph, vertex1, vertex4));
 		assertTrue(FindPath.performAlgorithm(graph, vertex1, vertex3));
 	}
 
