@@ -17,8 +17,6 @@ import org.sikuli.script.Screen;
 
 import de.graphioli.controller.GameManager;
 
-// TODO: F1, F2, F3, Space Key integration
-
 /**
  * This class tests all functionality of the GraphColoring game.
  * 
@@ -223,8 +221,6 @@ public class GraphColoringTest {
 			GraphColoringTest.screen.type(null, this.playerOne, 0);
 			GraphColoringTest.screen.click(this.okBtn);
 
-			// TODO: F1-F3 keys for changing colors
-
 			// red button should be selected by default
 			assertTrue(GraphColoringTest.screen.exists(this.redSelected) != null);
 
@@ -246,8 +242,7 @@ public class GraphColoringTest {
 			GraphColoringTest.screen.click(this.bottomRightCorner);
 
 			assertTrue(GraphColoringTest.screen.exists(this.graphColored) != null);
-
-			// TODO: Space for next level
+			GraphColoringTest.screen.type(Key.SPACE);
 		} catch (FindFailed e) {
 			fail("Test didn't succeed, due to: " + e.getMessage());
 		}
