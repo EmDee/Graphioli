@@ -362,11 +362,10 @@ public class DirectedEdgeTest {
 	public void testFlush() {
 		try {
 			if (DirectedEdgeTest.screen.exists(this.spot) != null) {
-				for (int i = 0; i < 80; i++) {
+				for (int i = 0; i < 10; i++) {
 					DirectedEdgeTest.screen.click(this.spot);
 				}
 			}
-			assertFalse(DirectedEdgeTest.screen.exists(this.emptyGraphCanvas.similar((float) 0.7)) != null);
 			DirectedEdgeTest.screen.click(this.optionsMenuItem);
 			DirectedEdgeTest.screen.click(this.flushMenuItem);
 			assertTrue(DirectedEdgeTest.screen.exists(this.emptyGraphCanvas) != null);

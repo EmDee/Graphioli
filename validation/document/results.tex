@@ -1,12 +1,43 @@
 \section{Results}
+\label{section:results}
+
 \subsection{Unit tests}
 
-All unit tests passed successfully and didn't show any implementation errors. Statistics about the code coverage of these tests can be found in figure \ref{img:codeCoverage}.\par
+All unit tests passed successfully and didn't show any implementation errors. Statistics about the code coverage of these tests can be found in Fig. \ref{img:codeCoverage}.\par
 Our problem with unit tests was the huge impact of GUI elements in our program. While algorithms, models and controllers could be unit testes easily, view elements and e.g. vertices cannot be validated since JUnit doesn't provide this functionality.\par
+
+\subsection{Algorithm regression tests}
+
+\todo{Write section}
 
 \subsection{GUI tests}
 
-\todo{Results of SIKULI tests here.}
+\todo{Write an introduction sentence}
+\todo{Describe all test blocks}
+
+\begin{figure}[!h]
+	\includegraphics[scale=0.75]{sikuli_gameExplorer.png}
+	\caption{GameExplorer Sikuli tests.}
+	\label{img:sikuliGameExplorer}
+\end{figure}
+
+\begin{figure}[!h]
+	\includegraphics[scale=0.75]{sikuli_directedEdge.png}
+	\caption{DirectedEdge Sikuli tests.}
+	\label{img:sikuliDirectedEdge}
+\end{figure}
+
+\begin{figure}[!h]
+	\includegraphics[scale=0.75]{sikuli_graphColoring.png}
+	\caption{GraphColoring Sikuli tests.}
+	\label{img:sikuliGraphColoring}
+\end{figure}
+
+\begin{figure}[!h]
+	\includegraphics[scale=0.75]{sikuli_twixt.png}
+	\caption{TwixT Sikuli tests.}
+	\label{img:sikuliTwixt}
+\end{figure}
 
 \subsection{Manual test cases}
 
@@ -157,13 +188,15 @@ For details about the test scenarios please refer to section \emph{11.3 Test sce
 	\hline
 \end{tabular}
 
-\footnotetext{It is now possible to recolor vertices.}
-\footnotetext{The error messages are not only displayed for a few seconds, but until the player makes a new move.}
+\footnotetext[2]{It is now possible to recolor vertices.}
+\footnotetext[3]{The error messages are not only displayed for a few seconds, but until the player makes a new move.}
+
+\pagebreak
 \subsection{Code coverage}
 
 \begin{figure}[!h]
 	\centering
-	\includegraphics{code_coverage.png}
-	\caption{Code coverage of the unit tests.}
+	\includegraphics[scale=0.85]{coverage_all_cropped.png}
+	\caption{Code coverage of the all tests.}
 	\label{img:codeCoverage}
 \end{figure}

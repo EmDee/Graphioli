@@ -314,6 +314,48 @@ public class GraphColoringTest {
 	}
 
 	/**
+	 * Test restart.
+	 */
+	@Test
+	public void testRestartGameAfterWon() {
+		try {
+			// select two players
+			GraphColoringTest.screen.click(this.playerSelection);
+			GraphColoringTest.screen.click(this.twoPlayers);
+			GraphColoringTest.screen.click(this.okBtn);
+
+			// enter names for players
+			GraphColoringTest.screen.wait(this.firstPlayerInput);
+			GraphColoringTest.screen.type(null, this.playerOne, 0);
+			GraphColoringTest.screen.click(this.okBtn);
+			GraphColoringTest.screen.wait(this.secondPlayerInput);
+			GraphColoringTest.screen.type(null, this.playerTwo, 0);
+			GraphColoringTest.screen.click(this.okBtn);
+
+			GraphColoringTest.screen.click(this.topRightCorner);
+
+			// select green color
+			GraphColoringTest.screen.type(Key.F2);
+			GraphColoringTest.screen.click(this.topLeftCorner);
+
+			// select blue color
+			GraphColoringTest.screen.type(Key.F3);
+			GraphColoringTest.screen.click(this.bottomLeftCorner);
+
+			// select red and blue again
+			GraphColoringTest.screen.type(Key.F1);
+			GraphColoringTest.screen.type(Key.F3);
+			GraphColoringTest.screen.click(this.bottomRightCorner);
+
+			GraphColoringTest.screen.click(this.okBtn.similar((float) 0.4));
+			GraphColoringTest.screen.click(this.yesBtn);
+			assertTrue(GraphColoringTest.screen.exists(this.graphCanvas) != null);
+		} catch (FindFailed e) {
+			fail("Test didn't succeed, due to: " + e.getMessage());
+		}
+	}
+
+	/**
 	 * Test the functionality to load the next and previous level.
 	 */
 	@Test
@@ -391,13 +433,13 @@ public class GraphColoringTest {
 				GraphColoringTest.screen.click(this.yesBtn);
 			} else {
 				// cause override dialog
-				GraphColoringTest.screen.click(this.topLeftCorner);
 				GraphColoringTest.screen.click(this.gameMenuItem);
 				GraphColoringTest.screen.click(this.saveMenuItem);
 				GraphColoringTest.screen.wait(this.saveDialog, 2);
 
 				GraphColoringTest.screen.type(null, "Test", 0);
 				GraphColoringTest.screen.click(this.saveBtn);
+				GraphColoringTest.screen.click(this.yesBtn);
 			}
 
 			// restart game
