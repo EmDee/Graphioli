@@ -1,6 +1,8 @@
 \section{Corrected errors}
 \label{section:corrected-errors}
 
+All errors documented below have been discovered during manual tests, but did not cause any test to fail.\par
+
 \begin{tabular}{cll}
 
 \hline
@@ -8,6 +10,7 @@
 	\hline
 	\ref{E:010} & \ref{E:010D} & \ref{E:010L} \\
 	\ref{E:020} & \ref{E:020D} & \ref{E:020L} \\
+	\ref{E:030} & \ref{E:030D} & \ref{E:030L} \\
 	\hline
 \end{tabular}
 
@@ -18,11 +21,10 @@
 
 	\item[\textlabel{/E020/}{E:020}] \textbf{\textlabel{Game Graph-Coloring shows unwanted status message}{E:020D}} \\
 	\textbf{Details:} In multi-player mode \graphcoloring shows message `Graph colored, press space to continue' after a graph has been fully covered. Expectation was the lack of a message since in multi-player mode a pop-up is displayed stating which player won the game. \\
-	\textbf{Level:} \textlabel{Style}{E:020L}
+	\textbf{Level:} \textlabel{Appearance}{E:020L}
 	
 	\item[\textlabel{/E030/}{E:030}] \textbf{\textlabel{No error message when loading invalid savegame}{E:030D}} \\
-	\textbf{Details:} When the player tries to load a savegame that does not belong to the selected game an error message 
+	\textbf{Details:} When the player tries to load a savegame that does not belong to the selected game, an error message 
 						was supposed to be displayed in a pop-up. This did not happen. \\
-	\textbf{Level:} \textlabel{Style}{E:030L}
+	\textbf{Level:} \textlabel{Appearance}{E:030L}
 \end{description}
-\todo{Adapt error levels.}
