@@ -31,5 +31,21 @@ public class EdgeTest {
 		assertEquals(v1, e.getOriginVertex());
 		assertEquals(v2, e.getTargetVertex());
 	}
+	
+	@Test
+	public void testHashCode() {
+		Vertex v1 = new Vertex();
+		Edge e = new Edge(v1, new Vertex());
+		
+		// VertexHashCode
+		int expectedResult = 31 + v1.getUID().hashCode();
+		assertEquals(v1.hashCode(), expectedResult);
+		
+		// EdgeHashCode
+		expectedResult = 31 + e.getOriginVertex().hashCode();
+		expectedResult = 31 * expectedResult + e.getTargetVertex().hashCode();
+		
+		assertEquals(e.hashCode(), expectedResult);		
+	}
 
 }
