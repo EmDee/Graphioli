@@ -2,18 +2,22 @@
 \label{section:results}
 
 \subsection{Unit tests}
+\label{section:unit-tests}
 
-All unit tests passed successfully and didn't show any implementation errors. Statistics about the code coverage of these tests can be found in Fig. \ref{img:codeCoverage}.\par
-Our problem with unit tests was the huge impact of GUI elements in our program. While algorithms, models and controllers could be unit testes easily, view elements and e.g. vertices cannot be validated since JUnit doesn't provide this functionality.\par
+All unit tests passed successfully and didn't show any implementation errors. Statistics about the code coverage of these tests can be found in Section \ref{section:code-coverage}.\par
+Our problem with unit tests was the huge impact of GUI elements in our program. While algorithms and models could be unit tested easily, view elements and e.g. vertices cannot be validated since JUnit doesn't provide this functionality.\par
+Because of these circumstances our unit tests, despite of achieving a high code coverage in their respective classes, cannot cover the whole program.\par
 
 \subsubsection{Algorithm regression tests}
 
-\todo{Write section}
+\graphioli uses three graph algorithms: \emph{BreadthFirstSearch}, \emph{FindPath} and \emph{PlanarityCheck}. Their unit tests are designed as regression tests and prove the algorithm's correct behaviour.\par
+In order to achieve the best possible code coverage (they reach 100\%), the algorithms are fed with different combinations of input parameters, e.g. vertices at different grid positions, a variety of different graphs etc. Their output is verified agains the asserted results.\par
+All algorithms worked as expected.\par
 
 \subsection{GUI tests}
 
-\todo{Write an introduction sentence}
-\todo{Describe all test blocks}
+As described in Section \ref{section:unit-tests} simple unit tests cannot test the program's whole functionality, since it heavily bases on GUI interactions.\par
+The outcomes of the tests that we conducted instead are shown in the figures below:\par
 
 \begin{figure}[!h]
 	\includegraphics[scale=0.75]{sikuli_gameExplorer.png}
@@ -174,7 +178,7 @@ Our problem with unit tests was the huge impact of GUI elements in our program. 
 
 \subsection{Manual test scenarios}
 
-For details about the test scenarios please refer to section \emph{11.3 Test scenarios} of the functional specifications document.\par
+For details about the test scenarios please refer to Section \emph{11.3 Test scenarios} of the functional specifications document.\par
 
 \begin{tabular}{clll}
 
@@ -193,8 +197,11 @@ For details about the test scenarios please refer to section \emph{11.3 Test sce
 
 \pagebreak
 \subsection{Code coverage}
+\label{section:code-coverage}
 We implemented unit tests during the implementation phase, achieving a code coverage between 76\% and 98\%, depending on the packages.\par
-A lot more unit test have been added since and by the end of the validation phase, we beat the number of 89\% of code coverage with unit tests, GUI tests and manual tests for all packages together.\par
+A lot more unit test have been added since and by the end of the validation phase, we beat the number of 89\% \todo{Verify number after all tests are implemented} of code coverage with unit tests, GUI tests and manual tests for all packages together.\par
+
+\todo{Insert more detailed table image}
 
 \begin{figure}[!h]
 	\centering
@@ -202,3 +209,5 @@ A lot more unit test have been added since and by the end of the validation phas
 	\caption{Code coverage of the all tests.}
 	\label{img:codeCoverage}
 \end{figure}
+
+\todo{Insert comparing images (unit tests only, GUI tests only, manual tests only, all together)}
