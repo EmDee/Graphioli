@@ -200,6 +200,9 @@ For details about the test scenarios please refer to Section \emph{11.3 Test sce
 \label{section:code-coverage}
 We implemented unit tests during the implementation phase, achieving a code coverage between 76\% and 98\%, depending on the packages.\par
 A lot more unit test have been added since and by the end of the validation phase, we beat the number of 89\% \todo{Verify number after all tests are implemented} of code coverage with unit tests, GUI tests and manual tests for all packages together.\par
+Despite huge efforts, we could not increase the code coverage in some classes. This is mainly due to two problems:\par
+Some methods are considered good style to be implemented, such as the equals(), toString() and hashCode() methods. However, especially the last one, cannot be unit tested for all classes (e.g. \emph{GameDefinition}s cannot be created directly, they are created from JARs).\par
+Some exceptions are only thrown under very complicated circumstances that cannot be reproduced easily. The appropriate try-catch-blocks will not be executed and therefore lower the coverage.\par
 
 \todo{Insert more detailed table image}
 
