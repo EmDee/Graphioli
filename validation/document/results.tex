@@ -2,6 +2,7 @@
 \label{section:results}
 
 \subsection{Unit tests}
+\label{section:unit-tests}
 
 All unit tests passed successfully and didn't show any implementation errors. Statistics about the code coverage of these tests can be found in Section \ref{section:code-coverage}.\par
 Our problem with unit tests was the huge impact of GUI elements in our program. While algorithms, models and controllers could be unit testes easily, view elements and e.g. vertices cannot be validated since JUnit doesn't provide this functionality.\par
@@ -14,8 +15,8 @@ In order to achieve the best possible code coverage (they reach 100\%), the algo
 
 \subsection{GUI tests}
 
-\todo{Write an introduction sentence}
-\todo{Describe all test blocks}
+As described in Section \ref{section:unit-tests} simple unit tests cannot test the program's whole functionality, since it heavily bases on GUI interactions.\par
+The outcomes of the tests that we conducted instead are shown in the figures below:\par
 
 \begin{figure}[!h]
 	\includegraphics[scale=0.75]{sikuli_gameExplorer.png}
