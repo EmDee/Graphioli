@@ -299,9 +299,7 @@ public class GraphColoringTest {
 			GraphColoringTest.screen.click(this.bottomRightCorner);
 
 			assertTrue(GraphColoringTest.screen.exists(this.aliceWins) != null);
-			GraphColoringTest.screen.click(this.okBtn.similar((float) 0.4));
-			GraphColoringTest.screen.type(Key.TAB);
-			GraphColoringTest.screen.type(Key.SPACE);
+			GraphColoringTest.screen.type(Key.ENTER);
 			GraphColoringTest.screen.click(this.noBtn.similar((float) 0.4));
 		} catch (FindFailed e) {
 			fail("Test didn't succeed, due to: " + e.getMessage());
