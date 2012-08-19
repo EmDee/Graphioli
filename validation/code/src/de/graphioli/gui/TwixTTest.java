@@ -370,7 +370,7 @@ public class TwixTTest {
 	}
 
 	/**
-	 * Test that only towers with a "knight's move" away can be connected.
+	 * Test the save and load function.
 	 */
 	@Test
 	public void testSaveAndLoad() {
