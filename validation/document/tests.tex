@@ -22,7 +22,7 @@ In order to achieve the best possible code coverage and a high level of verifica
 
 \textbf{BreadthFirstSearch}\par
 Fig. \ref{img:bfsTestGraph} shows a graph that is used for testing the algorithm.\par
-Starting e.g. at vertex `1', BreadthFirstSearch is performed in different depths and the result is asserted against the expected values.\par
+Starting at, for instance, vertex `1', BreadthFirstSearch is performed in different depths and the result is asserted against the expected values.\par
 This is done in many different combinations and with \emph{positive} and \emph{negative} assertions: We verify that a specific result occurs and falsify that specific (invalid) results don't show up.\par
 
 \begin{figure}[!h]
@@ -34,7 +34,7 @@ This is done in many different combinations and with \emph{positive} and \emph{n
 
 \pagebreak
 \textbf{FindPath}\par
-This algorithms heavily bases on \emph{BreadthFirstSearch} and is tested in the same ways.\par
+This algorithms heavily bases on \emph{BreadthFirstSearch} and is tested in the same way.\par
 
 \textbf{PlanarityCheck}\par
 Fig. \ref{img:planarityTestGraph} visualizes a graph that is used for the automated \emph{PlanarityCheck} tests. Those tests feed the algorithm with different planar and non-planar drawings. The algorithm's output is then verified against the actual properties.\par
@@ -69,7 +69,7 @@ Fig. \ref{img:planarityTestGraph} visualizes a graph that is used for the automa
 \end{figure}
 For extensive tests of our graphical user interfaces (GUIs), we drew on open-source \emph{Project SIKULI}. Sikuli is a visual technology to automate and test those interfaces using screenshots.\par
 Sikuli itself is written in Java and is being used by importing the Sikuli library.\par
-With Sikuli every possible item can be clicked on, no matter if its a real button, text field etc. The program simply looks for the provided screenshot in the GUI (see Fig. \ref{img:screenSikuli1}) and simulates a mouse click or key stroke on the item that it found. In Java code the test developer then defines click paths, key input and assertions. An example for this is outlined in Fig. \ref{img:screenSikuli2}.\par
+With Sikuli every possible item can be clicked on, no matter if its a real button, text field or list item. The program simply looks for the provided screenshot in the GUI (see Fig. \ref{img:screenSikuli1}) and simulates a mouse click or key stroke on the item that it found. In Java code the test developer then defines click paths, key input and assertions. An example for this is outlined in Fig. \ref{img:screenSikuli2}.\par
 Those assertions again are cropped images from screenshots. If they appear somewhere after the click, the test passes, otherwise it fails.\par
 Once all clickable items are saved as screenshot parts (see Fig. \ref{img:screenSikuli3}), every possible scenario can be executed semi-automatically. These tests can also be designed as regression test.\par
 With Sikuli one can only test visual existence or non-existence of a given object. For example if the execution of the help page calls 10 different methods, Sikuli is not able to test if the methods are correct, but can only verify if the end result is as expected.\par
