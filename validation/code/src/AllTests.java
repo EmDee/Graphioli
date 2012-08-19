@@ -18,7 +18,7 @@ import de.graphioli.model.PlayerTests;
 	BreadthFirstSearchTest.class,
 	FindPathTest.class,
 	PlanarityCheckTest.class,
-	
+
 	// model
 	GameBoardTest.class,
 	GraphConsistencyTest.class,
@@ -30,7 +30,7 @@ import de.graphioli.model.PlayerTests;
 	DirectedEdgeTest.class,
 	GraphColoringTest.class,
 	TwixTTest.class,
-	GameExplorerTest.class,
+	GameExplorerTest.class
 })
 
 public class AllTests {
