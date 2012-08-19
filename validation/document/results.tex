@@ -10,25 +10,7 @@ Because of these circumstances our unit tests, despite of achieving a high code 
 
 \subsubsection{Algorithm regression tests}
 
-\graphioli uses three graph algorithms: \emph{BreadthFirstSearch}, \emph{FindPath} and \emph{PlanarityCheck}\footnote{Only the planarity of a specific drawing is cheked.}. Their unit tests are designed as regression tests and prove the algorithm's correct behaviour.\par
-In order to achieve the best possible code coverage (they reach almost 100\%), the algorithms are fed with different combinations of input parameters, e.g. vertices at different grid positions, a variety of different graphs etc. Their output is verified agains the asserted results.\par
-All algorithms worked as expected.\par
-
-
-\begin{figure}[!h]
-	\centering
-	\includegraphics[scale=0.3]{bfsTestGraph.pdf}
-	\caption{Graph used in several regression test for the \emph{BreadthFirstSearch} algorithm.}
-	\label{img:bfsTestGraph}
-\end{figure}
-
-\begin{figure}[!h]
-	\centering
-	\includegraphics[scale=0.3]{planarityTestGraph.pdf}
-	\caption{Visualization of the \emph{testPerformAlgorithm} method that is used for testing the \emph{PlanarityCheck} algorithm.}
-	\label{img:planarityTestGraph}
-\end{figure}
-
+All algorithms worked as expected. They are covered up to almost 100\%.\par
 
 
 \subsection{GUI tests}
@@ -111,6 +93,7 @@ The outcomes of the tests that we conducted instead are shown in the figures bel
 
 \footnotetext{Testcase changed, since it is no longer possible to lose a single-player game.}
 
+\pagebreak
 \begin{description}
 	\item[\textlabel{/T050/}{T:050}] \textbf{\textlabel{Start the game}{T:050T}} \\
 	\textbf{Input:} \graphcoloring has been selected and the tester clicks on the start button. \\

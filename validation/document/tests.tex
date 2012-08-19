@@ -15,6 +15,38 @@
 Every object can be tested separately using defined input values and expected output values. Methods and object correlations not working as intended will attract attention reliably.\par
 Fig. \ref{img:screenJUnit} shows a unit test implemented with JUnit. It verifies the correctness of the program when adding a new directed \emph{VisualEdge}.
 
+\subsubsection{Algorithm regression tests}
+
+\graphioli uses three graph algorithms: \emph{BreadthFirstSearch}, \emph{FindPath} and \emph{PlanarityCheck}\footnote{Only the planarity of a specific drawing is checked.}. Their unit tests are implemented with JUnit as well and are designed as regression tests to prove the algorithm's correct behaviour.\par
+In order to achieve the best possible code coverage and a high level of verification, the algorithms are fed with different combinations of input parameters, e.g. vertices at different grid positions, a variety of different graphs etc. Their output is verified agains the asserted results.\par
+
+\textbf{BreadthFirstSearch}\par
+Fig. \ref{img:bfsTestGraph} shows a graph that is used for testing the algorithm.\par
+Starting e.g. at vertex `1', BreadthFirstSearch is performed in different depths and the result is asserted against the expected values.\par
+This is done in many different combinations and with \emph{positive} and \emph{negative} assertions: We verify that a specific result occurs and falsify that specific (invalid) results don't show up.\par
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[scale=0.3]{bfsTestGraph.pdf}
+	\caption{Graph used in several regression tests for the \emph{BreadthFirstSearch} algorithm.}
+	\label{img:bfsTestGraph}
+\end{figure}
+
+\pagebreak
+\textbf{FindPath}\par
+This algorithms heavily bases on \emph{BreadthFirstSearch} and is tested in the same ways.\par
+
+\textbf{PlanarityCheck}\par
+Fig. \ref{img:planarityTestGraph} visualizes a graph that is used for the automated \emph{PlanarityCheck} tests. Those tests feed the algorithm with different planar and non-planar drawings. The algorithm's output is then verified against the actual properties.\par
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[scale=0.3]{planarityTestGraph.pdf}
+	\caption{Visualization of the \emph{testPerformAlgorithm} method that is used for testing the \emph{PlanarityCheck} algorithm.}
+	\label{img:planarityTestGraph}
+\end{figure}
+
+
 \subsubsection{Sikuli}
 
 \begin{figure}[!h]
