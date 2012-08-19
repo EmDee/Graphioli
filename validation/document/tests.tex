@@ -31,15 +31,15 @@ Fig. \ref{img:screenJUnit} shows a unit test implemented with JUnit. It verifies
 \end{figure}
 For extensive tests of our graphical user interfaces (GUIs), we drew on open-source \emph{Project SIKULI}. Sikuli is a visual technology to automate and test those interfaces using screenshots.\par
 Sikuli itself is written in Java and is being used by importing the Sikuli library.\par
-With Sikuli every possible item can be clicked on, no matter if its a real button, text field etc. The program simply looks for the provided screenshot in the GUI and simulates a mouse click or key stroke on the item that it found. In Java code the test developer then defines click paths, key input, and assertions. An example for this is outlined in Fig. \ref{img:screenSikuli2}.\par
+With Sikuli every possible item can be clicked on, no matter if its a real button, text field etc. The program simply looks for the provided screenshot in the GUI and simulates a mouse click or key stroke on the item that it found. In Java code the test developer then defines click paths, key input and assertions. An example for this is outlined in Fig. \ref{img:screenSikuli2}.\par
 Those assertions again are cropped images from screenshots. If they appear somewhere after the click, the test passes, otherwise it fails.\par
 Once all clickable items are saved as screenshot parts (see Fig. \ref{img:screenSikuli1}), every possible scenario can be executed semi-automatically. These tests can also be designed as regression test.\par
 With Sikuli one can only test visual existence or non-existence of a given object. For example if the execution of the help page calls 10 different methods, Sikuli is not able to test if the methods are correct, but can only verify if the end result is as expected.\par
 
 \subsubsection{Manual tests}
 
-As defined in the \emph{Pflichtenheft}, we conducted 18 test cases and four test scenarios. As those have been defined before design and implementation, they give some indication of whether the framework and the games in general have been deployed as planned.\par
+As defined in the \emph{Functional Specifications Document}, we conducted 18 test cases and four test scenarios. As those have been defined before design and implementation, they give some indication of whether the framework and the games in general have been deployed as planned.\par
 
 \subsection{Implementation details}
-We implemented a lot of unit tests during our implementation phase, however a lot of possible errors could be embedded in the GUIs. And as Java does not provide easy and free frameworks for GUI testing, we used the above described Sikuli to act out almost all possible click and key combinations in both \gameexplorer and \emph{GameWindow}.\par
+We implemented a lot of unit tests during our implementation phase, however possible errors could be embedded in the GUIs as well. And as Java does not provide easy and free frameworks for GUI testing, we used the above described Sikuli to act out almost all possible click and key combinations in both \gameexplorer and \emph{GameWindow}.\par
 The - mainly positive - results of all tests are outlined in the next sections.\par
