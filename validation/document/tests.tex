@@ -19,8 +19,8 @@ Fig. \ref{img:screenJUnit} shows a unit test implemented with JUnit. It verifies
 
 \begin{figure}[!h]
 	\centering
-	\includegraphics[width=.95\textwidth]{sikuli_screenshot_1.jpg}
-	\caption{GUI elements defined for tests with Sikuli.}
+	\includegraphics[width=.95\textwidth]{sikuli_click.jpg}
+	\caption{Sikuli looks for the specified screenshot crop (in this case the `OK' button) in the GUI element.}
 	\label{img:screenSikuli1}
 \end{figure}
 \begin{figure}[!h]
@@ -29,11 +29,17 @@ Fig. \ref{img:screenJUnit} shows a unit test implemented with JUnit. It verifies
 	\caption{Sikuli test for the Graph-Coloring single-player game.}
 	\label{img:screenSikuli2}
 \end{figure}
+\begin{figure}[!h]
+	\centering
+	\includegraphics[width=.95\textwidth]{sikuli_screenshot_1.jpg}
+	\caption{GUI elements defined for tests with Sikuli.}
+	\label{img:screenSikuli3}
+\end{figure}
 For extensive tests of our graphical user interfaces (GUIs), we drew on open-source \emph{Project SIKULI}. Sikuli is a visual technology to automate and test those interfaces using screenshots.\par
 Sikuli itself is written in Java and is being used by importing the Sikuli library.\par
-With Sikuli every possible item can be clicked on, no matter if its a real button, text field etc. The program simply looks for the provided screenshot in the GUI and simulates a mouse click or key stroke on the item that it found. In Java code the test developer then defines click paths, key input and assertions. An example for this is outlined in Fig. \ref{img:screenSikuli2}.\par
+With Sikuli every possible item can be clicked on, no matter if its a real button, text field etc. The program simply looks for the provided screenshot in the GUI (see Fig. \ref{img:screenSikuli1}) and simulates a mouse click or key stroke on the item that it found. In Java code the test developer then defines click paths, key input and assertions. An example for this is outlined in Fig. \ref{img:screenSikuli2}.\par
 Those assertions again are cropped images from screenshots. If they appear somewhere after the click, the test passes, otherwise it fails.\par
-Once all clickable items are saved as screenshot parts (see Fig. \ref{img:screenSikuli1}), every possible scenario can be executed semi-automatically. These tests can also be designed as regression test.\par
+Once all clickable items are saved as screenshot parts (see Fig. \ref{img:screenSikuli3}), every possible scenario can be executed semi-automatically. These tests can also be designed as regression test.\par
 With Sikuli one can only test visual existence or non-existence of a given object. For example if the execution of the help page calls 10 different methods, Sikuli is not able to test if the methods are correct, but can only verify if the end result is as expected.\par
 
 \subsubsection{Manual tests}
