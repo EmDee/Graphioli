@@ -10,11 +10,26 @@ Because of these circumstances our unit tests, despite of achieving a high code 
 
 \subsubsection{Algorithm regression tests}
 
-\graphioli uses three graph algorithms: \emph{BreadthFirstSearch}, \emph{FindPath} and \emph{PlanarityCheck}. Their unit tests are designed as regression tests and prove the algorithm's correct behaviour.\par
+\graphioli uses three graph algorithms: \emph{BreadthFirstSearch}, \emph{FindPath} and \emph{PlanarityCheck}\footnote{Only the planarity of a specific drawing is cheked.}. Their unit tests are designed as regression tests and prove the algorithm's correct behaviour.\par
 In order to achieve the best possible code coverage (they reach almost 100\%), the algorithms are fed with different combinations of input parameters, e.g. vertices at different grid positions, a variety of different graphs etc. Their output is verified agains the asserted results.\par
 All algorithms worked as expected.\par
 
-\todo{Test graph images}
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[scale=0.3]{bfsTestGraph.pdf}
+	\caption{Graph used in several regression test for the \emph{BreadthFirstSearch} algorithm.}
+	\label{img:bfsTestGraph}
+\end{figure}
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[scale=0.3]{planarityTestGraph.pdf}
+	\caption{Visualization of the \emph{testPerformAlgorithm} method that is used for testing the \emph{PlanarityCheck} algorithm.}
+	\label{img:planarityTestGraph}
+\end{figure}
+
+
 
 \subsection{GUI tests}
 
